@@ -79,8 +79,9 @@ OpenAPI::Client::OpenAI - A client for the OpenAI API
 
   my $client = OpenAPI::Client::OpenAI->new(); # see ENVIRONMENT VARIABLES
 
-  my $transaction = $client->list_collections();
-  my $response_data = decode_json($transaction->res->body);
+  my $tx = $client->create_completion(...);
+
+  my $response_data = $tx->res->json;
 
   #print Dumper($response_data);
 
