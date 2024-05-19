@@ -35,6 +35,9 @@ Create a new OpenAI API client. The following options can be provided:
     The path to the OpenAPI specification file (YAML). Defaults to the
     "openai.yaml" file in the distribution's "share" directory.
 
+    You can find the latest version of this file at
+    [https://github.com/openai/openai-openapi](https://github.com/openai/openai-openapi).
+
 Additional options are passed to the parent class, OpenAPI::Client.
 
 ## Completions

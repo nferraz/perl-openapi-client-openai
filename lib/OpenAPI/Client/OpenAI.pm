@@ -10,7 +10,7 @@ use File::Spec::Functions qw(catfile);
 use Mojo::Base 'OpenAPI::Client';
 use Mojo::URL;
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 sub new {
     my ( $class, $specification ) = ( shift, shift );
@@ -107,6 +107,9 @@ Create a new OpenAI API client. The following options can be provided:
 
 The path to the OpenAPI specification file (YAML). Defaults to the
 "openai.yaml" file in the distribution's "share" directory.
+
+You can find the latest version of this file at
+L<https://github.com/openai/openai-openapi>.
 
 =back
 
