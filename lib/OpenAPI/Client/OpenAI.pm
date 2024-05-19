@@ -114,6 +114,9 @@ OpenAPI::Client::OpenAI is a client for the OpenAI API built on
 top of L<OpenAPI::Client>. This module automatically handles the API
 key authentication according to the provided environment.
 
+Note that the OpenAI API is a paid service. You will need to sign up for an
+account.
+
 =head1 WARNING
 
 Due to the extremely rapid development of OpenAI's API, this module may may
