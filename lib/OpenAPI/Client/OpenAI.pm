@@ -58,10 +58,11 @@ sub new {
 # install snake case aliases
 
 {
+    # Do we want to deprecate these? They're kind of a pain to maintain,
+    # or we should autogenerate them from the OpenAPI spec.
     my %snake_case_alias = (
         createChatCompletion => 'create_chat_completion',
         createCompletion     => 'create_completion',
-        createEdit           => 'create_edit',
         createEmbedding      => 'create_embedding',
         createImage          => 'create_image',
         createModeration     => 'create_moderation',
