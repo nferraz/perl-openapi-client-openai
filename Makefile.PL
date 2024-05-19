@@ -32,6 +32,19 @@ my %WriteMakefileArgs = (
         'File::Spec::Functions' => '0',
         'OpenAPI::Client'       => '0',
     },
+    META_MERGE => {
+        'meta-spec' => { version => 2 },
+        resources => {
+            repository => {
+                type => 'git',
+                url  => 'https://github.com/nferraz/perl-openapi-client-openai.git',
+                web  => 'https://github.com/nferraz/perl-openapi-client-openai',
+            },
+            bugtracker => {
+                web => 'https://github.com/nferraz/perl-openapi-client-openai/issues',
+            },
+        },
+    },
     dist  => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },
     clean => { FILES => 'OpenAPI-Client-OpenAI-*' },
 );
