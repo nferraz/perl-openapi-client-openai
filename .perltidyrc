@@ -1,11 +1,11 @@
 -pbp               # Start with Perl Best Practices
 --maximum-line-length=120
 --maximum-consecutive-blank-lines=2
---indent-columns=2
+--indent-columns=4
 --opening-brace-always-on-right
 --cuddled-else
 --vertical-tightness=0
---paren-tightness=2
+--paren-tightness=1
 --weld-nested-containers
 --weld-fat-comma
 --extended-continuation-indentation

@@ -13,75 +13,75 @@ use Mojo::URL;
 our $VERSION = '0.02';
 
 sub new {
-  my ($class, $specification) = (shift, shift);
-  my $attrs = @_ == 1 ? shift : {@_};
+    my ( $class, $specification ) = ( shift, shift );
+    my $attrs = @_ == 1 ? shift : {@_};
 
-  if (!$ENV{OPENAI_API_KEY}) {
-    Carp::croak('OPENAI_API_KEY environment variable must be set');
-  }
-
-  if (!$specification) {
-    eval {
-      $specification = dist_file('OpenAPI-Client-OpenAI', 'openapi.yaml');
-      1;
-    } or do {
-      # Fallback to local share directory during development
-      warn $@;
-      $specification = catfile('share', 'openapi.yaml');
-    };
-  }
-  my %headers = ('Authorization' => "Bearer $ENV{OPENAI_API_KEY}",);
-  if (delete $attrs->{assistants}) {
-    $headers{'OpenAI-Beta'} = 'assistants=v1';
-  }
-
-  # 'message' => 'You must provide the \'OpenAI-Beta\' header to access the
-  # Assistants API. Please try again by setting the header \'OpenAI-Beta:
-  # assistants=v1\'.'
-
-  my $self = $class->SUPER::new($specification, %{$attrs});
-
-  # you use this via $client->createTranscription({}, file_upload => { file => ..., model => ...})
-  $self->ua->transactor->add_generator(
-    file_upload => sub {
-      my ($t, $tx, $data) = @_;
-      return $t->_form($tx, { %$data, file => { content => $data->{file} } });
+    if ( !$ENV{OPENAI_API_KEY} ) {
+        Carp::croak('OPENAI_API_KEY environment variable must be set');
     }
-  );
 
-  $self->ua->on(
-    start => sub {
-      my ($ua, $tx) = @_;
-      foreach my $header (keys %headers) {
-        $tx->req->headers->header($header => $headers{$header});
-      }
+    if ( !$specification ) {
+        eval {
+            $specification = dist_file( 'OpenAPI-Client-OpenAI', 'openapi.yaml' );
+            1;
+        } or do {
+            # Fallback to local share directory during development
+            warn $@;
+            $specification = catfile( 'share', 'openapi.yaml' );
+        };
     }
-  );
+    my %headers = ( 'Authorization' => "Bearer $ENV{OPENAI_API_KEY}", );
+    if ( delete $attrs->{assistants} ) {
+        $headers{'OpenAI-Beta'} = 'assistants=v1';
+    }
 
-  return $self;
+    # 'message' => 'You must provide the \'OpenAI-Beta\' header to access the
+    # Assistants API. Please try again by setting the header \'OpenAI-Beta:
+    # assistants=v1\'.'
+
+    my $self = $class->SUPER::new( $specification, %{$attrs} );
+
+    # you use this via $client->createTranscription({}, file_upload => { file => ..., model => ...})
+    $self->ua->transactor->add_generator(
+        file_upload => sub {
+            my ( $t, $tx, $data ) = @_;
+            return $t->_form( $tx, { %$data, file => { content => $data->{file} } } );
+        }
+    );
+
+    $self->ua->on(
+        start => sub {
+            my ( $ua, $tx ) = @_;
+            foreach my $header ( keys %headers ) {
+                $tx->req->headers->header( $header => $headers{$header} );
+            }
+        }
+    );
+
+    return $self;
 }
 
 # install snake case aliases
 
 {
-  # Do we want to deprecate these? They're kind of a pain to maintain,
-  # or we should autogenerate them from the OpenAPI spec.
-  my %snake_case_alias = (
-    createChatCompletion => 'create_chat_completion',
-    createCompletion     => 'create_completion',
-    createEmbedding      => 'create_embedding',
-    createImage          => 'create_image',
-    createModeration     => 'create_moderation',
-    listModels           => 'list_models',
-  );
+    # Do we want to deprecate these? They're kind of a pain to maintain,
+    # or we should autogenerate them from the OpenAPI spec.
+    my %snake_case_alias = (
+        createChatCompletion => 'create_chat_completion',
+        createCompletion     => 'create_completion',
+        createEmbedding      => 'create_embedding',
+        createImage          => 'create_image',
+        createModeration     => 'create_moderation',
+        listModels           => 'list_models',
+    );
 
-  for my $camel_case_method (keys %snake_case_alias) {
-    no strict 'refs';
-    *{"$snake_case_alias{$camel_case_method}"} = sub {
-      my $self = shift;
-      $self->$camel_case_method(@_);
+    for my $camel_case_method ( keys %snake_case_alias ) {
+        no strict 'refs';
+        *{"$snake_case_alias{$camel_case_method}"} = sub {
+            my $self = shift;
+            $self->$camel_case_method(@_);
+        }
     }
-  }
 }
 
 1;
