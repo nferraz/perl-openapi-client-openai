@@ -41,11 +41,12 @@ sub new {
 
     my $self = $class->SUPER::new( $specification, %{$attrs} );
 
-    # you use this via $client->createTranscription({}, file_upload => { file => ..., model => ...})
+    # you use this via $client->createTranscription({}, file_upload => { file => $filename, model => ...})
+    # note that you pass in a filename, so you don't have to read it yourself
     $self->ua->transactor->add_generator(
         file_upload => sub {
             my ( $t, $tx, $data ) = @_;
-            return $t->_form( $tx, { %$data, file => { content => $data->{file} } } );
+            return $t->_form( $tx, { %$data, file => { file => $data->{file} } } );
         }
     );
 
