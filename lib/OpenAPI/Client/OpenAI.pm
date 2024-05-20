@@ -30,11 +30,9 @@ sub new {
             $specification = catfile( 'share', 'openapi.yaml' );
         };
     }
-    my %headers = (
-        'Authorization' => "Bearer $ENV{OPENAI_API_KEY}",
-    );
+    my %headers = ( 'Authorization' => "Bearer $ENV{OPENAI_API_KEY}", );
     if ( delete $attrs->{assistants} ) {
-       $headers{'OpenAI-Beta'} = 'assistants=v1';
+        $headers{'OpenAI-Beta'} = 'assistants=v1';
     }
 
     # 'message' => 'You must provide the \'OpenAI-Beta\' header to access the
@@ -42,6 +40,14 @@ sub new {
     # assistants=v1\'.'
 
     my $self = $class->SUPER::new( $specification, %{$attrs} );
+
+    # you use this via $client->createTranscription({}, file_upload => { file => ..., model => ...})
+    $self->ua->transactor->add_generator(
+        file_upload => sub {
+            my ( $t, $tx, $data ) = @_;
+            return $t->_form( $tx, { %$data, file => { content => $data->{file} } } );
+        }
+    );
 
     $self->ua->on(
         start => sub {
