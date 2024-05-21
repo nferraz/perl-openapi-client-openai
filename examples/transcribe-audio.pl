@@ -6,19 +6,19 @@ use lib 'lib';
 use OpenAPI::Client::OpenAI;
 use Data::Dumper;
 
-my $file   = @ARGV ? shift : 'examples/data/speech.mp3';
-my $client = OpenAPI::Client::OpenAI->new;
-open my $audio_fh, '<', $file or die "Can't open $file for reading: $!";
-binmode($audio_fh);    # no-op except for Windows
+my $file = @ARGV ? shift : 'examples/data/speech.mp3';
+unless ( -e $file ) {
+    die "File not found: $file\n";
+}
+my $client   = OpenAPI::Client::OpenAI->new;
 my $response = $client->createTranscription(
     {},
     file_upload => {
-        file     => do { local $/; <$audio_fh> },
+        file     => $file,
         model    => 'whisper-1',
         language => 'en',
     },
 );
-
 print Dumper( $response->res );
 
 __END__
