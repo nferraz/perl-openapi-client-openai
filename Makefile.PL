@@ -14,7 +14,7 @@ my %WriteMakefileArgs = (
     ABSTRACT_FROM    => 'lib/OpenAPI/Client/OpenAI.pm',
     LICENSE          => 'artistic_2',
     MIN_PERL_VERSION => '5.006',
-    BUILD_REQUIRES => {
+    BUILD_REQUIRES   => {
         'ExtUtils::MakeMaker'     => '0',
         'File::ShareDir::Install' => '0',
     },
@@ -26,15 +26,16 @@ my %WriteMakefileArgs = (
         'Test::Deep'             => '0',
         'Test::Exception'        => '0',
         'Test::RequiresInternet' => '0',
+        'Perl::Tidy'             => '20240511',    # not sure where to put this
     },
     PREREQ_PM => {
         'File::ShareDir'        => '0',
         'File::Spec::Functions' => '0',
-        'OpenAPI::Client'       => '0',
+        'OpenAPI::Client'       => '1.07',
     },
     META_MERGE => {
         'meta-spec' => { version => 2 },
-        resources => {
+        resources   => {
             repository => {
                 type => 'git',
                 url  => 'https://github.com/nferraz/perl-openapi-client-openai.git',
@@ -46,18 +47,18 @@ my %WriteMakefileArgs = (
         },
     },
     dist  => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },
-    clean => { FILES => 'OpenAPI-Client-OpenAI-*' },
+    clean => { FILES    => 'OpenAPI-Client-OpenAI-*' },
 );
 
 # Compatibility with old versions of ExtUtils::MakeMaker
-unless (eval { ExtUtils::MakeMaker->VERSION('6.64'); 1 }) {
+unless ( eval { ExtUtils::MakeMaker->VERSION('6.64'); 1 } ) {
     my $test_requires = delete $WriteMakefileArgs{TEST_REQUIRES} || {};
-    @{$WriteMakefileArgs{PREREQ_PM}}{keys %$test_requires} = values %$test_requires;
+    @{ $WriteMakefileArgs{PREREQ_PM} }{ keys %$test_requires } = values %$test_requires;
 }
 
-unless (eval { ExtUtils::MakeMaker->VERSION('6.55_03'); 1 }) {
+unless ( eval { ExtUtils::MakeMaker->VERSION('6.55_03'); 1 } ) {
     my $build_requires = delete $WriteMakefileArgs{BUILD_REQUIRES} || {};
-    @{$WriteMakefileArgs{PREREQ_PM}}{keys %$build_requires} = values %$build_requires;
+    @{ $WriteMakefileArgs{PREREQ_PM} }{ keys %$build_requires } = values %$build_requires;
 }
 
 delete $WriteMakefileArgs{CONFIGURE_REQUIRES}
