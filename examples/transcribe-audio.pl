@@ -5,6 +5,8 @@ use warnings;
 use lib 'lib';
 use OpenAPI::Client::OpenAI;
 use Data::Dumper;
+use JSON::XS qw( decode_json );
+use Feature::Compat::Try;
 
 my $file = @ARGV ? shift : 'examples/data/speech.mp3';
 unless ( -e $file ) {
@@ -19,7 +21,17 @@ my $response = $client->createTranscription(
         language => 'en',
     },
 );
-print Dumper( $response->res );
+
+if ( $response->res->is_success ) {
+    try {
+        my $result = decode_json( $response->res->content->asset->slurp );
+        print "Transcription: $result->{text}\n";
+    } catch ($e) {
+        print "Error decoding JSON: $e\n";
+    }
+} else {
+    print Dumper( $response->res );
+}
 
 __END__
 
