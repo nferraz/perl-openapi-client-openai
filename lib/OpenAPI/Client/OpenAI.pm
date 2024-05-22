@@ -583,7 +583,13 @@ Nelson Ferraz, E<lt>nferraz@gmail.comE<gt>
 
 =head1 CONTRIBUTORS
 
-Curtis "Ovid" Poe, E<lt>curtis.poe@gmail.comE<gt>
+=over 4
+
+=item * Curtis "Ovid" Poe, https://github.com/Ovid
+
+=item * Veesh Goldman, https://github.com/rabbiveesh
+
+=item * David Farrell,
 
 =head1 COPYRIGHT AND LICENSE
 
