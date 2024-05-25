@@ -156,8 +156,6 @@ L<https://github.com/openai/openai-openapi>.
 Additional options are passed to the parent class, OpenAPI::Client, with the
 exception of the following extra options:
 
-=over
-
 Other methods are documented in L<OpenAPI::Client::OpenAI::Methods>.
 
 The schema is documented in L<OpenAPI::Client::OpenAI::Schema>.
@@ -191,6 +189,8 @@ Nelson Ferraz, E<lt>nferraz@gmail.comE<gt>
 =item * Veesh Goldman, https://github.com/rabbiveesh
 
 =item * David Farrell,
+
+=back
 
 =head1 COPYRIGHT AND LICENSE
 
