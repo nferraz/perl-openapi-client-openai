@@ -260,3 +260,29 @@ sub tidy_code ($code) {
 
 __END__
 
+=head1 NAME
+
+build_docs.pl - Build the documentation for the OpenAI API client
+
+=head1 SYNOPSIS
+
+	perl build_docs.pl [--dump]
+
+=head1 DESCRIPTION
+
+This script reads the OpenAPI specification file and generates the POD
+documentation for the OpenAI API client. The documentation is written to the
+C<lib/OpenAPI/Client/OpenAI> directory. This documentation includes both the
+methods and the schema. The schema is fully expanded (references resolved) to
+make it easier for the developer to understand.
+
+=head1 OPTIONS
+
+=over 4
+
+=item * C<--dump>
+
+Dump the resolved OpenAPI specification to the console and exits. It's merely
+a convenience for debugging.
+
+=back
