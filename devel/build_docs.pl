@@ -6,6 +6,8 @@ use autodie       qw(:all);
 use Carp          qw(croak);
 use Clone         qw(clone);
 use Data::Dumper  qw(Dumper);
+use File::Find    qw(find);
+use File::Slurp   qw(read_file);
 use Path::Tiny    qw(path);
 use Text::Wrap    qw(wrap);
 use YAML::XS      qw(LoadFile Dump);
@@ -38,7 +40,7 @@ foreach my $path ( sort keys $paths->%* ) {
     my %pod;
     local $Text::Wrap::columns = 72;
     foreach my $http_verb ( keys $methods->%* ) {
-        my $operation = $methods->{$http_verb};
+        my $operation   = $methods->{$http_verb};
         my $method_name = $operation->{operationId};
         my $summary     = $operation->{summary} || 'No summary provided';
         $summary = format_string($summary);
@@ -46,16 +48,12 @@ foreach my $path ( sort keys $paths->%* ) {
         foreach my $parameter ( $parameters->@* ) {
             $parameter->{description} = format_string( $parameter->{description} );
         }
-        my $request_body;
-        if ( $http_verb eq 'post' && ( $request_body = $operation->{requestBody} ) ) {
-            $request_body = Dump( $request_body->{content} );
-            # use regex to indent the content by four spaces
-            $request_body =~ s/^/    /gm;
-        }
+        my $request_body = $operation->{requestBody} // 0;
         $methods{$method_name} = {
             summary      => $summary,
             parameters   => $operation->{parameters},
             request_body => $request_body,
+            examples     => find_files_containing_string( 'examples', $method_name ),
         };
     }
 }
@@ -63,10 +61,34 @@ foreach my $path ( sort keys $paths->%* ) {
 my $method_pod_file = 'lib/OpenAPI/Client/OpenAI/Methods.pod';
 write_method_pod( $method_pod_file, \%methods );
 my $schema_pod_file = 'lib/OpenAPI/Client/OpenAI/Schema.pod';
-my $yaml = Dump($resolved);
+my $yaml            = Dump($resolved);
 $yaml =~ s/^/    /gm;
 write_schema_pod( $schema_pod_file, $yaml );
 say "Documentation written to $method_pod_file. Schema written to $schema_pod_file";
+
+sub find_files_containing_string ( $directory, $search_string ) {
+    my @matching_files;
+
+    # Define a subroutine to process each file
+    my $wanted = sub {
+        my $file_path = $_;
+        return unless -f $file_path;    # Only process files
+
+        # Read the file contents
+        my $file_contents = read_file($file_path);
+
+        # Check if the file contains the search string
+        if ( $file_contents =~ /\Q$search_string\E/ ) {
+            push @matching_files, $file_path;
+        }
+    };
+
+    # Traverse the directory
+    find( { wanted => $wanted, no_chdir => 1 }, $directory );
+
+    return unless @matching_files;
+    return sort @matching_files;
+}
 
 sub write_method_pod ( $filename, $methods ) {
     my $tt = Template->new;
@@ -83,7 +105,7 @@ sub write_schema_pod ( $filename, $schema ) {
 }
 
 sub pod_schema_template () {
-	return \<<'TEMPLATE';
+    return \<<'TEMPLATE';
 =head1 NAME
 
 OpenAPI::Client::OpenAI::Schema - OpenAI API client Schema
@@ -114,17 +136,34 @@ sub pod_method_template () {
 
 OpenAPI::Client::OpenAI::Methods - Methods for OpenAI API
 
+=head1 DESCRIPTION
+
+Yes, this isn't perfect. But it's a start. The OpenAI API is complex and and
+the L<OpenAPI::Client> module is a bit opaque at times. We'll add more later.
+
 =head1 METHODS
 
 [% FOREACH method IN methods.keys.sort %]
 [%- summary = methods.$method.summary -%]
 [%- parameters = methods.$method.parameters -%]
 [%- request_body = methods.$method.request_body -%]
+[%- examples = methods.$method.examples -%]
 
 [%- IF summary %]
 =head2 [% method %]
 
-[% methods.$method.summary %]
+[% summary %]
+[%- IF examples %]
+=head3 Examples
+
+See the following files in the distribution for examples:
+
+=over 4
+[% FOREACH example IN examples %]
+=item *	[% example %]
+[% END %]
+=back
+[% END %]
 [% IF parameters %]
 =head3 Parameters
 
