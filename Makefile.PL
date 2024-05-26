@@ -17,6 +17,16 @@ my %WriteMakefileArgs = (
     BUILD_REQUIRES   => {
         'ExtUtils::MakeMaker'     => '0',
         'File::ShareDir::Install' => '0',
+
+        # Most of these are for devel/build_docs.pl
+        'File::Slurp'          => '0',
+        'Path::Tiny'           => '0',
+        'Text::Wrap'           => '0',
+        'YAML::XS'             => '0',
+        'Markdown::Pod'        => '0',
+        'Feature::Compat::Try' => '0',
+        'Perl::Tidy'           => '0',
+        'Template'             => '0',
     },
     CONFIGURE_REQUIRES => {
         'ExtUtils::MakeMaker' => '0',
