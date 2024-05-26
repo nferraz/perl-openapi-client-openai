@@ -65,8 +65,6 @@ sub new {
 # install snake case aliases
 
 {
-    # Do we want to deprecate these? They're kind of a pain to maintain,
-    # or we should autogenerate them from the OpenAPI spec.
     my %snake_case_alias = (
         createChatCompletion => 'create_chat_completion',
         createCompletion     => 'create_completion',
@@ -78,7 +76,9 @@ sub new {
 
     for my $camel_case_method ( keys %snake_case_alias ) {
         no strict 'refs';
-        *{"$snake_case_alias{$camel_case_method}"} = sub {
+		my $method = $snake_case_alias{$camel_case_method};
+        *$method = sub {
+			warn "Calling '$method' is deprecated. Please use '$camel_case_method' instead.";
             my $self = shift;
             $self->$camel_case_method(@_);
         }
