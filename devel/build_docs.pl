@@ -34,37 +34,45 @@ if ($dump) {
 
 my $paths = $resolved->{paths} or die "Could not find 'paths' in the OpenAPI spec";
 
-my %methods;
-foreach my $path ( sort keys $paths->%* ) {
-    my $methods = $paths->{$path};
-    my %pod;
-    local $Text::Wrap::columns = 72;
-    foreach my $http_verb ( keys $methods->%* ) {
-        my $operation   = $methods->{$http_verb};
-        my $method_name = $operation->{operationId};
-        my $summary     = $operation->{summary} || 'No summary provided';
-        $summary = format_string($summary);
-        my $parameters = $operation->{parameters} // [];
-        foreach my $parameter ( $parameters->@* ) {
-            $parameter->{description} = format_string( $parameter->{description} );
-        }
-        my $request_body = $operation->{requestBody} // 0;
-        $methods{$method_name} = {
-            summary      => $summary,
-            parameters   => $operation->{parameters},
-            request_body => $request_body,
-            examples     => find_files_containing_string( 'examples', $method_name ),
-        };
-    }
-}
+my $methods = gather_method_data($paths);
 
 my $method_pod_file = 'lib/OpenAPI/Client/OpenAI/Methods.pod';
-write_method_pod( $method_pod_file, \%methods );
+write_method_pod( $method_pod_file, $methods );
+
 my $schema_pod_file = 'lib/OpenAPI/Client/OpenAI/Schema.pod';
 my $yaml            = Dump($resolved);
-$yaml =~ s/^/    /gm;
+$yaml =~ s/^/    /gm;    # indent everything by 4 spaces
 write_schema_pod( $schema_pod_file, $yaml );
+
 say "Documentation written to $method_pod_file. Schema written to $schema_pod_file";
+exit;
+
+sub gather_method_data ($paths) {
+    my %methods;
+
+    foreach my $path ( sort keys $paths->%* ) {
+        my $methods = $paths->{$path};
+        my %pod;
+        foreach my $http_verb ( keys $methods->%* ) {
+            my $operation   = $methods->{$http_verb};
+            my $method_name = $operation->{operationId};
+            my $summary     = $operation->{summary} || 'No summary provided';
+            $summary = format_string($summary);
+            my $parameters = $operation->{parameters} // [];
+            foreach my $parameter ( $parameters->@* ) {
+                $parameter->{description} = format_string( $parameter->{description} );
+            }
+            my $request_body = $operation->{requestBody} // 0;
+            $methods{$method_name} = {
+                summary      => $summary,
+                parameters   => $operation->{parameters},
+                request_body => $request_body,
+                examples     => find_files_containing_string( 'examples', $method_name ),
+            };
+        }
+    }
+    return \%methods;
+}
 
 sub find_files_containing_string ( $directory, $search_string ) {
     my @matching_files;
@@ -216,6 +224,7 @@ TEMPLATE
 
 sub format_string ($string) {
     return unless defined $string;
+    local $Text::Wrap::columns = 72;
     # their openapi.yaml on github uses relative links to the docs, even
     # though the docs are on a different domain
     my $root_url = 'https://platform.openai.com';
@@ -225,6 +234,7 @@ sub format_string ($string) {
 }
 
 sub preprocess_openapi ($openapi) {
+    # expand all references
     my $cloned = clone($openapi);
 
     # Don't delete components because they can refer to other components
@@ -260,39 +270,6 @@ sub _recursively_find_references ( $components, $resolved ) {
 sub _resolve_reference ( $components, $ref ) {
     my ( undef, undef, $type, $name ) = split '/', $ref;
     return $components->{$type}{$name} || croak "Could not resolve $ref";
-}
-
-sub protect_code ( $filename, $existing_code, $protected_code, $overwrite ) {
-    try {
-        return rewrite_code(
-            type           => 'Perl',
-            name           => $filename,
-            existing_code  => $existing_code,
-            protected_code => $protected_code,
-            overwrite      => $overwrite,
-        );
-    } catch ($error) {
-        Carp::confess("Could not process changes to $filename: $error");
-    }
-}
-
-sub tidy_code ($code) {
-    my ( $stderr, $tidied );
-
-    my $perltidyrc = path('.perltidyrc')->absolute;
-    open my $fh, '<', $perltidyrc;
-    $perltidyrc = do { local $/; <$fh> };
-    close $fh;
-
-    local @ARGV = ();
-    Perl::Tidy::perltidy(
-        source      => \$code,
-        destination => \$tidied,
-        stderr      => \$stderr,
-        perltidyrc  => \$perltidyrc,
-    ) and die "Perl::Tidy error: $stderr";
-
-    return $tidied;
 }
 
 1;
