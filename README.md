@@ -85,7 +85,6 @@ Nelson Ferraz, <nferraz@gmail.com>
 
 - Curtis "Ovid" Poe, https://github.com/Ovid
 - Veesh Goldman, https://github.com/rabbiveesh
-- David Farrell,
 
 # COPYRIGHT AND LICENSE
 

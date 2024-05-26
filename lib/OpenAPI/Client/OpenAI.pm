@@ -188,8 +188,6 @@ Nelson Ferraz, E<lt>nferraz@gmail.comE<gt>
 
 =item * Veesh Goldman, https://github.com/rabbiveesh
 
-=item * David Farrell,
-
 =back
 
 =head1 COPYRIGHT AND LICENSE
