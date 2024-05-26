@@ -21,10 +21,11 @@ message and pressing Enter. Note that this version tends to stutter.
 
 Type 'exit' or 'quit' to exit the chat (or just CTRL-C).
 END
+
 CHAT: while (1) {
     print "> ";
     chomp( my $query = <STDIN> );
-	last CHAT if $query =~ /^exit|q(?:uit)$/i; 
+    last CHAT if $query =~ /^exit|q(?:uit)$/i;
     push @messages, { "role" => "user", "content" => $query };
     my $response = $client->createChatCompletion( {
         body => {
