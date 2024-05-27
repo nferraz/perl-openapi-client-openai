@@ -1,5 +1,9 @@
 Revision history for OpenAPI-Client-OpenAI
 
+0.04
+        - Fix bad link in the POD
+        - Update POD to show where to find examples
+
 0.03    2024005-27
         - Update manifest to ensure files are properly uploaded
 
