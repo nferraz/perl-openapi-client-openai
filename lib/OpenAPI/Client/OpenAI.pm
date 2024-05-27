@@ -191,6 +191,8 @@ Nelson Ferraz, E<lt>nferraz@gmail.comE<gt>
 
 =item * Veesh Goldman, https://github.com/rabbiveesh
 
+=item * Graham Knop, https://github.com/haarg
+
 =back
 
 =head1 COPYRIGHT AND LICENSE

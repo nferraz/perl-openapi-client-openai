@@ -58,6 +58,9 @@ Create a new OpenAI API client. The following options can be provided:
     You can find the latest version of this file at
     [https://github.com/openai/openai-openapi](https://github.com/openai/openai-openapi).
 
+    Examples can be found in the `t/` and `examples/` directories of the
+    distribution.
+
 Additional options are passed to the parent class, OpenAPI::Client, with the
 exception of the following extra options:
 
@@ -75,7 +78,7 @@ The following environment variables are used by this module:
 
 # SEE ALSO
 
-[OpenAPI::Client](https://metacpan.org/pod/OpenAPI%3A%3AClient) - the deprecated precursor to this module.
+[OpenAI::API](https://metacpan.org/pod/OpenAI%3A%3AAPI) - the deprecated precursor to this module.
 
 # AUTHOR
 
@@ -85,6 +88,7 @@ Nelson Ferraz, <nferraz@gmail.com>
 
 - Curtis "Ovid" Poe, https://github.com/Ovid
 - Veesh Goldman, https://github.com/rabbiveesh
+- Graham Knop, https://github.com/haarg
 
 # COPYRIGHT AND LICENSE
 

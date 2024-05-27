@@ -1,10 +1,11 @@
 Revision history for OpenAPI-Client-OpenAI
 
-0.04
+0.04    2024-05-27 16:06 (CEST)
+        - Indent HEREDOCS so metacpan doesn't think they're POD
         - Fix bad link in the POD
         - Update POD to show where to find examples
 
-0.03    2024005-27
+0.03    2024-05-27
         - Update manifest to ensure files are properly uploaded
 
 0.02    2024-05-15
