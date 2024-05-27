@@ -76,9 +76,9 @@ sub new {
 
     for my $camel_case_method ( keys %snake_case_alias ) {
         no strict 'refs';
-		my $method = $snake_case_alias{$camel_case_method};
+        my $method = $snake_case_alias{$camel_case_method};
         *$method = sub {
-			warn "Calling '$method' is deprecated. Please use '$camel_case_method' instead.";
+            warn "Calling '$method' is deprecated. Please use '$camel_case_method' instead.";
             my $self = shift;
             $self->$camel_case_method(@_);
         }
