@@ -1,5 +1,8 @@
 Revision history for OpenAPI-Client-OpenAI
 
+0.02    2024-05-15
+        - Updated to version 2.0.0 of openapi.yaml
+
 0.01    2023-04-11
         First version, released on an unsuspecting world.
 
