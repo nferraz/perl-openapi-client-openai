@@ -113,113 +113,114 @@ sub write_schema_pod ( $filename, $schema ) {
 }
 
 sub pod_schema_template () {
-    return \<<'TEMPLATE';
-=head1 NAME
+    my $template = <<'TEMPLATE' =~ s{^    }{}mgr;
+    =head1 NAME
 
-OpenAPI::Client::OpenAI::Schema - OpenAI API client Schema
+    OpenAPI::Client::OpenAI::Schema - OpenAI API client Schema
 
-=head1 DESCRIPTION
+    =head1 DESCRIPTION
 
-This module contains the schema for the OpenAI API client. To aid in
-comprehension, the schema has all references resolved. This makes this schema
-much larger than the original OpenAPI schema.
+    This module contains the schema for the OpenAI API client. To aid in
+    comprehension, the schema has all references resolved. This makes this schema
+    much larger than the original OpenAPI schema.
 
-=head1 SCHEMA
+    =head1 SCHEMA
 
-[% schema %]
+    [% schema %]
 
-=head1 COPYRIGHT AND LICENSE
+    =head1 COPYRIGHT AND LICENSE
 
-Copyright (C) 2023-2024 by Nelson Ferraz
+    Copyright (C) 2023-2024 by Nelson Ferraz
 
-This library is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself, either Perl version 5.14.0 or,
-at your option, any later version of Perl 5 you may have available.
+    This library is free software; you can redistribute it and/or modify
+    it under the same terms as Perl itself, either Perl version 5.14.0 or,
+    at your option, any later version of Perl 5 you may have available.
 TEMPLATE
+    return \$template;
 }
 
 sub pod_method_template () {
-    return \<<'TEMPLATE';
-=head1 NAME
+    my $template = <<'TEMPLATE' =~ s{^    }{}mgr;
+    =head1 NAME
 
-OpenAPI::Client::OpenAI::Methods - Methods for OpenAI API
+    OpenAPI::Client::OpenAI::Methods - Methods for OpenAI API
 
-=head1 DESCRIPTION
+    =head1 DESCRIPTION
 
-Yes, this isn't perfect. But it's a start. The OpenAI API is complex and and
-the L<OpenAPI::Client> module is a bit opaque at times. We'll add more later.
+    Yes, this isn't perfect. But it's a start. The OpenAI API is complex and and
+    the L<OpenAPI::Client> module is a bit opaque at times. We'll add more later.
 
-=head1 METHODS
+    =head1 METHODS
 
-[% FOREACH method IN methods.keys.sort %]
-[%- summary = methods.$method.summary -%]
-[%- parameters = methods.$method.parameters -%]
-[%- request_body = methods.$method.request_body -%]
-[%- examples = methods.$method.examples -%]
+    [% FOREACH method IN methods.keys.sort %]
+    [%- summary = methods.$method.summary -%]
+    [%- parameters = methods.$method.parameters -%]
+    [%- request_body = methods.$method.request_body -%]
+    [%- examples = methods.$method.examples -%]
 
-[%- IF summary %]
-=head2 [% method %]
+    [%- IF summary %]
+    =head2 [% method %]
 
-[% summary %]
-[%- IF examples %]
-=head3 Examples
+    [% summary %]
+    [%- IF examples %]
+    =head3 Examples
 
-See the following files in the distribution for examples:
+    See the following files in the distribution for examples:
 
-=over 4
-[% FOREACH example IN examples %]
-=item *	[% example %]
-[% END %]
-=back
-[% END %]
-[% IF parameters %]
-=head3 Parameters
+    =over 4
+    [% FOREACH example IN examples %]
+    =item *	[% example %]
+    [% END %]
+    =back
+    [% END %]
+    [% IF parameters %]
+    =head3 Parameters
 
-[% FOREACH parameter IN parameters %]
-=head4 [% parameter.name %]
+    [% FOREACH parameter IN parameters %]
+    =head4 [% parameter.name %]
 
-[% parameter.description -%]
+    [% parameter.description -%]
 
-=over 4
+    =over 4
 
-=item * Type:     [% parameter.schema.type %]
+    =item * Type:     [% parameter.schema.type %]
 
-=item * In:       [% parameter.in %]
+    =item * In:       [% parameter.in %]
 
-=item * Required: [% IF parameter.required %]True[% ELSE %]False[% END %]
+    =item * Required: [% IF parameter.required %]True[% ELSE %]False[% END %]
 
-=item * Default:  [% parameter.schema.default || 'N/A' %]
+    =item * Default:  [% parameter.schema.default || 'N/A' %]
 
-=item * Example:  [% parameter.schema.example || 'N/A' %]
+    =item * Example:  [% parameter.schema.example || 'N/A' %]
 
-=item * Enum:     [% parameter.schema.enum.join(', ') || 'N/A' %]
+    =item * Enum:     [% parameter.schema.enum.join(', ') || 'N/A' %]
 
-=back
+    =back
 
-[% END %]
-[% ELSE %]
-This method does not take any path or URL parameters.
-[% END %]
-[% END %]
-[%- IF request_body %]
-=head3 Request Body
+    [% END %]
+    [% ELSE %]
+    This method does not take any path or URL parameters.
+    [% END %]
+    [% END %]
+    [%- IF request_body %]
+    =head3 Request Body
 
-The request body is complicated. See L<OpenAPI::Client::OpenAI::Schema> for details.
+    The request body is complicated. See L<OpenAPI::Client::OpenAI::Schema> for details.
 
-[%-END -%]
-[% END -%]
+    [%-END -%]
+    [% END -%]
 
-=head1 COPYRIGHT AND LICENSE
+    =head1 COPYRIGHT AND LICENSE
 
-Copyright (C) 2023-2024 by Nelson Ferraz
+    Copyright (C) 2023-2024 by Nelson Ferraz
 
-This library is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself, either Perl version 5.14.0 or,
-at your option, any later version of Perl 5 you may have available.
+    This library is free software; you can redistribute it and/or modify
+    it under the same terms as Perl itself, either Perl version 5.14.0 or,
+    at your option, any later version of Perl 5 you may have available.
 
-=cut
+    =cut
 TEMPLATE
-
+    return \$template;
 }
 
 sub format_string ($string) {
