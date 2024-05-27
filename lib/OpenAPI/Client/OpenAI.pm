@@ -151,6 +151,9 @@ The path to the OpenAPI specification file (YAML). Defaults to the
 You can find the latest version of this file at
 L<https://github.com/openai/openai-openapi>.
 
+Examples can be found in the C<t/> and C<examples/> directories of the
+distribution.
+
 =back
 
 Additional options are passed to the parent class, OpenAPI::Client, with the
