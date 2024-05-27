@@ -1,5 +1,8 @@
 Revision history for OpenAPI-Client-OpenAI
 
+0.03    2024005-27
+        - Update manifest to ensure files are properly uploaded
+
 0.02    2024-05-15
         - Updated to version 2.0.0 of openapi.yaml
 
