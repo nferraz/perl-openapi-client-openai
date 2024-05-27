@@ -174,7 +174,7 @@ The API key used to authenticate requests to the OpenAI API.
 
 =head1 SEE ALSO
 
-L<OpenAPI::Client> - the deprecated precursor to this module.
+L<OpenAI::API> - the deprecated precursor to this module.
 
 =head1 AUTHOR
 
