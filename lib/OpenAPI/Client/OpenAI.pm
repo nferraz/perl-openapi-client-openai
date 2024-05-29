@@ -89,6 +89,8 @@ sub new {
 
 __END__
 
+=encoding UTF-8
+
 =head1 NAME
 
 OpenAPI::Client::OpenAI - A client for the OpenAI API

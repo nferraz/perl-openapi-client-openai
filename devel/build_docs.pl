@@ -115,6 +115,8 @@ sub write_schema_pod ( $filename, $schema ) {
 
 sub pod_schema_template () {
     my $template = <<'TEMPLATE' =~ s{^    }{}mgr;
+    =encoding UTF-8
+
     =head1 NAME
 
     OpenAPI::Client::OpenAI::Schema - OpenAI API client Schema
@@ -142,6 +144,8 @@ TEMPLATE
 
 sub pod_method_template () {
     my $template = <<'TEMPLATE' =~ s{^    }{}mgr;
+    =encoding UTF-8
+
     =head1 NAME
 
     OpenAPI::Client::OpenAI::Methods - Methods for OpenAI API
