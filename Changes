@@ -1,6 +1,6 @@
 Revision history for OpenAPI-Client-OpenAI
 
-0.06    2024-05-29 07:59 (CEST)
+0.06    2024-05-29 08:22 (CEST)
 		- Build bugfix: File::ShareDir::Install needed to be in
 		  CONFIGURE_REQUIRES in the Makefile.PL. Thanks to Slaven Rezić
 		  for the bug report
