@@ -10,7 +10,7 @@ use File::Spec::Functions qw(catfile);
 use Mojo::Base 'OpenAPI::Client';
 use Mojo::URL;
 
-our $VERSION = '0.03';
+our $VERSION = '0.05';
 
 sub new {
     my ( $class, $specification ) = ( shift, shift );
