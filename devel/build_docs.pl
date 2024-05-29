@@ -80,7 +80,8 @@ sub find_files_containing_string ( $directory, $search_string ) {
     # Define a subroutine to process each file
     my $wanted = sub {
         my $file_path = $_;
-        return unless -f $file_path;    # Only process files
+        return unless -f $file_path;            # Only process files
+        next   unless $file_path =~ /\.pl$/;    # Only process Perl files
 
         # Read the file contents
         my $file_contents = read_file($file_path);
