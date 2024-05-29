@@ -6,6 +6,7 @@ $(basename "$0") [-?|-h|--help] [-f|--force]
 
     -? -h --help  Show this help and exit
     -f --force    Force the rebuild, even if there are uncommitted changes
+    -n --notest   Skip the tests
 
 Attempts to rebuild this project, including running tests and rebuilding the
 documentation. If you have uncommitted changes, this script will refuse to
@@ -14,6 +15,7 @@ END
 }
 
 force=false
+notest=false
 
 POSITIONAL=()
 while [[ $# -gt 0 ]]
@@ -22,6 +24,10 @@ key="$1"
 case $key in
     -f|--force)
     force=true
+    shift
+    ;;
+    -n|--notest)
+    notest=true
     shift
     ;;
     -?|-h|--help)
@@ -69,7 +75,11 @@ perl Makefile.PL
 
 make
 
-RELEASE_TESTING=1 make test
+if [ "$notest" = false ]; then
+    RELEASE_TESTING=1 make test
+else
+    echo Skipping tests due to -n|--notest flag
+fi
 
 # Obviously, this builds the documentation
 perl devel/build_docs.pl
