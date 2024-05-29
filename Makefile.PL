@@ -32,11 +32,10 @@ my %WriteMakefileArgs = (
         'ExtUtils::MakeMaker' => '0',
     },
     TEST_REQUIRES => {
-        'Test::More'             => '0',
-        'Test::Deep'             => '0',
-        'Test::Exception'        => '0',
+        'Test::Most'             => '0',
         'Test::RequiresInternet' => '0',
         'Perl::Tidy'             => '20240511',    # not sure where to put this
+        'Import::Base'           => '1.004',
     },
     PREREQ_PM => {
         'File::ShareDir'        => '0',
