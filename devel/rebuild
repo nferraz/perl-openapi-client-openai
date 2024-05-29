@@ -69,7 +69,7 @@ perl Makefile.PL
 
 make
 
-make test
+RELEASE_TESTING=1 make test
 
 # Obviously, this builds the documentation
 perl devel/build_docs.pl
