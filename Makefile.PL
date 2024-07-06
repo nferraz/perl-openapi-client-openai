@@ -29,6 +29,7 @@ my %WriteMakefileArgs = (
     },
     CONFIGURE_REQUIRES => {
         'ExtUtils::MakeMaker'     => '0',
+        'IO::Socket::SSL'         => '2',
         'File::ShareDir::Install' => '0',
     },
     TEST_REQUIRES => {
