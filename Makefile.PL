@@ -36,6 +36,7 @@ my %WriteMakefileArgs = (
         'Test::RequiresInternet' => '0',
         'Perl::Tidy'             => '20240511',    # not sure where to put this
         'Import::Base'           => '1.004',
+        'JSON'                   => '4.10',
     },
     PREREQ_PM => {
         'File::ShareDir'        => '0',
