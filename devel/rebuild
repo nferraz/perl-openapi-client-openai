@@ -105,4 +105,9 @@ fi
 perl devel/build_docs.pl
 
 # And we rebuild our README.md from the POD
-pod2markdown < lib/OpenAPI/Client/OpenAI.pm > README.md
+if command -v pod2markdown &> /dev/null; then
+    pod2markdown < lib/OpenAPI/Client/OpenAI.pm > README.md
+else
+    echo "Error: pod2markdown is not available."
+    exit 1
+fi
