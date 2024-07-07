@@ -2,8 +2,9 @@
 
 function show_help() {
     less <<END
-$(basename "$0") [-?|-h|--help] [-f|--force]
+$(basename "$0") [-?|-h|--help] [-f|--force] [-u|--update]
 
+    -u --update   Update OpenAI OpenAPI spec from github
     -? -h --help  Show this help and exit
     -f --force    Force the rebuild, even if there are uncommitted changes
     -n --notest   Skip the tests
@@ -16,6 +17,9 @@ END
 
 force=false
 notest=false
+update=false
+openai_url="https://raw.githubusercontent.com/openai/openai-openapi/master/openapi.yaml"
+target_dir="share/openapi.yaml"
 
 POSITIONAL=()
 while [[ $# -gt 0 ]]
@@ -28,6 +32,10 @@ case $key in
     ;;
     -n|--notest)
     notest=true
+    shift
+    ;;
+    -u|--update)
+    update=true
     shift
     ;;
     -?|-h|--help)
@@ -56,6 +64,18 @@ else
     else
       echo "Uncommitted changes found. Use -f to force."
       exit 1
+    fi
+fi
+
+if [ "$update" = true]; then
+    echo "Updating OpenAI OpenAPI spec from github"
+    if command -v curl &> /dev/null; then
+        curl -o $target_dir $openai_url
+    elif command -v wget &> /dev/null; then
+        wget -O $target_dir $openai_url
+    else
+        echo "Error: Neither curl nor wget is available."
+        exit 1
     fi
 fi
 
