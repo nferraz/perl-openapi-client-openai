@@ -1,14 +1,10 @@
 package OpenAPI::Client::OpenAI;
 
-use strict;
-use warnings;
-
-use Carp;
-use File::ShareDir ':ALL';
+use Carp ();
+use File::ShareDir 'dist_file';
 use File::Spec::Functions qw(catfile);
 
 use Mojo::Base 'OpenAPI::Client';
-use Mojo::URL;
 
 our $VERSION = '0.13';
 
