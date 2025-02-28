@@ -1,5 +1,12 @@
 Revision history for OpenAPI-Client-OpenAI
 
+0.15    2025-02-28
+        - Update to latest version of OpenAI API spec.
+          Even though the 4.5-preview has been released
+          (https://platform.openai.com/docs/models#gpt-4-5), it's not listed
+          in their openapi.yaml document. The changes are largely around the
+          documentation in the API spec.
+
 0.14    2025-02-05
         - Update to latest version of OpenAI API spec. Amongst many changes,
           this includes the new o3-mini model.
