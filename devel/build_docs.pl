@@ -28,7 +28,6 @@ foreach my $path ( sort keys %{ $openapi->{paths} } ) {
     write_documentation_for_path( $openapi, $path, $output_base_dir, \%path_index_entries );
 }
 
-$DB::single = 1;    # Debugging line to pause execution
 write_index( $main_index_file, \%path_index_entries, $openapi );
 
 sub write_documentation_for_path ( $openapi, $path, $output_base_dir, $path_index_entries ) {
