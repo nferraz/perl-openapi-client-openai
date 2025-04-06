@@ -28,10 +28,10 @@ foreach my $path ( sort keys %{ $openapi->{paths} } ) {
     write_documentation_for_path( $openapi, $path, $output_base_dir, \%path_index_entries );
 }
 
-write_main_index_pod( $main_index_file, \%path_index_entries, $openapi );
+$DB::single = 1;    # Debugging line to pause execution
+write_index( $main_index_file, \%path_index_entries, $openapi );
 
 sub write_documentation_for_path ( $openapi, $path, $output_base_dir, $path_index_entries ) {
-    my %path_index_entries = %$path_index_entries;
 
     my $path_data              = $openapi->{paths}->{$path};
     my $sanitized_path_segment = $path;
@@ -84,17 +84,17 @@ POD
     die "Error writing to '$output_file': $@" if $@;
 
     # Store information for the main index
-    $path_index_entries{$path} = {
+    $path_index_entries->{$path} = {
         description => $path_data->{description} || 'No description available.',
         filename    => $sanitized_path_segment,
     };
 }
 
-sub write_main_index_pod ( $main_index_file, $path_index_entries, $openapi ) {
-    my %path_index_entries = %$path_index_entries;
+sub write_index ( $main_index_file, $path_index_entries, $openapi ) {
 
     open my $index_fh, '>', $main_index_file or die "Could not open '$main_index_file': $!";
 
+    print $index_fh "=encoding utf8\n\n";
     print $index_fh "=head1 NAME\n\n";
     print $index_fh "OpenAPI::Client::OpenAI::Path - Documentation for OpenAI API Paths\n\n";
 
@@ -105,12 +105,12 @@ sub write_main_index_pod ( $main_index_file, $path_index_entries, $openapi ) {
 
     print $index_fh "=head1 PATHS\n\n";
 
-    foreach my $path ( sort keys %path_index_entries ) {
-        my $entry     = $path_index_entries{$path};
+    foreach my $path ( sort keys %$path_index_entries ) {
+        my $entry     = $path_index_entries->{$path};
         my $pod_link  = "L<OpenAPI::Client::OpenAI::Path::$entry->{filename}>";
         my $path_data = $openapi->{paths}->{$path};
 
-        print $index_fh "=head2 $path\n\n";
+        print $index_fh "=head2 C<$path>\n\n";
 
         if ( defined $path_data->{description} && $path_data->{description} ne '' ) {
             print $index_fh "$path_data->{description}\n\n";
@@ -122,17 +122,29 @@ sub write_main_index_pod ( $main_index_file, $path_index_entries, $openapi ) {
             my $method_data  = $path_data->{$method};
             my $method_upper = uc $method;
             if ( defined $method_data->{summary} && $method_data->{summary} ne '' ) {
-                print $index_fh "=item $method_upper - $method_data->{summary}\n\n";
+                print $index_fh "=item * C<$method_upper> - $method_data->{summary}\n\n";
             } else {
-                print $index_fh "=item $method_upper - No summary available.\n\n";
+                print $index_fh "=item * $method_upper - No summary available.\n\n";
             }
         }
         print $index_fh "=back\n\n";
 
         print $index_fh "See $pod_link for more details.\n\n";
+
     }
 
     print $index_fh "=cut\n";
+
+    my $current_year = (localtime)[5] + 1900;
+    print $index_fh <<~"END";
+    =head1 COPYRIGHT AND LICENSE
+
+    Copyright (C) 2023-$current_year by Nelson Ferraz
+
+    This library is free software; you can redistribute it and/or modify
+    it under the same terms as Perl itself, either Perl version 5.14.0 or,
+    at your option, any later version of Perl 5 you may have available.
+    END
 
     close $index_fh;
 }
