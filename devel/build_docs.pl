@@ -3,11 +3,11 @@
 use strict;
 use warnings;
 use experimental 'signatures';
-use YAML::XS qw(LoadFile);    # Changed back to YAML::XS
+use YAML::XS qw(LoadFile);     # Changed back to YAML::XS
 use Path::Tiny;
 
 # --- Configuration ---
-my $openapi_file    = path('share/openapi.yaml');
+my $openapi_file     = path('share/openapi.yaml');
 my $output_base_dir = path( 'lib', 'OpenAPI', 'Client', 'OpenAI', 'Path' );
 my $main_index_file = $output_base_dir->sibling('Path.pod');
 
@@ -32,7 +32,7 @@ write_index( $main_index_file, \%path_index_entries, $openapi );
 
 sub write_documentation_for_path ( $openapi, $path, $output_base_dir, $path_index_entries ) {
 
-    my $path_data              = $openapi->{paths}->{$path};
+    my $path_data             = $openapi->{paths}->{$path};
     my $sanitized_path_segment = $path;
     $sanitized_path_segment =~ s{^/+}{};        # Remove leading slashes
     $sanitized_path_segment =~ s{[/{}]}{-}g;    # Replace slashes and curly braces with hyphens
@@ -43,7 +43,15 @@ sub write_documentation_for_path ( $openapi, $path, $output_base_dir, $path_inde
 
     eval {
         $output_file->spew_utf8(<<POD);
-=head1 PATH: $path
+=encoding utf8
+
+=head1 NAME
+
+OpenAPI::Client::OpenAI::Path::$sanitized_path_segment - Documentation for the $path path.
+
+=head1 DESCRIPTION
+
+This document describes the API endpoint at C<$path>.
 
 POD
         if ( defined $path_data->{description} && $path_data->{description} ne '' ) {
@@ -56,11 +64,11 @@ POD
         foreach my $method ( sort keys %{$path_data} ) {
             next if $method eq 'description' || $method eq 'parameters';    # Skip non-method keys
 
-            my $method_data  = $path_data->{$method};
+            my $method_data = $path_data->{$method};
             my $method_upper = uc $method;
 
             $output_file->append(<<POD);
-=head2 $method_upper $path
+=head2 $method_upper C<$path>
 
 POD
             if ( defined $method_data->{summary} && $method_data->{summary} ne '' ) {
@@ -76,9 +84,139 @@ $method_data->{description}
 POD
             }
 
-            # You might want to add more details here, like parameters, request bodies, responses, etc.
+            # Add parameter documentation
+            if ( defined $method_data->{parameters} && @{ $method_data->{parameters} } ) {
+                $output_file->append(<<POD);
+
+=head3 Parameters
+
+=over 4
+
+POD
+                foreach my $parameter ( @{ $method_data->{parameters} } ) {
+                    my $name        = $parameter->{name};
+                    my $in          = $parameter->{in};
+                    my $description = $parameter->{description} || 'No description available.';
+                    my $required    = $parameter->{required} ? '(Required)' : '(Optional)';
+
+                    $output_file->append(<<POD);
+=item * C<$name> (in $in) $required - $description
+
+POD
+                    if ( defined $parameter->{schema} && defined $parameter->{schema}->{type} ) {
+                        $output_file->append(<<POD);
+Type: C<$parameter->{schema}->{type}>
+
+POD
+                        if ( defined $parameter->{schema}->{format} ) {
+                            $output_file->append(<<POD);
+Format: C<$parameter->{schema}->{format}>
+
+POD
+                        }
+                        if ( defined $parameter->{schema}->{enum} && @{ $parameter->{schema}->{enum} } ) {
+                            $output_file->append(<<POD);
+Possible values: @{ $parameter->{schema}->{enum} }
+
+POD
+                        }
+                        if ( defined $parameter->{schema}->{default} ) {
+                            $output_file->append(<<POD);
+Default: C<$parameter->{schema}->{default}>
+
+POD
+                        }
+                    }
+                }
+                $output_file->append(<<POD);
+
+=back
+
+POD
+            }
+
+            # Add request body documentation
+            if ( defined $method_data->{requestBody} && defined $method_data->{requestBody}->{content} ) {
+                $output_file->append(<<POD);
+
+=head3 Request Body
+
+POD
+                foreach my $content_type ( sort keys %{ $method_data->{requestBody}->{content} } ) {
+                    $output_file->append(<<POD);
+=head4 Content Type: C<$content_type>
+
+POD
+                    if ( defined $method_data->{requestBody}->{content}->{$content_type}->{schema} ) {
+                        my $schema = $method_data->{requestBody}->{content}->{$content_type}->{schema};
+                        if ( defined $schema->{type} ) {
+                            $output_file->append(<<POD);
+Type: C<$schema->{type}>
+
+POD
+                        }
+                        if ( defined $schema->{properties} ) {
+                            $output_file->append(<<POD);
+Properties: (See schema for details)
+
+POD
+                            # You could add more detailed schema info here if needed
+                        }
+                    }
+                }
+            }
+
+            # Add responses documentation
+            if ( defined $method_data->{responses} ) {
+                $output_file->append(<<POD);
+
+=head3 Responses
+
+POD
+                foreach my $status_code ( sort keys %{ $method_data->{responses} } ) {
+                    my $response = $method_data->{responses}->{$status_code};
+                    $output_file->append(<<POD);
+=head4 Status Code: C<$status_code>
+
+POD
+                    if ( defined $response->{description} ) {
+                        $output_file->append(<<POD);
+$response->{description}
+
+POD
+                    }
+                    if ( defined $response->{content} ) {
+                        $output_file->append(<<POD);
+Content Types:
+
+POD
+                        foreach my $content_type ( sort keys %{ $response->{content} } ) {
+                            $output_file->append(<<POD);
+* C<$content_type>
+
+POD
+                            # You could add schema details for responses as well
+                        }
+                    }
+                }
+            }
         }
-        $output_file->append("=cut\n");
+        $output_file->append(<<POD);
+
+=head1 SEE ALSO
+
+L<OpenAPI::Client::OpenAI::Path>
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright (C) 2023-2025 by Nelson Ferraz
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself, either Perl version 5.14.0 or,
+at your option, any later version of Perl 5 you may have available.
+
+=cut
+POD
     };
     die "Error writing to '$output_file': $@" if $@;
 
@@ -95,7 +233,7 @@ sub write_index ( $main_index_file, $path_index_entries, $openapi ) {
 
     print $index_fh "=encoding utf8\n\n";
     print $index_fh "=head1 NAME\n\n";
-    print $index_fh "OpenAPI::Client::OpenAI::Path - Documentation for OpenAI API Paths\n\n";
+    print $index_fh "OpenAPI::Client::OpenAI::Path - Index of OpenAI API Paths\n\n";
 
     print $index_fh "=head1 DESCRIPTION\n\n";
     print $index_fh
@@ -118,7 +256,7 @@ sub write_index ( $main_index_file, $path_index_entries, $openapi ) {
         print $index_fh "=over\n\n";
         foreach my $method ( sort keys %{$path_data} ) {
             next if $method eq 'description' || $method eq 'parameters';
-            my $method_data  = $path_data->{$method};
+            my $method_data = $path_data->{$method};
             my $method_upper = uc $method;
             if ( defined $method_data->{summary} && $method_data->{summary} ne '' ) {
                 print $index_fh "=item * C<$method_upper> - $method_data->{summary}\n\n";
