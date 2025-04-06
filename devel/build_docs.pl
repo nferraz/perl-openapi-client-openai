@@ -2,9 +2,9 @@
 
 use strict;
 use warnings;
+use experimental 'signatures';
 use YAML::XS qw(LoadFile);    # Changed back to YAML::XS
 use Path::Tiny;
-use Data::Dumper;             # For debugging
 
 # --- Configuration ---
 my $openapi_file    = path('share/openapi.yaml');
@@ -25,6 +25,14 @@ $output_base_dir->mkpath( { parents => 1 } ) unless $output_base_dir->is_dir;
 my %path_index_entries;
 
 foreach my $path ( sort keys %{ $openapi->{paths} } ) {
+    write_documentation_for_path( $openapi, $path, $output_base_dir, \%path_index_entries );
+}
+
+write_main_index_pod( $main_index_file, \%path_index_entries, $openapi );
+
+sub write_documentation_for_path ( $openapi, $path, $output_base_dir, $path_index_entries ) {
+    my %path_index_entries = %$path_index_entries;
+
     my $path_data              = $openapi->{paths}->{$path};
     my $sanitized_path_segment = $path;
     $sanitized_path_segment =~ s{^/+}{};        # Remove leading slashes
@@ -82,46 +90,49 @@ POD
     };
 }
 
-# --- Generate Main Path Index POD File ---
-open my $index_fh, '>', $main_index_file or die "Could not open '$main_index_file': $!";
+sub write_main_index_pod ( $main_index_file, $path_index_entries, $openapi ) {
+    my %path_index_entries = %$path_index_entries;
 
-print $index_fh "=head1 NAME\n\n";
-print $index_fh "OpenAPI::Client::OpenAI::Path - Documentation for OpenAI API Paths\n\n";
+    open my $index_fh, '>', $main_index_file or die "Could not open '$main_index_file': $!";
 
-print $index_fh "=head1 DESCRIPTION\n\n";
-print $index_fh
-    "This document provides an index of the available paths in the OpenAI API, along with the supported HTTP methods and their summaries.\n";
-print $index_fh "For detailed information about each path and its usage, please refer to the linked POD files.\n\n";
+    print $index_fh "=head1 NAME\n\n";
+    print $index_fh "OpenAPI::Client::OpenAI::Path - Documentation for OpenAI API Paths\n\n";
 
-print $index_fh "=head1 PATHS\n\n";
+    print $index_fh "=head1 DESCRIPTION\n\n";
+    print $index_fh
+        "This document provides an index of the available paths in the OpenAI API, along with the supported HTTP methods and their summaries.\n";
+    print $index_fh "For detailed information about each path and its usage, please refer to the linked POD files.\n\n";
 
-foreach my $path ( sort keys %path_index_entries ) {
-    my $entry     = $path_index_entries{$path};
-    my $pod_link  = "L<OpenAPI::Client::OpenAI::Path::$entry->{filename}>";
-    my $path_data = $openapi->{paths}->{$path};
+    print $index_fh "=head1 PATHS\n\n";
 
-    print $index_fh "=head2 $path\n\n";
+    foreach my $path ( sort keys %path_index_entries ) {
+        my $entry     = $path_index_entries{$path};
+        my $pod_link  = "L<OpenAPI::Client::OpenAI::Path::$entry->{filename}>";
+        my $path_data = $openapi->{paths}->{$path};
 
-    if ( defined $path_data->{description} && $path_data->{description} ne '' ) {
-        print $index_fh "$path_data->{description}\n\n";
-    }
+        print $index_fh "=head2 $path\n\n";
 
-    print $index_fh "=over\n\n";
-    foreach my $method ( sort keys %{$path_data} ) {
-        next if $method eq 'description' || $method eq 'parameters';
-        my $method_data  = $path_data->{$method};
-        my $method_upper = uc $method;
-        if ( defined $method_data->{summary} && $method_data->{summary} ne '' ) {
-            print $index_fh "=item $method_upper - $method_data->{summary}\n\n";
-        } else {
-            print $index_fh "=item $method_upper - No summary available.\n\n";
+        if ( defined $path_data->{description} && $path_data->{description} ne '' ) {
+            print $index_fh "$path_data->{description}\n\n";
         }
+
+        print $index_fh "=over\n\n";
+        foreach my $method ( sort keys %{$path_data} ) {
+            next if $method eq 'description' || $method eq 'parameters';
+            my $method_data  = $path_data->{$method};
+            my $method_upper = uc $method;
+            if ( defined $method_data->{summary} && $method_data->{summary} ne '' ) {
+                print $index_fh "=item $method_upper - $method_data->{summary}\n\n";
+            } else {
+                print $index_fh "=item $method_upper - No summary available.\n\n";
+            }
+        }
+        print $index_fh "=back\n\n";
+
+        print $index_fh "See $pod_link for more details.\n\n";
     }
-    print $index_fh "=back\n\n";
 
-    print $index_fh "See $pod_link for more details.\n\n";
+    print $index_fh "=cut\n";
+
+    close $index_fh;
 }
-
-print $index_fh "=cut\n";
-
-close $index_fh;
