@@ -3,20 +3,22 @@
 use strict;
 use warnings;
 use experimental 'signatures';
-use YAML::XS qw(LoadFile);     # Changed back to YAML::XS
+use YAML::XS qw(LoadFile);
 use Path::Tiny;
+use JSON::PP;
+use Carp  qw(croak);
+use Clone qw(clone);
 
 # --- Configuration ---
-my $openapi_file     = path('share/openapi.yaml');
+my $openapi_file    = path('share/openapi.yaml');
 my $output_base_dir = path( 'lib', 'OpenAPI', 'Client', 'OpenAI', 'Path' );
 my $main_index_file = $output_base_dir->sibling('Path.pod');
 
-# --- Load and Parse OpenAPI Specification ---
-my $openapi;
-eval { $openapi = LoadFile($openapi_file); };
-die "Could not read or parse '$openapi_file': $@" if $@;
+# --- Load and Preprocess OpenAPI Specification ---
+my $openapi          = LoadFile($openapi_file);
+my $resolved_openapi = preprocess_openapi( clone($openapi) );    # Clone to avoid modifying the original
 
-die "Failed to parse OpenAPI specification (root element not found)" unless defined $openapi->{paths};
+die "Failed to parse OpenAPI specification (root element not found)" unless defined $resolved_openapi->{paths};
 
 # --- Prepare Output Directory ---
 $output_base_dir->mkpath( { parents => 1 } ) unless $output_base_dir->is_dir;
@@ -24,20 +26,83 @@ $output_base_dir->mkpath( { parents => 1 } ) unless $output_base_dir->is_dir;
 # --- Generate Individual Path POD Files ---
 my %path_index_entries;
 
-foreach my $path ( sort keys %{ $openapi->{paths} } ) {
-    write_documentation_for_path( $openapi, $path, $output_base_dir, \%path_index_entries );
+foreach my $path ( sort keys %{ $resolved_openapi->{paths} } ) {
+    write_documentation_for_path( $resolved_openapi, $path, $output_base_dir, \%path_index_entries );
 }
 
-write_index( $main_index_file, \%path_index_entries, $openapi );
+write_index( $main_index_file, \%path_index_entries, $resolved_openapi );
 
-sub write_documentation_for_path ( $openapi, $path, $output_base_dir, $path_index_entries ) {
+sub preprocess_openapi ($openapi) {
+    # expand all references
+    my $cloned = clone($openapi);
 
-    my $path_data             = $openapi->{paths}->{$path};
+    # Don't delete components because they can refer to other components
+    my $components = $cloned->{components};
+    _recursively_find_references( $components, $cloned );
+    return $cloned;
+}
+
+# walks through the OpenAPI spec and resolves all references.
+sub _recursively_find_references ( $components, $resolved ) {
+    return unless ref $resolved;
+    if ( 'ARRAY' eq ref $resolved ) {
+        foreach my $item ( $resolved->@* ) {
+            _recursively_find_references( $components, $item );
+        }
+    } elsif ( 'HASH' eq ref $resolved ) {
+        if ( exists $resolved->{'$ref'} ) {
+            my $reference = _resolve_reference( $components, delete $resolved->{'$ref'} );
+            $resolved->%* = ( %{$reference}, %{$resolved} );    # Merge reference into current hash
+        }
+    KEY: foreach my $key ( sort keys $resolved->%* ) {
+            my $item = $resolved->{$key};
+            if ( 'x-oaiMeta' eq $key ) {
+                delete $resolved->{$key};
+                next KEY;
+            }
+            _recursively_find_references( $components, $item );
+        }
+    }
+}
+
+sub _resolve_reference ( $components, $ref ) {
+    my ( undef, undef, $type, $name ) = split '/', $ref;
+    return $components->{$type}{$name} || croak "Could not resolve $ref";
+}
+
+sub get_example_from_schema ($schema) {
+    if ( defined $schema->{example} ) {
+        return $schema->{example};
+    } elsif ( defined $schema->{properties} ) {
+        my %example;
+        for my $property_name ( keys %{ $schema->{properties} } ) {
+            my $property_schema = $schema->{properties}->{$property_name};
+            if ( defined $property_schema->{example} ) {
+                $example{$property_name} = $property_schema->{example};
+            } elsif ( defined $property_schema->{type}
+                && $property_schema->{type} eq 'array'
+                && defined $property_schema->{items} ) {
+                $example{$property_name} = [ get_example_from_schema( $property_schema->{items} ) ];
+            } elsif ( defined $property_schema->{type}
+                && $property_schema->{type} eq 'object'
+                && defined $property_schema->{properties} ) {
+                $example{$property_name} = get_example_from_schema($property_schema);
+            }
+        }
+        return \%example if %example;
+    } elsif ( defined $schema->{type} && $schema->{type} eq 'array' && defined $schema->{items} ) {
+        return [ get_example_from_schema( $schema->{items} ) ] if defined $schema->{items};
+    }
+    return undef;
+}
+
+sub write_documentation_for_path ( $resolved_openapi, $path, $output_base_dir, $path_index_entries ) {
+    my $path_data              = $resolved_openapi->{paths}->{$path};
     my $sanitized_path_segment = $path;
-    $sanitized_path_segment =~ s{^/+}{};        # Remove leading slashes
-    $sanitized_path_segment =~ s{[/{}]}{-}g;    # Replace slashes and curly braces with hyphens
-    $sanitized_path_segment =~ s{-+$}{};        # Remove trailing hyphens
-    $sanitized_path_segment =~ s{--}{-}g;       # Collapse multiple hyphens
+    $sanitized_path_segment =~ s{^/+}{};
+    $sanitized_path_segment =~ s{[/{}]}{-}g;
+    $sanitized_path_segment =~ s{-+$}{};
+    $sanitized_path_segment =~ s{--}{-}g;
 
     my $output_file = $output_base_dir->child("$sanitized_path_segment.pod");
 
@@ -61,10 +126,11 @@ $path_data->{description}
 POD
         }
 
+        my $json = JSON::PP->new->pretty;
         foreach my $method ( sort keys %{$path_data} ) {
-            next if $method eq 'description' || $method eq 'parameters';    # Skip non-method keys
+            next if $method eq 'description' || $method eq 'parameters';
 
-            my $method_data = $path_data->{$method};
+            my $method_data  = $path_data->{$method};
             my $method_upper = uc $method;
 
             $output_file->append(<<POD);
@@ -135,7 +201,7 @@ POD
 POD
             }
 
-            # Add request body documentation
+            # Add request body documentation with examples
             if ( defined $method_data->{requestBody} && defined $method_data->{requestBody}->{content} ) {
                 $output_file->append(<<POD);
 
@@ -144,29 +210,29 @@ POD
 POD
                 foreach my $content_type ( sort keys %{ $method_data->{requestBody}->{content} } ) {
                     $output_file->append(<<POD);
-=head4 Content Type: C<$content_type>
+=head3 Content Type: C<$content_type>
 
 POD
                     if ( defined $method_data->{requestBody}->{content}->{$content_type}->{schema} ) {
                         my $schema = $method_data->{requestBody}->{content}->{$content_type}->{schema};
-                        if ( defined $schema->{type} ) {
+
+                        if ( defined( my $example = get_example_from_schema($schema) ) ) {
+                            my $example_json = $json->encode($example);
+                            # prepend each line with four spaces
+                            $example_json =~ s/^/    /gm;
                             $output_file->append(<<POD);
-Type: C<$schema->{type}>
+
+=head3 Example:
+
+$example_json
 
 POD
-                        }
-                        if ( defined $schema->{properties} ) {
-                            $output_file->append(<<POD);
-Properties: (See schema for details)
-
-POD
-                            # You could add more detailed schema info here if needed
                         }
                     }
                 }
             }
 
-            # Add responses documentation
+            # Add responses documentation with examples
             if ( defined $method_data->{responses} ) {
                 $output_file->append(<<POD);
 
@@ -176,7 +242,7 @@ POD
                 foreach my $status_code ( sort keys %{ $method_data->{responses} } ) {
                     my $response = $method_data->{responses}->{$status_code};
                     $output_file->append(<<POD);
-=head4 Status Code: C<$status_code>
+=head3 Status Code: C<$status_code>
 
 POD
                     if ( defined $response->{description} ) {
@@ -195,7 +261,22 @@ POD
 * C<$content_type>
 
 POD
-                            # You could add schema details for responses as well
+                            if ( defined $response->{content}->{$content_type}->{schema} ) {
+                                my $schema = $response->{content}->{$content_type}->{schema};
+
+                                if ( defined( my $example = get_example_from_schema($schema) ) ) {
+                                    my $example_json = $json->encode($example);
+                                    # prepend each line with four spaces
+                                    $example_json =~ s/^/    /gm;
+                                    $output_file->append(<<POD);
+
+=head3 Example:
+
+$example_json
+
+POD
+                                }
+                            }
                         }
                     }
                 }
@@ -227,8 +308,7 @@ POD
     };
 }
 
-sub write_index ( $main_index_file, $path_index_entries, $openapi ) {
-
+sub write_index ( $main_index_file, $path_index_entries, $resolved_openapi ) {
     open my $index_fh, '>', $main_index_file or die "Could not open '$main_index_file': $!";
 
     print $index_fh "=encoding utf8\n\n";
@@ -245,7 +325,7 @@ sub write_index ( $main_index_file, $path_index_entries, $openapi ) {
     foreach my $path ( sort keys %$path_index_entries ) {
         my $entry     = $path_index_entries->{$path};
         my $pod_link  = "L<OpenAPI::Client::OpenAI::Path::$entry->{filename}>";
-        my $path_data = $openapi->{paths}->{$path};
+        my $path_data = $resolved_openapi->{paths}->{$path};
 
         print $index_fh "=head2 C<$path>\n\n";
 
@@ -256,7 +336,7 @@ sub write_index ( $main_index_file, $path_index_entries, $openapi ) {
         print $index_fh "=over\n\n";
         foreach my $method ( sort keys %{$path_data} ) {
             next if $method eq 'description' || $method eq 'parameters';
-            my $method_data = $path_data->{$method};
+            my $method_data  = $path_data->{$method};
             my $method_upper = uc $method;
             if ( defined $method_data->{summary} && $method_data->{summary} ne '' ) {
                 print $index_fh "=item * C<$method_upper> - $method_data->{summary}\n\n";
