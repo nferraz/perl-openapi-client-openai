@@ -1,0 +1,130 @@
+=encoding utf8
+
+=head1 NAME
+
+OpenAPI::Client::OpenAI::Path::batches - Documentation for the /batches path.
+
+=head1 DESCRIPTION
+
+This document describes the API endpoint at C</batches>.
+
+See the C<examples/> directory in the distribution for examples of how to use this.
+
+=head2 C<GET /batches>
+
+List your organization's batches.
+
+=head3 Operation ID
+
+C<listBatches>
+
+    $client->listBatches( ... );
+
+=head3 Parameters
+
+=over 4
+
+=item * C<after> (in query) (Optional) - A cursor for use in pagination. `after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call can include after=obj_foo in order to fetch the next page of the list.
+
+Type: C<string>
+
+=item * C<limit> (in query) (Optional) - A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 20.
+
+Type: C<integer>
+
+Default: C<20>
+
+
+=back
+
+
+=head3 Responses
+
+=head3 Status Code: C<200>
+
+Batch listed successfully.
+
+Content Types:
+
+=over 4
+
+=item * C<application/json>
+
+Example:
+
+    {
+       "first_id" : "batch_abc123",
+       "last_id" : "batch_abc456",
+       "data" : [
+          {
+             "errors" : {
+                "data" : [
+                   null
+                ]
+             },
+             "request_counts" : null
+          }
+       ]
+    }
+
+
+
+=back
+
+=head2 C<POST /batches>
+
+Creates and executes a batch from an uploaded file of requests
+
+=head3 Operation ID
+
+C<createBatch>
+
+    $client->createBatch( ... );
+
+
+=head3 Request Body
+
+=head3 Content Type: C<application/json>
+
+
+=head3 Responses
+
+=head3 Status Code: C<200>
+
+Batch created successfully.
+
+Content Types:
+
+=over 4
+
+=item * C<application/json>
+
+Example:
+
+    {
+       "errors" : {
+          "data" : [
+             null
+          ]
+       },
+       "request_counts" : null
+    }
+
+
+
+=back
+
+
+=head1 SEE ALSO
+
+L<OpenAPI::Client::OpenAI::Path>
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright (C) 2023-2025 by Nelson Ferraz
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself, either Perl version 5.14.0 or,
+at your option, any later version of Perl 5 you may have available.
+
+=cut

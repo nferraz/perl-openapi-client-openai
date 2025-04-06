@@ -1,0 +1,308 @@
+=encoding utf8
+
+=head1 NAME
+
+OpenAPI::Client::OpenAI::Path::chat-completions - Documentation for the /chat/completions path.
+
+=head1 DESCRIPTION
+
+This document describes the API endpoint at C</chat/completions>.
+
+See the C<examples/> directory in the distribution for examples of how to use this.
+
+=head2 C<GET /chat/completions>
+
+List stored Chat Completions. Only Chat Completions that have been stored
+with the `store` parameter set to `true` will be returned.
+
+
+=head3 Operation ID
+
+C<listChatCompletions>
+
+    $client->listChatCompletions( ... );
+
+=head3 Parameters
+
+=over 4
+
+=item * C<model> (in query) (Optional) - The model used to generate the Chat Completions.
+Type: C<string>
+
+=item * C<metadata> (in query) (Optional) - A list of metadata keys to filter the Chat Completions by. Example:
+
+`metadata[key1]=value1&metadata[key2]=value2`
+
+Type: C<object>
+
+=item * C<after> (in query) (Optional) - Identifier for the last chat completion from the previous pagination request.
+Type: C<string>
+
+=item * C<limit> (in query) (Optional) - Number of Chat Completions to retrieve.
+Type: C<integer>
+
+Default: C<20>
+
+=item * C<order> (in query) (Optional) - Sort order for Chat Completions by timestamp. Use `asc` for ascending order or `desc` for descending order. Defaults to `asc`.
+Type: C<string>
+
+Possible values: C<asc desc>
+
+Default: C<asc>
+
+
+=back
+
+
+=head3 Responses
+
+=head3 Status Code: C<200>
+
+A list of Chat Completions
+
+Content Types:
+
+=over 4
+
+=item * C<application/json>
+
+Example:
+
+    {
+       "data" : [
+          {
+             "service_tier" : "scale",
+             "usage" : {
+                "completion_tokens_details" : null,
+                "prompt_tokens_details" : null
+             },
+             "choices" : [
+                {
+                   "message" : {
+                      "tool_calls" : [
+                         {
+                            "function" : null
+                         }
+                      ],
+                      "audio" : null,
+                      "function_call" : null,
+                      "annotations" : [
+                         {
+                            "url_citation" : null
+                         }
+                      ]
+                   },
+                   "logprobs" : {
+                      "content" : [
+                         {
+                            "top_logprobs" : [
+                               {
+                                  "bytes" : [
+                                     null
+                                  ]
+                               }
+                            ],
+                            "bytes" : [
+                               null
+                            ]
+                         }
+                      ],
+                      "refusal" : [
+                         {
+                            "bytes" : [
+                               null
+                            ],
+                            "top_logprobs" : [
+                               {
+                                  "bytes" : [
+                                     null
+                                  ]
+                               }
+                            ]
+                         }
+                      ]
+                   }
+                }
+             ]
+          }
+       ]
+    }
+
+
+
+=back
+
+=head2 C<POST /chat/completions>
+
+**Starting a new project?** We recommend trying [Responses](/docs/api-reference/responses) 
+to take advantage of the latest OpenAI platform features. Compare
+[Chat Completions with Responses](/docs/guides/responses-vs-chat-completions?api-mode=responses).
+
+---
+
+Creates a model response for the given chat conversation. Learn more in the
+[text generation](/docs/guides/text-generation), [vision](/docs/guides/vision),
+and [audio](/docs/guides/audio) guides.
+
+Parameter support can differ depending on the model used to generate the
+response, particularly for newer reasoning models. Parameters that are only
+supported for reasoning models are noted below. For the current state of 
+unsupported parameters in reasoning models, 
+[refer to the reasoning guide](/docs/guides/reasoning).
+
+
+=head3 Operation ID
+
+C<createChatCompletion>
+
+    $client->createChatCompletion( ... );
+
+
+=head3 Request Body
+
+=head3 Content Type: C<application/json>
+
+
+=head3 Responses
+
+=head3 Status Code: C<200>
+
+OK
+
+Content Types:
+
+=over 4
+
+=item * C<application/json>
+
+Example:
+
+    {
+       "service_tier" : "scale",
+       "choices" : [
+          {
+             "logprobs" : {
+                "content" : [
+                   {
+                      "top_logprobs" : [
+                         {
+                            "bytes" : [
+                               null
+                            ]
+                         }
+                      ],
+                      "bytes" : [
+                         null
+                      ]
+                   }
+                ],
+                "refusal" : [
+                   {
+                      "top_logprobs" : [
+                         {
+                            "bytes" : [
+                               null
+                            ]
+                         }
+                      ],
+                      "bytes" : [
+                         null
+                      ]
+                   }
+                ]
+             },
+             "message" : {
+                "tool_calls" : [
+                   {
+                      "function" : null
+                   }
+                ],
+                "audio" : null,
+                "function_call" : null,
+                "annotations" : [
+                   {
+                      "url_citation" : null
+                   }
+                ]
+             }
+          }
+       ],
+       "usage" : {
+          "prompt_tokens_details" : null,
+          "completion_tokens_details" : null
+       }
+    }
+
+
+=item * C<text/event-stream>
+
+Example:
+
+    {
+       "choices" : [
+          {
+             "delta" : {
+                "tool_calls" : [
+                   {
+                      "function" : null
+                   }
+                ],
+                "function_call" : null
+             },
+             "logprobs" : {
+                "refusal" : [
+                   {
+                      "bytes" : [
+                         null
+                      ],
+                      "top_logprobs" : [
+                         {
+                            "bytes" : [
+                               null
+                            ]
+                         }
+                      ]
+                   }
+                ],
+                "content" : [
+                   {
+                      "top_logprobs" : [
+                         {
+                            "bytes" : [
+                               null
+                            ]
+                         }
+                      ],
+                      "bytes" : [
+                         null
+                      ]
+                   }
+                ]
+             }
+          }
+       ],
+       "usage" : {
+          "prompt_tokens_details" : null,
+          "completion_tokens_details" : null
+       },
+       "service_tier" : "scale"
+    }
+
+
+
+=back
+
+
+=head1 SEE ALSO
+
+L<OpenAPI::Client::OpenAI::Path>
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright (C) 2023-2025 by Nelson Ferraz
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself, either Perl version 5.14.0 or,
+at your option, any later version of Perl 5 you may have available.
+
+=cut

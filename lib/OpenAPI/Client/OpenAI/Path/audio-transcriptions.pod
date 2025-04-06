@@ -1,0 +1,71 @@
+=encoding utf8
+
+=head1 NAME
+
+OpenAPI::Client::OpenAI::Path::audio-transcriptions - Documentation for the /audio/transcriptions path.
+
+=head1 DESCRIPTION
+
+This document describes the API endpoint at C</audio/transcriptions>.
+
+See the C<examples/> directory in the distribution for examples of how to use this.
+
+=head2 C<POST /audio/transcriptions>
+
+Transcribes audio into the input language.
+
+=head3 Operation ID
+
+C<createTranscription>
+
+    $client->createTranscription( ... );
+
+
+=head3 Request Body
+
+=head3 Content Type: C<multipart/form-data>
+
+
+=head3 Example:
+
+    {
+       "include[]" : [
+          null
+       ],
+       "timestamp_granularities[]" : [
+          null
+       ],
+       "model" : "gpt-4o-transcribe"
+    }
+
+
+
+=head3 Responses
+
+=head3 Status Code: C<200>
+
+OK
+
+Content Types:
+
+=over 4
+
+=item * C<application/json>
+=item * C<text/event-stream>
+
+=back
+
+
+=head1 SEE ALSO
+
+L<OpenAPI::Client::OpenAI::Path>
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright (C) 2023-2025 by Nelson Ferraz
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself, either Perl version 5.14.0 or,
+at your option, any later version of Perl 5 you may have available.
+
+=cut
