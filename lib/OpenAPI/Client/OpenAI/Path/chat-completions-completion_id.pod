@@ -1,0 +1,263 @@
+=encoding utf8
+
+=head1 NAME
+
+OpenAPI::Client::OpenAI::Path::chat-completions-completion_id - Documentation for the /chat/completions/{completion_id} path.
+
+=head1 DESCRIPTION
+
+This document describes the API endpoint at C</chat/completions/{completion_id}>.
+
+See the C<examples/> directory in the distribution for examples of how to use this.
+
+=head2 C<DELETE /chat/completions/{completion_id}>
+
+Delete a stored chat completion. Only Chat Completions that have been
+created with the `store` parameter set to `true` can be deleted.
+
+
+=head3 Operation ID
+
+C<deleteChatCompletion>
+
+    $client->deleteChatCompletion( ... );
+
+=head3 Parameters
+
+=over 4
+
+=item * C<completion_id> (in path) (Required) - The ID of the chat completion to delete.
+Type: C<string>
+
+
+=back
+
+
+=head3 Responses
+
+=head3 Status Code: C<200>
+
+The chat completion was deleted successfully.
+
+Content Types:
+
+=over 4
+
+=item * C<application/json>
+
+=back
+
+=head2 C<GET /chat/completions/{completion_id}>
+
+Get a stored chat completion. Only Chat Completions that have been created
+with the `store` parameter set to `true` will be returned.
+
+
+=head3 Operation ID
+
+C<getChatCompletion>
+
+    $client->getChatCompletion( ... );
+
+=head3 Parameters
+
+=over 4
+
+=item * C<completion_id> (in path) (Required) - The ID of the chat completion to retrieve.
+Type: C<string>
+
+
+=back
+
+
+=head3 Responses
+
+=head3 Status Code: C<200>
+
+A chat completion
+
+Content Types:
+
+=over 4
+
+=item * C<application/json>
+
+Example:
+
+    {
+       "usage" : {
+          "completion_tokens_details" : null,
+          "prompt_tokens_details" : null
+       },
+       "choices" : [
+          {
+             "logprobs" : {
+                "refusal" : [
+                   {
+                      "top_logprobs" : [
+                         {
+                            "bytes" : [
+                               null
+                            ]
+                         }
+                      ],
+                      "bytes" : [
+                         null
+                      ]
+                   }
+                ],
+                "content" : [
+                   {
+                      "top_logprobs" : [
+                         {
+                            "bytes" : [
+                               null
+                            ]
+                         }
+                      ],
+                      "bytes" : [
+                         null
+                      ]
+                   }
+                ]
+             },
+             "message" : {
+                "function_call" : null,
+                "tool_calls" : [
+                   {
+                      "function" : null
+                   }
+                ],
+                "audio" : null,
+                "annotations" : [
+                   {
+                      "url_citation" : null
+                   }
+                ]
+             }
+          }
+       ],
+       "service_tier" : "scale"
+    }
+
+
+
+=back
+
+=head2 C<POST /chat/completions/{completion_id}>
+
+Modify a stored chat completion. Only Chat Completions that have been
+created with the `store` parameter set to `true` can be modified. Currently,
+the only supported modification is to update the `metadata` field.
+
+
+=head3 Operation ID
+
+C<updateChatCompletion>
+
+    $client->updateChatCompletion( ... );
+
+=head3 Parameters
+
+=over 4
+
+=item * C<completion_id> (in path) (Required) - The ID of the chat completion to update.
+Type: C<string>
+
+
+=back
+
+
+=head3 Request Body
+
+=head3 Content Type: C<application/json>
+
+
+=head3 Responses
+
+=head3 Status Code: C<200>
+
+A chat completion
+
+Content Types:
+
+=over 4
+
+=item * C<application/json>
+
+Example:
+
+    {
+       "choices" : [
+          {
+             "message" : {
+                "function_call" : null,
+                "tool_calls" : [
+                   {
+                      "function" : null
+                   }
+                ],
+                "audio" : null,
+                "annotations" : [
+                   {
+                      "url_citation" : null
+                   }
+                ]
+             },
+             "logprobs" : {
+                "refusal" : [
+                   {
+                      "top_logprobs" : [
+                         {
+                            "bytes" : [
+                               null
+                            ]
+                         }
+                      ],
+                      "bytes" : [
+                         null
+                      ]
+                   }
+                ],
+                "content" : [
+                   {
+                      "top_logprobs" : [
+                         {
+                            "bytes" : [
+                               null
+                            ]
+                         }
+                      ],
+                      "bytes" : [
+                         null
+                      ]
+                   }
+                ]
+             }
+          }
+       ],
+       "usage" : {
+          "prompt_tokens_details" : null,
+          "completion_tokens_details" : null
+       },
+       "service_tier" : "scale"
+    }
+
+
+
+=back
+
+
+=head1 SEE ALSO
+
+L<OpenAPI::Client::OpenAI::Path>
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright (C) 2023-2025 by Nelson Ferraz
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself, either Perl version 5.14.0 or,
+at your option, any later version of Perl 5 you may have available.
+
+=cut

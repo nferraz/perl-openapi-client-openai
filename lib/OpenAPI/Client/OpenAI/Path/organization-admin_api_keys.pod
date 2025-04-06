@@ -1,0 +1,161 @@
+=encoding utf8
+
+=head1 NAME
+
+OpenAPI::Client::OpenAI::Path::organization-admin_api_keys - Documentation for the /organization/admin_api_keys path.
+
+=head1 DESCRIPTION
+
+This document describes the API endpoint at C</organization/admin_api_keys>.
+
+See the C<examples/> directory in the distribution for examples of how to use this.
+
+=head2 C<GET /organization/admin_api_keys>
+
+List organization API keys
+
+Retrieve a paginated list of organization admin API keys.
+=head3 Operation ID
+
+C<admin-api-keys-list>
+
+    $client->admin-api-keys-list( ... );
+
+=head3 Parameters
+
+=over 4
+
+=item * C<after> (in query) (Optional) - No description available.
+Type: C<string>
+
+=item * C<order> (in query) (Optional) - No description available.
+Type: C<string>
+
+Possible values: C<asc desc>
+
+Default: C<asc>
+
+=item * C<limit> (in query) (Optional) - No description available.
+Type: C<integer>
+
+Default: C<20>
+
+
+=back
+
+
+=head3 Responses
+
+=head3 Status Code: C<200>
+
+A list of organization API keys.
+
+Content Types:
+
+=over 4
+
+=item * C<application/json>
+
+Example:
+
+    {
+       "object" : "list",
+       "data" : [
+          {
+             "owner" : {
+                "id" : "sa_456",
+                "type" : "service_account",
+                "role" : "member",
+                "name" : "My Service Account",
+                "created_at" : 1711471533
+             },
+             "name" : "Administration Key",
+             "redacted_value" : "sk-admin...def",
+             "object" : "organization.admin_api_key",
+             "created_at" : 1711471533,
+             "id" : "key_abc",
+             "value" : "sk-admin-1234abcd"
+          }
+       ],
+       "has_more" : false,
+       "first_id" : "key_abc",
+       "last_id" : "key_xyz"
+    }
+
+
+
+=back
+
+=head2 C<POST /organization/admin_api_keys>
+
+Create an organization admin API key
+
+Create a new admin-level API key for the organization.
+=head3 Operation ID
+
+C<admin-api-keys-create>
+
+    $client->admin-api-keys-create( ... );
+
+
+=head3 Request Body
+
+=head3 Content Type: C<application/json>
+
+
+=head3 Example:
+
+    {
+       "name" : "New Admin Key"
+    }
+
+
+
+=head3 Responses
+
+=head3 Status Code: C<200>
+
+The newly created admin API key.
+
+Content Types:
+
+=over 4
+
+=item * C<application/json>
+
+Example:
+
+    {
+       "value" : "sk-admin-1234abcd",
+       "id" : "key_abc",
+       "name" : "Administration Key",
+       "owner" : {
+          "created_at" : 1711471533,
+          "name" : "My Service Account",
+          "role" : "member",
+          "id" : "sa_456",
+          "type" : "service_account"
+       },
+       "redacted_value" : "sk-admin...def",
+       "created_at" : 1711471533,
+       "object" : "organization.admin_api_key"
+    }
+
+
+
+=back
+
+
+=head1 SEE ALSO
+
+L<OpenAPI::Client::OpenAI::Path>
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright (C) 2023-2025 by Nelson Ferraz
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself, either Perl version 5.14.0 or,
+at your option, any later version of Perl 5 you may have available.
+
+=cut

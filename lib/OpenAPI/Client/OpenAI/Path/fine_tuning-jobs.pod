@@ -1,0 +1,186 @@
+=encoding utf8
+
+=head1 NAME
+
+OpenAPI::Client::OpenAI::Path::fine_tuning-jobs - Documentation for the /fine_tuning/jobs path.
+
+=head1 DESCRIPTION
+
+This document describes the API endpoint at C</fine_tuning/jobs>.
+
+See the C<examples/> directory in the distribution for examples of how to use this.
+
+=head2 C<GET /fine_tuning/jobs>
+
+List your organization's fine-tuning jobs
+
+
+=head3 Operation ID
+
+C<listPaginatedFineTuningJobs>
+
+    $client->listPaginatedFineTuningJobs( ... );
+
+=head3 Parameters
+
+=over 4
+
+=item * C<after> (in query) (Optional) - Identifier for the last job from the previous pagination request.
+Type: C<string>
+
+=item * C<limit> (in query) (Optional) - Number of fine-tuning jobs to retrieve.
+Type: C<integer>
+
+Default: C<20>
+
+=item * C<metadata> (in query) (Optional) - Optional metadata filter. To filter, use the syntax `metadata[k]=v`. Alternatively, set `metadata=null` to indicate no metadata.
+
+Type: C<object>
+
+
+=back
+
+
+=head3 Responses
+
+=head3 Status Code: C<200>
+
+OK
+
+Content Types:
+
+=over 4
+
+=item * C<application/json>
+
+Example:
+
+    {
+       "data" : [
+          {
+             "method" : {
+                "dpo" : {
+                   "hyperparameters" : null
+                },
+                "supervised" : {
+                   "hyperparameters" : null
+                }
+             },
+             "result_files" : [
+                "file-abc123"
+             ],
+             "error" : null,
+             "integrations" : [
+                null
+             ],
+             "hyperparameters" : null
+          }
+       ]
+    }
+
+
+
+=back
+
+=head2 C<POST /fine_tuning/jobs>
+
+Creates a fine-tuning job which begins the process of creating a new model from a given dataset.
+
+Response includes details of the enqueued job including job status and the name of the fine-tuned models once complete.
+
+[Learn more about fine-tuning](/docs/guides/fine-tuning)
+
+
+=head3 Operation ID
+
+C<createFineTuningJob>
+
+    $client->createFineTuningJob( ... );
+
+
+=head3 Request Body
+
+=head3 Content Type: C<application/json>
+
+
+=head3 Example:
+
+    {
+       "integrations" : [
+          {
+             "wandb" : {
+                "tags" : [
+                   "custom-tag"
+                ],
+                "project" : "my-wandb-project"
+             }
+          }
+       ],
+       "hyperparameters" : null,
+       "validation_file" : "file-abc123",
+       "seed" : 42,
+       "model" : "gpt-4o-mini",
+       "training_file" : "file-abc123",
+       "method" : {
+          "dpo" : {
+             "hyperparameters" : null
+          },
+          "supervised" : {
+             "hyperparameters" : null
+          }
+       }
+    }
+
+
+
+=head3 Responses
+
+=head3 Status Code: C<200>
+
+OK
+
+Content Types:
+
+=over 4
+
+=item * C<application/json>
+
+Example:
+
+    {
+       "hyperparameters" : null,
+       "integrations" : [
+          null
+       ],
+       "error" : null,
+       "result_files" : [
+          "file-abc123"
+       ],
+       "method" : {
+          "dpo" : {
+             "hyperparameters" : null
+          },
+          "supervised" : {
+             "hyperparameters" : null
+          }
+       }
+    }
+
+
+
+=back
+
+
+=head1 SEE ALSO
+
+L<OpenAPI::Client::OpenAI::Path>
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright (C) 2023-2025 by Nelson Ferraz
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself, either Perl version 5.14.0 or,
+at your option, any later version of Perl 5 you may have available.
+
+=cut

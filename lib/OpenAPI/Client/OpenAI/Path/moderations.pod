@@ -1,0 +1,120 @@
+=encoding utf8
+
+=head1 NAME
+
+OpenAPI::Client::OpenAI::Path::moderations - Documentation for the /moderations path.
+
+=head1 DESCRIPTION
+
+This document describes the API endpoint at C</moderations>.
+
+See the C<examples/> directory in the distribution for examples of how to use this.
+
+=head2 C<POST /moderations>
+
+Classifies if text and/or image inputs are potentially harmful. Learn
+more in the [moderation guide](/docs/guides/moderation).
+
+
+=head3 Operation ID
+
+C<createModeration>
+
+    $client->createModeration( ... );
+
+
+=head3 Request Body
+
+=head3 Content Type: C<application/json>
+
+
+=head3 Example:
+
+    {
+       "model" : "omni-moderation-2024-09-26"
+    }
+
+
+
+=head3 Responses
+
+=head3 Status Code: C<200>
+
+OK
+
+Content Types:
+
+=over 4
+
+=item * C<application/json>
+
+Example:
+
+    {
+       "results" : [
+          {
+             "category_scores" : null,
+             "category_applied_input_types" : {
+                "harassment" : [
+                   null
+                ],
+                "self-harm/instructions" : [
+                   null
+                ],
+                "hate/threatening" : [
+                   null
+                ],
+                "illicit/violent" : [
+                   null
+                ],
+                "violence" : [
+                   null
+                ],
+                "sexual/minors" : [
+                   null
+                ],
+                "illicit" : [
+                   null
+                ],
+                "hate" : [
+                   null
+                ],
+                "self-harm" : [
+                   null
+                ],
+                "harassment/threatening" : [
+                   null
+                ],
+                "self-harm/intent" : [
+                   null
+                ],
+                "sexual" : [
+                   null
+                ],
+                "violence/graphic" : [
+                   null
+                ]
+             },
+             "categories" : null
+          }
+       ]
+    }
+
+
+
+=back
+
+
+=head1 SEE ALSO
+
+L<OpenAPI::Client::OpenAI::Path>
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright (C) 2023-2025 by Nelson Ferraz
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself, either Perl version 5.14.0 or,
+at your option, any later version of Perl 5 you may have available.
+
+=cut

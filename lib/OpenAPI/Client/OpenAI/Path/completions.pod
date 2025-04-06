@@ -1,0 +1,99 @@
+=encoding utf8
+
+=head1 NAME
+
+OpenAPI::Client::OpenAI::Path::completions - Documentation for the /completions path.
+
+=head1 DESCRIPTION
+
+This document describes the API endpoint at C</completions>.
+
+See the C<examples/> directory in the distribution for examples of how to use this.
+
+=head2 C<POST /completions>
+
+Creates a completion for the provided prompt and parameters.
+
+=head3 Operation ID
+
+C<createCompletion>
+
+    $client->createCompletion( ... );
+
+
+=head3 Request Body
+
+=head3 Content Type: C<application/json>
+
+
+=head3 Example:
+
+    {
+       "user" : "user-1234",
+       "temperature" : 1,
+       "n" : 1,
+       "top_p" : 1,
+       "suffix" : "test.",
+       "stream_options" : null,
+       "max_tokens" : 16
+    }
+
+
+
+=head3 Responses
+
+=head3 Status Code: C<200>
+
+OK
+
+Content Types:
+
+=over 4
+
+=item * C<application/json>
+
+Example:
+
+    {
+       "usage" : {
+          "prompt_tokens_details" : null,
+          "completion_tokens_details" : null
+       },
+       "choices" : [
+          {
+             "logprobs" : {
+                "token_logprobs" : [
+                   null
+                ],
+                "tokens" : [
+                   null
+                ],
+                "top_logprobs" : [
+                   null
+                ],
+                "text_offset" : [
+                   null
+                ]
+             }
+          }
+       ]
+    }
+
+
+
+=back
+
+
+=head1 SEE ALSO
+
+L<OpenAPI::Client::OpenAI::Path>
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright (C) 2023-2025 by Nelson Ferraz
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself, either Perl version 5.14.0 or,
+at your option, any later version of Perl 5 you may have available.
+
+=cut

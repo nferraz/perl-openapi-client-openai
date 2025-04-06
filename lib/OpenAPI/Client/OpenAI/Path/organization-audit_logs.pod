@@ -1,0 +1,165 @@
+=encoding utf8
+
+=head1 NAME
+
+OpenAPI::Client::OpenAI::Path::organization-audit_logs - Documentation for the /organization/audit_logs path.
+
+=head1 DESCRIPTION
+
+This document describes the API endpoint at C</organization/audit_logs>.
+
+See the C<examples/> directory in the distribution for examples of how to use this.
+
+=head2 C<GET /organization/audit_logs>
+
+List user actions and configuration changes within this organization.
+
+=head3 Operation ID
+
+C<list-audit-logs>
+
+    $client->list-audit-logs( ... );
+
+=head3 Parameters
+
+=over 4
+
+=item * C<effective_at> (in query) (Optional) - Return only events whose `effective_at` (Unix seconds) is in this range.
+Type: C<object>
+
+=item * C<project_ids[]> (in query) (Optional) - Return only events for these projects.
+Type: C<array>
+
+=item * C<event_types[]> (in query) (Optional) - Return only events with a `type` in one of these values. For example, `project.created`. For all options, see the documentation for the [audit log object](/docs/api-reference/audit-logs/object).
+Type: C<array>
+
+=item * C<actor_ids[]> (in query) (Optional) - Return only events performed by these actors. Can be a user ID, a service account ID, or an api key tracking ID.
+Type: C<array>
+
+=item * C<actor_emails[]> (in query) (Optional) - Return only events performed by users with these emails.
+Type: C<array>
+
+=item * C<resource_ids[]> (in query) (Optional) - Return only events performed on these targets. For example, a project ID updated.
+Type: C<array>
+
+=item * C<limit> (in query) (Optional) - A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 20.
+
+Type: C<integer>
+
+Default: C<20>
+
+=item * C<after> (in query) (Optional) - A cursor for use in pagination. `after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call can include after=obj_foo in order to fetch the next page of the list.
+
+Type: C<string>
+
+=item * C<before> (in query) (Optional) - A cursor for use in pagination. `before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with obj_foo, your subsequent call can include before=obj_foo in order to fetch the previous page of the list.
+
+Type: C<string>
+
+
+=back
+
+
+=head3 Responses
+
+=head3 Status Code: C<200>
+
+Audit logs listed successfully.
+
+Content Types:
+
+=over 4
+
+=item * C<application/json>
+
+Example:
+
+    {
+       "last_id" : "audit_log-hnbkd8s93s",
+       "first_id" : "audit_log-defb456h8dks",
+       "data" : [
+          {
+             "invite.accepted" : null,
+             "project" : null,
+             "invite.sent" : {
+                "data" : null
+             },
+             "rate_limit.deleted" : null,
+             "api_key.updated" : {
+                "changes_requested" : {
+                   "scopes" : [
+                      null
+                   ]
+                }
+             },
+             "service_account.created" : {
+                "data" : null
+             },
+             "project.archived" : null,
+             "user.updated" : {
+                "changes_requested" : null
+             },
+             "project.updated" : {
+                "changes_requested" : null
+             },
+             "api_key.created" : {
+                "data" : {
+                   "scopes" : [
+                      null
+                   ]
+                }
+             },
+             "user.deleted" : null,
+             "invite.deleted" : null,
+             "logout.failed" : null,
+             "organization.updated" : {
+                "changes_requested" : {
+                   "settings" : null
+                }
+             },
+             "project.created" : {
+                "data" : null
+             },
+             "user.added" : {
+                "data" : null
+             },
+             "service_account.deleted" : null,
+             "rate_limit.updated" : {
+                "changes_requested" : null
+             },
+             "service_account.updated" : {
+                "changes_requested" : null
+             },
+             "actor" : {
+                "session" : {
+                   "user" : null
+                },
+                "api_key" : {
+                   "service_account" : null,
+                   "user" : null
+                }
+             },
+             "login.failed" : null,
+             "api_key.deleted" : null
+          }
+       ]
+    }
+
+
+
+=back
+
+
+=head1 SEE ALSO
+
+L<OpenAPI::Client::OpenAI::Path>
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright (C) 2023-2025 by Nelson Ferraz
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself, either Perl version 5.14.0 or,
+at your option, any later version of Perl 5 you may have available.
+
+=cut
