@@ -79,6 +79,7 @@ sub _resolve_reference ( $components, $ref ) {
 
 sub get_example_from_schema ($schema) {
     if ( my $example = $schema->{'x-oaiMeta'}{example} ) {
+
         # FIXME: this is a nasty, nasty hack. x-oaiMeta is not part of the
         # OpenAPI spec, but it gives much better examples than trying to parse
         # manually. However, while those examples are easier to read and more
@@ -86,6 +87,7 @@ sub get_example_from_schema ($schema) {
         # and let the calling code handle it. Because this is a *recursive*
         # function, it's fragile, but so far, we only fine the x-oaiMeta key
         # at the top level, so we never hit recursion.
+
         return $example;
     }
     if ( defined $schema->{example} ) {
@@ -148,20 +150,19 @@ sub write_documentation_for_path ( $resolved_openapi, $path, $output_base_dir, $
         my $template = _path_template();
         my $json     = JSON::PP->new->pretty->canonical;
 
+        my %template_data = (
+            path                   => $path,
+            sanitized_path_segment => $sanitized_path_segment,
+            path_data              => $path_data,
+            year                   => (localtime)[5] + 1900,
+        );
         foreach my $method ( sort keys %{$path_data} ) {
             next if $method eq 'description' || $method eq 'parameters';
 
-            my $method_data   = $path_data->{$method};
-            my $method_upper  = uc $method;
-            my $operation_id  = $method_data->{operationId};
-            my %template_data = (
-                path                   => $path,
-                sanitized_path_segment => $sanitized_path_segment,
-                path_data              => $path_data,
-                operation_id           => $operation_id,
-                method_data            => $method_data,
-                year                   => (localtime)[5] + 1900,
-            );
+            my $method_data  = $path_data->{$method};
+            my $method_upper = uc $method;
+            my $operation_id = $method_data->{operationId};
+            $DB::single = 'listAssistants' eq $operation_id;
 
             $output_file->append("=head2 C<$method_upper $path>\n\n");
 
@@ -278,15 +279,16 @@ sub write_documentation_for_path ( $resolved_openapi, $path, $output_base_dir, $
                     }
                 }
             }
-            # FIXME This will become default behavior
-            if ( $template_data{operation_id} eq 'listAssistants' ) {
-                my $output;
-                $tt->process( \$template, \%template_data, \$output )
-                    or die "Template processing failed: " . $tt->error;
-                open my $fh, '>', 'assistants.pm' or die "Could not open assistants.pm': $!";
-                warn $template_data{method_data}{responses}{200}{content}{'application/json'}{schema}{example};
-                print $fh $output;
-            }
+        }
+        # FIXME This will become default behavior
+        if ( $template_data{path} eq '/assistants' ) {
+            my $output;
+            $tt->process( \$template, \%template_data, \$output )
+                or die "Template processing failed: " . $tt->error;
+            open my $fh, '>', 'assistants.pm' or die "Could not open assistants.pm': $!";
+            $DB::single = 1;
+            warn $template_data{path_data}{get}{responses}{200}{content}{'application/json'}{schema}{example};
+            print $fh $output;
         }
         $output_file->append(<<POD);
 
@@ -384,20 +386,21 @@ sub _path_template () {
     =head1 DESCRIPTION
     
     This document describes the API endpoint at C<[% path %]>.
-    
-    =head2 C<GET [% path %]>
-    
-    [% method_data.summary %]
 
+    =head1 PATHS
+    
+    [% FOREACH http_method IN path_data.keys.sort %]
+    =head2 C<[% http_method.upper %] [% path %]>
+    [% method_data = path_data.$http_method; method_data.summary %]
     [% IF method_data.description %]
     [% method_data.description %]
     [% END %]
     
     =head3 Operation ID
     
-    C<[% operation_id %]>
+    C<[% method_data.operationId %]>
     
-        $client->[% operation_id %]( ... );
+        $client->[% method_data.operationId %]( ... );
     
     =head3 Parameters
     
@@ -412,6 +415,23 @@ sub _path_template () {
     
     [% END # END FOREACH %]
     =back
+    [% IF method_data.requestBody %]
+    =head3 Request Body
+      [% FOREACH content_type IN method_data.requestBody.content.keys.sort %]
+    =head3 Content Type: C<[% content_type %]>
+    
+        [% IF method_data.requestBody.content.$content_type.schema %]
+          [% method_data.requestBody.content.$content_type.schema.description %]
+    
+          [% IF method_data.requestBody.content.$content_type.schema.example %]
+    Example:
+    
+            [% method_data.requestBody.content.$content_type.schema.example %]
+    
+          [% END # IF example -%]
+        [% END # end if requestBody.content -%]
+       [% END # FOREACH content_type -%]
+    [% END # end if method_data.requestBody -%]
     
     [% IF method_data.responses %]
     =head3 Responses
@@ -422,22 +442,22 @@ sub _path_template () {
     [% method_data.responses.$status_code.description %]
     
     [% IF method_data.responses.$status_code.content %]
-    Content Types:
+    =head3 Content Types:
     
     =over 4
     
     [% FOREACH content_type IN method_data.responses.$status_code.content.keys.sort %]
     =item * C<[% content_type %]>
     
-    Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>:
+    Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
     
     [% method_data.responses.$status_code.content.$content_type.schema.example %]
     
-    [% END # FOREACH content_type %]
-    [% END # end if status_code.content%]
-    [% END # end FOREACH status_code %]
-    [% END # if method_data.resposnes %] 
-    
+    [% END # FOREACH content_type -%]
+    [% END # end if status_code.content -%]
+    [% END # end FOREACH status_code -%]
+    [% END # if method_data.resposnes -%] 
+    [% END # end FOREACH http_method -%]
     
     =back
     
