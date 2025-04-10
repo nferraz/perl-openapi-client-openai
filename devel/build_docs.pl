@@ -48,14 +48,15 @@ sub preprocess_openapi ($openapi) {
 
 # walks through the OpenAPI spec and resolves all references.
 sub _recursively_find_references ( $components, $resolved ) {
+    state $cache = {};
     return unless ref $resolved;
     if ( 'ARRAY' eq ref $resolved ) {
         foreach my $item ( $resolved->@* ) {
             _recursively_find_references( $components, $item );
         }
     } elsif ( 'HASH' eq ref $resolved ) {
-        if ( exists $resolved->{'$ref'} ) {
-            my $reference = _resolve_reference( $components, delete $resolved->{'$ref'} );
+        if ( my $ref = $resolved->{'$ref'} ) {
+            my $reference = _resolve_reference( $components, $ref );
             $resolved->%* = ( %{$reference}, %{$resolved} );    # Merge reference into current hash
         }
     KEY: foreach my $key ( sort keys $resolved->%* ) {
