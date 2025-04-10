@@ -48,7 +48,12 @@ sub preprocess_openapi ($openapi) {
 
 # walks through the OpenAPI spec and resolves all references.
 sub _recursively_find_references ( $components, $resolved ) {
-    state $cache = {};
+
+    # Cache the references to avoid resolving them multiple times. The script
+    # was fast enough and memory efficient enough to not really need this, but
+    # we cut memory usage by more than half and improved speed an order of
+    # magnitude.
+    state $cached = {};
     return unless ref $resolved;
     if ( 'ARRAY' eq ref $resolved ) {
         foreach my $item ( $resolved->@* ) {
@@ -56,7 +61,7 @@ sub _recursively_find_references ( $components, $resolved ) {
         }
     } elsif ( 'HASH' eq ref $resolved ) {
         if ( my $ref = $resolved->{'$ref'} ) {
-            my $reference = _resolve_reference( $components, $ref );
+            my $reference = $cache->{$ref} //= _resolve_reference( $components, $ref );
             $resolved->%* = ( %{$reference}, %{$resolved} );    # Merge reference into current hash
         }
     KEY: foreach my $key ( sort keys $resolved->%* ) {
