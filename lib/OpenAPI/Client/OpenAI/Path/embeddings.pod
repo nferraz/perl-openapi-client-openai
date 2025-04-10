@@ -29,10 +29,10 @@ C<createEmbedding>
 =head3 Example:
 
     {
-       "user" : "user-1234",
-       "model" : "text-embedding-3-small",
        "encoding_format" : "float",
-       "input" : "The quick brown fox jumped over the lazy dog"
+       "input" : "The quick brown fox jumped over the lazy dog",
+       "model" : "text-embedding-3-small",
+       "user" : "user-1234"
     }
 
 
@@ -52,14 +52,14 @@ Content Types:
 Example:
 
     {
-       "usage" : null,
        "data" : [
           {
              "embedding" : [
                 null
              ]
           }
-       ]
+       ],
+       "usage" : null
     }
 
 

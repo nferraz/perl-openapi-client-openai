@@ -65,11 +65,9 @@ Content Types:
 Example:
 
     {
-       "object" : "list",
        "data" : [
           {
              "temperature" : 1,
-             "top_p" : 1,
              "tool_resources" : {
                 "code_interpreter" : {
                    "file_ids" : [
@@ -84,12 +82,14 @@ Example:
              },
              "tools" : [
                 null
-             ]
+             ],
+             "top_p" : 1
           }
        ],
-       "has_more" : false,
        "first_id" : "asst_abc123",
-       "last_id" : "asst_abc456"
+       "has_more" : false,
+       "last_id" : "asst_abc456",
+       "object" : "list"
     }
 
 
@@ -115,9 +115,8 @@ C<createAssistant>
 =head3 Example:
 
     {
-       "tools" : [
-          null
-       ],
+       "model" : "gpt-4o",
+       "temperature" : 1,
        "tool_resources" : {
           "code_interpreter" : {
              "file_ids" : [
@@ -137,9 +136,10 @@ C<createAssistant>
              ]
           }
        },
-       "top_p" : 1,
-       "model" : "gpt-4o",
-       "temperature" : 1
+       "tools" : [
+          null
+       ],
+       "top_p" : 1
     }
 
 
@@ -159,23 +159,23 @@ Content Types:
 Example:
 
     {
-       "top_p" : 1,
+       "temperature" : 1,
        "tool_resources" : {
-          "file_search" : {
-             "vector_store_ids" : [
-                null
-             ]
-          },
           "code_interpreter" : {
              "file_ids" : [
                 null
              ]
+          },
+          "file_search" : {
+             "vector_store_ids" : [
+                null
+             ]
           }
        },
-       "temperature" : 1,
        "tools" : [
           null
-       ]
+       ],
+       "top_p" : 1
     }
 
 

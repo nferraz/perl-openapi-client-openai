@@ -49,6 +49,8 @@ Content Types:
 Example:
 
     {
+       "incomplete_details" : null,
+       "last_error" : null,
        "required_action" : {
           "submit_tool_outputs" : {
              "tool_calls" : [
@@ -58,12 +60,10 @@ Example:
              ]
           }
        },
-       "usage" : null,
-       "last_error" : null,
-       "incomplete_details" : null,
        "tools" : [
           null
-       ]
+       ],
+       "usage" : null
     }
 
 
@@ -114,6 +114,7 @@ Content Types:
 Example:
 
     {
+       "incomplete_details" : null,
        "last_error" : null,
        "required_action" : {
           "submit_tool_outputs" : {
@@ -124,11 +125,10 @@ Example:
              ]
           }
        },
-       "usage" : null,
        "tools" : [
           null
        ],
-       "incomplete_details" : null
+       "usage" : null
     }
 
 

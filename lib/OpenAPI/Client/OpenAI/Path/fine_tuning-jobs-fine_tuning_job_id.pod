@@ -50,13 +50,10 @@ Content Types:
 Example:
 
     {
+       "error" : null,
+       "hyperparameters" : null,
        "integrations" : [
           null
-       ],
-       "hyperparameters" : null,
-       "error" : null,
-       "result_files" : [
-          "file-abc123"
        ],
        "method" : {
           "dpo" : {
@@ -65,7 +62,10 @@ Example:
           "supervised" : {
              "hyperparameters" : null
           }
-       }
+       },
+       "result_files" : [
+          "file-abc123"
+       ]
     }
 
 

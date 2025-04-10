@@ -59,27 +59,27 @@ Content Types:
 Example:
 
     {
-       "object" : "list",
        "data" : [
           {
-             "owner" : {
-                "id" : "sa_456",
-                "type" : "service_account",
-                "role" : "member",
-                "name" : "My Service Account",
-                "created_at" : 1711471533
-             },
-             "name" : "Administration Key",
-             "redacted_value" : "sk-admin...def",
-             "object" : "organization.admin_api_key",
              "created_at" : 1711471533,
              "id" : "key_abc",
+             "name" : "Administration Key",
+             "object" : "organization.admin_api_key",
+             "owner" : {
+                "created_at" : 1711471533,
+                "id" : "sa_456",
+                "name" : "My Service Account",
+                "role" : "member",
+                "type" : "service_account"
+             },
+             "redacted_value" : "sk-admin...def",
              "value" : "sk-admin-1234abcd"
           }
        ],
-       "has_more" : false,
        "first_id" : "key_abc",
-       "last_id" : "key_xyz"
+       "has_more" : false,
+       "last_id" : "key_xyz",
+       "object" : "list"
     }
 
 
@@ -126,19 +126,19 @@ Content Types:
 Example:
 
     {
-       "value" : "sk-admin-1234abcd",
+       "created_at" : 1711471533,
        "id" : "key_abc",
        "name" : "Administration Key",
+       "object" : "organization.admin_api_key",
        "owner" : {
           "created_at" : 1711471533,
+          "id" : "sa_456",
           "name" : "My Service Account",
           "role" : "member",
-          "id" : "sa_456",
           "type" : "service_account"
        },
        "redacted_value" : "sk-admin...def",
-       "created_at" : 1711471533,
-       "object" : "organization.admin_api_key"
+       "value" : "sk-admin-1234abcd"
     }
 
 

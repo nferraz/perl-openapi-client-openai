@@ -73,15 +73,15 @@ Content Types:
 Example:
 
     {
-       "has_more" : false,
-       "first_id" : "file-abc123",
-       "last_id" : "file-abc456",
-       "object" : "list",
        "data" : [
           {
              "last_error" : null
           }
-       ]
+       ],
+       "first_id" : "file-abc123",
+       "has_more" : false,
+       "last_id" : "file-abc456",
+       "object" : "list"
     }
 
 

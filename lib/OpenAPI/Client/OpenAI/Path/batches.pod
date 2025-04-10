@@ -53,8 +53,6 @@ Content Types:
 Example:
 
     {
-       "first_id" : "batch_abc123",
-       "last_id" : "batch_abc456",
        "data" : [
           {
              "errors" : {
@@ -64,7 +62,9 @@ Example:
              },
              "request_counts" : null
           }
-       ]
+       ],
+       "first_id" : "batch_abc123",
+       "last_id" : "batch_abc456"
     }
 
 

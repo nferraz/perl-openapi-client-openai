@@ -47,9 +47,9 @@ Content Types:
 Example:
 
     {
-       "object" : "organization.admin_api_key.deleted",
        "deleted" : true,
-       "id" : "key_abc"
+       "id" : "key_abc",
+       "object" : "organization.admin_api_key.deleted"
     }
 
 
@@ -93,19 +93,19 @@ Content Types:
 Example:
 
     {
-       "id" : "key_abc",
-       "value" : "sk-admin-1234abcd",
-       "owner" : {
-          "id" : "sa_456",
-          "type" : "service_account",
-          "created_at" : 1711471533,
-          "role" : "member",
-          "name" : "My Service Account"
-       },
-       "name" : "Administration Key",
-       "redacted_value" : "sk-admin...def",
        "created_at" : 1711471533,
-       "object" : "organization.admin_api_key"
+       "id" : "key_abc",
+       "name" : "Administration Key",
+       "object" : "organization.admin_api_key",
+       "owner" : {
+          "created_at" : 1711471533,
+          "id" : "sa_456",
+          "name" : "My Service Account",
+          "role" : "member",
+          "type" : "service_account"
+       },
+       "redacted_value" : "sk-admin...def",
+       "value" : "sk-admin-1234abcd"
     }
 
 

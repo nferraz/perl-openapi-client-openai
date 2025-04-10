@@ -29,13 +29,13 @@ C<createCompletion>
 =head3 Example:
 
     {
-       "user" : "user-1234",
-       "temperature" : 1,
+       "max_tokens" : 16,
        "n" : 1,
-       "top_p" : 1,
-       "suffix" : "test.",
        "stream_options" : null,
-       "max_tokens" : 16
+       "suffix" : "test.",
+       "temperature" : 1,
+       "top_p" : 1,
+       "user" : "user-1234"
     }
 
 
@@ -55,13 +55,12 @@ Content Types:
 Example:
 
     {
-       "usage" : {
-          "prompt_tokens_details" : null,
-          "completion_tokens_details" : null
-       },
        "choices" : [
           {
              "logprobs" : {
+                "text_offset" : [
+                   null
+                ],
                 "token_logprobs" : [
                    null
                 ],
@@ -70,13 +69,14 @@ Example:
                 ],
                 "top_logprobs" : [
                    null
-                ],
-                "text_offset" : [
-                   null
                 ]
              }
           }
-       ]
+       ],
+       "usage" : {
+          "completion_tokens_details" : null,
+          "prompt_tokens_details" : null
+       }
     }
 
 

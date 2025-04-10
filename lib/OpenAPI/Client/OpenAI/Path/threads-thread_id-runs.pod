@@ -70,6 +70,8 @@ Example:
     {
        "data" : [
           {
+             "incomplete_details" : null,
+             "last_error" : null,
              "required_action" : {
                 "submit_tool_outputs" : {
                    "tool_calls" : [
@@ -79,18 +81,16 @@ Example:
                    ]
                 }
              },
-             "usage" : null,
-             "last_error" : null,
-             "incomplete_details" : null,
              "tools" : [
                 null
-             ]
+             ],
+             "usage" : null
           }
        ],
-       "object" : "list",
        "first_id" : "run_abc123",
+       "has_more" : false,
        "last_id" : "run_abc456",
-       "has_more" : false
+       "object" : "list"
     }
 
 
@@ -132,8 +132,6 @@ Type: C<array>
 =head3 Example:
 
     {
-       "temperature" : 1,
-       "model" : "gpt-4o",
        "additional_messages" : [
           {
              "attachments" : [
@@ -145,10 +143,12 @@ Type: C<array>
              ]
           }
        ],
-       "top_p" : 1,
+       "model" : "gpt-4o",
+       "temperature" : 1,
        "tools" : [
           null
-       ]
+       ],
+       "top_p" : 1
     }
 
 
@@ -169,10 +169,7 @@ Example:
 
     {
        "incomplete_details" : null,
-       "tools" : [
-          null
-       ],
-       "usage" : null,
+       "last_error" : null,
        "required_action" : {
           "submit_tool_outputs" : {
              "tool_calls" : [
@@ -182,7 +179,10 @@ Example:
              ]
           }
        },
-       "last_error" : null
+       "tools" : [
+          null
+       ],
+       "usage" : null
     }
 
 

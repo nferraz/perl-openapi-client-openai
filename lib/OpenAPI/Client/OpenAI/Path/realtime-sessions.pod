@@ -36,13 +36,13 @@ C<create-realtime-session>
 =head3 Example:
 
     {
-       "voice" : "ash",
-       "input_audio_transcription" : null,
        "input_audio_noise_reduction" : null,
-       "turn_detection" : null,
+       "input_audio_transcription" : null,
        "tools" : [
           null
-       ]
+       ],
+       "turn_detection" : null,
+       "voice" : "ash"
     }
 
 
@@ -62,13 +62,13 @@ Content Types:
 Example:
 
     {
-       "input_audio_transcription" : null,
        "client_secret" : null,
-       "voice" : "ash",
-       "turn_detection" : null,
+       "input_audio_transcription" : null,
        "tools" : [
           null
-       ]
+       ],
+       "turn_detection" : null,
+       "voice" : "ash"
     }
 
 

@@ -29,19 +29,8 @@ C<createThreadAndRun>
 =head3 Example:
 
     {
-       "tool_resources" : {
-          "file_search" : {
-             "vector_store_ids" : [
-                null
-             ]
-          },
-          "code_interpreter" : {
-             "file_ids" : [
-                null
-             ]
-          }
-       },
-       "top_p" : 1,
+       "model" : "gpt-4o",
+       "temperature" : 1,
        "thread" : {
           "messages" : [
              {
@@ -55,30 +44,41 @@ C<createThreadAndRun>
              }
           ],
           "tool_resources" : {
+             "code_interpreter" : {
+                "file_ids" : [
+                   null
+                ]
+             },
              "file_search" : {
+                "vector_store_ids" : [
+                   null
+                ],
                 "vector_stores" : [
                    {
                       "file_ids" : [
                          null
                       ]
                    }
-                ],
-                "vector_store_ids" : [
-                   null
-                ]
-             },
-             "code_interpreter" : {
-                "file_ids" : [
-                   null
                 ]
              }
           }
        },
-       "temperature" : 1,
-       "model" : "gpt-4o",
+       "tool_resources" : {
+          "code_interpreter" : {
+             "file_ids" : [
+                null
+             ]
+          },
+          "file_search" : {
+             "vector_store_ids" : [
+                null
+             ]
+          }
+       },
        "tools" : [
           null
-       ]
+       ],
+       "top_p" : 1
     }
 
 
@@ -98,6 +98,8 @@ Content Types:
 Example:
 
     {
+       "incomplete_details" : null,
+       "last_error" : null,
        "required_action" : {
           "submit_tool_outputs" : {
              "tool_calls" : [
@@ -107,12 +109,10 @@ Example:
              ]
           }
        },
-       "usage" : null,
-       "last_error" : null,
-       "incomplete_details" : null,
        "tools" : [
           null
-       ]
+       ],
+       "usage" : null
     }
 
 

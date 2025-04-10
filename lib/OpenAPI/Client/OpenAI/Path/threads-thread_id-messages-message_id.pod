@@ -94,10 +94,10 @@ Example:
              ]
           }
        ],
-       "incomplete_details" : null,
        "content" : [
           null
-       ]
+       ],
+       "incomplete_details" : null
     }
 
 

@@ -29,14 +29,14 @@ C<createImage>
 =head3 Example:
 
     {
-       "style" : "vivid",
-       "user" : "user-1234",
-       "prompt" : "A cute baby sea otter",
        "model" : "dall-e-3",
-       "size" : "1024x1024",
        "n" : 1,
+       "prompt" : "A cute baby sea otter",
        "quality" : "standard",
-       "response_format" : "url"
+       "response_format" : "url",
+       "size" : "1024x1024",
+       "style" : "vivid",
+       "user" : "user-1234"
     }
 
 

@@ -1,8 +1,10 @@
 #!/usr/bin/env perl
 
+use 5.016;
 use strict;
 use warnings;
 use experimental 'signatures';
+use feature 'state';
 use YAML::XS qw(LoadFile);
 use Path::Tiny;
 use JSON::PP;
@@ -128,7 +130,7 @@ sub write_documentation_for_path ( $resolved_openapi, $path, $output_base_dir, $
             $output_file->append("$path_data->{description}\n\n");
         }
 
-        my $json = JSON::PP->new->pretty;
+        my $json = JSON::PP->new->pretty->canonical;
         foreach my $method ( sort keys %{$path_data} ) {
             next if $method eq 'description' || $method eq 'parameters';
 

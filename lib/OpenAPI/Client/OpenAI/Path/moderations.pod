@@ -53,36 +53,30 @@ Example:
     {
        "results" : [
           {
-             "category_scores" : null,
+             "categories" : null,
              "category_applied_input_types" : {
                 "harassment" : [
                    null
                 ],
-                "self-harm/instructions" : [
-                   null
-                ],
-                "hate/threatening" : [
-                   null
-                ],
-                "illicit/violent" : [
-                   null
-                ],
-                "violence" : [
-                   null
-                ],
-                "sexual/minors" : [
-                   null
-                ],
-                "illicit" : [
+                "harassment/threatening" : [
                    null
                 ],
                 "hate" : [
                    null
                 ],
+                "hate/threatening" : [
+                   null
+                ],
+                "illicit" : [
+                   null
+                ],
+                "illicit/violent" : [
+                   null
+                ],
                 "self-harm" : [
                    null
                 ],
-                "harassment/threatening" : [
+                "self-harm/instructions" : [
                    null
                 ],
                 "self-harm/intent" : [
@@ -91,11 +85,17 @@ Example:
                 "sexual" : [
                    null
                 ],
+                "sexual/minors" : [
+                   null
+                ],
+                "violence" : [
+                   null
+                ],
                 "violence/graphic" : [
                    null
                 ]
              },
-             "categories" : null
+             "category_scores" : null
           }
        ]
     }

@@ -30,10 +30,10 @@ C<createImageVariation>
 
     {
        "model" : "dall-e-2",
-       "user" : "user-1234",
        "n" : 1,
        "response_format" : "url",
-       "size" : "1024x1024"
+       "size" : "1024x1024",
+       "user" : "user-1234"
     }
 
 

@@ -87,10 +87,10 @@ Example:
              "incomplete_details" : null
           }
        ],
-       "object" : "list",
-       "last_id" : "msg_abc123",
        "first_id" : "msg_abc123",
-       "has_more" : false
+       "has_more" : false,
+       "last_id" : "msg_abc123",
+       "object" : "list"
     }
 
 

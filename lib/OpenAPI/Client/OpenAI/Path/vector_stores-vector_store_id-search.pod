@@ -59,15 +59,15 @@ Content Types:
 Example:
 
     {
-       "search_query" : [
-          null
-       ],
        "data" : [
           {
              "content" : [
                 null
              ]
           }
+       ],
+       "search_query" : [
+          null
        ]
     }
 

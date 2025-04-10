@@ -81,9 +81,7 @@ Content Types:
 Example:
 
     {
-       "tools" : [
-          null
-       ],
+       "temperature" : 1,
        "tool_resources" : {
           "code_interpreter" : {
              "file_ids" : [
@@ -96,8 +94,10 @@ Example:
              ]
           }
        },
-       "top_p" : 1,
-       "temperature" : 1
+       "tools" : [
+          null
+       ],
+       "top_p" : 1
     }
 
 
@@ -133,11 +133,7 @@ Type: C<string>
 =head3 Example:
 
     {
-       "tools" : [
-          null
-       ],
        "temperature" : 1,
-       "top_p" : 1,
        "tool_resources" : {
           "code_interpreter" : {
              "file_ids" : [
@@ -149,7 +145,11 @@ Type: C<string>
                 null
              ]
           }
-       }
+       },
+       "tools" : [
+          null
+       ],
+       "top_p" : 1
     }
 
 
@@ -169,6 +169,7 @@ Content Types:
 Example:
 
     {
+       "temperature" : 1,
        "tool_resources" : {
           "code_interpreter" : {
              "file_ids" : [
@@ -181,11 +182,10 @@ Example:
              ]
           }
        },
-       "top_p" : 1,
-       "temperature" : 1,
        "tools" : [
           null
-       ]
+       ],
+       "top_p" : 1
     }
 
 

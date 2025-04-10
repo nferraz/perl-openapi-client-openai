@@ -65,12 +65,8 @@ Content Types:
 Example:
 
     {
-       "tools" : [
-          null
-       ],
        "incomplete_details" : null,
        "last_error" : null,
-       "usage" : null,
        "required_action" : {
           "submit_tool_outputs" : {
              "tool_calls" : [
@@ -79,7 +75,11 @@ Example:
                 }
              ]
           }
-       }
+       },
+       "tools" : [
+          null
+       ],
+       "usage" : null
     }
 
 

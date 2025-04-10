@@ -130,8 +130,8 @@ Content Types:
 Example:
 
     {
-       "file_counts" : null,
-       "expires_after" : null
+       "expires_after" : null,
+       "file_counts" : null
     }
 
 

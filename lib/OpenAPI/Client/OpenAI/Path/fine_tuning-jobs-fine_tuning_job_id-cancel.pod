@@ -48,6 +48,11 @@ Content Types:
 Example:
 
     {
+       "error" : null,
+       "hyperparameters" : null,
+       "integrations" : [
+          null
+       ],
        "method" : {
           "dpo" : {
              "hyperparameters" : null
@@ -58,11 +63,6 @@ Example:
        },
        "result_files" : [
           "file-abc123"
-       ],
-       "error" : null,
-       "hyperparameters" : null,
-       "integrations" : [
-          null
        ]
     }
 

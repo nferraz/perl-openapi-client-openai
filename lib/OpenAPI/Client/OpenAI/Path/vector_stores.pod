@@ -65,16 +65,16 @@ Content Types:
 Example:
 
     {
-       "object" : "list",
        "data" : [
           {
-             "file_counts" : null,
-             "expires_after" : null
+             "expires_after" : null,
+             "file_counts" : null
           }
        ],
-       "has_more" : false,
        "first_id" : "vs_abc123",
-       "last_id" : "vs_abc456"
+       "has_more" : false,
+       "last_id" : "vs_abc456",
+       "object" : "list"
     }
 
 
@@ -100,10 +100,10 @@ C<createVectorStore>
 =head3 Example:
 
     {
+       "expires_after" : null,
        "file_ids" : [
           null
-       ],
-       "expires_after" : null
+       ]
     }
 
 

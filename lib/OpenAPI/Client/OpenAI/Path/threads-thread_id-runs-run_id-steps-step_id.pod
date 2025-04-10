@@ -58,8 +58,8 @@ Content Types:
 Example:
 
     {
-       "usage" : null,
-       "last_error" : null
+       "last_error" : null,
+       "usage" : null
     }
 
 

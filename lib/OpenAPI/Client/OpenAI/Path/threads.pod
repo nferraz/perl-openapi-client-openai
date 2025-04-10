@@ -29,6 +29,17 @@ C<createThread>
 =head3 Example:
 
     {
+       "messages" : [
+          {
+             "attachments" : [
+                {
+                   "tools" : [
+                      null
+                   ]
+                }
+             ]
+          }
+       ],
        "tool_resources" : {
           "code_interpreter" : {
              "file_ids" : [
@@ -47,18 +58,7 @@ C<createThread>
                 }
              ]
           }
-       },
-       "messages" : [
-          {
-             "attachments" : [
-                {
-                   "tools" : [
-                      null
-                   ]
-                }
-             ]
-          }
-       ]
+       }
     }
 
 
@@ -79,13 +79,13 @@ Example:
 
     {
        "tool_resources" : {
-          "file_search" : {
-             "vector_store_ids" : [
+          "code_interpreter" : {
+             "file_ids" : [
                 null
              ]
           },
-          "code_interpreter" : {
-             "file_ids" : [
+          "file_search" : {
+             "vector_store_ids" : [
                 null
              ]
           }

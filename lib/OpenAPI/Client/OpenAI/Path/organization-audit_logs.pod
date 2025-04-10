@@ -75,32 +75,16 @@ Content Types:
 Example:
 
     {
-       "last_id" : "audit_log-hnbkd8s93s",
-       "first_id" : "audit_log-defb456h8dks",
        "data" : [
           {
-             "invite.accepted" : null,
-             "project" : null,
-             "invite.sent" : {
-                "data" : null
-             },
-             "rate_limit.deleted" : null,
-             "api_key.updated" : {
-                "changes_requested" : {
-                   "scopes" : [
-                      null
-                   ]
+             "actor" : {
+                "api_key" : {
+                   "service_account" : null,
+                   "user" : null
+                },
+                "session" : {
+                   "user" : null
                 }
-             },
-             "service_account.created" : {
-                "data" : null
-             },
-             "project.archived" : null,
-             "user.updated" : {
-                "changes_requested" : null
-             },
-             "project.updated" : {
-                "changes_requested" : null
              },
              "api_key.created" : {
                 "data" : {
@@ -109,40 +93,56 @@ Example:
                    ]
                 }
              },
-             "user.deleted" : null,
+             "api_key.deleted" : null,
+             "api_key.updated" : {
+                "changes_requested" : {
+                   "scopes" : [
+                      null
+                   ]
+                }
+             },
+             "invite.accepted" : null,
              "invite.deleted" : null,
+             "invite.sent" : {
+                "data" : null
+             },
+             "login.failed" : null,
              "logout.failed" : null,
              "organization.updated" : {
                 "changes_requested" : {
                    "settings" : null
                 }
              },
+             "project" : null,
+             "project.archived" : null,
              "project.created" : {
                 "data" : null
+             },
+             "project.updated" : {
+                "changes_requested" : null
+             },
+             "rate_limit.deleted" : null,
+             "rate_limit.updated" : {
+                "changes_requested" : null
+             },
+             "service_account.created" : {
+                "data" : null
+             },
+             "service_account.deleted" : null,
+             "service_account.updated" : {
+                "changes_requested" : null
              },
              "user.added" : {
                 "data" : null
              },
-             "service_account.deleted" : null,
-             "rate_limit.updated" : {
+             "user.deleted" : null,
+             "user.updated" : {
                 "changes_requested" : null
-             },
-             "service_account.updated" : {
-                "changes_requested" : null
-             },
-             "actor" : {
-                "session" : {
-                   "user" : null
-                },
-                "api_key" : {
-                   "service_account" : null,
-                   "user" : null
-                }
-             },
-             "login.failed" : null,
-             "api_key.deleted" : null
+             }
           }
-       ]
+       ],
+       "first_id" : "audit_log-defb456h8dks",
+       "last_id" : "audit_log-hnbkd8s93s"
     }
 
 

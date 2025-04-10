@@ -58,6 +58,11 @@ Example:
     {
        "data" : [
           {
+             "error" : null,
+             "hyperparameters" : null,
+             "integrations" : [
+                null
+             ],
              "method" : {
                 "dpo" : {
                    "hyperparameters" : null
@@ -68,12 +73,7 @@ Example:
              },
              "result_files" : [
                 "file-abc123"
-             ],
-             "error" : null,
-             "integrations" : [
-                null
-             ],
-             "hyperparameters" : null
+             ]
           }
        ]
     }
@@ -106,21 +106,17 @@ C<createFineTuningJob>
 =head3 Example:
 
     {
+       "hyperparameters" : null,
        "integrations" : [
           {
              "wandb" : {
+                "project" : "my-wandb-project",
                 "tags" : [
                    "custom-tag"
-                ],
-                "project" : "my-wandb-project"
+                ]
              }
           }
        ],
-       "hyperparameters" : null,
-       "validation_file" : "file-abc123",
-       "seed" : 42,
-       "model" : "gpt-4o-mini",
-       "training_file" : "file-abc123",
        "method" : {
           "dpo" : {
              "hyperparameters" : null
@@ -128,7 +124,11 @@ C<createFineTuningJob>
           "supervised" : {
              "hyperparameters" : null
           }
-       }
+       },
+       "model" : "gpt-4o-mini",
+       "seed" : 42,
+       "training_file" : "file-abc123",
+       "validation_file" : "file-abc123"
     }
 
 
@@ -148,13 +148,10 @@ Content Types:
 Example:
 
     {
+       "error" : null,
        "hyperparameters" : null,
        "integrations" : [
           null
-       ],
-       "error" : null,
-       "result_files" : [
-          "file-abc123"
        ],
        "method" : {
           "dpo" : {
@@ -163,7 +160,10 @@ Example:
           "supervised" : {
              "hyperparameters" : null
           }
-       }
+       },
+       "result_files" : [
+          "file-abc123"
+       ]
     }
 
 

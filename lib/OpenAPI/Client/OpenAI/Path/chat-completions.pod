@@ -71,39 +71,20 @@ Example:
     {
        "data" : [
           {
-             "service_tier" : "scale",
-             "usage" : {
-                "completion_tokens_details" : null,
-                "prompt_tokens_details" : null
-             },
              "choices" : [
                 {
-                   "message" : {
-                      "tool_calls" : [
-                         {
-                            "function" : null
-                         }
-                      ],
-                      "audio" : null,
-                      "function_call" : null,
-                      "annotations" : [
-                         {
-                            "url_citation" : null
-                         }
-                      ]
-                   },
                    "logprobs" : {
                       "content" : [
                          {
+                            "bytes" : [
+                               null
+                            ],
                             "top_logprobs" : [
                                {
                                   "bytes" : [
                                      null
                                   ]
                                }
-                            ],
-                            "bytes" : [
-                               null
                             ]
                          }
                       ],
@@ -121,9 +102,28 @@ Example:
                             ]
                          }
                       ]
+                   },
+                   "message" : {
+                      "annotations" : [
+                         {
+                            "url_citation" : null
+                         }
+                      ],
+                      "audio" : null,
+                      "function_call" : null,
+                      "tool_calls" : [
+                         {
+                            "function" : null
+                         }
+                      ]
                    }
                 }
-             ]
+             ],
+             "service_tier" : "scale",
+             "usage" : {
+                "completion_tokens_details" : null,
+                "prompt_tokens_details" : null
+             }
           }
        ]
     }
@@ -178,58 +178,58 @@ Content Types:
 Example:
 
     {
-       "service_tier" : "scale",
        "choices" : [
           {
              "logprobs" : {
                 "content" : [
                    {
+                      "bytes" : [
+                         null
+                      ],
                       "top_logprobs" : [
                          {
                             "bytes" : [
                                null
                             ]
                          }
-                      ],
-                      "bytes" : [
-                         null
                       ]
                    }
                 ],
                 "refusal" : [
                    {
+                      "bytes" : [
+                         null
+                      ],
                       "top_logprobs" : [
                          {
                             "bytes" : [
                                null
                             ]
                          }
-                      ],
-                      "bytes" : [
-                         null
                       ]
                    }
                 ]
              },
              "message" : {
-                "tool_calls" : [
+                "annotations" : [
                    {
-                      "function" : null
+                      "url_citation" : null
                    }
                 ],
                 "audio" : null,
                 "function_call" : null,
-                "annotations" : [
+                "tool_calls" : [
                    {
-                      "url_citation" : null
+                      "function" : null
                    }
                 ]
              }
           }
        ],
+       "service_tier" : "scale",
        "usage" : {
-          "prompt_tokens_details" : null,
-          "completion_tokens_details" : null
+          "completion_tokens_details" : null,
+          "prompt_tokens_details" : null
        }
     }
 
@@ -242,14 +242,28 @@ Example:
        "choices" : [
           {
              "delta" : {
+                "function_call" : null,
                 "tool_calls" : [
                    {
                       "function" : null
                    }
-                ],
-                "function_call" : null
+                ]
              },
              "logprobs" : {
+                "content" : [
+                   {
+                      "bytes" : [
+                         null
+                      ],
+                      "top_logprobs" : [
+                         {
+                            "bytes" : [
+                               null
+                            ]
+                         }
+                      ]
+                   }
+                ],
                 "refusal" : [
                    {
                       "bytes" : [
@@ -263,29 +277,15 @@ Example:
                          }
                       ]
                    }
-                ],
-                "content" : [
-                   {
-                      "top_logprobs" : [
-                         {
-                            "bytes" : [
-                               null
-                            ]
-                         }
-                      ],
-                      "bytes" : [
-                         null
-                      ]
-                   }
                 ]
              }
           }
        ],
+       "service_tier" : "scale",
        "usage" : {
-          "prompt_tokens_details" : null,
-          "completion_tokens_details" : null
-       },
-       "service_tier" : "scale"
+          "completion_tokens_details" : null,
+          "prompt_tokens_details" : null
+       }
     }
 
 

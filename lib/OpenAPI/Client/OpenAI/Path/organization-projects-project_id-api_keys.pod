@@ -59,8 +59,8 @@ Example:
        "data" : [
           {
              "owner" : {
-                "user" : null,
-                "service_account" : null
+                "service_account" : null,
+                "user" : null
              }
           }
        ]

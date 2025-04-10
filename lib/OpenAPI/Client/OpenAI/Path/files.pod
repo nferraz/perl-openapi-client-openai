@@ -64,13 +64,13 @@ Content Types:
 Example:
 
     {
-       "object" : "list",
        "data" : [
           null
        ],
-       "has_more" : false,
        "first_id" : "file-abc123",
-       "last_id" : "file-abc456"
+       "has_more" : false,
+       "last_id" : "file-abc456",
+       "object" : "list"
     }
 
 

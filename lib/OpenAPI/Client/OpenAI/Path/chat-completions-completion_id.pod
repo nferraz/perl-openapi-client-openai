@@ -85,59 +85,59 @@ Content Types:
 Example:
 
     {
-       "usage" : {
-          "completion_tokens_details" : null,
-          "prompt_tokens_details" : null
-       },
        "choices" : [
           {
              "logprobs" : {
-                "refusal" : [
+                "content" : [
                    {
+                      "bytes" : [
+                         null
+                      ],
                       "top_logprobs" : [
                          {
                             "bytes" : [
                                null
                             ]
                          }
-                      ],
-                      "bytes" : [
-                         null
                       ]
                    }
                 ],
-                "content" : [
+                "refusal" : [
                    {
+                      "bytes" : [
+                         null
+                      ],
                       "top_logprobs" : [
                          {
                             "bytes" : [
                                null
                             ]
                          }
-                      ],
-                      "bytes" : [
-                         null
                       ]
                    }
                 ]
              },
              "message" : {
+                "annotations" : [
+                   {
+                      "url_citation" : null
+                   }
+                ],
+                "audio" : null,
                 "function_call" : null,
                 "tool_calls" : [
                    {
                       "function" : null
                    }
-                ],
-                "audio" : null,
-                "annotations" : [
-                   {
-                      "url_citation" : null
-                   }
                 ]
              }
           }
        ],
-       "service_tier" : "scale"
+       "service_tier" : "scale",
+       "usage" : {
+          "completion_tokens_details" : null,
+          "prompt_tokens_details" : null
+       }
     }
 
 
@@ -190,57 +190,57 @@ Example:
     {
        "choices" : [
           {
+             "logprobs" : {
+                "content" : [
+                   {
+                      "bytes" : [
+                         null
+                      ],
+                      "top_logprobs" : [
+                         {
+                            "bytes" : [
+                               null
+                            ]
+                         }
+                      ]
+                   }
+                ],
+                "refusal" : [
+                   {
+                      "bytes" : [
+                         null
+                      ],
+                      "top_logprobs" : [
+                         {
+                            "bytes" : [
+                               null
+                            ]
+                         }
+                      ]
+                   }
+                ]
+             },
              "message" : {
+                "annotations" : [
+                   {
+                      "url_citation" : null
+                   }
+                ],
+                "audio" : null,
                 "function_call" : null,
                 "tool_calls" : [
                    {
                       "function" : null
                    }
-                ],
-                "audio" : null,
-                "annotations" : [
-                   {
-                      "url_citation" : null
-                   }
-                ]
-             },
-             "logprobs" : {
-                "refusal" : [
-                   {
-                      "top_logprobs" : [
-                         {
-                            "bytes" : [
-                               null
-                            ]
-                         }
-                      ],
-                      "bytes" : [
-                         null
-                      ]
-                   }
-                ],
-                "content" : [
-                   {
-                      "top_logprobs" : [
-                         {
-                            "bytes" : [
-                               null
-                            ]
-                         }
-                      ],
-                      "bytes" : [
-                         null
-                      ]
-                   }
                 ]
              }
           }
        ],
+       "service_tier" : "scale",
        "usage" : {
-          "prompt_tokens_details" : null,
-          "completion_tokens_details" : null
-       },
-       "service_tier" : "scale"
+          "completion_tokens_details" : null,
+          "prompt_tokens_details" : null
+       }
     }
 
 

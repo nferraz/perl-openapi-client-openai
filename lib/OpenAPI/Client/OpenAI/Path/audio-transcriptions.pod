@@ -32,10 +32,10 @@ C<createTranscription>
        "include[]" : [
           null
        ],
+       "model" : "gpt-4o-transcribe",
        "timestamp_granularities[]" : [
           null
-       ],
-       "model" : "gpt-4o-transcribe"
+       ]
     }
 
 

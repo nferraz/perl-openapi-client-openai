@@ -81,10 +81,10 @@ Example:
              "last_error" : null
           }
        ],
-       "object" : "list",
-       "last_id" : "file-abc456",
        "first_id" : "file-abc123",
-       "has_more" : false
+       "has_more" : false,
+       "last_id" : "file-abc456",
+       "object" : "list"
     }
 
 

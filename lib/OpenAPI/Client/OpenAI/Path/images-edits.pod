@@ -29,12 +29,12 @@ C<createImageEdit>
 =head3 Example:
 
     {
-       "n" : 1,
-       "response_format" : "url",
        "model" : "dall-e-2",
+       "n" : 1,
        "prompt" : "A cute baby sea otter wearing a beret",
-       "user" : "user-1234",
-       "size" : "1024x1024"
+       "response_format" : "url",
+       "size" : "1024x1024",
+       "user" : "user-1234"
     }
 
 
