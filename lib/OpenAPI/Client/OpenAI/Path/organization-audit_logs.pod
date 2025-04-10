@@ -76,70 +76,7 @@ Example:
 
     {
        "data" : [
-          {
-             "actor" : {
-                "api_key" : {
-                   "service_account" : null,
-                   "user" : null
-                },
-                "session" : {
-                   "user" : null
-                }
-             },
-             "api_key.created" : {
-                "data" : {
-                   "scopes" : [
-                      null
-                   ]
-                }
-             },
-             "api_key.deleted" : null,
-             "api_key.updated" : {
-                "changes_requested" : {
-                   "scopes" : [
-                      null
-                   ]
-                }
-             },
-             "invite.accepted" : null,
-             "invite.deleted" : null,
-             "invite.sent" : {
-                "data" : null
-             },
-             "login.failed" : null,
-             "logout.failed" : null,
-             "organization.updated" : {
-                "changes_requested" : {
-                   "settings" : null
-                }
-             },
-             "project" : null,
-             "project.archived" : null,
-             "project.created" : {
-                "data" : null
-             },
-             "project.updated" : {
-                "changes_requested" : null
-             },
-             "rate_limit.deleted" : null,
-             "rate_limit.updated" : {
-                "changes_requested" : null
-             },
-             "service_account.created" : {
-                "data" : null
-             },
-             "service_account.deleted" : null,
-             "service_account.updated" : {
-                "changes_requested" : null
-             },
-             "user.added" : {
-                "data" : null
-             },
-             "user.deleted" : null,
-             "user.updated" : {
-                "changes_requested" : null
-             }
-          }
+          "{\n    \"id\": \"req_xxx_20240101\",\n    \"type\": \"api_key.created\",\n    \"effective_at\": 1720804090,\n    \"actor\": {\n        \"type\": \"session\",\n        \"session\": {\n            \"user\": {\n                \"id\": \"user-xxx\",\n                \"email\": \"user@example.com\"\n            },\n            \"ip_address\": \"127.0.0.1\",\n            \"user_agent\": \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36\"\n        }\n    },\n    \"api_key.created\": {\n        \"id\": \"key_xxxx\",\n        \"data\": {\n            \"scopes\": [\"resource.operation\"]\n        }\n    }\n}\n"
        ],
        "first_id" : "audit_log-defb456h8dks",
        "last_id" : "audit_log-hnbkd8s93s"

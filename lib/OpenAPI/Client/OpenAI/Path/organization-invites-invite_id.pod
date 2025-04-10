@@ -81,9 +81,20 @@ Content Types:
 Example:
 
     {
-       "projects" : [
-          null
-       ]
+      "object": "organization.invite",
+      "id": "invite-abc",
+      "email": "user@example.com",
+      "role": "owner",
+      "status": "accepted",
+      "invited_at": 1711471533,
+      "expires_at": 1711471533,
+      "accepted_at": 1711471533,
+      "projects": [
+        {
+          "id": "project-xyz",
+          "role": "member"
+        }
+      ]
     }
 
 

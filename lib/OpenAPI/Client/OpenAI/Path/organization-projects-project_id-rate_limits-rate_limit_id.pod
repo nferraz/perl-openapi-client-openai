@@ -51,6 +51,19 @@ Content Types:
 
 =item * C<application/json>
 
+Example:
+
+    {
+        "object": "project.rate_limit",
+        "id": "rl_ada",
+        "model": "ada",
+        "max_requests_per_1_minute": 600,
+        "max_tokens_per_1_minute": 150000,
+        "max_images_per_1_minute": 10
+    }
+
+
+
 =back
 
 =head3 Status Code: C<400>

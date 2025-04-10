@@ -104,6 +104,19 @@ Content Types:
 
 =item * C<application/json>
 
+Example:
+
+    {
+        "object": "organization.project.user",
+        "id": "user_abc",
+        "name": "First Last",
+        "email": "user@example.com",
+        "role": "owner",
+        "added_at": 1711471533
+    }
+
+
+
 =back
 
 =head2 C<POST /organization/projects/{project_id}/users/{user_id}>
@@ -146,6 +159,19 @@ Content Types:
 =over 4
 
 =item * C<application/json>
+
+Example:
+
+    {
+        "object": "organization.project.user",
+        "id": "user_abc",
+        "name": "First Last",
+        "email": "user@example.com",
+        "role": "owner",
+        "added_at": 1711471533
+    }
+
+
 
 =back
 

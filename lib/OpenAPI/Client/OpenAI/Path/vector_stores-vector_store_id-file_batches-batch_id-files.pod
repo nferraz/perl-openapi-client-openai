@@ -77,9 +77,7 @@ Example:
 
     {
        "data" : [
-          {
-             "last_error" : null
-          }
+          "{\n  \"id\": \"file-abc123\",\n  \"object\": \"vector_store.file\",\n  \"usage_bytes\": 1234,\n  \"created_at\": 1698107661,\n  \"vector_store_id\": \"vs_abc123\",\n  \"status\": \"completed\",\n  \"last_error\": null,\n  \"chunking_strategy\": {\n    \"type\": \"static\",\n    \"static\": {\n      \"max_chunk_size_tokens\": 800,\n      \"chunk_overlap_tokens\": 400\n    }\n  }\n}\n"
        ],
        "first_id" : "file-abc123",
        "has_more" : false,

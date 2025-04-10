@@ -37,7 +37,7 @@ Example:
 
     {
        "data" : [
-          null
+          "{\n  \"id\": \"VAR_chat_model_id\",\n  \"object\": \"model\",\n  \"created\": 1686935002,\n  \"owned_by\": \"openai\"\n}\n"
        ]
     }
 

@@ -53,11 +53,7 @@ Example:
 
     {
        "data" : [
-          {
-             "embedding" : [
-                null
-             ]
-          }
+          "{\n  \"object\": \"embedding\",\n  \"embedding\": [\n    0.0023064255,\n    -0.009327292,\n    .... (1536 floats total for ada-002)\n    -0.0028842222,\n  ],\n  \"index\": 0\n}\n"
        ],
        "usage" : null
     }

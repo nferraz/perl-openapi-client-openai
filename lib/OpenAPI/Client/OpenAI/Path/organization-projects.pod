@@ -59,7 +59,7 @@ Example:
 
     {
        "data" : [
-          null
+          "{\n    \"id\": \"proj_abc\",\n    \"object\": \"organization.project\",\n    \"name\": \"Project example\",\n    \"created_at\": 1711471533,\n    \"archived_at\": null,\n    \"status\": \"active\"\n}\n"
        ]
     }
 
@@ -94,6 +94,19 @@ Content Types:
 =over 4
 
 =item * C<application/json>
+
+Example:
+
+    {
+        "id": "proj_abc",
+        "object": "organization.project",
+        "name": "Project example",
+        "created_at": 1711471533,
+        "archived_at": null,
+        "status": "active"
+    }
+
+
 
 =back
 

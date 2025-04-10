@@ -57,7 +57,7 @@ Example:
 
     {
        "data" : [
-          null
+          "{\n    \"object\": \"organization.project.user\",\n    \"id\": \"user_abc\",\n    \"name\": \"First Last\",\n    \"email\": \"user@example.com\",\n    \"role\": \"owner\",\n    \"added_at\": 1711471533\n}\n"
        ]
     }
 
@@ -122,6 +122,19 @@ Content Types:
 =over 4
 
 =item * C<application/json>
+
+Example:
+
+    {
+        "object": "organization.project.user",
+        "id": "user_abc",
+        "name": "First Last",
+        "email": "user@example.com",
+        "role": "owner",
+        "added_at": 1711471533
+    }
+
+
 
 =back
 

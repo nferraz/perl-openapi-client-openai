@@ -81,8 +81,21 @@ Content Types:
 Example:
 
     {
-       "expires_after" : null,
-       "file_counts" : null
+      "id": "vs_123",
+      "object": "vector_store",
+      "created_at": 1698107661,
+      "usage_bytes": 123456,
+      "last_active_at": 1698107661,
+      "name": "my_vector_store",
+      "status": "completed",
+      "file_counts": {
+        "in_progress": 0,
+        "completed": 100,
+        "cancelled": 0,
+        "failed": 0,
+        "total": 100
+      },
+      "last_used_at": 1698107661
     }
 
 
@@ -130,8 +143,21 @@ Content Types:
 Example:
 
     {
-       "expires_after" : null,
-       "file_counts" : null
+      "id": "vs_123",
+      "object": "vector_store",
+      "created_at": 1698107661,
+      "usage_bytes": 123456,
+      "last_active_at": 1698107661,
+      "name": "my_vector_store",
+      "status": "completed",
+      "file_counts": {
+        "in_progress": 0,
+        "completed": 100,
+        "cancelled": 0,
+        "failed": 0,
+        "total": 100
+      },
+      "last_used_at": 1698107661
     }
 
 

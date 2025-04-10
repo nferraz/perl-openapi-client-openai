@@ -78,6 +78,20 @@ Content Types:
 
 =item * C<application/json>
 
+Example:
+
+    {
+      "id": "file-abc123",
+      "object": "file",
+      "bytes": 120000,
+      "created_at": 1677610602,
+      "expires_at": 1680202602,
+      "filename": "salesOverview.pdf",
+      "purpose": "assistants",
+    }
+
+
+
 =back
 
 

@@ -78,6 +78,17 @@ Content Types:
 
 =item * C<application/json>
 
+Example:
+
+    {
+      "id": "VAR_chat_model_id",
+      "object": "model",
+      "created": 1686935002,
+      "owned_by": "openai"
+    }
+
+
+
 =back
 
 

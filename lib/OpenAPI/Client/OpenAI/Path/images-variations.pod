@@ -54,7 +54,7 @@ Example:
 
     {
        "data" : [
-          null
+          "{\n  \"url\": \"...\",\n  \"revised_prompt\": \"...\"\n}\n"
        ]
     }
 

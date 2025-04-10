@@ -54,14 +54,7 @@ Example:
 
     {
        "data" : [
-          {
-             "errors" : {
-                "data" : [
-                   null
-                ]
-             },
-             "request_counts" : null
-          }
+          "{\n  \"id\": \"batch_abc123\",\n  \"object\": \"batch\",\n  \"endpoint\": \"/v1/completions\",\n  \"errors\": null,\n  \"input_file_id\": \"file-abc123\",\n  \"completion_window\": \"24h\",\n  \"status\": \"completed\",\n  \"output_file_id\": \"file-cvaTdG\",\n  \"error_file_id\": \"file-HOWS94\",\n  \"created_at\": 1711471533,\n  \"in_progress_at\": 1711471538,\n  \"expires_at\": 1711557933,\n  \"finalizing_at\": 1711493133,\n  \"completed_at\": 1711493163,\n  \"failed_at\": null,\n  \"expired_at\": null,\n  \"cancelling_at\": null,\n  \"cancelled_at\": null,\n  \"request_counts\": {\n    \"total\": 100,\n    \"completed\": 95,\n    \"failed\": 5\n  },\n  \"metadata\": {\n    \"customer_id\": \"user_123456789\",\n    \"batch_description\": \"Nightly eval job\",\n  }\n}\n"
        ],
        "first_id" : "batch_abc123",
        "last_id" : "batch_abc456"
@@ -102,12 +95,33 @@ Content Types:
 Example:
 
     {
-       "errors" : {
-          "data" : [
-             null
-          ]
-       },
-       "request_counts" : null
+      "id": "batch_abc123",
+      "object": "batch",
+      "endpoint": "/v1/completions",
+      "errors": null,
+      "input_file_id": "file-abc123",
+      "completion_window": "24h",
+      "status": "completed",
+      "output_file_id": "file-cvaTdG",
+      "error_file_id": "file-HOWS94",
+      "created_at": 1711471533,
+      "in_progress_at": 1711471538,
+      "expires_at": 1711557933,
+      "finalizing_at": 1711493133,
+      "completed_at": 1711493163,
+      "failed_at": null,
+      "expired_at": null,
+      "cancelling_at": null,
+      "cancelled_at": null,
+      "request_counts": {
+        "total": 100,
+        "completed": 95,
+        "failed": 5
+      },
+      "metadata": {
+        "customer_id": "user_123456789",
+        "batch_description": "Nightly eval job",
+      }
     }
 
 

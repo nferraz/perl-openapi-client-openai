@@ -78,18 +78,10 @@ Content Types:
 Example:
 
     {
-       "tool_resources" : {
-          "code_interpreter" : {
-             "file_ids" : [
-                null
-             ]
-          },
-          "file_search" : {
-             "vector_store_ids" : [
-                null
-             ]
-          }
-       }
+      "id": "thread_abc123",
+      "object": "thread",
+      "created_at": 1698107661,
+      "metadata": {}
     }
 
 

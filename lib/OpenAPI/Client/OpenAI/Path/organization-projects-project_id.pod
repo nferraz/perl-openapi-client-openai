@@ -43,6 +43,19 @@ Content Types:
 
 =item * C<application/json>
 
+Example:
+
+    {
+        "id": "proj_abc",
+        "object": "organization.project",
+        "name": "Project example",
+        "created_at": 1711471533,
+        "archived_at": null,
+        "status": "active"
+    }
+
+
+
 =back
 
 =head2 C<POST /organization/projects/{project_id}>
@@ -82,6 +95,19 @@ Content Types:
 =over 4
 
 =item * C<application/json>
+
+Example:
+
+    {
+        "id": "proj_abc",
+        "object": "organization.project",
+        "name": "Project example",
+        "created_at": 1711471533,
+        "archived_at": null,
+        "status": "active"
+    }
+
+
 
 =back
 

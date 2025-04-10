@@ -107,10 +107,22 @@ Content Types:
 Example:
 
     {
-       "owner" : {
-          "service_account" : null,
-          "user" : null
-       }
+        "object": "organization.project.api_key",
+        "redacted_value": "sk-abc...def",
+        "name": "My API Key",
+        "created_at": 1711471533,
+        "id": "key_abc",
+        "owner": {
+            "type": "user",
+            "user": {
+                "object": "organization.project.user",
+                "id": "user_abc",
+                "name": "First Last",
+                "email": "user@example.com",
+                "role": "owner",
+                "created_at": 1711471533
+            }
+        }
     }
 
 

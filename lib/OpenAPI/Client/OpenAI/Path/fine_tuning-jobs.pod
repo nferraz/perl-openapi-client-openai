@@ -57,24 +57,7 @@ Example:
 
     {
        "data" : [
-          {
-             "error" : null,
-             "hyperparameters" : null,
-             "integrations" : [
-                null
-             ],
-             "method" : {
-                "dpo" : {
-                   "hyperparameters" : null
-                },
-                "supervised" : {
-                   "hyperparameters" : null
-                }
-             },
-             "result_files" : [
-                "file-abc123"
-             ]
-          }
+          "{\n  \"object\": \"fine_tuning.job\",\n  \"id\": \"ftjob-abc123\",\n  \"model\": \"davinci-002\",\n  \"created_at\": 1692661014,\n  \"finished_at\": 1692661190,\n  \"fine_tuned_model\": \"ft:davinci-002:my-org:custom_suffix:7q8mpxmy\",\n  \"organization_id\": \"org-123\",\n  \"result_files\": [\n      \"file-abc123\"\n  ],\n  \"status\": \"succeeded\",\n  \"validation_file\": null,\n  \"training_file\": \"file-abc123\",\n  \"hyperparameters\": {\n      \"n_epochs\": 4,\n      \"batch_size\": 1,\n      \"learning_rate_multiplier\": 1.0\n  },\n  \"trained_tokens\": 5768,\n  \"integrations\": [],\n  \"seed\": 0,\n  \"estimated_finish\": 0,\n  \"method\": {\n    \"type\": \"supervised\",\n    \"supervised\": {\n      \"hyperparameters\": {\n        \"n_epochs\": 4,\n        \"batch_size\": 1,\n        \"learning_rate_multiplier\": 1.0\n      }\n    }\n  },\n  \"metadata\": {\n    \"key\": \"value\"\n  }\n}\n"
        ]
     }
 
@@ -148,22 +131,41 @@ Content Types:
 Example:
 
     {
-       "error" : null,
-       "hyperparameters" : null,
-       "integrations" : [
-          null
-       ],
-       "method" : {
-          "dpo" : {
-             "hyperparameters" : null
-          },
-          "supervised" : {
-             "hyperparameters" : null
-          }
-       },
-       "result_files" : [
+      "object": "fine_tuning.job",
+      "id": "ftjob-abc123",
+      "model": "davinci-002",
+      "created_at": 1692661014,
+      "finished_at": 1692661190,
+      "fine_tuned_model": "ft:davinci-002:my-org:custom_suffix:7q8mpxmy",
+      "organization_id": "org-123",
+      "result_files": [
           "file-abc123"
-       ]
+      ],
+      "status": "succeeded",
+      "validation_file": null,
+      "training_file": "file-abc123",
+      "hyperparameters": {
+          "n_epochs": 4,
+          "batch_size": 1,
+          "learning_rate_multiplier": 1.0
+      },
+      "trained_tokens": 5768,
+      "integrations": [],
+      "seed": 0,
+      "estimated_finish": 0,
+      "method": {
+        "type": "supervised",
+        "supervised": {
+          "hyperparameters": {
+            "n_epochs": 4,
+            "batch_size": 1,
+            "learning_rate_multiplier": 1.0
+          }
+        }
+      },
+      "metadata": {
+        "key": "value"
+      }
     }
 
 

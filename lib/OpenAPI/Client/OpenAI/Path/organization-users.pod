@@ -57,7 +57,7 @@ Example:
 
     {
        "data" : [
-          null
+          "{\n    \"object\": \"organization.user\",\n    \"id\": \"user_abc\",\n    \"name\": \"First Last\",\n    \"email\": \"user@example.com\",\n    \"role\": \"owner\",\n    \"added_at\": 1711471533\n}\n"
        ]
     }
 

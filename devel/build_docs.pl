@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 
-use 5.016;
+use 5.026;    # indented heredocs
 use strict;
 use warnings;
 use experimental 'signatures';
@@ -10,6 +10,7 @@ use Path::Tiny;
 use JSON::PP;
 use Carp  qw(croak);
 use Clone qw(clone);
+use Template;
 
 # FIXME: switch from HEREDOCs to Templates
 
@@ -61,15 +62,11 @@ sub _recursively_find_references ( $components, $resolved ) {
         }
     } elsif ( 'HASH' eq ref $resolved ) {
         if ( my $ref = $resolved->{'$ref'} ) {
-            my $reference = $cache->{$ref} //= _resolve_reference( $components, $ref );
+            my $reference = $cached->{$ref} //= _resolve_reference( $components, $ref );
             $resolved->%* = ( %{$reference}, %{$resolved} );    # Merge reference into current hash
         }
     KEY: foreach my $key ( sort keys $resolved->%* ) {
             my $item = $resolved->{$key};
-            if ( 'x-oaiMeta' eq $key ) {
-                delete $resolved->{$key};
-                next KEY;
-            }
             _recursively_find_references( $components, $item );
         }
     }
@@ -81,15 +78,27 @@ sub _resolve_reference ( $components, $ref ) {
 }
 
 sub get_example_from_schema ($schema) {
+    if ( my $example = $schema->{'x-oaiMeta'}{example} ) {
+        # FIXME: this is a nasty, nasty hack. x-oaiMeta is not part of the
+        # OpenAPI spec, but it gives much better examples than trying to parse
+        # manually. However, while those examples are easier to read and more
+        # comprehensive, they're often not valid JSON. We return them as-is
+        # and let the calling code handle it. Because this is a *recursive*
+        # function, it's fragile, but so far, we only fine the x-oaiMeta key
+        # at the top level, so we never hit recursion.
+        return $example;
+    }
     if ( defined $schema->{example} ) {
         return $schema->{example};
     } elsif ( defined $schema->{properties} ) {
         my %example;
-        for my $property_name ( keys %{ $schema->{properties} } ) {
+    PROPERTY: foreach my $property_name ( keys %{ $schema->{properties} } ) {
             my $property_schema = $schema->{properties}->{$property_name};
             if ( defined $property_schema->{example} ) {
                 $example{$property_name} = $property_schema->{example};
-            } elsif ( defined $property_schema->{type}
+                next PROPERTY;
+            }
+            if (   defined $property_schema->{type}
                 && $property_schema->{type} eq 'array'
                 && defined $property_schema->{items} ) {
                 $example{$property_name} = [ get_example_from_schema( $property_schema->{items} ) ];
@@ -115,7 +124,6 @@ sub write_documentation_for_path ( $resolved_openapi, $path, $output_base_dir, $
     $sanitized_path_segment =~ s{--}{-}g;
 
     my $output_file = $output_base_dir->child("$sanitized_path_segment.pod");
-
     eval {
         $output_file->spew_utf8(<<~"POD");
           =encoding utf8
@@ -136,24 +144,37 @@ sub write_documentation_for_path ( $resolved_openapi, $path, $output_base_dir, $
             $output_file->append("$path_data->{description}\n\n");
         }
 
-        my $json = JSON::PP->new->pretty->canonical;
+        my $tt       = Template->new( { TRIM => 1 } );
+        my $template = _path_template();
+        my $json     = JSON::PP->new->pretty->canonical;
+
         foreach my $method ( sort keys %{$path_data} ) {
             next if $method eq 'description' || $method eq 'parameters';
 
-            my $method_data  = $path_data->{$method};
-            my $method_upper = uc $method;
-            my $operation_id = $method_data->{operationId};
+            my $method_data   = $path_data->{$method};
+            my $method_upper  = uc $method;
+            my $operation_id  = $method_data->{operationId};
+            my %template_data = (
+                path                   => $path,
+                sanitized_path_segment => $sanitized_path_segment,
+                path_data              => $path_data,
+                operation_id           => $operation_id,
+                method_data            => $method_data,
+                year                   => (localtime)[5] + 1900,
+            );
 
             $output_file->append("=head2 C<$method_upper $path>\n\n");
 
             if ( defined $method_data->{summary} && $method_data->{summary} ne '' ) {
                 $output_file->append("$method_data->{summary}\n\n");
+                $template_data{summary} = $method_data->{summary};
             }
             if ( defined $method_data->{description} && $method_data->{description} ne '' ) {
                 $output_file->append("$method_data->{description}\n");
+                $template_data{description} = $method_data->{description};
             }
 
-            if (defined $operation_id) {
+            if ( defined $operation_id ) {
                 $output_file->append(<<~"POD");
                   =head3 Operation ID
                   
@@ -184,10 +205,6 @@ sub write_documentation_for_path ( $resolved_openapi, $path, $output_base_dir, $
                     if ( defined $parameter->{schema} && defined $parameter->{schema}->{type} ) {
                         $output_file->append("Type: C<$parameter->{schema}->{type}>\n\n");
 
-                        if ( defined $parameter->{schema}->{format} ) {
-                            $output_file->append("Format: C<$parameter->{schema}->{format}>\n");
-
-                        }
                         if ( defined $parameter->{schema}->{enum} && @{ $parameter->{schema}->{enum} } ) {
                             $output_file->append("Possible values: C<@{ $parameter->{schema}->{enum} }>\n\n");
                         }
@@ -239,13 +256,14 @@ sub write_documentation_for_path ( $resolved_openapi, $path, $output_base_dir, $
                         $output_file->append("Content Types:\n\n=over 4\n\n");
                         foreach my $content_type ( sort keys %{ $response->{content} } ) {
                             $output_file->append("=item * C<$content_type>\n");
-                            if ( defined $response->{content}->{$content_type}->{schema} ) {
-                                my $schema = $response->{content}->{$content_type}->{schema};
+                            if ( defined $response->{content}{$content_type}{schema} ) {
+                                my $schema = $response->{content}{$content_type}{schema};
 
                                 if ( defined( my $example = get_example_from_schema($schema) ) ) {
-                                    my $example_json = $json->encode($example);
+                                    my $example_json = ref $example ? $json->encode($example) : $example;
                                     # prepend each line with four spaces
                                     $example_json =~ s/^/    /gm;
+                                    $response->{content}{$content_type}{schema}{example} = $example_json;
                                     $output_file->append(<<~"POD");
                                       
                                       Example:
@@ -259,6 +277,15 @@ sub write_documentation_for_path ( $resolved_openapi, $path, $output_base_dir, $
                         $output_file->append("\n=back\n\n");
                     }
                 }
+            }
+            # FIXME This will become default behavior
+            if ( $template_data{operation_id} eq 'listAssistants' ) {
+                my $output;
+                $tt->process( \$template, \%template_data, \$output )
+                    or die "Template processing failed: " . $tt->error;
+                open my $fh, '>', 'assistants.pm' or die "Could not open assistants.pm': $!";
+                warn $template_data{method_data}{responses}{200}{content}{'application/json'}{schema}{example};
+                print $fh $output;
             }
         }
         $output_file->append(<<POD);
@@ -279,6 +306,7 @@ at your option, any later version of Perl 5 you may have available.
 POD
     };
     die "Error writing to '$output_file': $@" if $@;
+
 
     # Store information for the main index
     $path_index_entries->{$path} = {
@@ -343,4 +371,88 @@ sub write_index ( $main_index_file, $path_index_entries, $resolved_openapi ) {
     END
 
     close $index_fh;
+}
+
+sub _path_template () {
+    return <<~'END_TEMPLATE';
+    =encoding utf8
+    
+    =head1 NAME
+    
+    OpenAPI::Client::OpenAI::Path::[% sanitized_path_segment %] - Documentation for the [% path %] path.
+    
+    =head1 DESCRIPTION
+    
+    This document describes the API endpoint at C<[% path %]>.
+    
+    =head2 C<GET [% path %]>
+    
+    [% method_data.summary %]
+
+    [% IF method_data.description %]
+    [% method_data.description %]
+    [% END %]
+    
+    =head3 Operation ID
+    
+    C<[% operation_id %]>
+    
+        $client->[% operation_id %]( ... );
+    
+    =head3 Parameters
+    
+    =over 4
+    [% FOREACH parameter IN method_data.parameters %]
+    =item * C<[% parameter.name %]> (in [% parameter.in %]) [% IF parameter.required %](Required)[% ELSE %](Optional)[% END %] - [% parameter.description %]
+    Type: C<[% parameter.schema.type %]>
+
+    [% IF parameter.schema.enum.size %]Allowed values: C<[% parameter.schema.enum.join(', ') %]>[% END %]
+    
+    [% IF parameter.schema.default %]Default: C<[% parameter.schema.default %]>[% END -%]
+    
+    [% END # END FOREACH %]
+    =back
+    
+    [% IF method_data.responses %]
+    =head3 Responses
+    
+    [% FOREACH status_code IN method_data.responses.keys.sort %]
+    =head3 Status Code: C<[% status_code %]>
+    
+    [% method_data.responses.$status_code.description %]
+    
+    [% IF method_data.responses.$status_code.content %]
+    Content Types:
+    
+    =over 4
+    
+    [% FOREACH content_type IN method_data.responses.$status_code.content.keys.sort %]
+    =item * C<[% content_type %]>
+    
+    Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>:
+    
+    [% method_data.responses.$status_code.content.$content_type.schema.example %]
+    
+    [% END # FOREACH content_type %]
+    [% END # end if status_code.content%]
+    [% END # end FOREACH status_code %]
+    [% END # if method_data.resposnes %] 
+    
+    
+    =back
+    
+    =head1 SEE ALSO
+    
+    L<OpenAPI::Client::OpenAI::Path>
+    
+    =head1 COPYRIGHT AND LICENSE
+    
+    Copyright (C) 2023-[% year %] by Nelson Ferraz
+    
+    This library is free software; you can redistribute it and/or modify
+    it under the same terms as Perl itself, either Perl version 5.14.0 or,
+    at your option, any later version of Perl 5 you may have available.
+    
+    =cut
+    END_TEMPLATE
 }

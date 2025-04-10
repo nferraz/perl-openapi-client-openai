@@ -66,10 +66,7 @@ Example:
 
     {
        "data" : [
-          {
-             "expires_after" : null,
-             "file_counts" : null
-          }
+          "{\n  \"id\": \"vs_123\",\n  \"object\": \"vector_store\",\n  \"created_at\": 1698107661,\n  \"usage_bytes\": 123456,\n  \"last_active_at\": 1698107661,\n  \"name\": \"my_vector_store\",\n  \"status\": \"completed\",\n  \"file_counts\": {\n    \"in_progress\": 0,\n    \"completed\": 100,\n    \"cancelled\": 0,\n    \"failed\": 0,\n    \"total\": 100\n  },\n  \"last_used_at\": 1698107661\n}\n"
        ],
        "first_id" : "vs_abc123",
        "has_more" : false,
@@ -123,8 +120,21 @@ Content Types:
 Example:
 
     {
-       "expires_after" : null,
-       "file_counts" : null
+      "id": "vs_123",
+      "object": "vector_store",
+      "created_at": 1698107661,
+      "usage_bytes": 123456,
+      "last_active_at": 1698107661,
+      "name": "my_vector_store",
+      "status": "completed",
+      "file_counts": {
+        "in_progress": 0,
+        "completed": 100,
+        "cancelled": 0,
+        "failed": 0,
+        "total": 100
+      },
+      "last_used_at": 1698107661
     }
 
 

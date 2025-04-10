@@ -64,9 +64,19 @@ Content Types:
 Example:
 
     {
-       "data" : [
-          null
-       ]
+      "object": "list",
+      "data": [
+        {
+          "id": "chatcmpl-AyPNinnUqUDYo9SAdA52NobMflmj2-0",
+          "role": "user",
+          "content": "write a haiku about ai",
+          "name": null,
+          "content_parts": null
+        }
+      ],
+      "first_id": "chatcmpl-AyPNinnUqUDYo9SAdA52NobMflmj2-0",
+      "last_id": "chatcmpl-AyPNinnUqUDYo9SAdA52NobMflmj2-0",
+      "has_more": false
     }
 
 

@@ -66,6 +66,29 @@ Content Types:
 
 =item * C<application/json>
 
+Example:
+
+    {
+      "id": "upload_abc123",
+      "object": "upload",
+      "bytes": 2147483648,
+      "created_at": 1719184911,
+      "filename": "training_examples.jsonl",
+      "purpose": "fine-tune",
+      "status": "completed",
+      "expires_at": 1719127296,
+      "file": {
+        "id": "file-xyz321",
+        "object": "file",
+        "bytes": 2147483648,
+        "created_at": 1719186911,
+        "filename": "training_examples.jsonl",
+        "purpose": "fine-tune",
+      }
+    }
+
+
+
 =back
 
 
