@@ -8,11 +8,14 @@ OpenAPI::Client::OpenAI::Path::organization-projects - Documentation for the /or
 
 This document describes the API endpoint at C</organization/projects>.
 
-See the C<examples/> directory in the distribution for examples of how to use this.
+=head1 PATHS
+
 
 =head2 C<GET /organization/projects>
 
 Returns a list of projects.
+
+
 
 =head3 Operation ID
 
@@ -26,18 +29,24 @@ C<list-projects>
 
 =item * C<limit> (in query) (Optional) - A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 20.
 
+
 Type: C<integer>
+
 
 Default: C<20>
 
+
 =item * C<after> (in query) (Optional) - A cursor for use in pagination. `after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call can include after=obj_foo in order to fetch the next page of the list.
+
 
 Type: C<string>
 
+
+
 =item * C<include_archived> (in query) (Optional) - If `true` returns all projects including those that have been `archived`. Archived projects are not included by default.
+
 Type: C<boolean>
 
-Default: C<>
 
 
 =back
@@ -45,24 +54,26 @@ Default: C<>
 
 =head3 Responses
 
-=head3 Status Code: C<200>
+
+=head4 Status Code: C<200>
 
 Projects listed successfully.
 
-Content Types:
+
+=head4 Content Types:
 
 =over 4
 
+
 =item * C<application/json>
 
-Example:
+Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
 
     {
        "data" : [
-          null
+          "{\n    \"id\": \"proj_abc\",\n    \"object\": \"organization.project\",\n    \"name\": \"Project example\",\n    \"created_at\": 1711471533,\n    \"archived_at\": null,\n    \"status\": \"active\"\n}\n"
        ]
     }
-
 
 
 =back
@@ -71,32 +82,58 @@ Example:
 
 Create a new project in the organization. Projects can be created and archived, but cannot be deleted.
 
+
+
 =head3 Operation ID
 
 C<create-project>
 
     $client->create-project( ... );
 
-
-=head3 Request Body
-
-=head3 Content Type: C<application/json>
-
-
-=head3 Responses
-
-=head3 Status Code: C<200>
-
-Project created successfully.
-
-Content Types:
+=head3 Parameters
 
 =over 4
 
-=item * C<application/json>
-
 =back
 
+=head3 Request Body
+  
+=head3 Content Type: C<application/json>
+
+    
+      
+
+      
+             
+
+=head3 Responses
+
+
+=head4 Status Code: C<200>
+
+Project created successfully.
+
+
+=head4 Content Types:
+
+=over 4
+
+
+=item * C<application/json>
+
+Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
+
+    {
+        "id": "proj_abc",
+        "object": "organization.project",
+        "name": "Project example",
+        "created_at": 1711471533,
+        "archived_at": null,
+        "status": "active"
+    }
+
+
+=back
 
 =head1 SEE ALSO
 

@@ -8,11 +8,14 @@ OpenAPI::Client::OpenAI::Path::vector_stores-vector_store_id-search - Documentat
 
 This document describes the API endpoint at C</vector_stores/{vector_store_id}/search>.
 
-See the C<examples/> directory in the distribution for examples of how to use this.
+=head1 PATHS
+
 
 =head2 C<POST /vector_stores/{vector_store_id}/search>
 
 Search a vector store for relevant chunks based on a query and file attributes filter.
+
+
 
 =head3 Operation ID
 
@@ -25,56 +28,63 @@ C<searchVectorStore>
 =over 4
 
 =item * C<vector_store_id> (in path) (Required) - The ID of the vector store to search.
+
 Type: C<string>
+
 
 
 =back
 
-
 =head3 Request Body
-
+  
 =head3 Content Type: C<application/json>
 
+    
+      
 
-=head3 Example:
+      
+      
+Example:
 
     {
        "ranking_options" : null
     }
 
 
+             
 
 =head3 Responses
 
-=head3 Status Code: C<200>
+
+=head4 Status Code: C<200>
 
 OK
 
-Content Types:
+
+=head4 Content Types:
 
 =over 4
 
+
 =item * C<application/json>
 
-Example:
+Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
 
     {
-       "search_query" : [
-          null
-       ],
        "data" : [
           {
              "content" : [
                 null
              ]
           }
+       ],
+       "search_query" : [
+          null
        ]
     }
 
 
-
 =back
-
 
 =head1 SEE ALSO
 

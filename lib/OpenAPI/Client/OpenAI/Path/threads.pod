@@ -8,11 +8,14 @@ OpenAPI::Client::OpenAI::Path::threads - Documentation for the /threads path.
 
 This document describes the API endpoint at C</threads>.
 
-See the C<examples/> directory in the distribution for examples of how to use this.
+=head1 PATHS
+
 
 =head2 C<POST /threads>
 
 Create a thread.
+
+
 
 =head3 Operation ID
 
@@ -20,15 +23,37 @@ C<createThread>
 
     $client->createThread( ... );
 
+=head3 Parameters
+
+=over 4
+
+=back
 
 =head3 Request Body
-
+  
 =head3 Content Type: C<application/json>
 
+    
+      Options to create a new thread. If no thread is provided when running a 
+request, an empty thread will be created.
 
-=head3 Example:
+
+      
+      
+Example:
 
     {
+       "messages" : [
+          {
+             "attachments" : [
+                {
+                   "tools" : [
+                      null
+                   ]
+                }
+             ]
+          }
+       ],
        "tool_resources" : {
           "code_interpreter" : {
              "file_ids" : [
@@ -47,55 +72,38 @@ C<createThread>
                 }
              ]
           }
-       },
-       "messages" : [
-          {
-             "attachments" : [
-                {
-                   "tools" : [
-                      null
-                   ]
-                }
-             ]
-          }
-       ]
-    }
-
-
-
-=head3 Responses
-
-=head3 Status Code: C<200>
-
-OK
-
-Content Types:
-
-=over 4
-
-=item * C<application/json>
-
-Example:
-
-    {
-       "tool_resources" : {
-          "file_search" : {
-             "vector_store_ids" : [
-                null
-             ]
-          },
-          "code_interpreter" : {
-             "file_ids" : [
-                null
-             ]
-          }
        }
     }
 
 
+             
+
+=head3 Responses
+
+
+=head4 Status Code: C<200>
+
+OK
+
+
+=head4 Content Types:
+
+=over 4
+
+
+=item * C<application/json>
+
+Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
+
+    {
+      "id": "thread_abc123",
+      "object": "thread",
+      "created_at": 1698107661,
+      "metadata": {}
+    }
+
 
 =back
-
 
 =head1 SEE ALSO
 

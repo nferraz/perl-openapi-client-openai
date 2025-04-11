@@ -8,11 +8,14 @@ OpenAPI::Client::OpenAI::Path::images-generations - Documentation for the /image
 
 This document describes the API endpoint at C</images/generations>.
 
-See the C<examples/> directory in the distribution for examples of how to use this.
+=head1 PATHS
+
 
 =head2 C<POST /images/generations>
 
 Creates an image given a prompt.
+
+
 
 =head3 Operation ID
 
@@ -20,51 +23,75 @@ C<createImage>
 
     $client->createImage( ... );
 
-
-=head3 Request Body
-
-=head3 Content Type: C<application/json>
-
-
-=head3 Example:
-
-    {
-       "style" : "vivid",
-       "user" : "user-1234",
-       "prompt" : "A cute baby sea otter",
-       "model" : "dall-e-3",
-       "size" : "1024x1024",
-       "n" : 1,
-       "quality" : "standard",
-       "response_format" : "url"
-    }
-
-
-
-=head3 Responses
-
-=head3 Status Code: C<200>
-
-OK
-
-Content Types:
+=head3 Parameters
 
 =over 4
 
-=item * C<application/json>
+=back
 
+=head3 Request Body
+  
+=head3 Content Type: C<application/json>
+
+    
+      
+
+      
+
+=head4 Models
+
+The model to use for image generation.
+
+=over 4
+      
+=item * C<dall-e-2>
+
+=item * C<dall-e-3>
+
+=back
+      
+      
 Example:
 
     {
+       "model" : "dall-e-3",
+       "n" : 1,
+       "prompt" : "A cute baby sea otter",
+       "quality" : "standard",
+       "response_format" : "url",
+       "size" : "1024x1024",
+       "style" : "vivid",
+       "user" : "user-1234"
+    }
+
+
+             
+
+=head3 Responses
+
+
+=head4 Status Code: C<200>
+
+OK
+
+
+=head4 Content Types:
+
+=over 4
+
+
+=item * C<application/json>
+
+Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
+
+    {
        "data" : [
-          null
+          "{\n  \"url\": \"...\",\n  \"revised_prompt\": \"...\"\n}\n"
        ]
     }
 
 
-
 =back
-
 
 =head1 SEE ALSO
 

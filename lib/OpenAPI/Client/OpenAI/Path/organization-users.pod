@@ -8,11 +8,14 @@ OpenAPI::Client::OpenAI::Path::organization-users - Documentation for the /organ
 
 This document describes the API endpoint at C</organization/users>.
 
-See the C<examples/> directory in the distribution for examples of how to use this.
+=head1 PATHS
+
 
 =head2 C<GET /organization/users>
 
 Lists all of the users in the organization.
+
+
 
 =head3 Operation ID
 
@@ -26,16 +29,24 @@ C<list-users>
 
 =item * C<limit> (in query) (Optional) - A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 20.
 
+
 Type: C<integer>
+
 
 Default: C<20>
 
+
 =item * C<after> (in query) (Optional) - A cursor for use in pagination. `after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call can include after=obj_foo in order to fetch the next page of the list.
+
 
 Type: C<string>
 
+
+
 =item * C<emails> (in query) (Optional) - Filter by the email address of users.
+
 Type: C<array>
+
 
 
 =back
@@ -43,28 +54,29 @@ Type: C<array>
 
 =head3 Responses
 
-=head3 Status Code: C<200>
+
+=head4 Status Code: C<200>
 
 Users listed successfully.
 
-Content Types:
+
+=head4 Content Types:
 
 =over 4
 
+
 =item * C<application/json>
 
-Example:
+Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
 
     {
        "data" : [
-          null
+          "{\n    \"object\": \"organization.user\",\n    \"id\": \"user_abc\",\n    \"name\": \"First Last\",\n    \"email\": \"user@example.com\",\n    \"role\": \"owner\",\n    \"added_at\": 1711471533\n}\n"
        ]
     }
 
 
-
 =back
-
 
 =head1 SEE ALSO
 

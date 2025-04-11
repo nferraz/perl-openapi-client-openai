@@ -1,5 +1,8 @@
 Revision history for OpenAPI-Client-OpenAI
 
+0.21    2025-04-11
+        - Added examples to the docs, along with allowed models for each path.
+
 0.20    2025-04-06
         - Complete revamped documentation. Much easier to read than the
           near-useless Schema.pod that we used to have.

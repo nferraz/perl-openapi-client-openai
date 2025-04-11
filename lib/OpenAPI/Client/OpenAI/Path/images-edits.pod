@@ -8,11 +8,14 @@ OpenAPI::Client::OpenAI::Path::images-edits - Documentation for the /images/edit
 
 This document describes the API endpoint at C</images/edits>.
 
-See the C<examples/> directory in the distribution for examples of how to use this.
+=head1 PATHS
+
 
 =head2 C<POST /images/edits>
 
 Creates an edited or extended image given an original image and a prompt.
+
+
 
 =head3 Operation ID
 
@@ -20,49 +23,71 @@ C<createImageEdit>
 
     $client->createImageEdit( ... );
 
-
-=head3 Request Body
-
-=head3 Content Type: C<multipart/form-data>
-
-
-=head3 Example:
-
-    {
-       "n" : 1,
-       "response_format" : "url",
-       "model" : "dall-e-2",
-       "prompt" : "A cute baby sea otter wearing a beret",
-       "user" : "user-1234",
-       "size" : "1024x1024"
-    }
-
-
-
-=head3 Responses
-
-=head3 Status Code: C<200>
-
-OK
-
-Content Types:
+=head3 Parameters
 
 =over 4
 
-=item * C<application/json>
+=back
 
+=head3 Request Body
+  
+=head3 Content Type: C<multipart/form-data>
+
+    
+      
+
+      
+
+=head4 Models
+
+The model to use for image generation. Only C<dall-e-2> is supported at this time.
+
+=over 4
+      
+=item * C<dall-e-2>
+
+=back
+      
+      
 Example:
 
     {
+       "model" : "dall-e-2",
+       "n" : 1,
+       "prompt" : "A cute baby sea otter wearing a beret",
+       "response_format" : "url",
+       "size" : "1024x1024",
+       "user" : "user-1234"
+    }
+
+
+             
+
+=head3 Responses
+
+
+=head4 Status Code: C<200>
+
+OK
+
+
+=head4 Content Types:
+
+=over 4
+
+
+=item * C<application/json>
+
+Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
+
+    {
        "data" : [
-          null
+          "{\n  \"url\": \"...\",\n  \"revised_prompt\": \"...\"\n}\n"
        ]
     }
 
 
-
 =back
-
 
 =head1 SEE ALSO
 

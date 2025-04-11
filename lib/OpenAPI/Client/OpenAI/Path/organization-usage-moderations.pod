@@ -8,11 +8,14 @@ OpenAPI::Client::OpenAI::Path::organization-usage-moderations - Documentation fo
 
 This document describes the API endpoint at C</organization/usage/moderations>.
 
-See the C<examples/> directory in the distribution for examples of how to use this.
+=head1 PATHS
+
 
 =head2 C<GET /organization/usage/moderations>
 
 Get moderations usage details for the organization.
+
+
 
 =head3 Operation ID
 
@@ -25,42 +28,71 @@ C<usage-moderations>
 =over 4
 
 =item * C<start_time> (in query) (Required) - Start time (Unix seconds) of the query time range, inclusive.
+
 Type: C<integer>
+
+
 
 =item * C<end_time> (in query) (Optional) - End time (Unix seconds) of the query time range, exclusive.
+
 Type: C<integer>
 
+
+
 =item * C<bucket_width> (in query) (Optional) - Width of each time bucket in response. Currently `1m`, `1h` and `1d` are supported, default to `1d`.
+
 Type: C<string>
 
-Possible values: C<1m 1h 1d>
+Allowed values: C<1m, 1h, 1d>
+
 
 Default: C<1d>
 
+
 =item * C<project_ids> (in query) (Optional) - Return only usage for these projects.
+
 Type: C<array>
+
+
 
 =item * C<user_ids> (in query) (Optional) - Return only usage for these users.
+
 Type: C<array>
+
+
 
 =item * C<api_key_ids> (in query) (Optional) - Return only usage for these API keys.
+
 Type: C<array>
+
+
 
 =item * C<models> (in query) (Optional) - Return only usage for these models.
+
 Type: C<array>
 
+
+
 =item * C<group_by> (in query) (Optional) - Group the usage data by the specified fields. Support fields include `project_id`, `user_id`, `api_key_id`, `model` or any combination of them.
+
 Type: C<array>
+
+
 
 =item * C<limit> (in query) (Optional) - Specifies the number of buckets to return.
 - `bucket_width=1d`: default: 7, max: 31
 - `bucket_width=1h`: default: 24, max: 168
 - `bucket_width=1m`: default: 60, max: 1440
 
+
 Type: C<integer>
 
+
+
 =item * C<page> (in query) (Optional) - A cursor for use in pagination. Corresponding to the `next_page` field from the previous response.
+
 Type: C<string>
+
 
 
 =back
@@ -68,17 +100,20 @@ Type: C<string>
 
 =head3 Responses
 
-=head3 Status Code: C<200>
+
+=head4 Status Code: C<200>
 
 Usage data retrieved successfully.
 
-Content Types:
+
+=head4 Content Types:
 
 =over 4
 
+
 =item * C<application/json>
 
-Example:
+Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
 
     {
        "data" : [
@@ -91,9 +126,7 @@ Example:
     }
 
 
-
 =back
-
 
 =head1 SEE ALSO
 

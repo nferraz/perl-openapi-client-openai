@@ -8,11 +8,14 @@ OpenAPI::Client::OpenAI::Path::assistants-assistant_id - Documentation for the /
 
 This document describes the API endpoint at C</assistants/{assistant_id}>.
 
-See the C<examples/> directory in the distribution for examples of how to use this.
+=head1 PATHS
+
 
 =head2 C<DELETE /assistants/{assistant_id}>
 
 Delete an assistant.
+
+
 
 =head3 Operation ID
 
@@ -25,7 +28,9 @@ C<deleteAssistant>
 =over 4
 
 =item * C<assistant_id> (in path) (Required) - The ID of the assistant to delete.
+
 Type: C<string>
+
 
 
 =back
@@ -33,21 +38,30 @@ Type: C<string>
 
 =head3 Responses
 
-=head3 Status Code: C<200>
+
+=head4 Status Code: C<200>
 
 OK
 
-Content Types:
+
+=head4 Content Types:
 
 =over 4
 
+
 =item * C<application/json>
+
+Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
+
+
 
 =back
 
 =head2 C<GET /assistants/{assistant_id}>
 
 Retrieves an assistant.
+
+
 
 =head3 Operation ID
 
@@ -60,7 +74,9 @@ C<getAssistant>
 =over 4
 
 =item * C<assistant_id> (in path) (Required) - The ID of the assistant to retrieve.
+
 Type: C<string>
+
 
 
 =back
@@ -68,38 +84,39 @@ Type: C<string>
 
 =head3 Responses
 
-=head3 Status Code: C<200>
+
+=head4 Status Code: C<200>
 
 OK
 
-Content Types:
+
+=head4 Content Types:
 
 =over 4
 
+
 =item * C<application/json>
 
-Example:
+Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
 
     {
-       "tools" : [
-          null
-       ],
-       "tool_resources" : {
-          "code_interpreter" : {
-             "file_ids" : [
-                null
-             ]
-          },
-          "file_search" : {
-             "vector_store_ids" : [
-                null
-             ]
-          }
-       },
-       "top_p" : 1,
-       "temperature" : 1
+      "id": "asst_abc123",
+      "object": "assistant",
+      "created_at": 1698984975,
+      "name": "Math Tutor",
+      "description": null,
+      "model": "gpt-4o",
+      "instructions": "You are a personal math tutor. When asked a question, write and run Python code to answer the question.",
+      "tools": [
+        {
+          "type": "code_interpreter"
+        }
+      ],
+      "metadata": {},
+      "top_p": 1.0,
+      "temperature": 1.0,
+      "response_format": "auto"
     }
-
 
 
 =back
@@ -107,6 +124,8 @@ Example:
 =head2 C<POST /assistants/{assistant_id}>
 
 Modifies an assistant.
+
+
 
 =head3 Operation ID
 
@@ -119,56 +138,95 @@ C<modifyAssistant>
 =over 4
 
 =item * C<assistant_id> (in path) (Required) - The ID of the assistant to modify.
+
 Type: C<string>
+
 
 
 =back
 
-
 =head3 Request Body
-
+  
 =head3 Content Type: C<application/json>
 
+    
+      
 
-=head3 Example:
+      
 
-    {
-       "tools" : [
-          null
-       ],
-       "temperature" : 1,
-       "top_p" : 1,
-       "tool_resources" : {
-          "code_interpreter" : {
-             "file_ids" : [
-                null
-             ]
-          },
-          "file_search" : {
-             "vector_store_ids" : [
-                null
-             ]
-          }
-       }
-    }
+=head4 Models
 
-
-
-=head3 Responses
-
-=head3 Status Code: C<200>
-
-OK
-
-Content Types:
+ID of the model to use. You can use the L<List models|https://platform.openai.com/docs/api-reference/models/list> API to see all of your available models, or see our L<Model overview|https://platform.openai.com/docs/models> for descriptions of them.
 
 =over 4
+      
+=item * C<o3-mini>
 
-=item * C<application/json>
+=item * C<o3-mini-2025-01-31>
 
+=item * C<o1>
+
+=item * C<o1-2024-12-17>
+
+=item * C<gpt-4o>
+
+=item * C<gpt-4o-2024-11-20>
+
+=item * C<gpt-4o-2024-08-06>
+
+=item * C<gpt-4o-2024-05-13>
+
+=item * C<gpt-4o-mini>
+
+=item * C<gpt-4o-mini-2024-07-18>
+
+=item * C<gpt-4.5-preview>
+
+=item * C<gpt-4.5-preview-2025-02-27>
+
+=item * C<gpt-4-turbo>
+
+=item * C<gpt-4-turbo-2024-04-09>
+
+=item * C<gpt-4-0125-preview>
+
+=item * C<gpt-4-turbo-preview>
+
+=item * C<gpt-4-1106-preview>
+
+=item * C<gpt-4-vision-preview>
+
+=item * C<gpt-4>
+
+=item * C<gpt-4-0314>
+
+=item * C<gpt-4-0613>
+
+=item * C<gpt-4-32k>
+
+=item * C<gpt-4-32k-0314>
+
+=item * C<gpt-4-32k-0613>
+
+=item * C<gpt-3.5-turbo>
+
+=item * C<gpt-3.5-turbo-16k>
+
+=item * C<gpt-3.5-turbo-0613>
+
+=item * C<gpt-3.5-turbo-1106>
+
+=item * C<gpt-3.5-turbo-0125>
+
+=item * C<gpt-3.5-turbo-16k-0613>
+
+=back
+      
+      
 Example:
 
     {
+       "temperature" : 1,
        "tool_resources" : {
           "code_interpreter" : {
              "file_ids" : [
@@ -181,17 +239,53 @@ Example:
              ]
           }
        },
-       "top_p" : 1,
-       "temperature" : 1,
        "tools" : [
           null
-       ]
+       ],
+       "top_p" : 1
     }
 
 
+             
+
+=head3 Responses
+
+
+=head4 Status Code: C<200>
+
+OK
+
+
+=head4 Content Types:
+
+=over 4
+
+
+=item * C<application/json>
+
+Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
+
+    {
+      "id": "asst_abc123",
+      "object": "assistant",
+      "created_at": 1698984975,
+      "name": "Math Tutor",
+      "description": null,
+      "model": "gpt-4o",
+      "instructions": "You are a personal math tutor. When asked a question, write and run Python code to answer the question.",
+      "tools": [
+        {
+          "type": "code_interpreter"
+        }
+      ],
+      "metadata": {},
+      "top_p": 1.0,
+      "temperature": 1.0,
+      "response_format": "auto"
+    }
+
 
 =back
-
 
 =head1 SEE ALSO
 

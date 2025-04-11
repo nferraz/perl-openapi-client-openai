@@ -8,17 +8,19 @@ OpenAPI::Client::OpenAI::Path::responses - Documentation for the /responses path
 
 This document describes the API endpoint at C</responses>.
 
-See the C<examples/> directory in the distribution for examples of how to use this.
+=head1 PATHS
+
 
 =head2 C<POST /responses>
 
-Creates a model response. Provide [text](/docs/guides/text) or
-[image](/docs/guides/images) inputs to generate [text](/docs/guides/text)
-or [JSON](/docs/guides/structured-outputs) outputs. Have the model call
-your own [custom code](/docs/guides/function-calling) or use built-in
-[tools](/docs/guides/tools) like [web search](/docs/guides/tools-web-search)
-or [file search](/docs/guides/tools-file-search) to use your own data
+Creates a model response. Provide L<text|https://platform.openai.com/docs/guides/text> or
+L<image|https://platform.openai.com/docs/guides/images> inputs to generate L<text|https://platform.openai.com/docs/guides/text>
+or L<JSON|https://platform.openai.com/docs/guides/structured-outputs> outputs. Have the model call
+your own L<custom code|https://platform.openai.com/docs/guides/function-calling> or use built-in
+L<tools|https://platform.openai.com/docs/guides/tools> like L<web search|https://platform.openai.com/docs/guides/tools-web-search>
+or L<file search|https://platform.openai.com/docs/guides/tools-file-search> to use your own data
 as input for the model's response.
+
 
 
 =head3 Operation ID
@@ -27,27 +29,49 @@ C<createResponse>
 
     $client->createResponse( ... );
 
-
-=head3 Request Body
-
-=head3 Content Type: C<application/json>
-
-
-=head3 Responses
-
-=head3 Status Code: C<200>
-
-OK
-
-Content Types:
+=head3 Parameters
 
 =over 4
 
-=item * C<application/json>
-=item * C<text/event-stream>
-
 =back
 
+=head3 Request Body
+  
+=head3 Content Type: C<application/json>
+
+    
+      
+
+      
+             
+
+=head3 Responses
+
+
+=head4 Status Code: C<200>
+
+OK
+
+
+=head4 Content Types:
+
+=over 4
+
+
+=item * C<application/json>
+
+Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
+
+
+
+
+=item * C<text/event-stream>
+
+Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
+
+
+
+=back
 
 =head1 SEE ALSO
 

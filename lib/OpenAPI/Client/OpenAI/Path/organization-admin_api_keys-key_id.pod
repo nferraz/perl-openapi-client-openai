@@ -8,13 +8,18 @@ OpenAPI::Client::OpenAI::Path::organization-admin_api_keys-key_id - Documentatio
 
 This document describes the API endpoint at C</organization/admin_api_keys/{key_id}>.
 
-See the C<examples/> directory in the distribution for examples of how to use this.
+=head1 PATHS
+
 
 =head2 C<DELETE /organization/admin_api_keys/{key_id}>
 
 Delete an organization admin API key
 
+
 Delete the specified admin API key.
+
+
+
 =head3 Operation ID
 
 C<admin-api-keys-delete>
@@ -25,8 +30,10 @@ C<admin-api-keys-delete>
 
 =over 4
 
-=item * C<key_id> (in path) (Required) - No description available.
+=item * C<key_id> (in path) (Required) - 
+
 Type: C<string>
+
 
 
 =back
@@ -34,24 +41,26 @@ Type: C<string>
 
 =head3 Responses
 
-=head3 Status Code: C<200>
+
+=head4 Status Code: C<200>
 
 Confirmation that the API key was deleted.
 
-Content Types:
+
+=head4 Content Types:
 
 =over 4
 
+
 =item * C<application/json>
 
-Example:
+Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
 
     {
-       "object" : "organization.admin_api_key.deleted",
        "deleted" : true,
-       "id" : "key_abc"
+       "id" : "key_abc",
+       "object" : "organization.admin_api_key.deleted"
     }
-
 
 
 =back
@@ -60,7 +69,11 @@ Example:
 
 Retrieve a single organization API key
 
+
 Get details for a specific organization API key by its ID.
+
+
+
 =head3 Operation ID
 
 C<admin-api-keys-get>
@@ -71,8 +84,10 @@ C<admin-api-keys-get>
 
 =over 4
 
-=item * C<key_id> (in path) (Required) - No description available.
+=item * C<key_id> (in path) (Required) - 
+
 Type: C<string>
+
 
 
 =back
@@ -80,38 +95,39 @@ Type: C<string>
 
 =head3 Responses
 
-=head3 Status Code: C<200>
+
+=head4 Status Code: C<200>
 
 Details of the requested API key.
 
-Content Types:
+
+=head4 Content Types:
 
 =over 4
 
+
 =item * C<application/json>
 
-Example:
+Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
 
     {
-       "id" : "key_abc",
-       "value" : "sk-admin-1234abcd",
-       "owner" : {
-          "id" : "sa_456",
-          "type" : "service_account",
-          "created_at" : 1711471533,
-          "role" : "member",
-          "name" : "My Service Account"
-       },
-       "name" : "Administration Key",
-       "redacted_value" : "sk-admin...def",
        "created_at" : 1711471533,
-       "object" : "organization.admin_api_key"
+       "id" : "key_abc",
+       "name" : "Administration Key",
+       "object" : "organization.admin_api_key",
+       "owner" : {
+          "created_at" : 1711471533,
+          "id" : "sa_456",
+          "name" : "My Service Account",
+          "role" : "member",
+          "type" : "service_account"
+       },
+       "redacted_value" : "sk-admin...def",
+       "value" : "sk-admin-1234abcd"
     }
 
 
-
 =back
-
 
 =head1 SEE ALSO
 

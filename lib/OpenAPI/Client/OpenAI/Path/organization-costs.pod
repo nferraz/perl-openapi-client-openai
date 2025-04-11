@@ -8,11 +8,14 @@ OpenAPI::Client::OpenAI::Path::organization-costs - Documentation for the /organ
 
 This document describes the API endpoint at C</organization/costs>.
 
-See the C<examples/> directory in the distribution for examples of how to use this.
+=head1 PATHS
+
 
 =head2 C<GET /organization/costs>
 
 Get costs details for the organization.
+
+
 
 =head3 Operation ID
 
@@ -25,32 +28,52 @@ C<usage-costs>
 =over 4
 
 =item * C<start_time> (in query) (Required) - Start time (Unix seconds) of the query time range, inclusive.
+
 Type: C<integer>
+
+
 
 =item * C<end_time> (in query) (Optional) - End time (Unix seconds) of the query time range, exclusive.
+
 Type: C<integer>
 
+
+
 =item * C<bucket_width> (in query) (Optional) - Width of each time bucket in response. Currently only `1d` is supported, default to `1d`.
+
 Type: C<string>
 
-Possible values: C<1d>
+Allowed values: C<1d>
+
 
 Default: C<1d>
 
+
 =item * C<project_ids> (in query) (Optional) - Return only costs for these projects.
+
 Type: C<array>
 
+
+
 =item * C<group_by> (in query) (Optional) - Group the costs by the specified fields. Support fields include `project_id`, `line_item` and any combination of them.
+
 Type: C<array>
+
+
 
 =item * C<limit> (in query) (Optional) - A limit on the number of buckets to be returned. Limit can range between 1 and 180, and the default is 7.
 
+
 Type: C<integer>
+
 
 Default: C<7>
 
+
 =item * C<page> (in query) (Optional) - A cursor for use in pagination. Corresponding to the `next_page` field from the previous response.
+
 Type: C<string>
+
 
 
 =back
@@ -58,17 +81,20 @@ Type: C<string>
 
 =head3 Responses
 
-=head3 Status Code: C<200>
+
+=head4 Status Code: C<200>
 
 Costs data retrieved successfully.
 
-Content Types:
+
+=head4 Content Types:
 
 =over 4
 
+
 =item * C<application/json>
 
-Example:
+Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
 
     {
        "data" : [
@@ -81,9 +107,7 @@ Example:
     }
 
 
-
 =back
-
 
 =head1 SEE ALSO
 

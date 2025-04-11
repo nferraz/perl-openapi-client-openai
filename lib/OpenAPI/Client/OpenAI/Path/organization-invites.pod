@@ -8,11 +8,14 @@ OpenAPI::Client::OpenAI::Path::organization-invites - Documentation for the /org
 
 This document describes the API endpoint at C</organization/invites>.
 
-See the C<examples/> directory in the distribution for examples of how to use this.
+=head1 PATHS
+
 
 =head2 C<GET /organization/invites>
 
 Returns a list of invites in the organization.
+
+
 
 =head3 Operation ID
 
@@ -26,13 +29,18 @@ C<list-invites>
 
 =item * C<limit> (in query) (Optional) - A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 20.
 
+
 Type: C<integer>
+
 
 Default: C<20>
 
+
 =item * C<after> (in query) (Optional) - A cursor for use in pagination. `after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call can include after=obj_foo in order to fetch the next page of the list.
 
+
 Type: C<string>
+
 
 
 =back
@@ -40,28 +48,26 @@ Type: C<string>
 
 =head3 Responses
 
-=head3 Status Code: C<200>
+
+=head4 Status Code: C<200>
 
 Invites listed successfully.
 
-Content Types:
+
+=head4 Content Types:
 
 =over 4
 
+
 =item * C<application/json>
 
-Example:
+Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
 
     {
        "data" : [
-          {
-             "projects" : [
-                null
-             ]
-          }
+          "{\n  \"object\": \"organization.invite\",\n  \"id\": \"invite-abc\",\n  \"email\": \"user@example.com\",\n  \"role\": \"owner\",\n  \"status\": \"accepted\",\n  \"invited_at\": 1711471533,\n  \"expires_at\": 1711471533,\n  \"accepted_at\": 1711471533,\n  \"projects\": [\n    {\n      \"id\": \"project-xyz\",\n      \"role\": \"member\"\n    }\n  ]\n}\n"
        ]
     }
-
 
 
 =back
@@ -70,40 +76,29 @@ Example:
 
 Create an invite for a user to the organization. The invite must be accepted by the user before they have access to the organization.
 
+
+
 =head3 Operation ID
 
 C<inviteUser>
 
     $client->inviteUser( ... );
 
-
-=head3 Request Body
-
-=head3 Content Type: C<application/json>
-
-
-=head3 Example:
-
-    {
-       "projects" : [
-          null
-       ]
-    }
-
-
-
-=head3 Responses
-
-=head3 Status Code: C<200>
-
-User invited successfully.
-
-Content Types:
+=head3 Parameters
 
 =over 4
 
-=item * C<application/json>
+=back
 
+=head3 Request Body
+  
+=head3 Content Type: C<application/json>
+
+    
+      
+
+      
+      
 Example:
 
     {
@@ -113,9 +108,44 @@ Example:
     }
 
 
+             
+
+=head3 Responses
+
+
+=head4 Status Code: C<200>
+
+User invited successfully.
+
+
+=head4 Content Types:
+
+=over 4
+
+
+=item * C<application/json>
+
+Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
+
+    {
+      "object": "organization.invite",
+      "id": "invite-abc",
+      "email": "user@example.com",
+      "role": "owner",
+      "status": "accepted",
+      "invited_at": 1711471533,
+      "expires_at": 1711471533,
+      "accepted_at": 1711471533,
+      "projects": [
+        {
+          "id": "project-xyz",
+          "role": "member"
+        }
+      ]
+    }
+
 
 =back
-
 
 =head1 SEE ALSO
 

@@ -8,17 +8,19 @@ OpenAPI::Client::OpenAI::Path::realtime-transcription_sessions - Documentation f
 
 This document describes the API endpoint at C</realtime/transcription_sessions>.
 
-See the C<examples/> directory in the distribution for examples of how to use this.
+=head1 PATHS
+
 
 =head2 C<POST /realtime/transcription_sessions>
 
 Create an ephemeral API token for use in client-side applications with the
 Realtime API specifically for realtime transcriptions. 
-Can be configured with the same session parameters as the `transcription_session.update` client event.
+Can be configured with the same session parameters as the C<transcription_session.update> client event.
 
-It responds with a session object, plus a `client_secret` key which contains
+It responds with a session object, plus a C<client_secret> key which contains
 a usable ephemeral API token that can be used to authenticate browser clients
 for the Realtime API.
+
 
 
 =head3 Operation ID
@@ -27,49 +29,74 @@ C<create-realtime-transcription-session>
 
     $client->create-realtime-transcription-session( ... );
 
+=head3 Parameters
+
+=over 4
+
+=back
 
 =head3 Request Body
-
+  
 =head3 Content Type: C<application/json>
 
+    
+      Realtime transcription session object configuration.
 
-=head3 Example:
+      
+      
+Example:
 
     {
        "include" : [
           null
        ],
        "input_audio_noise_reduction" : null,
-       "turn_detection" : null,
-       "input_audio_transcription" : null
+       "input_audio_transcription" : null,
+       "turn_detection" : null
     }
 
 
+             
 
 =head3 Responses
 
-=head3 Status Code: C<200>
+
+=head4 Status Code: C<200>
 
 Session created successfully.
 
-Content Types:
+
+=head4 Content Types:
 
 =over 4
 
+
 =item * C<application/json>
 
-Example:
+Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
 
     {
-       "turn_detection" : null,
-       "client_secret" : null,
-       "input_audio_transcription" : null
+      "id": "sess_BBwZc7cFV3XizEyKGDCGL",
+      "object": "realtime.transcription_session",
+      "expires_at": 1742188264,
+      "modalities": ["audio", "text"],
+      "turn_detection": {
+        "type": "server_vad",
+        "threshold": 0.5,
+        "prefix_padding_ms": 300,
+        "silence_duration_ms": 200
+      },
+      "input_audio_format": "pcm16",
+      "input_audio_transcription": {
+        "model": "gpt-4o-transcribe",
+        "language": null,
+        "prompt": ""
+      },
+      "client_secret": null
     }
 
 
-
 =back
-
 
 =head1 SEE ALSO
 

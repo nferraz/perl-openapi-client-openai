@@ -8,11 +8,14 @@ OpenAPI::Client::OpenAI::Path::models-model - Documentation for the /models/{mod
 
 This document describes the API endpoint at C</models/{model}>.
 
-See the C<examples/> directory in the distribution for examples of how to use this.
+=head1 PATHS
+
 
 =head2 C<DELETE /models/{model}>
 
 Delete a fine-tuned model. You must have the Owner role in your organization to delete a model.
+
+
 
 =head3 Operation ID
 
@@ -25,7 +28,9 @@ C<deleteModel>
 =over 4
 
 =item * C<model> (in path) (Required) - The model to delete
+
 Type: C<string>
+
 
 
 =back
@@ -33,21 +38,30 @@ Type: C<string>
 
 =head3 Responses
 
-=head3 Status Code: C<200>
+
+=head4 Status Code: C<200>
 
 OK
 
-Content Types:
+
+=head4 Content Types:
 
 =over 4
 
+
 =item * C<application/json>
+
+Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
+
+
 
 =back
 
 =head2 C<GET /models/{model}>
 
 Retrieves a model instance, providing basic information about the model such as the owner and permissioning.
+
+
 
 =head3 Operation ID
 
@@ -60,7 +74,9 @@ C<retrieveModel>
 =over 4
 
 =item * C<model> (in path) (Required) - The ID of the model to use for this request
+
 Type: C<string>
+
 
 
 =back
@@ -68,18 +84,30 @@ Type: C<string>
 
 =head3 Responses
 
-=head3 Status Code: C<200>
+
+=head4 Status Code: C<200>
 
 OK
 
-Content Types:
+
+=head4 Content Types:
 
 =over 4
 
+
 =item * C<application/json>
 
-=back
+Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
 
+    {
+      "id": "VAR_chat_model_id",
+      "object": "model",
+      "created": 1686935002,
+      "owned_by": "openai"
+    }
+
+
+=back
 
 =head1 SEE ALSO
 
