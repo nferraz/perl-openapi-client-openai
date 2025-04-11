@@ -16,6 +16,11 @@ This document describes the API endpoint at C</images/edits>.
 Creates an edited or extended image given an original image and a prompt.
 
 
+Creates an edited or extended image given an original image and a prompt.
+
+
+
+
 =head3 Operation ID
 
 C<createImageEdit>

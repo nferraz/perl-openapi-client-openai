@@ -16,6 +16,11 @@ This document describes the API endpoint at C</threads/{thread_id}/messages/{mes
 Deletes a message.
 
 
+Deletes a message.
+
+
+
+
 =head3 Operation ID
 
 C<deleteMessage>
@@ -64,6 +69,11 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
 =head2 C<GET /threads/{thread_id}/messages/{message_id}>
 
 Retrieve a message.
+
+
+Retrieve a message.
+
+
 
 
 =head3 Operation ID
@@ -134,6 +144,11 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
 =head2 C<POST /threads/{thread_id}/messages/{message_id}>
 
 Modifies a message.
+
+
+Modifies a message.
+
+
 
 
 =head3 Operation ID

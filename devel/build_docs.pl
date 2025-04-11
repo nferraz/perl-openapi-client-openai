@@ -11,6 +11,7 @@ use JSON::PP;
 use Carp  qw(croak);
 use Clone qw(clone);
 use Template;
+use Markdown::Pod;
 
 # FIXME: switch from HEREDOCs to Templates
 
@@ -117,6 +118,16 @@ sub get_example_from_schema ($schema) {
     return undef;
 }
 
+sub markdown_to_pod ($markdown) {
+    my $m2p = Markdown::Pod->new;
+
+    # FIXME: quick-n-dirty hack to convert links to the OpenAI docs
+    if ( $markdown =~ m{\(/docs/} ) {
+        $markdown =~ s{\(/docs/}{(https://platform.openai.com/docs/}g;
+    }
+    return $m2p->markdown_to_pod( markdown => $markdown );
+}
+
 sub write_documentation_for_path ( $resolved_openapi, $path, $output_base_dir, $path_index_entries ) {
     my $path_data              = $resolved_openapi->{paths}->{$path};
     my $sanitized_path_segment = $path;
@@ -139,13 +150,13 @@ sub write_documentation_for_path ( $resolved_openapi, $path, $output_base_dir, $
         foreach my $method ( sort keys %{$path_data} ) {
             next if $method eq 'description' || $method eq 'parameters';
 
-            my $method_data  = $path_data->{$method};
+            my $method_data = $path_data->{$method};
 
             if ( defined $method_data->{summary} && $method_data->{summary} ne '' ) {
-                $template_data{summary} = $method_data->{summary};
+                $method_data->{summary} = markdown_to_pod( $method_data->{summary} );
             }
             if ( defined $method_data->{description} && $method_data->{description} ne '' ) {
-                $template_data{description} = $method_data->{description};
+                $method_data->{description} = markdown_to_pod( $method_data->{description} );
             }
 
             # Add request body documentation with examples
@@ -192,6 +203,10 @@ sub write_documentation_for_path ( $resolved_openapi, $path, $output_base_dir, $
         #warn $template_data{path_data}{get}{responses}{200}{content}{'application/json'}{schema}{example};
         my $output_file = $output_base_dir->child("$sanitized_path_segment.pod");
         $output_file->spew_utf8($output);
+        1;
+    } or do {
+        my $error = $@ || 'Unknown error';
+        die "Failed to write documentation for path '$path': $error\n";
     };
 
 
@@ -278,6 +293,9 @@ sub _path_template () {
     =head2 C<[% http_method.upper %] [% path %]>
 
     [% method_data = path_data.$http_method; method_data.summary %]
+    [% IF method_data.summary %]
+    [% method_data.summary %]
+    [% END %]
     [% IF method_data.description %]
     [% method_data.description %]
     [% END %]

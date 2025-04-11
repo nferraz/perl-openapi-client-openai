@@ -16,6 +16,10 @@ This document describes the API endpoint at C</responses/{response_id}>.
 Deletes a model response with the given ID.
 
 
+Deletes a model response with the given ID.
+
+
+
 
 =head3 Operation ID
 
@@ -64,6 +68,10 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
 =head2 C<GET /responses/{response_id}>
 
 Retrieves a model response with the given ID.
+
+
+Retrieves a model response with the given ID.
+
 
 
 

@@ -16,6 +16,11 @@ This document describes the API endpoint at C</organization/invites>.
 Returns a list of invites in the organization.
 
 
+Returns a list of invites in the organization.
+
+
+
+
 =head3 Operation ID
 
 C<list-invites>
@@ -73,6 +78,11 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
 =head2 C<POST /organization/invites>
 
 Create an invite for a user to the organization. The invite must be accepted by the user before they have access to the organization.
+
+
+Create an invite for a user to the organization. The invite must be accepted by the user before they have access to the organization.
+
+
 
 
 =head3 Operation ID

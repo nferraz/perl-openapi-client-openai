@@ -16,6 +16,11 @@ This document describes the API endpoint at C</vector_stores/{vector_store_id}/f
 Retrieve the parsed contents of a vector store file.
 
 
+Retrieve the parsed contents of a vector store file.
+
+
+
+
 =head3 Operation ID
 
 C<retrieveVectorStoreFileContent>

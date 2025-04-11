@@ -16,6 +16,11 @@ This document describes the API endpoint at C</images/generations>.
 Creates an image given a prompt.
 
 
+Creates an image given a prompt.
+
+
+
+
 =head3 Operation ID
 
 C<createImage>

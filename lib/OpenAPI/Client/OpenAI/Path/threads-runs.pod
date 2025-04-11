@@ -16,6 +16,11 @@ This document describes the API endpoint at C</threads/runs>.
 Create a thread and run it in one request.
 
 
+Create a thread and run it in one request.
+
+
+
+
 =head3 Operation ID
 
 C<createThreadAndRun>

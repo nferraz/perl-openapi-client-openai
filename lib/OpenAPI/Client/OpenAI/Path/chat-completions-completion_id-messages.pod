@@ -14,8 +14,14 @@ This document describes the API endpoint at C</chat/completions/{completion_id}/
 =head2 C<GET /chat/completions/{completion_id}/messages>
 
 Get the messages in a stored chat completion. Only Chat Completions that
-have been created with the `store` parameter set to `true` will be
+have been created with the C<store> parameter set to C<true> will be
 returned.
+
+
+Get the messages in a stored chat completion. Only Chat Completions that
+have been created with the C<store> parameter set to C<true> will be
+returned.
+
 
 
 

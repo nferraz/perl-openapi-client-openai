@@ -16,6 +16,11 @@ This document describes the API endpoint at C</threads/{thread_id}/runs>.
 Returns a list of runs belonging to a thread.
 
 
+Returns a list of runs belonging to a thread.
+
+
+
+
 =head3 Operation ID
 
 C<listRuns>
@@ -101,6 +106,11 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
 =head2 C<POST /threads/{thread_id}/runs>
 
 Create a run.
+
+
+Create a run.
+
+
 
 
 =head3 Operation ID

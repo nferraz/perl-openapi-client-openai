@@ -16,6 +16,11 @@ This document describes the API endpoint at C</responses/{response_id}/input_ite
 Returns a list of input items for a given response.
 
 
+Returns a list of input items for a given response.
+
+
+
+
 =head3 Operation ID
 
 C<listInputItems>

@@ -16,6 +16,11 @@ This document describes the API endpoint at C</organization/projects/{project_id
 Updates a project rate limit.
 
 
+Updates a project rate limit.
+
+
+
+
 =head3 Operation ID
 
 C<update-project-rate-limits>

@@ -16,6 +16,11 @@ This document describes the API endpoint at C</vector_stores/{vector_store_id}>.
 Delete a vector store.
 
 
+Delete a vector store.
+
+
+
+
 =head3 Operation ID
 
 C<deleteVectorStore>
@@ -58,6 +63,11 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
 =head2 C<GET /vector_stores/{vector_store_id}>
 
 Retrieves a vector store.
+
+
+Retrieves a vector store.
+
+
 
 
 =head3 Operation ID
@@ -119,6 +129,11 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
 =head2 C<POST /vector_stores/{vector_store_id}>
 
 Modifies a vector store.
+
+
+Modifies a vector store.
+
+
 
 
 =head3 Operation ID

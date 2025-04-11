@@ -16,6 +16,11 @@ This document describes the API endpoint at C</files/{file_id}/content>.
 Returns the contents of the specified file.
 
 
+Returns the contents of the specified file.
+
+
+
+
 =head3 Operation ID
 
 C<downloadFile>

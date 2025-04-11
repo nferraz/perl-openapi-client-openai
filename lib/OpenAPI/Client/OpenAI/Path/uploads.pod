@@ -13,23 +13,43 @@ This document describes the API endpoint at C</uploads>.
 
 =head2 C<POST /uploads>
 
-Creates an intermediate [Upload](/docs/api-reference/uploads/object) object
-that you can add [Parts](/docs/api-reference/uploads/part-object) to.
+Creates an intermediate L<Upload|https://platform.openai.com/docs/api-reference/uploads/object> object
+that you can add L<Parts|https://platform.openai.com/docs/api-reference/uploads/part-object> to.
 Currently, an Upload can accept at most 8 GB in total and expires after an
 hour after you create it.
 
 Once you complete the Upload, we will create a
-[File](/docs/api-reference/files/object) object that contains all the parts
+L<File|https://platform.openai.com/docs/api-reference/files/object> object that contains all the parts
 you uploaded. This File is usable in the rest of our platform as a regular
 File object.
 
-For certain `purpose` values, the correct `mime_type` must be specified. 
+For certain C<purpose> values, the correct C<mime_type> must be specified. 
 Please refer to documentation for the 
-[supported MIME types for your use case](/docs/assistants/tools/file-search#supported-files).
+L<supported MIME types for your use case|https://platform.openai.com/docs/assistants/tools/file-search#supported-files>.
 
 For guidance on the proper filename extensions for each purpose, please
-follow the documentation on [creating a
-File](/docs/api-reference/files/create).
+follow the documentation on L<creating a
+File|https://platform.openai.com/docs/api-reference/files/create>.
+
+
+Creates an intermediate L<Upload|https://platform.openai.com/docs/api-reference/uploads/object> object
+that you can add L<Parts|https://platform.openai.com/docs/api-reference/uploads/part-object> to.
+Currently, an Upload can accept at most 8 GB in total and expires after an
+hour after you create it.
+
+Once you complete the Upload, we will create a
+L<File|https://platform.openai.com/docs/api-reference/files/object> object that contains all the parts
+you uploaded. This File is usable in the rest of our platform as a regular
+File object.
+
+For certain C<purpose> values, the correct C<mime_type> must be specified. 
+Please refer to documentation for the 
+L<supported MIME types for your use case|https://platform.openai.com/docs/assistants/tools/file-search#supported-files>.
+
+For guidance on the proper filename extensions for each purpose, please
+follow the documentation on L<creating a
+File|https://platform.openai.com/docs/api-reference/files/create>.
+
 
 
 

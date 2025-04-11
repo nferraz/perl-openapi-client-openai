@@ -16,6 +16,11 @@ This document describes the API endpoint at C</vector_stores/{vector_store_id}/f
 Returns a list of vector store files in a batch.
 
 
+Returns a list of vector store files in a batch.
+
+
+
+
 =head3 Operation ID
 
 C<listFilesInVectorStoreBatch>

@@ -16,6 +16,11 @@ This document describes the API endpoint at C</organization/invites/{invite_id}>
 Delete an invite. If the invite has already been accepted, it cannot be deleted.
 
 
+Delete an invite. If the invite has already been accepted, it cannot be deleted.
+
+
+
+
 =head3 Operation ID
 
 C<delete-invite>
@@ -58,6 +63,11 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
 =head2 C<GET /organization/invites/{invite_id}>
 
 Retrieves an invite.
+
+
+Retrieves an invite.
+
+
 
 
 =head3 Operation ID

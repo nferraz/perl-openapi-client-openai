@@ -16,6 +16,11 @@ This document describes the API endpoint at C</threads/{thread_id}>.
 Delete a thread.
 
 
+Delete a thread.
+
+
+
+
 =head3 Operation ID
 
 C<deleteThread>
@@ -58,6 +63,11 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
 =head2 C<GET /threads/{thread_id}>
 
 Retrieves a thread.
+
+
+Retrieves a thread.
+
+
 
 
 =head3 Operation ID
@@ -108,6 +118,11 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
 =head2 C<POST /threads/{thread_id}>
 
 Modifies a thread.
+
+
+Modifies a thread.
+
+
 
 
 =head3 Operation ID

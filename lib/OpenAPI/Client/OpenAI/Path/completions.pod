@@ -16,6 +16,11 @@ This document describes the API endpoint at C</completions>.
 Creates a completion for the provided prompt and parameters.
 
 
+Creates a completion for the provided prompt and parameters.
+
+
+
+
 =head3 Operation ID
 
 C<createCompletion>

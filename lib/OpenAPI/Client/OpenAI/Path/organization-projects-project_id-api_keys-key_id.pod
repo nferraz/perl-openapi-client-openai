@@ -16,6 +16,11 @@ This document describes the API endpoint at C</organization/projects/{project_id
 Deletes an API key from the project.
 
 
+Deletes an API key from the project.
+
+
+
+
 =head3 Operation ID
 
 C<delete-project-api-key>
@@ -84,6 +89,11 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
 =head2 C<GET /organization/projects/{project_id}/api_keys/{key_id}>
 
 Retrieves an API key in the project.
+
+
+Retrieves an API key in the project.
+
+
 
 
 =head3 Operation ID

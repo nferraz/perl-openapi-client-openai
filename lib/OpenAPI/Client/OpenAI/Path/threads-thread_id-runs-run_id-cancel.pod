@@ -13,7 +13,12 @@ This document describes the API endpoint at C</threads/{thread_id}/runs/{run_id}
 
 =head2 C<POST /threads/{thread_id}/runs/{run_id}/cancel>
 
-Cancels a run that is `in_progress`.
+Cancels a run that is C<in_progress>.
+
+
+Cancels a run that is C<in_progress>.
+
+
 
 
 =head3 Operation ID

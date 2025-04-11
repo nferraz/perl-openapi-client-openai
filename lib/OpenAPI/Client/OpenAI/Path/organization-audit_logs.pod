@@ -16,6 +16,11 @@ This document describes the API endpoint at C</organization/audit_logs>.
 List user actions and configuration changes within this organization.
 
 
+List user actions and configuration changes within this organization.
+
+
+
+
 =head3 Operation ID
 
 C<list-audit-logs>

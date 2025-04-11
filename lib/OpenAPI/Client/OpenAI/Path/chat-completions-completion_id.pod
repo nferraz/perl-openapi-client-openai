@@ -14,7 +14,12 @@ This document describes the API endpoint at C</chat/completions/{completion_id}>
 =head2 C<DELETE /chat/completions/{completion_id}>
 
 Delete a stored chat completion. Only Chat Completions that have been
-created with the `store` parameter set to `true` can be deleted.
+created with the C<store> parameter set to C<true> can be deleted.
+
+
+Delete a stored chat completion. Only Chat Completions that have been
+created with the C<store> parameter set to C<true> can be deleted.
+
 
 
 
@@ -60,7 +65,12 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
 =head2 C<GET /chat/completions/{completion_id}>
 
 Get a stored chat completion. Only Chat Completions that have been created
-with the `store` parameter set to `true` will be returned.
+with the C<store> parameter set to C<true> will be returned.
+
+
+Get a stored chat completion. Only Chat Completions that have been created
+with the C<store> parameter set to C<true> will be returned.
+
 
 
 
@@ -142,8 +152,14 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
 =head2 C<POST /chat/completions/{completion_id}>
 
 Modify a stored chat completion. Only Chat Completions that have been
-created with the `store` parameter set to `true` can be modified. Currently,
-the only supported modification is to update the `metadata` field.
+created with the C<store> parameter set to C<true> can be modified. Currently,
+the only supported modification is to update the C<metadata> field.
+
+
+Modify a stored chat completion. Only Chat Completions that have been
+created with the C<store> parameter set to C<true> can be modified. Currently,
+the only supported modification is to update the C<metadata> field.
+
 
 
 

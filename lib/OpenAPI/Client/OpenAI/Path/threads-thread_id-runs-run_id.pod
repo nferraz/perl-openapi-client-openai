@@ -16,6 +16,11 @@ This document describes the API endpoint at C</threads/{thread_id}/runs/{run_id}
 Retrieves a run.
 
 
+Retrieves a run.
+
+
+
+
 =head3 Operation ID
 
 C<getRun>
@@ -99,6 +104,11 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
 =head2 C<POST /threads/{thread_id}/runs/{run_id}>
 
 Modifies a run.
+
+
+Modifies a run.
+
+
 
 
 =head3 Operation ID

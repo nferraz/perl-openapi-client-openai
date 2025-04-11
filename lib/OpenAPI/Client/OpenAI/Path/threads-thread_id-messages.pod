@@ -16,6 +16,11 @@ This document describes the API endpoint at C</threads/{thread_id}/messages>.
 Returns a list of messages for a given thread.
 
 
+Returns a list of messages for a given thread.
+
+
+
+
 =head3 Operation ID
 
 C<listMessages>
@@ -108,6 +113,11 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
 =head2 C<POST /threads/{thread_id}/messages>
 
 Create a message.
+
+
+Create a message.
+
+
 
 
 =head3 Operation ID

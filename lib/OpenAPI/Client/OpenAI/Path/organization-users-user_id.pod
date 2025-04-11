@@ -16,6 +16,11 @@ This document describes the API endpoint at C</organization/users/{user_id}>.
 Deletes a user from the organization.
 
 
+Deletes a user from the organization.
+
+
+
+
 =head3 Operation ID
 
 C<delete-user>
@@ -58,6 +63,11 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
 =head2 C<GET /organization/users/{user_id}>
 
 Retrieves a user by their identifier.
+
+
+Retrieves a user by their identifier.
+
+
 
 
 =head3 Operation ID
@@ -110,6 +120,11 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
 =head2 C<POST /organization/users/{user_id}>
 
 Modifies a user's role in the organization.
+
+
+Modifies a user's role in the organization.
+
+
 
 
 =head3 Operation ID

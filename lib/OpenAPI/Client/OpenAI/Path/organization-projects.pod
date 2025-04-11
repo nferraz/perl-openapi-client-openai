@@ -16,6 +16,11 @@ This document describes the API endpoint at C</organization/projects>.
 Returns a list of projects.
 
 
+Returns a list of projects.
+
+
+
+
 =head3 Operation ID
 
 C<list-projects>
@@ -79,6 +84,11 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
 =head2 C<POST /organization/projects>
 
 Create a new project in the organization. Projects can be created and archived, but cannot be deleted.
+
+
+Create a new project in the organization. Projects can be created and archived, but cannot be deleted.
+
+
 
 
 =head3 Operation ID

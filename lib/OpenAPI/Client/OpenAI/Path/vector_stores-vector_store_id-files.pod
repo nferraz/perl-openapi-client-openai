@@ -16,6 +16,11 @@ This document describes the API endpoint at C</vector_stores/{vector_store_id}/f
 Returns a list of vector store files.
 
 
+Returns a list of vector store files.
+
+
+
+
 =head3 Operation ID
 
 C<listVectorStoreFiles>
@@ -108,7 +113,12 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
 
 =head2 C<POST /vector_stores/{vector_store_id}/files>
 
-Create a vector store file by attaching a [File](/docs/api-reference/files) to a [vector store](/docs/api-reference/vector-stores/object).
+Create a vector store file by attaching a L<File|https://platform.openai.com/docs/api-reference/files> to a L<vector store|https://platform.openai.com/docs/api-reference/vector-stores/object>.
+
+
+Create a vector store file by attaching a L<File|https://platform.openai.com/docs/api-reference/files> to a L<vector store|https://platform.openai.com/docs/api-reference/vector-stores/object>.
+
+
 
 
 =head3 Operation ID

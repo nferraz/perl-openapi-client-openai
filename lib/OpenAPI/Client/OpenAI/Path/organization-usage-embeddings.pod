@@ -16,6 +16,11 @@ This document describes the API endpoint at C</organization/usage/embeddings>.
 Get embeddings usage details for the organization.
 
 
+Get embeddings usage details for the organization.
+
+
+
+
 =head3 Operation ID
 
 C<usage-embeddings>

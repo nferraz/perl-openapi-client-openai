@@ -16,6 +16,11 @@ This document describes the API endpoint at C</vector_stores>.
 Returns a list of vector stores.
 
 
+Returns a list of vector stores.
+
+
+
+
 =head3 Operation ID
 
 C<listVectorStores>
@@ -95,6 +100,11 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
 =head2 C<POST /vector_stores>
 
 Create a vector store.
+
+
+Create a vector store.
+
+
 
 
 =head3 Operation ID

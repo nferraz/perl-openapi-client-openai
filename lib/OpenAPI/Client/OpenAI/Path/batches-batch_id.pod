@@ -16,6 +16,11 @@ This document describes the API endpoint at C</batches/{batch_id}>.
 Retrieves a batch.
 
 
+Retrieves a batch.
+
+
+
+
 =head3 Operation ID
 
 C<retrieveBatch>

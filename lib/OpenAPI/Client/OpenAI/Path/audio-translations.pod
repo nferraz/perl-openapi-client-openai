@@ -16,6 +16,11 @@ This document describes the API endpoint at C</audio/translations>.
 Translates audio into English.
 
 
+Translates audio into English.
+
+
+
+
 =head3 Operation ID
 
 C<createTranslation>

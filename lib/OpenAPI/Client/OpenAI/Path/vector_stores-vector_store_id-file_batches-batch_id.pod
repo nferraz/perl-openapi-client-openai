@@ -16,6 +16,11 @@ This document describes the API endpoint at C</vector_stores/{vector_store_id}/f
 Retrieves a vector store file batch.
 
 
+Retrieves a vector store file batch.
+
+
+
+
 =head3 Operation ID
 
 C<getVectorStoreFileBatch>

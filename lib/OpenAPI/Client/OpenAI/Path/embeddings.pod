@@ -16,6 +16,11 @@ This document describes the API endpoint at C</embeddings>.
 Creates an embedding vector representing the input text.
 
 
+Creates an embedding vector representing the input text.
+
+
+
+
 =head3 Operation ID
 
 C<createEmbedding>

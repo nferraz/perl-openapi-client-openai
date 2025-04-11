@@ -16,6 +16,11 @@ This document describes the API endpoint at C</assistants>.
 Returns a list of assistants.
 
 
+Returns a list of assistants.
+
+
+
+
 =head3 Operation ID
 
 C<listAssistants>
@@ -139,6 +144,11 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
 =head2 C<POST /assistants>
 
 Create an assistant with a model and instructions.
+
+
+Create an assistant with a model and instructions.
+
+
 
 
 =head3 Operation ID

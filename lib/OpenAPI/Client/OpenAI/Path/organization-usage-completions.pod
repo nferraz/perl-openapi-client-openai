@@ -16,6 +16,11 @@ This document describes the API endpoint at C</organization/usage/completions>.
 Get completions usage details for the organization.
 
 
+Get completions usage details for the organization.
+
+
+
+
 =head3 Operation ID
 
 C<usage-completions>

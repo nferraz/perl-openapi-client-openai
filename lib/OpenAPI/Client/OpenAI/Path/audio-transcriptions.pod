@@ -16,6 +16,11 @@ This document describes the API endpoint at C</audio/transcriptions>.
 Transcribes audio into the input language.
 
 
+Transcribes audio into the input language.
+
+
+
+
 =head3 Operation ID
 
 C<createTranscription>

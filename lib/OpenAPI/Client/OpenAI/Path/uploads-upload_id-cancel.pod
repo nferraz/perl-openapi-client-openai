@@ -16,6 +16,10 @@ This document describes the API endpoint at C</uploads/{upload_id}/cancel>.
 Cancels the Upload. No Parts may be added after an Upload is cancelled.
 
 
+Cancels the Upload. No Parts may be added after an Upload is cancelled.
+
+
+
 
 =head3 Operation ID
 

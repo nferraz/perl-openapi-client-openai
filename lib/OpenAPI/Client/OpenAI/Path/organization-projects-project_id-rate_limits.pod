@@ -16,6 +16,11 @@ This document describes the API endpoint at C</organization/projects/{project_id
 Returns the rate limits per model for a project.
 
 
+Returns the rate limits per model for a project.
+
+
+
+
 =head3 Operation ID
 
 C<list-project-rate-limits>

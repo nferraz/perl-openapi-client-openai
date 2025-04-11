@@ -16,6 +16,11 @@ This document describes the API endpoint at C</images/variations>.
 Creates a variation of a given image.
 
 
+Creates a variation of a given image.
+
+
+
+
 =head3 Operation ID
 
 C<createImageVariation>

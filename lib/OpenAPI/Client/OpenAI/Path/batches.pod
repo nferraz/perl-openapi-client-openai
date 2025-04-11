@@ -16,6 +16,11 @@ This document describes the API endpoint at C</batches>.
 List your organization's batches.
 
 
+List your organization's batches.
+
+
+
+
 =head3 Operation ID
 
 C<listBatches>
@@ -75,6 +80,11 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
 =head2 C<POST /batches>
 
 Creates and executes a batch from an uploaded file of requests
+
+
+Creates and executes a batch from an uploaded file of requests
+
+
 
 
 =head3 Operation ID

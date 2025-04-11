@@ -15,11 +15,21 @@ This document describes the API endpoint at C</realtime/sessions>.
 
 Create an ephemeral API token for use in client-side applications with the
 Realtime API. Can be configured with the same session parameters as the
-`session.update` client event.
+C<session.update> client event.
 
-It responds with a session object, plus a `client_secret` key which contains
+It responds with a session object, plus a C<client_secret> key which contains
 a usable ephemeral API token that can be used to authenticate browser clients
 for the Realtime API.
+
+
+Create an ephemeral API token for use in client-side applications with the
+Realtime API. Can be configured with the same session parameters as the
+C<session.update> client event.
+
+It responds with a session object, plus a C<client_secret> key which contains
+a usable ephemeral API token that can be used to authenticate browser clients
+for the Realtime API.
+
 
 
 
