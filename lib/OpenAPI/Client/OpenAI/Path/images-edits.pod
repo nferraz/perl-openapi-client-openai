@@ -41,6 +41,18 @@ C<createImageEdit>
       
 
       
+
+=head4 Models
+
+      The model to use for image generation. Only C<dall-e-2> is supported at this time.
+
+=over 3
+      
+=item * C<dall-e-2>
+
+=back
+      
+      
 Example:
 
             {

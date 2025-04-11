@@ -41,6 +41,18 @@ C<createTranslation>
       
 
       
+
+=head4 Models
+
+      ID of the model to use. Only C<whisper-1> (which is powered by our open source Whisper V2 model) is currently available.
+
+=over 3
+      
+=item * C<whisper-1>
+
+=back
+      
+      
 Example:
 
             {

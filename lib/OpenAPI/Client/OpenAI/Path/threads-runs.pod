@@ -41,6 +41,68 @@ C<createThreadAndRun>
       
 
       
+
+=head4 Models
+
+      The ID of the L<Model|https://platform.openai.com/docs/api-reference/models> to be used to execute this run. If a value is provided here, it will override the model associated with the assistant. If not, the model associated with the assistant will be used.
+
+=over 3
+      
+=item * C<gpt-4o>
+
+=item * C<gpt-4o-2024-11-20>
+
+=item * C<gpt-4o-2024-08-06>
+
+=item * C<gpt-4o-2024-05-13>
+
+=item * C<gpt-4o-mini>
+
+=item * C<gpt-4o-mini-2024-07-18>
+
+=item * C<gpt-4.5-preview>
+
+=item * C<gpt-4.5-preview-2025-02-27>
+
+=item * C<gpt-4-turbo>
+
+=item * C<gpt-4-turbo-2024-04-09>
+
+=item * C<gpt-4-0125-preview>
+
+=item * C<gpt-4-turbo-preview>
+
+=item * C<gpt-4-1106-preview>
+
+=item * C<gpt-4-vision-preview>
+
+=item * C<gpt-4>
+
+=item * C<gpt-4-0314>
+
+=item * C<gpt-4-0613>
+
+=item * C<gpt-4-32k>
+
+=item * C<gpt-4-32k-0314>
+
+=item * C<gpt-4-32k-0613>
+
+=item * C<gpt-3.5-turbo>
+
+=item * C<gpt-3.5-turbo-16k>
+
+=item * C<gpt-3.5-turbo-0613>
+
+=item * C<gpt-3.5-turbo-1106>
+
+=item * C<gpt-3.5-turbo-0125>
+
+=item * C<gpt-3.5-turbo-16k-0613>
+
+=back
+      
+      
 Example:
 
             {

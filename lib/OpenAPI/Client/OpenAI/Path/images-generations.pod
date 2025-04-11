@@ -41,6 +41,20 @@ C<createImage>
       
 
       
+
+=head4 Models
+
+      The model to use for image generation.
+
+=over 3
+      
+=item * C<dall-e-2>
+
+=item * C<dall-e-3>
+
+=back
+      
+      
 Example:
 
             {

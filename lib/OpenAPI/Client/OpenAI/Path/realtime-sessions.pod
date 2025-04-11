@@ -53,6 +53,7 @@ C<create-realtime-session>
       Realtime session object configuration.
 
       
+      
 Example:
 
             {

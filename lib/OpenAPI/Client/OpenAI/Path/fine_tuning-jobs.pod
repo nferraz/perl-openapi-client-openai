@@ -118,6 +118,25 @@ C<createFineTuningJob>
       
 
       
+
+=head4 Models
+
+      The name of the model to fine-tune. You can select one of the
+L<supported models|https://platform.openai.com/docs/guides/fine-tuning#which-models-can-be-fine-tuned>.
+
+=over 3
+      
+=item * C<babbage-002>
+
+=item * C<davinci-002>
+
+=item * C<gpt-3.5-turbo>
+
+=item * C<gpt-4o-mini>
+
+=back
+      
+      
 Example:
 
             {

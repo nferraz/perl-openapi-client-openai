@@ -41,6 +41,22 @@ C<createSpeech>
       
 
       
+
+=head4 Models
+
+      One of the available L<TTS models|https://platform.openai.com/docs/models#tts>: C<tts-1>, C<tts-1-hd> or C<gpt-4o-mini-tts>.
+
+=over 3
+      
+=item * C<tts-1>
+
+=item * C<tts-1-hd>
+
+=item * C<gpt-4o-mini-tts>
+
+=back
+      
+      
 Example:
 
             {

@@ -43,6 +43,26 @@ C<createModeration>
       
 
       
+
+=head4 Models
+
+      The content moderation model you would like to use. Learn more in
+L<the moderation guide|https://platform.openai.com/docs/guides/moderation>, and learn about
+available models L<here|https://platform.openai.com/docs/models#moderation>.
+
+=over 3
+      
+=item * C<omni-moderation-latest>
+
+=item * C<omni-moderation-2024-09-26>
+
+=item * C<text-moderation-latest>
+
+=item * C<text-moderation-stable>
+
+=back
+      
+      
 Example:
 
             {

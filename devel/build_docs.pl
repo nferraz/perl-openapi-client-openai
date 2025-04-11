@@ -161,7 +161,7 @@ sub write_documentation_for_path ( $resolved_openapi, $path, $output_base_dir, $
 
             # Add request body documentation with examples
             if ( defined $method_data->{requestBody} && defined $method_data->{requestBody}->{content} ) {
-                foreach my $content_type ( sort keys %{ $method_data->{requestBody}->{content} } ) {
+                CONTENT_TYPE: foreach my $content_type ( sort keys %{ $method_data->{requestBody}->{content} } ) {
 
                     if ( defined $method_data->{requestBody}{content}{$content_type}{schema} ) {
                         my $schema = $method_data->{requestBody}{content}{$content_type}{schema};
@@ -170,6 +170,27 @@ sub write_documentation_for_path ( $resolved_openapi, $path, $output_base_dir, $
                             # prepend each line with four spaces
                             $example_json =~ s/^/    /gm;
                             $schema->{example} = $example_json;
+                        }
+
+                        # Try to grab the model data
+                        if ( my $properties = $schema->{properties} ) {
+                            my $model = $properties->{model} or next CONTENT_TYPE;
+                            if ( my $description = $model->{description} ) {
+                                my $description = markdown_to_pod( $model->{description} );
+                                my $models;
+                            ELEM: foreach my $elem ( @{ $model->{anyOf} } ) {
+                                    if ( defined $elem->{type} && exists $elem->{enum} ) {
+                                        $models = $elem->{enum};
+                                        last;
+                                    }
+                                }
+                                if ($models) {
+                                    $schema->{models} = {
+                                        description => $description,
+                                        models      => $models,
+                                    };
+                                }
+                            }
                         }
                     }
                 }
@@ -326,14 +347,27 @@ sub _path_template () {
     =head3 Request Body
       [% FOREACH content_type IN method_data.requestBody.content.keys.sort %]
     =head3 Content Type: C<[% content_type %]>
+    [% schema = method_data.requestBody.content.$content_type.schema -%]
     
-        [% IF method_data.requestBody.content.$content_type.schema %]
-          [% method_data.requestBody.content.$content_type.schema.description %]
+        [% IF schema %]
+          [% schema.description %]
     
-          [% IF method_data.requestBody.content.$content_type.schema.example %]
+          [% IF schema.models %]
+
+    =head4 Models
+
+          [% schema.models.description %]
+    =over 3
+          [% FOREACH model IN schema.models.models %]
+    =item * C<[% model %]>
+    [% END # FOREACH model %]
+    =back
+          [% END # IF models -%]
+    
+          [% IF schema.example %]
     Example:
     
-            [% method_data.requestBody.content.$content_type.schema.example %]
+            [% schema.example %]
     
           [% END # IF example -%]
         [% END # end if requestBody.content -%]
