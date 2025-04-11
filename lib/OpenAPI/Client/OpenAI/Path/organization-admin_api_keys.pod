@@ -16,10 +16,6 @@ This document describes the API endpoint at C</organization/admin_api_keys>.
 List organization API keys
 
 
-List organization API keys
-
-
-
 Retrieve a paginated list of organization admin API keys.
 
 
@@ -64,12 +60,12 @@ Default: C<20>
 =head3 Responses
 
 
-=head3 Status Code: C<200>
+=head4 Status Code: C<200>
 
 A list of organization API keys.
 
 
-=head3 Content Types:
+=head4 Content Types:
 
 =over 4
 
@@ -103,14 +99,11 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
     }
 
 
+=back
 
 =head2 C<POST /organization/admin_api_keys>
 
 Create an organization admin API key
-
-
-Create an organization admin API key
-
 
 
 Create a new admin-level API key for the organization.
@@ -140,7 +133,7 @@ C<admin-api-keys-create>
       
 Example:
 
-            {
+    {
        "name" : "New Admin Key"
     }
 
@@ -150,12 +143,12 @@ Example:
 =head3 Responses
 
 
-=head3 Status Code: C<200>
+=head4 Status Code: C<200>
 
 The newly created admin API key.
 
 
-=head3 Content Types:
+=head4 Content Types:
 
 =over 4
 
@@ -179,7 +172,6 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
        "redacted_value" : "sk-admin...def",
        "value" : "sk-admin-1234abcd"
     }
-
 
 
 =back

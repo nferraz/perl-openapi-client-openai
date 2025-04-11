@@ -16,10 +16,6 @@ This document describes the API endpoint at C</threads/runs>.
 Create a thread and run it in one request.
 
 
-Create a thread and run it in one request.
-
-
-
 
 =head3 Operation ID
 
@@ -44,9 +40,9 @@ C<createThreadAndRun>
 
 =head4 Models
 
-      The ID of the L<Model|https://platform.openai.com/docs/api-reference/models> to be used to execute this run. If a value is provided here, it will override the model associated with the assistant. If not, the model associated with the assistant will be used.
+The ID of the L<Model|https://platform.openai.com/docs/api-reference/models> to be used to execute this run. If a value is provided here, it will override the model associated with the assistant. If not, the model associated with the assistant will be used.
 
-=over 3
+=over 4
       
 =item * C<gpt-4o>
 
@@ -105,7 +101,7 @@ C<createThreadAndRun>
       
 Example:
 
-            {
+    {
        "model" : "gpt-4o",
        "temperature" : 1,
        "thread" : {
@@ -164,12 +160,12 @@ Example:
 =head3 Responses
 
 
-=head3 Status Code: C<200>
+=head4 Status Code: C<200>
 
 OK
 
 
-=head3 Content Types:
+=head4 Content Types:
 
 =over 4
 
@@ -213,7 +209,6 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
       "tool_choice": "auto",
       "parallel_tool_calls": true
     }
-
 
 
 =back

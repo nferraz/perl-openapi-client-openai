@@ -16,10 +16,6 @@ This document describes the API endpoint at C</audio/speech>.
 Generates audio from the input text.
 
 
-Generates audio from the input text.
-
-
-
 
 =head3 Operation ID
 
@@ -44,9 +40,9 @@ C<createSpeech>
 
 =head4 Models
 
-      One of the available L<TTS models|https://platform.openai.com/docs/models#tts>: C<tts-1>, C<tts-1-hd> or C<gpt-4o-mini-tts>.
+One of the available L<TTS models|https://platform.openai.com/docs/models#tts>: C<tts-1>, C<tts-1-hd> or C<gpt-4o-mini-tts>.
 
-=over 3
+=over 4
       
 =item * C<tts-1>
 
@@ -59,7 +55,7 @@ C<createSpeech>
       
 Example:
 
-            {
+    {
        "voice" : "ash"
     }
 
@@ -69,12 +65,12 @@ Example:
 =head3 Responses
 
 
-=head3 Status Code: C<200>
+=head4 Status Code: C<200>
 
 OK
 
 
-=head3 Content Types:
+=head4 Content Types:
 
 =over 4
 
@@ -82,7 +78,6 @@ OK
 =item * C<application/octet-stream>
 
 Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
-
 
 
 

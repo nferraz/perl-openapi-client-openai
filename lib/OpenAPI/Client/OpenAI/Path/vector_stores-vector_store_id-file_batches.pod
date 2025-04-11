@@ -16,10 +16,6 @@ This document describes the API endpoint at C</vector_stores/{vector_store_id}/f
 Create a vector store file batch.
 
 
-Create a vector store file batch.
-
-
-
 
 =head3 Operation ID
 
@@ -51,7 +47,7 @@ Type: C<string>
       
 Example:
 
-            {
+    {
        "file_ids" : [
           null
        ]
@@ -63,12 +59,12 @@ Example:
 =head3 Responses
 
 
-=head3 Status Code: C<200>
+=head4 Status Code: C<200>
 
 OK
 
 
-=head3 Content Types:
+=head4 Content Types:
 
 =over 4
 
@@ -91,7 +87,6 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
         "total": 100
       }
     }
-
 
 
 =back

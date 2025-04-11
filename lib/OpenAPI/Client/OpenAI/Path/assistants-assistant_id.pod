@@ -16,10 +16,6 @@ This document describes the API endpoint at C</assistants/{assistant_id}>.
 Delete an assistant.
 
 
-Delete an assistant.
-
-
-
 
 =head3 Operation ID
 
@@ -43,12 +39,12 @@ Type: C<string>
 =head3 Responses
 
 
-=head3 Status Code: C<200>
+=head4 Status Code: C<200>
 
 OK
 
 
-=head3 Content Types:
+=head4 Content Types:
 
 =over 4
 
@@ -59,14 +55,11 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
 
 
 
+=back
 
 =head2 C<GET /assistants/{assistant_id}>
 
 Retrieves an assistant.
-
-
-Retrieves an assistant.
-
 
 
 
@@ -92,12 +85,12 @@ Type: C<string>
 =head3 Responses
 
 
-=head3 Status Code: C<200>
+=head4 Status Code: C<200>
 
 OK
 
 
-=head3 Content Types:
+=head4 Content Types:
 
 =over 4
 
@@ -126,14 +119,11 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
     }
 
 
+=back
 
 =head2 C<POST /assistants/{assistant_id}>
 
 Modifies an assistant.
-
-
-Modifies an assistant.
-
 
 
 
@@ -166,9 +156,9 @@ Type: C<string>
 
 =head4 Models
 
-      ID of the model to use. You can use the L<List models|https://platform.openai.com/docs/api-reference/models/list> API to see all of your available models, or see our L<Model overview|https://platform.openai.com/docs/models> for descriptions of them.
+ID of the model to use. You can use the L<List models|https://platform.openai.com/docs/api-reference/models/list> API to see all of your available models, or see our L<Model overview|https://platform.openai.com/docs/models> for descriptions of them.
 
-=over 3
+=over 4
       
 =item * C<o3-mini>
 
@@ -235,7 +225,7 @@ Type: C<string>
       
 Example:
 
-            {
+    {
        "temperature" : 1,
        "tool_resources" : {
           "code_interpreter" : {
@@ -261,12 +251,12 @@ Example:
 =head3 Responses
 
 
-=head3 Status Code: C<200>
+=head4 Status Code: C<200>
 
 OK
 
 
-=head3 Content Types:
+=head4 Content Types:
 
 =over 4
 
@@ -293,7 +283,6 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
       "temperature": 1.0,
       "response_format": "auto"
     }
-
 
 
 =back

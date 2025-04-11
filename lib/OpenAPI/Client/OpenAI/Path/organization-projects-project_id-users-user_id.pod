@@ -16,10 +16,6 @@ This document describes the API endpoint at C</organization/projects/{project_id
 Deletes a user from the project.
 
 
-Deletes a user from the project.
-
-
-
 
 =head3 Operation ID
 
@@ -49,12 +45,12 @@ Type: C<string>
 =head3 Responses
 
 
-=head3 Status Code: C<200>
+=head4 Status Code: C<200>
 
 Project user deleted successfully.
 
 
-=head3 Content Types:
+=head4 Content Types:
 
 =over 4
 
@@ -65,13 +61,14 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
 
 
 
+=back
 
-=head3 Status Code: C<400>
+=head4 Status Code: C<400>
 
 Error response for various conditions.
 
 
-=head3 Content Types:
+=head4 Content Types:
 
 =over 4
 
@@ -85,14 +82,11 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
     }
 
 
+=back
 
 =head2 C<GET /organization/projects/{project_id}/users/{user_id}>
 
 Retrieves a user in the project.
-
-
-Retrieves a user in the project.
-
 
 
 
@@ -124,12 +118,12 @@ Type: C<string>
 =head3 Responses
 
 
-=head3 Status Code: C<200>
+=head4 Status Code: C<200>
 
 Project user retrieved successfully.
 
 
-=head3 Content Types:
+=head4 Content Types:
 
 =over 4
 
@@ -148,14 +142,11 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
     }
 
 
+=back
 
 =head2 C<POST /organization/projects/{project_id}/users/{user_id}>
 
 Modifies a user's role in the project.
-
-
-Modifies a user's role in the project.
-
 
 
 
@@ -196,12 +187,12 @@ Type: C<string>
 =head3 Responses
 
 
-=head3 Status Code: C<200>
+=head4 Status Code: C<200>
 
 Project user's role updated successfully.
 
 
-=head3 Content Types:
+=head4 Content Types:
 
 =over 4
 
@@ -220,13 +211,14 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
     }
 
 
+=back
 
-=head3 Status Code: C<400>
+=head4 Status Code: C<400>
 
 Error response for various conditions.
 
 
-=head3 Content Types:
+=head4 Content Types:
 
 =over 4
 
@@ -238,7 +230,6 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
     {
        "error" : null
     }
-
 
 
 =back

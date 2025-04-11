@@ -22,16 +22,6 @@ You can specify the order of the Parts by passing in an ordered list of the Part
 The number of bytes uploaded upon completion must match the number of bytes initially specified when creating the Upload object. No Parts may be added after an Upload is completed.
 
 
-Completes the L<Upload|https://platform.openai.com/docs/api-reference/uploads/object>. 
-
-Within the returned Upload object, there is a nested L<File|https://platform.openai.com/docs/api-reference/files/object> object that is ready to use in the rest of the platform.
-
-You can specify the order of the Parts by passing in an ordered list of the Part IDs.
-
-The number of bytes uploaded upon completion must match the number of bytes initially specified when creating the Upload object. No Parts may be added after an Upload is completed.
-
-
-
 
 =head3 Operation ID
 
@@ -63,7 +53,7 @@ Type: C<string>
       
 Example:
 
-            {
+    {
        "part_ids" : [
           null
        ]
@@ -75,12 +65,12 @@ Example:
 =head3 Responses
 
 
-=head3 Status Code: C<200>
+=head4 Status Code: C<200>
 
 OK
 
 
-=head3 Content Types:
+=head4 Content Types:
 
 =over 4
 
@@ -107,7 +97,6 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
         "purpose": "fine-tune",
       }
     }
-
 
 
 =back

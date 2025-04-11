@@ -16,10 +16,6 @@ This document describes the API endpoint at C</responses/{response_id}>.
 Deletes a model response with the given ID.
 
 
-Deletes a model response with the given ID.
-
-
-
 
 =head3 Operation ID
 
@@ -43,17 +39,17 @@ Type: C<string>
 =head3 Responses
 
 
-=head3 Status Code: C<200>
+=head4 Status Code: C<200>
 
 OK
 
 
-=head3 Status Code: C<404>
+=head4 Status Code: C<404>
 
 Not Found
 
 
-=head3 Content Types:
+=head4 Content Types:
 
 =over 4
 
@@ -64,14 +60,11 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
 
 
 
+=back
 
 =head2 C<GET /responses/{response_id}>
 
 Retrieves a model response with the given ID.
-
-
-Retrieves a model response with the given ID.
-
 
 
 
@@ -109,12 +102,12 @@ Type: C<array>
 =head3 Responses
 
 
-=head3 Status Code: C<200>
+=head4 Status Code: C<200>
 
 OK
 
 
-=head3 Content Types:
+=head4 Content Types:
 
 =over 4
 
@@ -122,7 +115,6 @@ OK
 =item * C<application/json>
 
 Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
-
 
 
 

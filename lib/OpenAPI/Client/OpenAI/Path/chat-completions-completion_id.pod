@@ -17,11 +17,6 @@ Delete a stored chat completion. Only Chat Completions that have been
 created with the C<store> parameter set to C<true> can be deleted.
 
 
-Delete a stored chat completion. Only Chat Completions that have been
-created with the C<store> parameter set to C<true> can be deleted.
-
-
-
 
 =head3 Operation ID
 
@@ -45,12 +40,12 @@ Type: C<string>
 =head3 Responses
 
 
-=head3 Status Code: C<200>
+=head4 Status Code: C<200>
 
 The chat completion was deleted successfully.
 
 
-=head3 Content Types:
+=head4 Content Types:
 
 =over 4
 
@@ -61,16 +56,12 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
 
 
 
+=back
 
 =head2 C<GET /chat/completions/{completion_id}>
 
 Get a stored chat completion. Only Chat Completions that have been created
 with the C<store> parameter set to C<true> will be returned.
-
-
-Get a stored chat completion. Only Chat Completions that have been created
-with the C<store> parameter set to C<true> will be returned.
-
 
 
 
@@ -96,12 +87,12 @@ Type: C<string>
 =head3 Responses
 
 
-=head3 Status Code: C<200>
+=head4 Status Code: C<200>
 
 A chat completion
 
 
-=head3 Content Types:
+=head4 Content Types:
 
 =over 4
 
@@ -148,18 +139,13 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
     }
 
 
+=back
 
 =head2 C<POST /chat/completions/{completion_id}>
 
 Modify a stored chat completion. Only Chat Completions that have been
 created with the C<store> parameter set to C<true> can be modified. Currently,
 the only supported modification is to update the C<metadata> field.
-
-
-Modify a stored chat completion. Only Chat Completions that have been
-created with the C<store> parameter set to C<true> can be modified. Currently,
-the only supported modification is to update the C<metadata> field.
-
 
 
 
@@ -194,12 +180,12 @@ Type: C<string>
 =head3 Responses
 
 
-=head3 Status Code: C<200>
+=head4 Status Code: C<200>
 
 A chat completion
 
 
-=head3 Content Types:
+=head4 Content Types:
 
 =over 4
 
@@ -244,7 +230,6 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
       "service_tier": "default",
       "system_fingerprint": "fp_fc9f1d7035"
     }
-
 
 
 =back

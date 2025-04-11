@@ -16,10 +16,6 @@ This document describes the API endpoint at C</vector_stores/{vector_store_id}/f
 Returns a list of vector store files.
 
 
-Returns a list of vector store files.
-
-
-
 
 =head3 Operation ID
 
@@ -85,12 +81,12 @@ Allowed values: C<in_progress, completed, failed, cancelled>
 =head3 Responses
 
 
-=head3 Status Code: C<200>
+=head4 Status Code: C<200>
 
 OK
 
 
-=head3 Content Types:
+=head4 Content Types:
 
 =over 4
 
@@ -110,14 +106,11 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
     }
 
 
+=back
 
 =head2 C<POST /vector_stores/{vector_store_id}/files>
 
 Create a vector store file by attaching a L<File|https://platform.openai.com/docs/api-reference/files> to a L<vector store|https://platform.openai.com/docs/api-reference/vector-stores/object>.
-
-
-Create a vector store file by attaching a L<File|https://platform.openai.com/docs/api-reference/files> to a L<vector store|https://platform.openai.com/docs/api-reference/vector-stores/object>.
-
 
 
 
@@ -153,12 +146,12 @@ Type: C<string>
 =head3 Responses
 
 
-=head3 Status Code: C<200>
+=head4 Status Code: C<200>
 
 OK
 
 
-=head3 Content Types:
+=head4 Content Types:
 
 =over 4
 
@@ -183,7 +176,6 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
         }
       }
     }
-
 
 
 =back

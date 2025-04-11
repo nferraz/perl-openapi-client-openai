@@ -22,16 +22,6 @@ a usable ephemeral API token that can be used to authenticate browser clients
 for the Realtime API.
 
 
-Create an ephemeral API token for use in client-side applications with the
-Realtime API. Can be configured with the same session parameters as the
-C<session.update> client event.
-
-It responds with a session object, plus a C<client_secret> key which contains
-a usable ephemeral API token that can be used to authenticate browser clients
-for the Realtime API.
-
-
-
 
 =head3 Operation ID
 
@@ -56,7 +46,7 @@ C<create-realtime-session>
       
 Example:
 
-            {
+    {
        "input_audio_noise_reduction" : null,
        "input_audio_transcription" : null,
        "tools" : [
@@ -72,12 +62,12 @@ Example:
 =head3 Responses
 
 
-=head3 Status Code: C<200>
+=head4 Status Code: C<200>
 
 Session created successfully.
 
 
-=head3 Content Types:
+=head4 Content Types:
 
 =over 4
 
@@ -108,7 +98,6 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
         "expires_at": 1234567890
       }
     }
-
 
 
 =back

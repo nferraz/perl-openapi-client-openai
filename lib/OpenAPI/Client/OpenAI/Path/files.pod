@@ -16,10 +16,6 @@ This document describes the API endpoint at C</files>.
 Returns a list of files.
 
 
-Returns a list of files.
-
-
-
 
 =head3 Operation ID
 
@@ -70,12 +66,12 @@ Type: C<string>
 =head3 Responses
 
 
-=head3 Status Code: C<200>
+=head4 Status Code: C<200>
 
 OK
 
 
-=head3 Content Types:
+=head4 Content Types:
 
 =over 4
 
@@ -95,6 +91,7 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
     }
 
 
+=back
 
 =head2 C<POST /files>
 
@@ -107,18 +104,6 @@ The Fine-tuning API only supports C<.jsonl> files. The input also has certain re
 The Batch API only supports C<.jsonl> files up to 200 MB in size. The input also has a specific required L<format|https://platform.openai.com/docs/api-reference/batch/request-input>.
 
 Please L<contact us|https://help.openai.com/> if you need to increase these storage limits.
-
-
-Upload a file that can be used across various endpoints. Individual files can be up to 512 MB, and the size of all files uploaded by one organization can be up to 100 GB.
-
-The Assistants API supports files up to 2 million tokens and of specific file types. See the L<Assistants Tools guide|https://platform.openai.com/docs/assistants/tools> for details.
-
-The Fine-tuning API only supports C<.jsonl> files. The input also has certain required formats for fine-tuning L<chat|https://platform.openai.com/docs/api-reference/fine-tuning/chat-input> or L<completions|https://platform.openai.com/docs/api-reference/fine-tuning/completions-input> models.
-
-The Batch API only supports C<.jsonl> files up to 200 MB in size. The input also has a specific required L<format|https://platform.openai.com/docs/api-reference/batch/request-input>.
-
-Please L<contact us|https://help.openai.com/> if you need to increase these storage limits.
-
 
 
 
@@ -147,12 +132,12 @@ C<createFile>
 =head3 Responses
 
 
-=head3 Status Code: C<200>
+=head4 Status Code: C<200>
 
 OK
 
 
-=head3 Content Types:
+=head4 Content Types:
 
 =over 4
 
@@ -170,7 +155,6 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
       "filename": "salesOverview.pdf",
       "purpose": "assistants",
     }
-
 
 
 =back

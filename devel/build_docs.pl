@@ -314,9 +314,6 @@ sub _path_template () {
     =head2 C<[% http_method.upper %] [% path %]>
 
     [% method_data = path_data.$http_method; method_data.summary %]
-    [% IF method_data.summary %]
-    [% method_data.summary %]
-    [% END %]
     [% IF method_data.description %]
     [% method_data.description %]
     [% END %]
@@ -356,8 +353,8 @@ sub _path_template () {
 
     =head4 Models
 
-          [% schema.models.description %]
-    =over 3
+    [% schema.models.description %]
+    =over 4
           [% FOREACH model IN schema.models.models %]
     =item * C<[% model %]>
     [% END # FOREACH model %]
@@ -367,7 +364,7 @@ sub _path_template () {
           [% IF schema.example %]
     Example:
     
-            [% schema.example %]
+    [% schema.example %]
     
           [% END # IF example -%]
         [% END # end if requestBody.content -%]
@@ -378,12 +375,12 @@ sub _path_template () {
     =head3 Responses
     
     [% FOREACH status_code IN method_data.responses.keys.sort %]
-    =head3 Status Code: C<[% status_code %]>
+    =head4 Status Code: C<[% status_code %]>
     
     [% method_data.responses.$status_code.description %]
     
     [% IF method_data.responses.$status_code.content %]
-    =head3 Content Types:
+    =head4 Content Types:
     
     =over 4
     
@@ -395,12 +392,11 @@ sub _path_template () {
     [% method_data.responses.$status_code.content.$content_type.schema.example %]
     
     [% END # FOREACH content_type -%]
+    =back
     [% END # end if status_code.content -%]
     [% END # end FOREACH status_code -%]
     [% END # if method_data.resposnes -%] 
     [% END # end FOREACH http_method -%]
-    
-    =back
     
     =head1 SEE ALSO
     

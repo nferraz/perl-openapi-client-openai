@@ -16,10 +16,6 @@ This document describes the API endpoint at C</fine_tuning/jobs>.
 List your organization's fine-tuning jobs
 
 
-List your organization's fine-tuning jobs
-
-
-
 
 =head3 Operation ID
 
@@ -58,12 +54,12 @@ Type: C<object>
 =head3 Responses
 
 
-=head3 Status Code: C<200>
+=head4 Status Code: C<200>
 
 OK
 
 
-=head3 Content Types:
+=head4 Content Types:
 
 =over 4
 
@@ -79,6 +75,7 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
     }
 
 
+=back
 
 =head2 C<POST /fine_tuning/jobs>
 
@@ -87,14 +84,6 @@ Creates a fine-tuning job which begins the process of creating a new model from 
 Response includes details of the enqueued job including job status and the name of the fine-tuned models once complete.
 
 L<Learn more about fine-tuning|https://platform.openai.com/docs/guides/fine-tuning>
-
-
-Creates a fine-tuning job which begins the process of creating a new model from a given dataset.
-
-Response includes details of the enqueued job including job status and the name of the fine-tuned models once complete.
-
-L<Learn more about fine-tuning|https://platform.openai.com/docs/guides/fine-tuning>
-
 
 
 
@@ -121,10 +110,10 @@ C<createFineTuningJob>
 
 =head4 Models
 
-      The name of the model to fine-tune. You can select one of the
+The name of the model to fine-tune. You can select one of the
 L<supported models|https://platform.openai.com/docs/guides/fine-tuning#which-models-can-be-fine-tuned>.
 
-=over 3
+=over 4
       
 =item * C<babbage-002>
 
@@ -139,7 +128,7 @@ L<supported models|https://platform.openai.com/docs/guides/fine-tuning#which-mod
       
 Example:
 
-            {
+    {
        "hyperparameters" : null,
        "integrations" : [
           {
@@ -171,12 +160,12 @@ Example:
 =head3 Responses
 
 
-=head3 Status Code: C<200>
+=head4 Status Code: C<200>
 
 OK
 
 
-=head3 Content Types:
+=head4 Content Types:
 
 =over 4
 
@@ -222,7 +211,6 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
         "key": "value"
       }
     }
-
 
 
 =back

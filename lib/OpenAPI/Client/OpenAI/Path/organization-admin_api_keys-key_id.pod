@@ -16,10 +16,6 @@ This document describes the API endpoint at C</organization/admin_api_keys/{key_
 Delete an organization admin API key
 
 
-Delete an organization admin API key
-
-
-
 Delete the specified admin API key.
 
 
@@ -46,12 +42,12 @@ Type: C<string>
 =head3 Responses
 
 
-=head3 Status Code: C<200>
+=head4 Status Code: C<200>
 
 Confirmation that the API key was deleted.
 
 
-=head3 Content Types:
+=head4 Content Types:
 
 =over 4
 
@@ -67,14 +63,11 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
     }
 
 
+=back
 
 =head2 C<GET /organization/admin_api_keys/{key_id}>
 
 Retrieve a single organization API key
-
-
-Retrieve a single organization API key
-
 
 
 Get details for a specific organization API key by its ID.
@@ -103,12 +96,12 @@ Type: C<string>
 =head3 Responses
 
 
-=head3 Status Code: C<200>
+=head4 Status Code: C<200>
 
 Details of the requested API key.
 
 
-=head3 Content Types:
+=head4 Content Types:
 
 =over 4
 
@@ -132,7 +125,6 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
        "redacted_value" : "sk-admin...def",
        "value" : "sk-admin-1234abcd"
     }
-
 
 
 =back

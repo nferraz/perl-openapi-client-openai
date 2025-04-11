@@ -22,16 +22,6 @@ or L<file search|https://platform.openai.com/docs/guides/tools-file-search> to u
 as input for the model's response.
 
 
-Creates a model response. Provide L<text|https://platform.openai.com/docs/guides/text> or
-L<image|https://platform.openai.com/docs/guides/images> inputs to generate L<text|https://platform.openai.com/docs/guides/text>
-or L<JSON|https://platform.openai.com/docs/guides/structured-outputs> outputs. Have the model call
-your own L<custom code|https://platform.openai.com/docs/guides/function-calling> or use built-in
-L<tools|https://platform.openai.com/docs/guides/tools> like L<web search|https://platform.openai.com/docs/guides/tools-web-search>
-or L<file search|https://platform.openai.com/docs/guides/tools-file-search> to use your own data
-as input for the model's response.
-
-
-
 
 =head3 Operation ID
 
@@ -58,12 +48,12 @@ C<createResponse>
 =head3 Responses
 
 
-=head3 Status Code: C<200>
+=head4 Status Code: C<200>
 
 OK
 
 
-=head3 Content Types:
+=head4 Content Types:
 
 =over 4
 
@@ -78,7 +68,6 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
 =item * C<text/event-stream>
 
 Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
-
 
 
 

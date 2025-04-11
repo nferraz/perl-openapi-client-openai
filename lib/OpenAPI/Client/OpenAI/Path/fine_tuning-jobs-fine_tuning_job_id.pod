@@ -18,12 +18,6 @@ Get info about a fine-tuning job.
 L<Learn more about fine-tuning|https://platform.openai.com/docs/guides/fine-tuning>
 
 
-Get info about a fine-tuning job.
-
-L<Learn more about fine-tuning|https://platform.openai.com/docs/guides/fine-tuning>
-
-
-
 
 =head3 Operation ID
 
@@ -48,12 +42,12 @@ Type: C<string>
 =head3 Responses
 
 
-=head3 Status Code: C<200>
+=head4 Status Code: C<200>
 
 OK
 
 
-=head3 Content Types:
+=head4 Content Types:
 
 =over 4
 
@@ -99,7 +93,6 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
         "key": "value"
       }
     }
-
 
 
 =back

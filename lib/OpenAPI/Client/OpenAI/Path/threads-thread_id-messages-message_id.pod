@@ -16,10 +16,6 @@ This document describes the API endpoint at C</threads/{thread_id}/messages/{mes
 Deletes a message.
 
 
-Deletes a message.
-
-
-
 
 =head3 Operation ID
 
@@ -49,12 +45,12 @@ Type: C<string>
 =head3 Responses
 
 
-=head3 Status Code: C<200>
+=head4 Status Code: C<200>
 
 OK
 
 
-=head3 Content Types:
+=head4 Content Types:
 
 =over 4
 
@@ -65,14 +61,11 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
 
 
 
+=back
 
 =head2 C<GET /threads/{thread_id}/messages/{message_id}>
 
 Retrieve a message.
-
-
-Retrieve a message.
-
 
 
 
@@ -104,12 +97,12 @@ Type: C<string>
 =head3 Responses
 
 
-=head3 Status Code: C<200>
+=head4 Status Code: C<200>
 
 OK
 
 
-=head3 Content Types:
+=head4 Content Types:
 
 =over 4
 
@@ -140,14 +133,11 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
     }
 
 
+=back
 
 =head2 C<POST /threads/{thread_id}/messages/{message_id}>
 
 Modifies a message.
-
-
-Modifies a message.
-
 
 
 
@@ -188,12 +178,12 @@ Type: C<string>
 =head3 Responses
 
 
-=head3 Status Code: C<200>
+=head4 Status Code: C<200>
 
 OK
 
 
-=head3 Content Types:
+=head4 Content Types:
 
 =over 4
 
@@ -222,7 +212,6 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
       "attachments": [],
       "metadata": {}
     }
-
 
 
 =back

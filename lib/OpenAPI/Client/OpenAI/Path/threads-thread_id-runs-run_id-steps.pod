@@ -16,10 +16,6 @@ This document describes the API endpoint at C</threads/{thread_id}/runs/{run_id}
 Returns a list of run steps belonging to a run.
 
 
-Returns a list of run steps belonging to a run.
-
-
-
 
 =head3 Operation ID
 
@@ -92,12 +88,12 @@ Type: C<array>
 =head3 Responses
 
 
-=head3 Status Code: C<200>
+=head4 Status Code: C<200>
 
 OK
 
 
-=head3 Content Types:
+=head4 Content Types:
 
 =over 4
 
@@ -115,7 +111,6 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
        "last_id" : "step_abc456",
        "object" : "list"
     }
-
 
 
 =back

@@ -16,10 +16,6 @@ This document describes the API endpoint at C</completions>.
 Creates a completion for the provided prompt and parameters.
 
 
-Creates a completion for the provided prompt and parameters.
-
-
-
 
 =head3 Operation ID
 
@@ -44,9 +40,9 @@ C<createCompletion>
 
 =head4 Models
 
-      ID of the model to use. You can use the L<List models|https://platform.openai.com/docs/api-reference/models/list> API to see all of your available models, or see our L<Model overview|https://platform.openai.com/docs/models> for descriptions of them.
+ID of the model to use. You can use the L<List models|https://platform.openai.com/docs/api-reference/models/list> API to see all of your available models, or see our L<Model overview|https://platform.openai.com/docs/models> for descriptions of them.
 
-=over 3
+=over 4
       
 =item * C<gpt-3.5-turbo-instruct>
 
@@ -59,7 +55,7 @@ C<createCompletion>
       
 Example:
 
-            {
+    {
        "max_tokens" : 16,
        "n" : 1,
        "stream_options" : null,
@@ -75,12 +71,12 @@ Example:
 =head3 Responses
 
 
-=head3 Status Code: C<200>
+=head4 Status Code: C<200>
 
 OK
 
 
-=head3 Content Types:
+=head4 Content Types:
 
 =over 4
 
@@ -108,7 +104,6 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
         "total_tokens": 12
       }
     }
-
 
 
 =back

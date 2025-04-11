@@ -16,10 +16,6 @@ This document describes the API endpoint at C</batches/{batch_id}/cancel>.
 Cancels an in-progress batch. The batch will be in status C<cancelling> for up to 10 minutes, before changing to C<cancelled>, where it will have partial results (if any) available in the output file.
 
 
-Cancels an in-progress batch. The batch will be in status C<cancelling> for up to 10 minutes, before changing to C<cancelled>, where it will have partial results (if any) available in the output file.
-
-
-
 
 =head3 Operation ID
 
@@ -43,12 +39,12 @@ Type: C<string>
 =head3 Responses
 
 
-=head3 Status Code: C<200>
+=head4 Status Code: C<200>
 
 Batch is cancelling. Returns the cancelling batch's details.
 
 
-=head3 Content Types:
+=head4 Content Types:
 
 =over 4
 
@@ -86,7 +82,6 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
         "batch_description": "Nightly eval job",
       }
     }
-
 
 
 =back

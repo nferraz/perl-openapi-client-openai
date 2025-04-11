@@ -16,10 +16,6 @@ This document describes the API endpoint at C</vector_stores>.
 Returns a list of vector stores.
 
 
-Returns a list of vector stores.
-
-
-
 
 =head3 Operation ID
 
@@ -71,12 +67,12 @@ Type: C<string>
 =head3 Responses
 
 
-=head3 Status Code: C<200>
+=head4 Status Code: C<200>
 
 OK
 
 
-=head3 Content Types:
+=head4 Content Types:
 
 =over 4
 
@@ -96,14 +92,11 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
     }
 
 
+=back
 
 =head2 C<POST /vector_stores>
 
 Create a vector store.
-
-
-Create a vector store.
-
 
 
 
@@ -130,7 +123,7 @@ C<createVectorStore>
       
 Example:
 
-            {
+    {
        "expires_after" : null,
        "file_ids" : [
           null
@@ -143,12 +136,12 @@ Example:
 =head3 Responses
 
 
-=head3 Status Code: C<200>
+=head4 Status Code: C<200>
 
 OK
 
 
-=head3 Content Types:
+=head4 Content Types:
 
 =over 4
 
@@ -174,7 +167,6 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
       },
       "last_used_at": 1698107661
     }
-
 
 
 =back

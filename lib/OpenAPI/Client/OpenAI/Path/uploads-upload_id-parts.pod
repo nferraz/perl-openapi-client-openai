@@ -20,14 +20,6 @@ Each Part can be at most 64 MB, and you can add Parts until you hit the Upload m
 It is possible to add multiple Parts in parallel. You can decide the intended order of the Parts when you L<complete the Upload|https://platform.openai.com/docs/api-reference/uploads/complete>.
 
 
-Adds a L<Part|https://platform.openai.com/docs/api-reference/uploads/part-object> to an L<Upload|https://platform.openai.com/docs/api-reference/uploads/object> object. A Part represents a chunk of bytes from the file you are trying to upload. 
-
-Each Part can be at most 64 MB, and you can add Parts until you hit the Upload maximum of 8 GB.
-
-It is possible to add multiple Parts in parallel. You can decide the intended order of the Parts when you L<complete the Upload|https://platform.openai.com/docs/api-reference/uploads/complete>.
-
-
-
 
 =head3 Operation ID
 
@@ -61,12 +53,12 @@ Type: C<string>
 =head3 Responses
 
 
-=head3 Status Code: C<200>
+=head4 Status Code: C<200>
 
 OK
 
 
-=head3 Content Types:
+=head4 Content Types:
 
 =over 4
 
@@ -81,7 +73,6 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
         "created_at": 1719186911,
         "upload_id": "upload_abc123"
     }
-
 
 
 =back

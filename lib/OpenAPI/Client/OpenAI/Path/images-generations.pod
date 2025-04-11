@@ -16,10 +16,6 @@ This document describes the API endpoint at C</images/generations>.
 Creates an image given a prompt.
 
 
-Creates an image given a prompt.
-
-
-
 
 =head3 Operation ID
 
@@ -44,9 +40,9 @@ C<createImage>
 
 =head4 Models
 
-      The model to use for image generation.
+The model to use for image generation.
 
-=over 3
+=over 4
       
 =item * C<dall-e-2>
 
@@ -57,7 +53,7 @@ C<createImage>
       
 Example:
 
-            {
+    {
        "model" : "dall-e-3",
        "n" : 1,
        "prompt" : "A cute baby sea otter",
@@ -74,12 +70,12 @@ Example:
 =head3 Responses
 
 
-=head3 Status Code: C<200>
+=head4 Status Code: C<200>
 
 OK
 
 
-=head3 Content Types:
+=head4 Content Types:
 
 =over 4
 
@@ -93,7 +89,6 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
           "{\n  \"url\": \"...\",\n  \"revised_prompt\": \"...\"\n}\n"
        ]
     }
-
 
 
 =back

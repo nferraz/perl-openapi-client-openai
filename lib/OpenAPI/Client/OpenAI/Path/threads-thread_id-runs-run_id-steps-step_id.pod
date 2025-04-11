@@ -16,10 +16,6 @@ This document describes the API endpoint at C</threads/{thread_id}/runs/{run_id}
 Retrieves a run step.
 
 
-Retrieves a run step.
-
-
-
 
 =head3 Operation ID
 
@@ -64,12 +60,12 @@ Type: C<array>
 =head3 Responses
 
 
-=head3 Status Code: C<200>
+=head4 Status Code: C<200>
 
 OK
 
 
-=head3 Content Types:
+=head4 Content Types:
 
 =over 4
 
@@ -104,7 +100,6 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
         "total_tokens": 579
       }
     }
-
 
 
 =back

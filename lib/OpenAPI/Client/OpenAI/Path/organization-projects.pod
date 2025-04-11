@@ -16,10 +16,6 @@ This document describes the API endpoint at C</organization/projects>.
 Returns a list of projects.
 
 
-Returns a list of projects.
-
-
-
 
 =head3 Operation ID
 
@@ -59,12 +55,12 @@ Type: C<boolean>
 =head3 Responses
 
 
-=head3 Status Code: C<200>
+=head4 Status Code: C<200>
 
 Projects listed successfully.
 
 
-=head3 Content Types:
+=head4 Content Types:
 
 =over 4
 
@@ -80,14 +76,11 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
     }
 
 
+=back
 
 =head2 C<POST /organization/projects>
 
 Create a new project in the organization. Projects can be created and archived, but cannot be deleted.
-
-
-Create a new project in the organization. Projects can be created and archived, but cannot be deleted.
-
 
 
 
@@ -116,12 +109,12 @@ C<create-project>
 =head3 Responses
 
 
-=head3 Status Code: C<200>
+=head4 Status Code: C<200>
 
 Project created successfully.
 
 
-=head3 Content Types:
+=head4 Content Types:
 
 =over 4
 
@@ -138,7 +131,6 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
         "archived_at": null,
         "status": "active"
     }
-
 
 
 =back

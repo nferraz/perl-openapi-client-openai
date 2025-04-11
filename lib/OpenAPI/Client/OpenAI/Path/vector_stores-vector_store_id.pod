@@ -16,10 +16,6 @@ This document describes the API endpoint at C</vector_stores/{vector_store_id}>.
 Delete a vector store.
 
 
-Delete a vector store.
-
-
-
 
 =head3 Operation ID
 
@@ -43,12 +39,12 @@ Type: C<string>
 =head3 Responses
 
 
-=head3 Status Code: C<200>
+=head4 Status Code: C<200>
 
 OK
 
 
-=head3 Content Types:
+=head4 Content Types:
 
 =over 4
 
@@ -59,14 +55,11 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
 
 
 
+=back
 
 =head2 C<GET /vector_stores/{vector_store_id}>
 
 Retrieves a vector store.
-
-
-Retrieves a vector store.
-
 
 
 
@@ -92,12 +85,12 @@ Type: C<string>
 =head3 Responses
 
 
-=head3 Status Code: C<200>
+=head4 Status Code: C<200>
 
 OK
 
 
-=head3 Content Types:
+=head4 Content Types:
 
 =over 4
 
@@ -125,14 +118,11 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
     }
 
 
+=back
 
 =head2 C<POST /vector_stores/{vector_store_id}>
 
 Modifies a vector store.
-
-
-Modifies a vector store.
-
 
 
 
@@ -167,12 +157,12 @@ Type: C<string>
 =head3 Responses
 
 
-=head3 Status Code: C<200>
+=head4 Status Code: C<200>
 
 OK
 
 
-=head3 Content Types:
+=head4 Content Types:
 
 =over 4
 
@@ -198,7 +188,6 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
       },
       "last_used_at": 1698107661
     }
-
 
 
 =back

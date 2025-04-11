@@ -16,10 +16,6 @@ This document describes the API endpoint at C</organization/projects/{project_id
 Returns the rate limits per model for a project.
 
 
-Returns the rate limits per model for a project.
-
-
-
 
 =head3 Operation ID
 
@@ -66,12 +62,12 @@ Type: C<string>
 =head3 Responses
 
 
-=head3 Status Code: C<200>
+=head4 Status Code: C<200>
 
 Project rate limits listed successfully.
 
 
-=head3 Content Types:
+=head4 Content Types:
 
 =over 4
 
@@ -85,7 +81,6 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
           "{\n    \"object\": \"project.rate_limit\",\n    \"id\": \"rl_ada\",\n    \"model\": \"ada\",\n    \"max_requests_per_1_minute\": 600,\n    \"max_tokens_per_1_minute\": 150000,\n    \"max_images_per_1_minute\": 10\n}\n"
        ]
     }
-
 
 
 =back

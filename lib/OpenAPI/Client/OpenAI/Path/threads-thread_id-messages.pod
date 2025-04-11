@@ -16,10 +16,6 @@ This document describes the API endpoint at C</threads/{thread_id}/messages>.
 Returns a list of messages for a given thread.
 
 
-Returns a list of messages for a given thread.
-
-
-
 
 =head3 Operation ID
 
@@ -84,12 +80,12 @@ Type: C<string>
 =head3 Responses
 
 
-=head3 Status Code: C<200>
+=head4 Status Code: C<200>
 
 OK
 
 
-=head3 Content Types:
+=head4 Content Types:
 
 =over 4
 
@@ -109,14 +105,11 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
     }
 
 
+=back
 
 =head2 C<POST /threads/{thread_id}/messages>
 
 Create a message.
-
-
-Create a message.
-
 
 
 
@@ -149,7 +142,7 @@ Type: C<string>
       
 Example:
 
-            {
+    {
        "attachments" : [
           {
              "tools" : [
@@ -165,12 +158,12 @@ Example:
 =head3 Responses
 
 
-=head3 Status Code: C<200>
+=head4 Status Code: C<200>
 
 OK
 
 
-=head3 Content Types:
+=head4 Content Types:
 
 =over 4
 
@@ -199,7 +192,6 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
       "attachments": [],
       "metadata": {}
     }
-
 
 
 =back

@@ -18,12 +18,6 @@ have been created with the C<store> parameter set to C<true> will be
 returned.
 
 
-Get the messages in a stored chat completion. Only Chat Completions that
-have been created with the C<store> parameter set to C<true> will be
-returned.
-
-
-
 
 =head3 Operation ID
 
@@ -71,12 +65,12 @@ Default: C<asc>
 =head3 Responses
 
 
-=head3 Status Code: C<200>
+=head4 Status Code: C<200>
 
 A list of messages
 
 
-=head3 Content Types:
+=head4 Content Types:
 
 =over 4
 
@@ -100,7 +94,6 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
       "last_id": "chatcmpl-AyPNinnUqUDYo9SAdA52NobMflmj2-0",
       "has_more": false
     }
-
 
 
 =back

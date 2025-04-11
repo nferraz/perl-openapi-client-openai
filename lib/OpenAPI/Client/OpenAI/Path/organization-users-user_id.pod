@@ -16,10 +16,6 @@ This document describes the API endpoint at C</organization/users/{user_id}>.
 Deletes a user from the organization.
 
 
-Deletes a user from the organization.
-
-
-
 
 =head3 Operation ID
 
@@ -43,12 +39,12 @@ Type: C<string>
 =head3 Responses
 
 
-=head3 Status Code: C<200>
+=head4 Status Code: C<200>
 
 User deleted successfully.
 
 
-=head3 Content Types:
+=head4 Content Types:
 
 =over 4
 
@@ -59,14 +55,11 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
 
 
 
+=back
 
 =head2 C<GET /organization/users/{user_id}>
 
 Retrieves a user by their identifier.
-
-
-Retrieves a user by their identifier.
-
 
 
 
@@ -92,12 +85,12 @@ Type: C<string>
 =head3 Responses
 
 
-=head3 Status Code: C<200>
+=head4 Status Code: C<200>
 
 User retrieved successfully.
 
 
-=head3 Content Types:
+=head4 Content Types:
 
 =over 4
 
@@ -116,14 +109,11 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
     }
 
 
+=back
 
 =head2 C<POST /organization/users/{user_id}>
 
 Modifies a user's role in the organization.
-
-
-Modifies a user's role in the organization.
-
 
 
 
@@ -158,12 +148,12 @@ Type: C<string>
 =head3 Responses
 
 
-=head3 Status Code: C<200>
+=head4 Status Code: C<200>
 
 User role updated successfully.
 
 
-=head3 Content Types:
+=head4 Content Types:
 
 =over 4
 
@@ -180,7 +170,6 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
         "role": "owner",
         "added_at": 1711471533
     }
-
 
 
 =back

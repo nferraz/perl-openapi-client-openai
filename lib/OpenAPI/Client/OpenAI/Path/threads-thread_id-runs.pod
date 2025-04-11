@@ -16,10 +16,6 @@ This document describes the API endpoint at C</threads/{thread_id}/runs>.
 Returns a list of runs belonging to a thread.
 
 
-Returns a list of runs belonging to a thread.
-
-
-
 
 =head3 Operation ID
 
@@ -77,12 +73,12 @@ Type: C<string>
 =head3 Responses
 
 
-=head3 Status Code: C<200>
+=head4 Status Code: C<200>
 
 OK
 
 
-=head3 Content Types:
+=head4 Content Types:
 
 =over 4
 
@@ -102,14 +98,11 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
     }
 
 
+=back
 
 =head2 C<POST /threads/{thread_id}/runs>
 
 Create a run.
-
-
-Create a run.
-
 
 
 
@@ -151,9 +144,9 @@ Type: C<array>
 
 =head4 Models
 
-      The ID of the L<Model|https://platform.openai.com/docs/api-reference/models> to be used to execute this run. If a value is provided here, it will override the model associated with the assistant. If not, the model associated with the assistant will be used.
+The ID of the L<Model|https://platform.openai.com/docs/api-reference/models> to be used to execute this run. If a value is provided here, it will override the model associated with the assistant. If not, the model associated with the assistant will be used.
 
-=over 3
+=over 4
       
 =item * C<o3-mini>
 
@@ -220,7 +213,7 @@ Type: C<array>
       
 Example:
 
-            {
+    {
        "additional_messages" : [
           {
              "attachments" : [
@@ -246,12 +239,12 @@ Example:
 =head3 Responses
 
 
-=head3 Status Code: C<200>
+=head4 Status Code: C<200>
 
 OK
 
 
-=head3 Content Types:
+=head4 Content Types:
 
 =over 4
 
@@ -295,7 +288,6 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
       "tool_choice": "auto",
       "parallel_tool_calls": true
     }
-
 
 
 =back

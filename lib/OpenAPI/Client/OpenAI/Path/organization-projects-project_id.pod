@@ -16,10 +16,6 @@ This document describes the API endpoint at C</organization/projects/{project_id
 Retrieves a project.
 
 
-Retrieves a project.
-
-
-
 
 =head3 Operation ID
 
@@ -43,12 +39,12 @@ Type: C<string>
 =head3 Responses
 
 
-=head3 Status Code: C<200>
+=head4 Status Code: C<200>
 
 Project retrieved successfully.
 
 
-=head3 Content Types:
+=head4 Content Types:
 
 =over 4
 
@@ -67,14 +63,11 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
     }
 
 
+=back
 
 =head2 C<POST /organization/projects/{project_id}>
 
 Modifies a project in the organization.
-
-
-Modifies a project in the organization.
-
 
 
 
@@ -109,12 +102,12 @@ Type: C<string>
 =head3 Responses
 
 
-=head3 Status Code: C<200>
+=head4 Status Code: C<200>
 
 Project updated successfully.
 
 
-=head3 Content Types:
+=head4 Content Types:
 
 =over 4
 
@@ -133,13 +126,14 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
     }
 
 
+=back
 
-=head3 Status Code: C<400>
+=head4 Status Code: C<400>
 
 Error response when updating the default project.
 
 
-=head3 Content Types:
+=head4 Content Types:
 
 =over 4
 
@@ -151,7 +145,6 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
     {
        "error" : null
     }
-
 
 
 =back

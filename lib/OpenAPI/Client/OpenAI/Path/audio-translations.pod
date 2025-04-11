@@ -16,10 +16,6 @@ This document describes the API endpoint at C</audio/translations>.
 Translates audio into English.
 
 
-Translates audio into English.
-
-
-
 
 =head3 Operation ID
 
@@ -44,9 +40,9 @@ C<createTranslation>
 
 =head4 Models
 
-      ID of the model to use. Only C<whisper-1> (which is powered by our open source Whisper V2 model) is currently available.
+ID of the model to use. Only C<whisper-1> (which is powered by our open source Whisper V2 model) is currently available.
 
-=over 3
+=over 4
       
 =item * C<whisper-1>
 
@@ -55,7 +51,7 @@ C<createTranslation>
       
 Example:
 
-            {
+    {
        "model" : "whisper-1"
     }
 
@@ -65,12 +61,12 @@ Example:
 =head3 Responses
 
 
-=head3 Status Code: C<200>
+=head4 Status Code: C<200>
 
 OK
 
 
-=head3 Content Types:
+=head4 Content Types:
 
 =over 4
 
@@ -78,7 +74,6 @@ OK
 =item * C<application/json>
 
 Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
-
 
 
 

@@ -16,10 +16,6 @@ This document describes the API endpoint at C</threads/{thread_id}/runs/{run_id}
 Retrieves a run.
 
 
-Retrieves a run.
-
-
-
 
 =head3 Operation ID
 
@@ -49,12 +45,12 @@ Type: C<string>
 =head3 Responses
 
 
-=head3 Status Code: C<200>
+=head4 Status Code: C<200>
 
 OK
 
 
-=head3 Content Types:
+=head4 Content Types:
 
 =over 4
 
@@ -100,14 +96,11 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
     }
 
 
+=back
 
 =head2 C<POST /threads/{thread_id}/runs/{run_id}>
 
 Modifies a run.
-
-
-Modifies a run.
-
 
 
 
@@ -148,12 +141,12 @@ Type: C<string>
 =head3 Responses
 
 
-=head3 Status Code: C<200>
+=head4 Status Code: C<200>
 
 OK
 
 
-=head3 Content Types:
+=head4 Content Types:
 
 =over 4
 
@@ -197,7 +190,6 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
       "tool_choice": "auto",
       "parallel_tool_calls": true
     }
-
 
 
 =back

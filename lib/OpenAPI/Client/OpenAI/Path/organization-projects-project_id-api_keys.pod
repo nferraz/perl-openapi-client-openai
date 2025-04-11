@@ -16,10 +16,6 @@ This document describes the API endpoint at C</organization/projects/{project_id
 Returns a list of API keys in the project.
 
 
-Returns a list of API keys in the project.
-
-
-
 
 =head3 Operation ID
 
@@ -59,12 +55,12 @@ Type: C<string>
 =head3 Responses
 
 
-=head3 Status Code: C<200>
+=head4 Status Code: C<200>
 
 Project API keys listed successfully.
 
 
-=head3 Content Types:
+=head4 Content Types:
 
 =over 4
 
@@ -78,7 +74,6 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
           "{\n    \"object\": \"organization.project.api_key\",\n    \"redacted_value\": \"sk-abc...def\",\n    \"name\": \"My API Key\",\n    \"created_at\": 1711471533,\n    \"id\": \"key_abc\",\n    \"owner\": {\n        \"type\": \"user\",\n        \"user\": {\n            \"object\": \"organization.project.user\",\n            \"id\": \"user_abc\",\n            \"name\": \"First Last\",\n            \"email\": \"user@example.com\",\n            \"role\": \"owner\",\n            \"created_at\": 1711471533\n        }\n    }\n}\n"
        ]
     }
-
 
 
 =back

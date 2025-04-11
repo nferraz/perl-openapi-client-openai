@@ -16,10 +16,6 @@ This document describes the API endpoint at C</fine_tuning/jobs/{fine_tuning_job
 Get status updates for a fine-tuning job.
 
 
-Get status updates for a fine-tuning job.
-
-
-
 
 =head3 Operation ID
 
@@ -58,12 +54,12 @@ Default: C<20>
 =head3 Responses
 
 
-=head3 Status Code: C<200>
+=head4 Status Code: C<200>
 
 OK
 
 
-=head3 Content Types:
+=head4 Content Types:
 
 =over 4
 
@@ -77,7 +73,6 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
           "{\n  \"object\": \"fine_tuning.job.event\",\n  \"id\": \"ftevent-abc123\"\n  \"created_at\": 1677610602,\n  \"level\": \"info\",\n  \"message\": \"Created fine-tuning job\",\n  \"data\": {},\n  \"type\": \"message\"\n}\n"
        ]
     }
-
 
 
 =back

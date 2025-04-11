@@ -16,10 +16,6 @@ This document describes the API endpoint at C</organization/usage/completions>.
 Get completions usage details for the organization.
 
 
-Get completions usage details for the organization.
-
-
-
 
 =head3 Operation ID
 
@@ -112,12 +108,12 @@ Type: C<string>
 =head3 Responses
 
 
-=head3 Status Code: C<200>
+=head4 Status Code: C<200>
 
 Usage data retrieved successfully.
 
 
-=head3 Content Types:
+=head4 Content Types:
 
 =over 4
 
@@ -135,7 +131,6 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
           }
        ]
     }
-
 
 
 =back

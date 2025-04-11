@@ -16,10 +16,6 @@ This document describes the API endpoint at C</embeddings>.
 Creates an embedding vector representing the input text.
 
 
-Creates an embedding vector representing the input text.
-
-
-
 
 =head3 Operation ID
 
@@ -44,9 +40,9 @@ C<createEmbedding>
 
 =head4 Models
 
-      ID of the model to use. You can use the L<List models|https://platform.openai.com/docs/api-reference/models/list> API to see all of your available models, or see our L<Model overview|https://platform.openai.com/docs/models> for descriptions of them.
+ID of the model to use. You can use the L<List models|https://platform.openai.com/docs/api-reference/models/list> API to see all of your available models, or see our L<Model overview|https://platform.openai.com/docs/models> for descriptions of them.
 
-=over 3
+=over 4
       
 =item * C<text-embedding-ada-002>
 
@@ -59,7 +55,7 @@ C<createEmbedding>
       
 Example:
 
-            {
+    {
        "encoding_format" : "float",
        "input" : "The quick brown fox jumped over the lazy dog",
        "model" : "text-embedding-3-small",
@@ -72,12 +68,12 @@ Example:
 =head3 Responses
 
 
-=head3 Status Code: C<200>
+=head4 Status Code: C<200>
 
 OK
 
 
-=head3 Content Types:
+=head4 Content Types:
 
 =over 4
 
@@ -92,7 +88,6 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
        ],
        "usage" : null
     }
-
 
 
 =back

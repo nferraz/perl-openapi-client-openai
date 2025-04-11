@@ -17,11 +17,6 @@ Classifies if text and/or image inputs are potentially harmful. Learn
 more in the L<moderation guide|https://platform.openai.com/docs/guides/moderation>.
 
 
-Classifies if text and/or image inputs are potentially harmful. Learn
-more in the L<moderation guide|https://platform.openai.com/docs/guides/moderation>.
-
-
-
 
 =head3 Operation ID
 
@@ -46,11 +41,11 @@ C<createModeration>
 
 =head4 Models
 
-      The content moderation model you would like to use. Learn more in
+The content moderation model you would like to use. Learn more in
 L<the moderation guide|https://platform.openai.com/docs/guides/moderation>, and learn about
 available models L<here|https://platform.openai.com/docs/models#moderation>.
 
-=over 3
+=over 4
       
 =item * C<omni-moderation-latest>
 
@@ -65,7 +60,7 @@ available models L<here|https://platform.openai.com/docs/models#moderation>.
       
 Example:
 
-            {
+    {
        "model" : "omni-moderation-2024-09-26"
     }
 
@@ -75,12 +70,12 @@ Example:
 =head3 Responses
 
 
-=head3 Status Code: C<200>
+=head4 Status Code: C<200>
 
 OK
 
 
-=head3 Content Types:
+=head4 Content Types:
 
 =over 4
 
@@ -175,7 +170,6 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
         }
       ]
     }
-
 
 
 =back

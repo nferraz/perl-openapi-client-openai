@@ -16,10 +16,6 @@ This document describes the API endpoint at C</batches/{batch_id}>.
 Retrieves a batch.
 
 
-Retrieves a batch.
-
-
-
 
 =head3 Operation ID
 
@@ -43,12 +39,12 @@ Type: C<string>
 =head3 Responses
 
 
-=head3 Status Code: C<200>
+=head4 Status Code: C<200>
 
 Batch retrieved successfully.
 
 
-=head3 Content Types:
+=head4 Content Types:
 
 =over 4
 
@@ -86,7 +82,6 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
         "batch_description": "Nightly eval job",
       }
     }
-
 
 
 =back

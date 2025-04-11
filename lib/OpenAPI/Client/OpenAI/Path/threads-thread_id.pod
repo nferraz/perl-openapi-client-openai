@@ -16,10 +16,6 @@ This document describes the API endpoint at C</threads/{thread_id}>.
 Delete a thread.
 
 
-Delete a thread.
-
-
-
 
 =head3 Operation ID
 
@@ -43,12 +39,12 @@ Type: C<string>
 =head3 Responses
 
 
-=head3 Status Code: C<200>
+=head4 Status Code: C<200>
 
 OK
 
 
-=head3 Content Types:
+=head4 Content Types:
 
 =over 4
 
@@ -59,14 +55,11 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
 
 
 
+=back
 
 =head2 C<GET /threads/{thread_id}>
 
 Retrieves a thread.
-
-
-Retrieves a thread.
-
 
 
 
@@ -92,12 +85,12 @@ Type: C<string>
 =head3 Responses
 
 
-=head3 Status Code: C<200>
+=head4 Status Code: C<200>
 
 OK
 
 
-=head3 Content Types:
+=head4 Content Types:
 
 =over 4
 
@@ -114,14 +107,11 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
     }
 
 
+=back
 
 =head2 C<POST /threads/{thread_id}>
 
 Modifies a thread.
-
-
-Modifies a thread.
-
 
 
 
@@ -154,7 +144,7 @@ Type: C<string>
       
 Example:
 
-            {
+    {
        "tool_resources" : {
           "code_interpreter" : {
              "file_ids" : [
@@ -175,12 +165,12 @@ Example:
 =head3 Responses
 
 
-=head3 Status Code: C<200>
+=head4 Status Code: C<200>
 
 OK
 
 
-=head3 Content Types:
+=head4 Content Types:
 
 =over 4
 
@@ -195,7 +185,6 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
       "created_at": 1698107661,
       "metadata": {}
     }
-
 
 
 =back

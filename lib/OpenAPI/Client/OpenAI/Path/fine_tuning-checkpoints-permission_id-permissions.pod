@@ -18,12 +18,6 @@ B<NOTE:> This endpoint requires an L<admin API key|../admin-api-keys>.
 Organization owners can use this endpoint to delete a permission for a fine-tuned model checkpoint.
 
 
-B<NOTE:> This endpoint requires an L<admin API key|../admin-api-keys>.
-
-Organization owners can use this endpoint to delete a permission for a fine-tuned model checkpoint.
-
-
-
 
 =head3 Operation ID
 
@@ -48,12 +42,12 @@ Type: C<string>
 =head3 Responses
 
 
-=head3 Status Code: C<200>
+=head4 Status Code: C<200>
 
 OK
 
 
-=head3 Content Types:
+=head4 Content Types:
 
 =over 4
 
@@ -64,18 +58,13 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
 
 
 
+=back
 
 =head2 C<GET /fine_tuning/checkpoints/{permission_id}/permissions>
 
 B<NOTE:> This endpoint requires an L<admin API key|../admin-api-keys>.
 
 Organization owners can use this endpoint to view all permissions for a fine-tuned model checkpoint.
-
-
-B<NOTE:> This endpoint requires an L<admin API key|../admin-api-keys>.
-
-Organization owners can use this endpoint to view all permissions for a fine-tuned model checkpoint.
-
 
 
 
@@ -132,12 +121,12 @@ Default: C<descending>
 =head3 Responses
 
 
-=head3 Status Code: C<200>
+=head4 Status Code: C<200>
 
 OK
 
 
-=head3 Content Types:
+=head4 Content Types:
 
 =over 4
 
@@ -153,18 +142,13 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
     }
 
 
+=back
 
 =head2 C<POST /fine_tuning/checkpoints/{permission_id}/permissions>
 
 B<NOTE:> Calling this endpoint requires an L<admin API key|../admin-api-keys>.
 
 This enables organization owners to share fine-tuned models with other projects in their organization.
-
-
-B<NOTE:> Calling this endpoint requires an L<admin API key|../admin-api-keys>.
-
-This enables organization owners to share fine-tuned models with other projects in their organization.
-
 
 
 
@@ -198,7 +182,7 @@ Type: C<string>
       
 Example:
 
-            {
+    {
        "project_ids" : [
           null
        ]
@@ -210,12 +194,12 @@ Example:
 =head3 Responses
 
 
-=head3 Status Code: C<200>
+=head4 Status Code: C<200>
 
 OK
 
 
-=head3 Content Types:
+=head4 Content Types:
 
 =over 4
 
@@ -229,7 +213,6 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
           "{\n  \"object\": \"checkpoint.permission\",\n  \"id\": \"cp_zc4Q7MP6XxulcVzj4MZdwsAB\",\n  \"created_at\": 1712211699,\n  \"project_id\": \"proj_abGMw1llN8IrBb6SvvY5A1iH\"\n}\n"
        ]
     }
-
 
 
 =back

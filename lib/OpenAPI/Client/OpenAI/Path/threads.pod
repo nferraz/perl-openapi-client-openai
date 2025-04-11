@@ -16,10 +16,6 @@ This document describes the API endpoint at C</threads>.
 Create a thread.
 
 
-Create a thread.
-
-
-
 
 =head3 Operation ID
 
@@ -46,7 +42,7 @@ request, an empty thread will be created.
       
 Example:
 
-            {
+    {
        "messages" : [
           {
              "attachments" : [
@@ -85,12 +81,12 @@ Example:
 =head3 Responses
 
 
-=head3 Status Code: C<200>
+=head4 Status Code: C<200>
 
 OK
 
 
-=head3 Content Types:
+=head4 Content Types:
 
 =over 4
 
@@ -105,7 +101,6 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
       "created_at": 1698107661,
       "metadata": {}
     }
-
 
 
 =back

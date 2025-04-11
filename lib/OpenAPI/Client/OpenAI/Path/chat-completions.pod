@@ -17,11 +17,6 @@ List stored Chat Completions. Only Chat Completions that have been stored
 with the C<store> parameter set to C<true> will be returned.
 
 
-List stored Chat Completions. Only Chat Completions that have been stored
-with the C<store> parameter set to C<true> will be returned.
-
-
-
 
 =head3 Operation ID
 
@@ -78,12 +73,12 @@ Default: C<asc>
 =head3 Responses
 
 
-=head3 Status Code: C<200>
+=head4 Status Code: C<200>
 
 A list of Chat Completions
 
 
-=head3 Content Types:
+=head4 Content Types:
 
 =over 4
 
@@ -139,6 +134,7 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
     }
 
 
+=back
 
 =head2 C<POST /chat/completions>
 
@@ -156,23 +152,6 @@ response, particularly for newer reasoning models. Parameters that are only
 supported for reasoning models are noted below. For the current state of 
 unsupported parameters in reasoning models, 
 L<refer to the reasoning guide|https://platform.openai.com/docs/guides/reasoning>.
-
-
-B<Starting a new project?> We recommend trying L<Responses|https://platform.openai.com/docs/api-reference/responses> 
-to take advantage of the latest OpenAI platform features. Compare
-L<Chat Completions with Responses|https://platform.openai.com/docs/guides/responses-vs-chat-completions?api-mode=responses>.
-
-================================================================================
-Creates a model response for the given chat conversation. Learn more in the
-L<text generation|https://platform.openai.com/docs/guides/text-generation>, L<vision|https://platform.openai.com/docs/guides/vision>,
-and L<audio|https://platform.openai.com/docs/guides/audio> guides.
-
-Parameter support can differ depending on the model used to generate the
-response, particularly for newer reasoning models. Parameters that are only
-supported for reasoning models are noted below. For the current state of 
-unsupported parameters in reasoning models, 
-L<refer to the reasoning guide|https://platform.openai.com/docs/guides/reasoning>.
-
 
 
 
@@ -201,12 +180,12 @@ C<createChatCompletion>
 =head3 Responses
 
 
-=head3 Status Code: C<200>
+=head4 Status Code: C<200>
 
 OK
 
 
-=head3 Content Types:
+=head4 Content Types:
 
 =over 4
 
@@ -265,7 +244,6 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
     ....
     
     {"id":"chatcmpl-123","object":"chat.completion.chunk","created":1694268190,"model":"gpt-4o-mini", "system_fingerprint": "fp_44709d6fcb", "choices":[{"index":0,"delta":{},"logprobs":null,"finish_reason":"stop"}]}
-
 
 
 =back
