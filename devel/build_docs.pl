@@ -276,6 +276,7 @@ sub _path_template () {
     
     [% FOREACH http_method IN path_data.keys.sort %]
     =head2 C<[% http_method.upper %] [% path %]>
+
     [% method_data = path_data.$http_method; method_data.summary %]
     [% IF method_data.description %]
     [% method_data.description %]
@@ -292,11 +293,14 @@ sub _path_template () {
     =over 4
     [% FOREACH parameter IN method_data.parameters %]
     =item * C<[% parameter.name %]> (in [% parameter.in %]) [% IF parameter.required %](Required)[% ELSE %](Optional)[% END %] - [% parameter.description %]
-    Type: C<[% parameter.schema.type %]>
 
-    [% IF parameter.schema.enum.size %]Allowed values: C<[% parameter.schema.enum.join(', ') %]>[% END %]
-    
-    [% IF parameter.schema.default %]Default: C<[% parameter.schema.default %]>[% END -%]
+    Type: C<[% parameter.schema.type %]>
+    [% IF parameter.schema.enum.size %]
+    Allowed values: C<[% parameter.schema.enum.join(', ') %]>
+    [% END %]
+    [% IF parameter.schema.default %]
+    Default: C<[% parameter.schema.default %]>
+    [% END -%]
     
     [% END # END FOREACH %]
     =back
