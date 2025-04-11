@@ -8,11 +8,13 @@ OpenAPI::Client::OpenAI::Path::threads-thread_id-runs-run_id-submit_tool_outputs
 
 This document describes the API endpoint at C</threads/{thread_id}/runs/{run_id}/submit_tool_outputs>.
 
-See the C<examples/> directory in the distribution for examples of how to use this.
+=head1 PATHS
+
 
 =head2 C<POST /threads/{thread_id}/runs/{run_id}/submit_tool_outputs>
 
 When a run has the `status: "requires_action"` and `required_action.type` is `submit_tool_outputs`, this endpoint can be used to submit the outputs from the tool calls once they're all completed. All outputs must be submitted in a single request.
+
 
 
 =head3 Operation ID
@@ -26,43 +28,54 @@ C<submitToolOuputsToRun>
 =over 4
 
 =item * C<thread_id> (in path) (Required) - The ID of the [thread](/docs/api-reference/threads) to which this run belongs.
+
 Type: C<string>
 
+
+
 =item * C<run_id> (in path) (Required) - The ID of the run that requires the tool output submission.
+
 Type: C<string>
+
 
 
 =back
 
-
 =head3 Request Body
-
+  
 =head3 Content Type: C<application/json>
 
+    
+      
 
-=head3 Example:
+      
+Example:
 
-    {
+            {
        "tool_outputs" : [
           null
        ]
     }
 
 
+             
 
 =head3 Responses
+
 
 =head3 Status Code: C<200>
 
 OK
 
-Content Types:
+
+=head3 Content Types:
 
 =over 4
 
+
 =item * C<application/json>
 
-Example:
+Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
 
     {
       "id": "run_abc123",
@@ -103,7 +116,6 @@ Example:
 
 
 =back
-
 
 =head1 SEE ALSO
 

@@ -8,11 +8,13 @@ OpenAPI::Client::OpenAI::Path::organization-projects-project_id-api_keys - Docum
 
 This document describes the API endpoint at C</organization/projects/{project_id}/api_keys>.
 
-See the C<examples/> directory in the distribution for examples of how to use this.
+=head1 PATHS
+
 
 =head2 C<GET /organization/projects/{project_id}/api_keys>
 
 Returns a list of API keys in the project.
+
 
 =head3 Operation ID
 
@@ -25,17 +27,25 @@ C<list-project-api-keys>
 =over 4
 
 =item * C<project_id> (in path) (Required) - The ID of the project.
+
 Type: C<string>
+
+
 
 =item * C<limit> (in query) (Optional) - A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 20.
 
+
 Type: C<integer>
+
 
 Default: C<20>
 
+
 =item * C<after> (in query) (Optional) - A cursor for use in pagination. `after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call can include after=obj_foo in order to fetch the next page of the list.
 
+
 Type: C<string>
+
 
 
 =back
@@ -43,17 +53,20 @@ Type: C<string>
 
 =head3 Responses
 
+
 =head3 Status Code: C<200>
 
 Project API keys listed successfully.
 
-Content Types:
+
+=head3 Content Types:
 
 =over 4
 
+
 =item * C<application/json>
 
-Example:
+Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
 
     {
        "data" : [
@@ -64,7 +77,6 @@ Example:
 
 
 =back
-
 
 =head1 SEE ALSO
 

@@ -8,11 +8,13 @@ OpenAPI::Client::OpenAI::Path::files - Documentation for the /files path.
 
 This document describes the API endpoint at C</files>.
 
-See the C<examples/> directory in the distribution for examples of how to use this.
+=head1 PATHS
+
 
 =head2 C<GET /files>
 
 Returns a list of files.
+
 
 =head3 Operation ID
 
@@ -25,25 +27,36 @@ C<listFiles>
 =over 4
 
 =item * C<purpose> (in query) (Optional) - Only return files with the given purpose.
+
 Type: C<string>
+
+
 
 =item * C<limit> (in query) (Optional) - A limit on the number of objects to be returned. Limit can range between 1 and 10,000, and the default is 10,000.
 
+
 Type: C<integer>
+
 
 Default: C<10000>
 
+
 =item * C<order> (in query) (Optional) - Sort order by the `created_at` timestamp of the objects. `asc` for ascending order and `desc` for descending order.
+
 
 Type: C<string>
 
-Possible values: C<asc desc>
+Allowed values: C<asc, desc>
+
 
 Default: C<desc>
 
+
 =item * C<after> (in query) (Optional) - A cursor for use in pagination. `after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call can include after=obj_foo in order to fetch the next page of the list.
 
+
 Type: C<string>
+
 
 
 =back
@@ -51,17 +64,20 @@ Type: C<string>
 
 =head3 Responses
 
+
 =head3 Status Code: C<200>
 
 OK
 
-Content Types:
+
+=head3 Content Types:
 
 =over 4
 
+
 =item * C<application/json>
 
-Example:
+Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
 
     {
        "data" : [
@@ -74,8 +90,6 @@ Example:
     }
 
 
-
-=back
 
 =head2 C<POST /files>
 
@@ -90,31 +104,44 @@ The Batch API only supports `.jsonl` files up to 200 MB in size. The input also 
 Please [contact us](https://help.openai.com/) if you need to increase these storage limits.
 
 
+
 =head3 Operation ID
 
 C<createFile>
 
     $client->createFile( ... );
 
+=head3 Parameters
+
+=over 4
+
+=back
 
 =head3 Request Body
-
+  
 =head3 Content Type: C<multipart/form-data>
 
+    
+      
+
+             
 
 =head3 Responses
+
 
 =head3 Status Code: C<200>
 
 OK
 
-Content Types:
+
+=head3 Content Types:
 
 =over 4
 
+
 =item * C<application/json>
 
-Example:
+Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
 
     {
       "id": "file-abc123",
@@ -129,7 +156,6 @@ Example:
 
 
 =back
-
 
 =head1 SEE ALSO
 

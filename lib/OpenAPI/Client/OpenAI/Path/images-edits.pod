@@ -8,11 +8,13 @@ OpenAPI::Client::OpenAI::Path::images-edits - Documentation for the /images/edit
 
 This document describes the API endpoint at C</images/edits>.
 
-See the C<examples/> directory in the distribution for examples of how to use this.
+=head1 PATHS
+
 
 =head2 C<POST /images/edits>
 
 Creates an edited or extended image given an original image and a prompt.
+
 
 =head3 Operation ID
 
@@ -20,15 +22,23 @@ C<createImageEdit>
 
     $client->createImageEdit( ... );
 
+=head3 Parameters
+
+=over 4
+
+=back
 
 =head3 Request Body
-
+  
 =head3 Content Type: C<multipart/form-data>
 
+    
+      
 
-=head3 Example:
+      
+Example:
 
-    {
+            {
        "model" : "dall-e-2",
        "n" : 1,
        "prompt" : "A cute baby sea otter wearing a beret",
@@ -38,20 +48,24 @@ C<createImageEdit>
     }
 
 
+             
 
 =head3 Responses
+
 
 =head3 Status Code: C<200>
 
 OK
 
-Content Types:
+
+=head3 Content Types:
 
 =over 4
 
+
 =item * C<application/json>
 
-Example:
+Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
 
     {
        "data" : [
@@ -62,7 +76,6 @@ Example:
 
 
 =back
-
 
 =head1 SEE ALSO
 

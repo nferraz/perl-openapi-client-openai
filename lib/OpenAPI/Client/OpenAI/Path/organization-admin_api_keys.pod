@@ -8,13 +8,16 @@ OpenAPI::Client::OpenAI::Path::organization-admin_api_keys - Documentation for t
 
 This document describes the API endpoint at C</organization/admin_api_keys>.
 
-See the C<examples/> directory in the distribution for examples of how to use this.
+=head1 PATHS
+
 
 =head2 C<GET /organization/admin_api_keys>
 
 List organization API keys
 
 Retrieve a paginated list of organization admin API keys.
+
+
 =head3 Operation ID
 
 C<admin-api-keys-list>
@@ -25,18 +28,26 @@ C<admin-api-keys-list>
 
 =over 4
 
-=item * C<after> (in query) (Optional) - No description available.
+=item * C<after> (in query) (Optional) - 
+
 Type: C<string>
 
-=item * C<order> (in query) (Optional) - No description available.
+
+
+=item * C<order> (in query) (Optional) - 
+
 Type: C<string>
 
-Possible values: C<asc desc>
+Allowed values: C<asc, desc>
+
 
 Default: C<asc>
 
-=item * C<limit> (in query) (Optional) - No description available.
+
+=item * C<limit> (in query) (Optional) - 
+
 Type: C<integer>
+
 
 Default: C<20>
 
@@ -46,17 +57,20 @@ Default: C<20>
 
 =head3 Responses
 
+
 =head3 Status Code: C<200>
 
 A list of organization API keys.
 
-Content Types:
+
+=head3 Content Types:
 
 =over 4
 
+
 =item * C<application/json>
 
-Example:
+Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
 
     {
        "data" : [
@@ -84,46 +98,58 @@ Example:
 
 
 
-=back
-
 =head2 C<POST /organization/admin_api_keys>
 
 Create an organization admin API key
 
 Create a new admin-level API key for the organization.
+
+
 =head3 Operation ID
 
 C<admin-api-keys-create>
 
     $client->admin-api-keys-create( ... );
 
+=head3 Parameters
+
+=over 4
+
+=back
 
 =head3 Request Body
-
+  
 =head3 Content Type: C<application/json>
 
+    
+      
 
-=head3 Example:
+      
+Example:
 
-    {
+            {
        "name" : "New Admin Key"
     }
 
 
+             
 
 =head3 Responses
+
 
 =head3 Status Code: C<200>
 
 The newly created admin API key.
 
-Content Types:
+
+=head3 Content Types:
 
 =over 4
 
+
 =item * C<application/json>
 
-Example:
+Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
 
     {
        "created_at" : 1711471533,
@@ -144,7 +170,6 @@ Example:
 
 
 =back
-
 
 =head1 SEE ALSO
 

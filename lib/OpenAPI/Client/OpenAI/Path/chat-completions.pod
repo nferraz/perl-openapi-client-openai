@@ -8,12 +8,14 @@ OpenAPI::Client::OpenAI::Path::chat-completions - Documentation for the /chat/co
 
 This document describes the API endpoint at C</chat/completions>.
 
-See the C<examples/> directory in the distribution for examples of how to use this.
+=head1 PATHS
+
 
 =head2 C<GET /chat/completions>
 
 List stored Chat Completions. Only Chat Completions that have been stored
 with the `store` parameter set to `true` will be returned.
+
 
 
 =head3 Operation ID
@@ -27,26 +29,40 @@ C<listChatCompletions>
 =over 4
 
 =item * C<model> (in query) (Optional) - The model used to generate the Chat Completions.
+
 Type: C<string>
+
+
 
 =item * C<metadata> (in query) (Optional) - A list of metadata keys to filter the Chat Completions by. Example:
 
 `metadata[key1]=value1&metadata[key2]=value2`
 
+
 Type: C<object>
 
+
+
 =item * C<after> (in query) (Optional) - Identifier for the last chat completion from the previous pagination request.
+
 Type: C<string>
 
+
+
 =item * C<limit> (in query) (Optional) - Number of Chat Completions to retrieve.
+
 Type: C<integer>
+
 
 Default: C<20>
 
+
 =item * C<order> (in query) (Optional) - Sort order for Chat Completions by timestamp. Use `asc` for ascending order or `desc` for descending order. Defaults to `asc`.
+
 Type: C<string>
 
-Possible values: C<asc desc>
+Allowed values: C<asc, desc>
+
 
 Default: C<asc>
 
@@ -56,17 +72,20 @@ Default: C<asc>
 
 =head3 Responses
 
+
 =head3 Status Code: C<200>
 
 A list of Chat Completions
 
-Content Types:
+
+=head3 Content Types:
 
 =over 4
 
+
 =item * C<application/json>
 
-Example:
+Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
 
     {
       "object": "list",
@@ -116,8 +135,6 @@ Example:
 
 
 
-=back
-
 =head2 C<POST /chat/completions>
 
 **Starting a new project?** We recommend trying [Responses](/docs/api-reference/responses) 
@@ -137,31 +154,44 @@ unsupported parameters in reasoning models,
 [refer to the reasoning guide](/docs/guides/reasoning).
 
 
+
 =head3 Operation ID
 
 C<createChatCompletion>
 
     $client->createChatCompletion( ... );
 
+=head3 Parameters
+
+=over 4
+
+=back
 
 =head3 Request Body
-
+  
 =head3 Content Type: C<application/json>
 
+    
+      
+
+             
 
 =head3 Responses
+
 
 =head3 Status Code: C<200>
 
 OK
 
-Content Types:
+
+=head3 Content Types:
 
 =over 4
 
+
 =item * C<application/json>
 
-Example:
+Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
 
     {
       "id": "chatcmpl-B9MHDbslfkBeAs8l4bebGdFOJ6PeG",
@@ -201,9 +231,10 @@ Example:
     }
 
 
+
 =item * C<text/event-stream>
 
-Example:
+Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
 
     {"id":"chatcmpl-123","object":"chat.completion.chunk","created":1694268190,"model":"gpt-4o-mini", "system_fingerprint": "fp_44709d6fcb", "choices":[{"index":0,"delta":{"role":"assistant","content":""},"logprobs":null,"finish_reason":null}]}
     
@@ -216,7 +247,6 @@ Example:
 
 
 =back
-
 
 =head1 SEE ALSO
 

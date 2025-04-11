@@ -8,11 +8,13 @@ OpenAPI::Client::OpenAI::Path::images-variations - Documentation for the /images
 
 This document describes the API endpoint at C</images/variations>.
 
-See the C<examples/> directory in the distribution for examples of how to use this.
+=head1 PATHS
+
 
 =head2 C<POST /images/variations>
 
 Creates a variation of a given image.
+
 
 =head3 Operation ID
 
@@ -20,15 +22,23 @@ C<createImageVariation>
 
     $client->createImageVariation( ... );
 
+=head3 Parameters
+
+=over 4
+
+=back
 
 =head3 Request Body
-
+  
 =head3 Content Type: C<multipart/form-data>
 
+    
+      
 
-=head3 Example:
+      
+Example:
 
-    {
+            {
        "model" : "dall-e-2",
        "n" : 1,
        "response_format" : "url",
@@ -37,20 +47,24 @@ C<createImageVariation>
     }
 
 
+             
 
 =head3 Responses
+
 
 =head3 Status Code: C<200>
 
 OK
 
-Content Types:
+
+=head3 Content Types:
 
 =over 4
 
+
 =item * C<application/json>
 
-Example:
+Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
 
     {
        "data" : [
@@ -61,7 +75,6 @@ Example:
 
 
 =back
-
 
 =head1 SEE ALSO
 

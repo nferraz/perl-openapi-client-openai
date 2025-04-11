@@ -8,11 +8,13 @@ OpenAPI::Client::OpenAI::Path::fine_tuning-jobs - Documentation for the /fine_tu
 
 This document describes the API endpoint at C</fine_tuning/jobs>.
 
-See the C<examples/> directory in the distribution for examples of how to use this.
+=head1 PATHS
+
 
 =head2 C<GET /fine_tuning/jobs>
 
 List your organization's fine-tuning jobs
+
 
 
 =head3 Operation ID
@@ -26,16 +28,24 @@ C<listPaginatedFineTuningJobs>
 =over 4
 
 =item * C<after> (in query) (Optional) - Identifier for the last job from the previous pagination request.
+
 Type: C<string>
 
+
+
 =item * C<limit> (in query) (Optional) - Number of fine-tuning jobs to retrieve.
+
 Type: C<integer>
+
 
 Default: C<20>
 
+
 =item * C<metadata> (in query) (Optional) - Optional metadata filter. To filter, use the syntax `metadata[k]=v`. Alternatively, set `metadata=null` to indicate no metadata.
 
+
 Type: C<object>
+
 
 
 =back
@@ -43,17 +53,20 @@ Type: C<object>
 
 =head3 Responses
 
+
 =head3 Status Code: C<200>
 
 OK
 
-Content Types:
+
+=head3 Content Types:
 
 =over 4
 
+
 =item * C<application/json>
 
-Example:
+Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
 
     {
        "data" : [
@@ -62,8 +75,6 @@ Example:
     }
 
 
-
-=back
 
 =head2 C<POST /fine_tuning/jobs>
 
@@ -74,21 +85,30 @@ Response includes details of the enqueued job including job status and the name 
 [Learn more about fine-tuning](/docs/guides/fine-tuning)
 
 
+
 =head3 Operation ID
 
 C<createFineTuningJob>
 
     $client->createFineTuningJob( ... );
 
+=head3 Parameters
+
+=over 4
+
+=back
 
 =head3 Request Body
-
+  
 =head3 Content Type: C<application/json>
 
+    
+      
 
-=head3 Example:
+      
+Example:
 
-    {
+            {
        "hyperparameters" : null,
        "integrations" : [
           {
@@ -115,20 +135,24 @@ C<createFineTuningJob>
     }
 
 
+             
 
 =head3 Responses
+
 
 =head3 Status Code: C<200>
 
 OK
 
-Content Types:
+
+=head3 Content Types:
 
 =over 4
 
+
 =item * C<application/json>
 
-Example:
+Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
 
     {
       "object": "fine_tuning.job",
@@ -171,7 +195,6 @@ Example:
 
 
 =back
-
 
 =head1 SEE ALSO
 

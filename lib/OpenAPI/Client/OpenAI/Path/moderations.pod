@@ -8,12 +8,14 @@ OpenAPI::Client::OpenAI::Path::moderations - Documentation for the /moderations 
 
 This document describes the API endpoint at C</moderations>.
 
-See the C<examples/> directory in the distribution for examples of how to use this.
+=head1 PATHS
+
 
 =head2 C<POST /moderations>
 
 Classifies if text and/or image inputs are potentially harmful. Learn
 more in the [moderation guide](/docs/guides/moderation).
+
 
 
 =head3 Operation ID
@@ -22,33 +24,45 @@ C<createModeration>
 
     $client->createModeration( ... );
 
+=head3 Parameters
+
+=over 4
+
+=back
 
 =head3 Request Body
-
+  
 =head3 Content Type: C<application/json>
 
+    
+      
 
-=head3 Example:
+      
+Example:
 
-    {
+            {
        "model" : "omni-moderation-2024-09-26"
     }
 
 
+             
 
 =head3 Responses
+
 
 =head3 Status Code: C<200>
 
 OK
 
-Content Types:
+
+=head3 Content Types:
 
 =over 4
 
+
 =item * C<application/json>
 
-Example:
+Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
 
     {
       "id": "modr-0d9740456c391e43c445bf0f010940c7",
@@ -140,7 +154,6 @@ Example:
 
 
 =back
-
 
 =head1 SEE ALSO
 

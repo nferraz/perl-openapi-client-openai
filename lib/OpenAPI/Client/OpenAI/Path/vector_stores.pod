@@ -8,11 +8,13 @@ OpenAPI::Client::OpenAI::Path::vector_stores - Documentation for the /vector_sto
 
 This document describes the API endpoint at C</vector_stores>.
 
-See the C<examples/> directory in the distribution for examples of how to use this.
+=head1 PATHS
+
 
 =head2 C<GET /vector_stores>
 
 Returns a list of vector stores.
+
 
 =head3 Operation ID
 
@@ -26,25 +28,36 @@ C<listVectorStores>
 
 =item * C<limit> (in query) (Optional) - A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 20.
 
+
 Type: C<integer>
+
 
 Default: C<20>
 
+
 =item * C<order> (in query) (Optional) - Sort order by the `created_at` timestamp of the objects. `asc` for ascending order and `desc` for descending order.
+
 
 Type: C<string>
 
-Possible values: C<asc desc>
+Allowed values: C<asc, desc>
+
 
 Default: C<desc>
 
+
 =item * C<after> (in query) (Optional) - A cursor for use in pagination. `after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call can include after=obj_foo in order to fetch the next page of the list.
 
+
 Type: C<string>
+
+
 
 =item * C<before> (in query) (Optional) - A cursor for use in pagination. `before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with obj_foo, your subsequent call can include before=obj_foo in order to fetch the previous page of the list.
 
+
 Type: C<string>
+
 
 
 =back
@@ -52,17 +65,20 @@ Type: C<string>
 
 =head3 Responses
 
+
 =head3 Status Code: C<200>
 
 OK
 
-Content Types:
+
+=head3 Content Types:
 
 =over 4
 
+
 =item * C<application/json>
 
-Example:
+Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
 
     {
        "data" : [
@@ -76,11 +92,10 @@ Example:
 
 
 
-=back
-
 =head2 C<POST /vector_stores>
 
 Create a vector store.
+
 
 =head3 Operation ID
 
@@ -88,15 +103,23 @@ C<createVectorStore>
 
     $client->createVectorStore( ... );
 
+=head3 Parameters
+
+=over 4
+
+=back
 
 =head3 Request Body
-
+  
 =head3 Content Type: C<application/json>
 
+    
+      
 
-=head3 Example:
+      
+Example:
 
-    {
+            {
        "expires_after" : null,
        "file_ids" : [
           null
@@ -104,20 +127,24 @@ C<createVectorStore>
     }
 
 
+             
 
 =head3 Responses
+
 
 =head3 Status Code: C<200>
 
 OK
 
-Content Types:
+
+=head3 Content Types:
 
 =over 4
 
+
 =item * C<application/json>
 
-Example:
+Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
 
     {
       "id": "vs_123",
@@ -140,7 +167,6 @@ Example:
 
 
 =back
-
 
 =head1 SEE ALSO
 

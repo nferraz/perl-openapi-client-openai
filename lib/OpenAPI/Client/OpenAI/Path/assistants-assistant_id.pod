@@ -8,11 +8,13 @@ OpenAPI::Client::OpenAI::Path::assistants-assistant_id - Documentation for the /
 
 This document describes the API endpoint at C</assistants/{assistant_id}>.
 
-See the C<examples/> directory in the distribution for examples of how to use this.
+=head1 PATHS
+
 
 =head2 C<DELETE /assistants/{assistant_id}>
 
 Delete an assistant.
+
 
 =head3 Operation ID
 
@@ -25,7 +27,9 @@ C<deleteAssistant>
 =over 4
 
 =item * C<assistant_id> (in path) (Required) - The ID of the assistant to delete.
+
 Type: C<string>
+
 
 
 =back
@@ -33,21 +37,28 @@ Type: C<string>
 
 =head3 Responses
 
+
 =head3 Status Code: C<200>
 
 OK
 
-Content Types:
+
+=head3 Content Types:
 
 =over 4
 
+
 =item * C<application/json>
 
-=back
+Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
+
+
+
 
 =head2 C<GET /assistants/{assistant_id}>
 
 Retrieves an assistant.
+
 
 =head3 Operation ID
 
@@ -60,7 +71,9 @@ C<getAssistant>
 =over 4
 
 =item * C<assistant_id> (in path) (Required) - The ID of the assistant to retrieve.
+
 Type: C<string>
+
 
 
 =back
@@ -68,17 +81,20 @@ Type: C<string>
 
 =head3 Responses
 
+
 =head3 Status Code: C<200>
 
 OK
 
-Content Types:
+
+=head3 Content Types:
 
 =over 4
 
+
 =item * C<application/json>
 
-Example:
+Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
 
     {
       "id": "asst_abc123",
@@ -101,11 +117,10 @@ Example:
 
 
 
-=back
-
 =head2 C<POST /assistants/{assistant_id}>
 
 Modifies an assistant.
+
 
 =head3 Operation ID
 
@@ -118,20 +133,24 @@ C<modifyAssistant>
 =over 4
 
 =item * C<assistant_id> (in path) (Required) - The ID of the assistant to modify.
+
 Type: C<string>
+
 
 
 =back
 
-
 =head3 Request Body
-
+  
 =head3 Content Type: C<application/json>
 
+    
+      
 
-=head3 Example:
+      
+Example:
 
-    {
+            {
        "temperature" : 1,
        "tool_resources" : {
           "code_interpreter" : {
@@ -152,20 +171,24 @@ Type: C<string>
     }
 
 
+             
 
 =head3 Responses
+
 
 =head3 Status Code: C<200>
 
 OK
 
-Content Types:
+
+=head3 Content Types:
 
 =over 4
 
+
 =item * C<application/json>
 
-Example:
+Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
 
     {
       "id": "asst_abc123",
@@ -189,7 +212,6 @@ Example:
 
 
 =back
-
 
 =head1 SEE ALSO
 

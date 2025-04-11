@@ -8,11 +8,13 @@ OpenAPI::Client::OpenAI::Path::audio-speech - Documentation for the /audio/speec
 
 This document describes the API endpoint at C</audio/speech>.
 
-See the C<examples/> directory in the distribution for examples of how to use this.
+=head1 PATHS
+
 
 =head2 C<POST /audio/speech>
 
 Generates audio from the input text.
+
 
 =head3 Operation ID
 
@@ -20,34 +22,50 @@ C<createSpeech>
 
     $client->createSpeech( ... );
 
+=head3 Parameters
+
+=over 4
+
+=back
 
 =head3 Request Body
-
+  
 =head3 Content Type: C<application/json>
 
+    
+      
 
-=head3 Example:
+      
+Example:
 
-    {
+            {
        "voice" : "ash"
     }
 
 
+             
 
 =head3 Responses
+
 
 =head3 Status Code: C<200>
 
 OK
 
-Content Types:
+
+=head3 Content Types:
 
 =over 4
 
+
 =item * C<application/octet-stream>
 
-=back
+Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
 
+
+
+
+=back
 
 =head1 SEE ALSO
 

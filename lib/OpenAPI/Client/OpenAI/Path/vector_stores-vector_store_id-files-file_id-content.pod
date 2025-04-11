@@ -8,11 +8,13 @@ OpenAPI::Client::OpenAI::Path::vector_stores-vector_store_id-files-file_id-conte
 
 This document describes the API endpoint at C</vector_stores/{vector_store_id}/files/{file_id}/content>.
 
-See the C<examples/> directory in the distribution for examples of how to use this.
+=head1 PATHS
+
 
 =head2 C<GET /vector_stores/{vector_store_id}/files/{file_id}/content>
 
 Retrieve the parsed contents of a vector store file.
+
 
 =head3 Operation ID
 
@@ -25,10 +27,15 @@ C<retrieveVectorStoreFileContent>
 =over 4
 
 =item * C<vector_store_id> (in path) (Required) - The ID of the vector store.
+
 Type: C<string>
 
+
+
 =item * C<file_id> (in path) (Required) - The ID of the file within the vector store.
+
 Type: C<string>
+
 
 
 =back
@@ -36,17 +43,20 @@ Type: C<string>
 
 =head3 Responses
 
+
 =head3 Status Code: C<200>
 
 OK
 
-Content Types:
+
+=head3 Content Types:
 
 =over 4
 
+
 =item * C<application/json>
 
-Example:
+Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
 
     {
        "data" : [
@@ -57,7 +67,6 @@ Example:
 
 
 =back
-
 
 =head1 SEE ALSO
 

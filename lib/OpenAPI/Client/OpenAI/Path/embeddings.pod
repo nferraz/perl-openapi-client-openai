@@ -8,11 +8,13 @@ OpenAPI::Client::OpenAI::Path::embeddings - Documentation for the /embeddings pa
 
 This document describes the API endpoint at C</embeddings>.
 
-See the C<examples/> directory in the distribution for examples of how to use this.
+=head1 PATHS
+
 
 =head2 C<POST /embeddings>
 
 Creates an embedding vector representing the input text.
+
 
 =head3 Operation ID
 
@@ -20,15 +22,23 @@ C<createEmbedding>
 
     $client->createEmbedding( ... );
 
+=head3 Parameters
+
+=over 4
+
+=back
 
 =head3 Request Body
-
+  
 =head3 Content Type: C<application/json>
 
+    
+      
 
-=head3 Example:
+      
+Example:
 
-    {
+            {
        "encoding_format" : "float",
        "input" : "The quick brown fox jumped over the lazy dog",
        "model" : "text-embedding-3-small",
@@ -36,20 +46,24 @@ C<createEmbedding>
     }
 
 
+             
 
 =head3 Responses
+
 
 =head3 Status Code: C<200>
 
 OK
 
-Content Types:
+
+=head3 Content Types:
 
 =over 4
 
+
 =item * C<application/json>
 
-Example:
+Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
 
     {
        "data" : [
@@ -61,7 +75,6 @@ Example:
 
 
 =back
-
 
 =head1 SEE ALSO
 

@@ -8,11 +8,13 @@ OpenAPI::Client::OpenAI::Path::batches - Documentation for the /batches path.
 
 This document describes the API endpoint at C</batches>.
 
-See the C<examples/> directory in the distribution for examples of how to use this.
+=head1 PATHS
+
 
 =head2 C<GET /batches>
 
 List your organization's batches.
+
 
 =head3 Operation ID
 
@@ -26,11 +28,16 @@ C<listBatches>
 
 =item * C<after> (in query) (Optional) - A cursor for use in pagination. `after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call can include after=obj_foo in order to fetch the next page of the list.
 
+
 Type: C<string>
+
+
 
 =item * C<limit> (in query) (Optional) - A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 20.
 
+
 Type: C<integer>
+
 
 Default: C<20>
 
@@ -40,17 +47,20 @@ Default: C<20>
 
 =head3 Responses
 
+
 =head3 Status Code: C<200>
 
 Batch listed successfully.
 
-Content Types:
+
+=head3 Content Types:
 
 =over 4
 
+
 =item * C<application/json>
 
-Example:
+Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
 
     {
        "data" : [
@@ -62,11 +72,10 @@ Example:
 
 
 
-=back
-
 =head2 C<POST /batches>
 
 Creates and executes a batch from an uploaded file of requests
+
 
 =head3 Operation ID
 
@@ -74,25 +83,37 @@ C<createBatch>
 
     $client->createBatch( ... );
 
+=head3 Parameters
+
+=over 4
+
+=back
 
 =head3 Request Body
-
+  
 =head3 Content Type: C<application/json>
 
+    
+      
+
+             
 
 =head3 Responses
+
 
 =head3 Status Code: C<200>
 
 Batch created successfully.
 
-Content Types:
+
+=head3 Content Types:
 
 =over 4
 
+
 =item * C<application/json>
 
-Example:
+Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
 
     {
       "id": "batch_abc123",
@@ -127,7 +148,6 @@ Example:
 
 
 =back
-
 
 =head1 SEE ALSO
 
