@@ -125,27 +125,7 @@ sub write_documentation_for_path ( $resolved_openapi, $path, $output_base_dir, $
     $sanitized_path_segment =~ s{-+$}{};
     $sanitized_path_segment =~ s{--}{-}g;
 
-    my $output_file = $output_base_dir->child("$sanitized_path_segment.pod");
     eval {
-        $output_file->spew_utf8(<<~"POD");
-          =encoding utf8
-          
-          =head1 NAME
-          
-          OpenAPI::Client::OpenAI::Path::$sanitized_path_segment - Documentation for the $path path.
-          
-          =head1 DESCRIPTION
-          
-          This document describes the API endpoint at C<$path>.
-
-          See the C<examples/> directory in the distribution for examples of how to use this.
-          
-          POD
-
-        if ( defined $path_data->{description} && $path_data->{description} ne '' ) {
-            $output_file->append("$path_data->{description}\n\n");
-        }
-
         my $tt       = Template->new( { TRIM => 1 } );
         my $template = _path_template();
         my $json     = JSON::PP->new->pretty->canonical;
@@ -160,83 +140,25 @@ sub write_documentation_for_path ( $resolved_openapi, $path, $output_base_dir, $
             next if $method eq 'description' || $method eq 'parameters';
 
             my $method_data  = $path_data->{$method};
-            my $method_upper = uc $method;
-            my $operation_id = $method_data->{operationId};
-            $DB::single = 'listAssistants' eq $operation_id;
-
-            $output_file->append("=head2 C<$method_upper $path>\n\n");
 
             if ( defined $method_data->{summary} && $method_data->{summary} ne '' ) {
-                $output_file->append("$method_data->{summary}\n\n");
                 $template_data{summary} = $method_data->{summary};
             }
             if ( defined $method_data->{description} && $method_data->{description} ne '' ) {
-                $output_file->append("$method_data->{description}\n");
                 $template_data{description} = $method_data->{description};
-            }
-
-            if ( defined $operation_id ) {
-                $output_file->append(<<~"POD");
-                  =head3 Operation ID
-                  
-                  C<$operation_id>
-
-                      \$client->$operation_id( ... );
-                  
-                  POD
-            }
-
-            # Add parameter documentation
-            if ( defined $method_data->{parameters} && @{ $method_data->{parameters} } ) {
-                $output_file->append(<<~'POD');
-                  =head3 Parameters
-                  
-                  =over 4
-                  
-                  POD
-
-                foreach my $parameter ( @{ $method_data->{parameters} } ) {
-                    my $name        = $parameter->{name};
-                    my $in          = $parameter->{in};
-                    my $description = $parameter->{description} || 'No description available.';
-                    my $required    = $parameter->{required} ? '(Required)' : '(Optional)';
-
-                    $output_file->append("=item * C<$name> (in $in) $required - $description\n");
-
-                    if ( defined $parameter->{schema} && defined $parameter->{schema}->{type} ) {
-                        $output_file->append("Type: C<$parameter->{schema}->{type}>\n\n");
-
-                        if ( defined $parameter->{schema}->{enum} && @{ $parameter->{schema}->{enum} } ) {
-                            $output_file->append("Possible values: C<@{ $parameter->{schema}->{enum} }>\n\n");
-                        }
-                        if ( defined $parameter->{schema}->{default} ) {
-                            $output_file->append("Default: C<$parameter->{schema}->{default}>\n\n");
-                        }
-                    }
-                }
-                $output_file->append("\n=back\n\n");
             }
 
             # Add request body documentation with examples
             if ( defined $method_data->{requestBody} && defined $method_data->{requestBody}->{content} ) {
-                $output_file->append("\n=head3 Request Body\n\n");
                 foreach my $content_type ( sort keys %{ $method_data->{requestBody}->{content} } ) {
-                    $output_file->append("=head3 Content Type: C<$content_type>\n\n");
 
-                    if ( defined $method_data->{requestBody}->{content}->{$content_type}->{schema} ) {
-                        my $schema = $method_data->{requestBody}->{content}->{$content_type}->{schema};
-
+                    if ( defined $method_data->{requestBody}{content}{$content_type}{schema} ) {
+                        my $schema = $method_data->{requestBody}{content}{$content_type}{schema};
                         if ( defined( my $example = get_example_from_schema($schema) ) ) {
                             my $example_json = $json->encode($example);
                             # prepend each line with four spaces
                             $example_json =~ s/^/    /gm;
-                            $output_file->append(<<~"POD");
-                              
-                              =head3 Example:
-                              
-                              $example_json
-                              
-                              POD
+                            $schema->{example} = $example_json;
                         }
                     }
                 }
@@ -244,19 +166,11 @@ sub write_documentation_for_path ( $resolved_openapi, $path, $output_base_dir, $
 
             # Add responses documentation with examples
             if ( defined $method_data->{responses} ) {
-                $output_file->append("\n=head3 Responses\n\n");
-
                 foreach my $status_code ( sort keys %{ $method_data->{responses} } ) {
                     my $response = $method_data->{responses}->{$status_code};
-                    $output_file->append("=head3 Status Code: C<$status_code>\n\n");
 
-                    if ( defined $response->{description} ) {
-                        $output_file->append("$response->{description}\n\n");
-                    }
                     if ( defined $response->{content} ) {
-                        $output_file->append("Content Types:\n\n=over 4\n\n");
                         foreach my $content_type ( sort keys %{ $response->{content} } ) {
-                            $output_file->append("=item * C<$content_type>\n");
                             if ( defined $response->{content}{$content_type}{schema} ) {
                                 my $schema = $response->{content}{$content_type}{schema};
 
@@ -264,50 +178,21 @@ sub write_documentation_for_path ( $resolved_openapi, $path, $output_base_dir, $
                                     my $example_json = ref $example ? $json->encode($example) : $example;
                                     # prepend each line with four spaces
                                     $example_json =~ s/^/    /gm;
-                                    $response->{content}{$content_type}{schema}{example} = $example_json;
-                                    $output_file->append(<<~"POD");
-                                      
-                                      Example:
-                                      
-                                      $example_json
-                                      
-                                      POD
+                                    $schema->{example} = $example_json;
                                 }
                             }
                         }
-                        $output_file->append("\n=back\n\n");
                     }
                 }
             }
         }
-        # FIXME This will become default behavior
-        if ( $template_data{path} eq '/assistants' ) {
-            my $output;
-            $tt->process( \$template, \%template_data, \$output )
-                or die "Template processing failed: " . $tt->error;
-            open my $fh, '>', 'assistants.pm' or die "Could not open assistants.pm': $!";
-            $DB::single = 1;
-            warn $template_data{path_data}{get}{responses}{200}{content}{'application/json'}{schema}{example};
-            print $fh $output;
-        }
-        $output_file->append(<<POD);
-
-=head1 SEE ALSO
-
-L<OpenAPI::Client::OpenAI::Path>
-
-=head1 COPYRIGHT AND LICENSE
-
-Copyright (C) 2023-2025 by Nelson Ferraz
-
-This library is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself, either Perl version 5.14.0 or,
-at your option, any later version of Perl 5 you may have available.
-
-=cut
-POD
+        my $output;
+        $tt->process( \$template, \%template_data, \$output )
+            or die "Template processing failed: " . $tt->error;
+        #warn $template_data{path_data}{get}{responses}{200}{content}{'application/json'}{schema}{example};
+        my $output_file = $output_base_dir->child("$sanitized_path_segment.pod");
+        $output_file->spew_utf8($output);
     };
-    die "Error writing to '$output_file': $@" if $@;
 
 
     # Store information for the main index
