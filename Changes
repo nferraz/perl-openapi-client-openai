@@ -1,5 +1,7 @@
 Revision history for OpenAPI-Client-OpenAI
 
+0.22    2025-...
+
 0.21    2025-04-11
         - Added examples to the docs, along with allowed models for each path.
 
