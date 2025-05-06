@@ -3,7 +3,8 @@
 # vim: ft=sh
 
 function show_help() {
-    less <<END
+    cat <<END
+
 $(basename "$0") [-?|-h|--help] [-f|--force] [-u|--update]
 
     -u --update   Update OpenAI OpenAPI spec from github
