@@ -68,6 +68,14 @@ Type: C<string>
 
 
 
+=item * C<include> (in query) (Optional) - Additional fields to include in the response. See the `include`
+parameter for Response creation above for more information.
+
+
+Type: C<array>
+
+
+
 =back
 
 

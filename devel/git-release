@@ -1,0 +1,306 @@
+#!/usr/bin/env bash
+
+# vim: filetype=sh
+
+# === Configuration ===
+# The primary branch where releases are tagged (e.g., main, master)
+# This script will only attempt to tag if the merge target matches this branch.
+RELEASE_BRANCH="main"
+# Path to the Perl module containing the version number for tagging.
+MODULE_PATH="lib/OpenAPI/Client/OpenAI.pm"
+# === End Configuration ===
+
+# Function to display help information.
+function show_help() {
+    # Use 'cat' instead of 'less' for direct output
+    cat <<END
+Usage: $(basename "$0") [-h|--help] [-y|--yes] [BRANCH_TO_MERGE]
+
+Merges the specified branch (or the current branch if none is specified)
+into the target branch (typically '$RELEASE_BRANCH' or 'master', detected
+automatically from 'origin/HEAD'). The process involves:
+1. Updating the local target branch from the remote.
+2. Rebasing the feature branch onto the updated target branch.
+3. Force-pushing the rebased feature branch to origin (with lease).
+4. Merging the feature branch into the target branch (creating a merge commit).
+5. Pushing the updated target branch to origin.
+
+If the target branch matches the configured RELEASE_BRANCH ('$RELEASE_BRANCH'),
+the script will then:
+6. Attempt to extract the version number from '$MODULE_PATH'.
+7. Create an annotated git tag (e.g., v1.2.3) on the merge commit.
+8. Push the new tag to origin.
+
+Options:
+    -h, --help   Show this help message and exit.
+    -y, --yes    Proceed with the merge and tag (if applicable) without
+                 prompting for confirmation.
+
+Based on scripts from: https://github.com/Ovid/git-workflow
+(Note: This is a modified script combining merge and tag logic)
+END
+}
+
+# --- Argument Parsing ---
+prompt=1 # Ask for confirmation by default
+POSITIONAL_ARGS=() # Array to hold non-option arguments (the branch name)
+
+# Loop through command-line arguments
+while [[ $# -gt 0 ]]; do
+    key="$1"
+    case $key in
+        -y|--yes)
+        prompt=0 # Disable confirmation prompt
+        shift # Remove the option from arguments
+        ;;
+        -?|-h|--help)
+        show_help # Display help
+        exit 0 # Exit successfully after showing help
+        ;;
+        *)    # Handle unknown options or positional arguments
+        # If it doesn't start with '-', assume it's the branch name
+        if [[ ! "$key" =~ ^- ]]; then
+             POSITIONAL_ARGS+=("$1") # Save it
+        else
+            echo "Error: Unknown option '$1'" >&2
+            show_help
+            exit 1
+        fi
+        shift # Remove the argument
+        ;;
+    esac
+done
+# Restore positional arguments (should be 0 or 1)
+set -- "${POSITIONAL_ARGS[@]}"
+
+# --- Script Setup ---
+# Exit immediately if a command exits with a non-zero status (errexit)
+# Treat unset variables as an error (nounset)
+# Pipeline return status is the value of the last command to exit with non-zero status (pipefail)
+# Inherit ERR trap (errtrace)
+set -Eeuo pipefail
+
+# --- Determine Branches ---
+branch_to_merge=""
+# Check if a branch name was provided as an argument
+if [ -z "${1+x}" ]; then
+    # If no argument, use the current branch
+    branch_to_merge=$(git rev-parse --abbrev-ref HEAD)
+    echo "No branch specified, using current branch: $branch_to_merge"
+else
+    # Use the provided argument as the branch to merge
+    branch_to_merge="$1"
+    echo "Specified branch to merge: $branch_to_merge"
+fi
+
+# Determine the target branch (e.g., main, master) from the remote's HEAD
+# Redirect stderr to /dev/null and use || true to prevent script exit if command fails
+target_branch=$(basename "$(git symbolic-ref refs/remotes/origin/HEAD 2>/dev/null || true)")
+
+# Check if target_branch was successfully determined
+if [ -z "$target_branch" ]; then
+    echo "Error: Could not automatically determine the target branch from 'origin/HEAD'." >&2
+    echo "This might happen if the remote 'origin' is not set up correctly or fetched." >&2
+    echo "You can try setting it manually, e.g.:" >&2
+    echo "  git remote set-head origin --auto" >&2
+    echo "  or" >&2
+    echo "  git remote set-head origin main" >&2
+    exit 1
+fi
+echo "Detected target branch: $target_branch"
+
+# --- Pre-flight Checks ---
+# Ensure the branch to merge is not the same as the target branch
+if [ "$branch_to_merge" == "$target_branch" ]; then
+    echo "Error: Cannot merge '$target_branch' onto itself." >&2
+    echo "Please check out the feature branch you intend to merge, or provide its name as an argument." >&2
+    exit 1
+fi
+
+# Check for uncommitted changes in the working directory
+if ! git diff-index --quiet HEAD --; then
+    echo "Error: You have uncommitted changes in your working directory." >&2
+    echo "Please commit or stash them before running this script." >&2
+    exit 1
+fi
+
+# --- Confirmation Prompt ---
+if [ $prompt == 1 ]; then
+    echo
+    echo "--------------------------------------------------"
+    echo "Actions to be performed:"
+    echo "  Source Branch: $branch_to_merge"
+    echo "  Target Branch: $target_branch"
+    echo "--------------------------------------------------"
+    echo "1. Update local '$target_branch' branch to match 'origin/$target_branch'."
+    echo "2. Rebase '$branch_to_merge' branch onto '$target_branch'."
+    echo "3. Force-push (with lease) the rebased '$branch_to_merge' to 'origin/$branch_to_merge'."
+    echo "4. Merge '$branch_to_merge' into '$target_branch' (using --no-ff)."
+    echo "5. Push the updated '$target_branch' to 'origin/$target_branch'."
+    # Check if tagging will occur
+    if [ "$target_branch" == "$RELEASE_BRANCH" ]; then
+        echo "6. Since the target is '$RELEASE_BRANCH', attempt to extract version from '$MODULE_PATH'."
+        echo "7. Create an annotated tag (e.g., vX.Y.Z)."
+        echo "8. Push the new tag to 'origin'."
+    else
+        echo "6. (Skip Tagging: Target branch '$target_branch' is not the designated release branch '$RELEASE_BRANCH')"
+    fi
+    echo "--------------------------------------------------"
+    # Prompt for confirmation
+    echo -n "Do you want to proceed? Type [Yes] to continue: "
+    read -r response # Use read -r to handle backslashes literally
+    # Check if the response is exactly "Yes"
+    if [ "$response" != "Yes" ]; then
+        echo "Operation cancelled by user."
+        exit 0 # Exit gracefully
+    fi
+    echo "Confirmation received, proceeding..."
+fi
+
+# --- Core Merge Logic ---
+current_branch_before_checkout=$(git rev-parse --abbrev-ref HEAD) # Remember current branch
+
+echo "==> [1/8] Switching to target branch '$target_branch'..."
+git checkout "$target_branch"
+
+echo "==> [2/8] Fetching latest changes from 'origin' (fetch --prune)..."
+git fetch --prune origin
+
+echo "==> [3/8] Updating local '$target_branch' branch (merge --ff-only)..."
+# Use --ff-only to ensure we only fast-forward, preventing accidental merge commits here.
+git merge --ff-only "origin/$target_branch"
+
+# It's safer to rebase from the branch itself
+echo "==> [4/8] Switching back to source branch '$branch_to_merge' for rebase..."
+git checkout "$branch_to_merge"
+
+echo "==> [5/8] Rebasing '$branch_to_merge' onto latest '$target_branch'..."
+git rebase "$target_branch"
+
+echo "==> [6/8] Force-pushing (with lease) rebased '$branch_to_merge' to origin..."
+# --force-with-lease is safer than --force as it checks if the remote branch hasn't changed unexpectedly.
+git push --force-with-lease origin "$branch_to_merge"
+
+echo "==> [7/8] Switching back to target branch '$target_branch' for merge..."
+git checkout "$target_branch"
+
+echo "==> [8/8] Merging '$branch_to_merge' into '$target_branch' (merge --no-ff)..."
+# --no-ff creates a merge commit, preserving the history of the feature branch.
+# Add a standard merge commit message.
+git merge --no-ff "$branch_to_merge" -m "Merge branch '$branch_to_merge' into $target_branch"
+
+echo "==> [Push] Pushing merged '$target_branch' to origin..."
+git push origin "$target_branch"
+
+echo "✅ Branch '$branch_to_merge' successfully merged into '$target_branch' and pushed."
+
+# --- Tagging Logic (Conditional) ---
+# Only proceed with tagging if the target branch is the designated release branch.
+if [ "$target_branch" == "$RELEASE_BRANCH" ]; then
+    echo "==> [Tagging] Target is the release branch ('$RELEASE_BRANCH'). Starting tagging process..."
+
+    # Check if the module file exists
+    if [ ! -f "$MODULE_PATH" ]; then
+        echo "⚠️  Warning: Module file '$MODULE_PATH' not found." >&2
+        echo "   Cannot extract version for tagging. Merge complete, but skipping tagging." >&2
+    else
+        echo "==> [Tagging] Extracting version from '$MODULE_PATH'..."
+        # Use Perl to extract the version number.
+        # Redirect stderr from perl to stdout to capture potential errors in the 'version' variable
+        version_output=$(perl -e '
+            my $file = "'"$MODULE_PATH"'"; # Pass bash variable to Perl
+            # Try to open the file, print error to STDERR if fails
+            unless (open(my $fh, "<", $file)) {
+                print STDERR "Perl Error: Could not open $file: $!\n";
+                exit 1; # Exit Perl script with error status
+            }
+            # Read the entire file content
+            my $content = do { local $/; <$fh> };
+            close($fh);
+
+            # Regular expression to find version. Handles common patterns.
+            # Looks for: our $VERSION = "...", my $VERSION = '...', package Name ... version, $Name::VERSION = "..."
+            # Allows for versions like 1.23, 1.23_01, 1.23-TRIAL
+            if ($content =~ /(?:our|my)\s+\$VERSION\s*=\s*["'\''"]?([0-9]+(?:\.[0-9]+)*(?:_\d+)?(?:-TRIAL)?)["'\''"]?/) {
+                print $1;
+            } elsif ($content =~ /package\s+\S+\s+([0-9]+(?:\.[0-9]+)*(?:_\d+)?(?:-TRIAL)?)/) {
+                print $1;
+            } elsif ($content =~ /\$\S+::VERSION\s*=\s*["'\''"]?([0-9]+(?:\.[0-9]+)*(?:_\d+)?(?:-TRIAL)?)["'\''"]?/) {
+                print $1;
+            } else {
+                # If no version found, print error to STDERR and exit Perl script with error status
+                print STDERR "Perl Error: Could not find version number pattern in $file\n";
+                exit 1;
+            }
+            exit 0; # Exit Perl script successfully
+        ' 2>&1) # Redirect stderr to stdout
+
+        # Check the exit status of the perl command
+        perl_exit_status=$?
+
+        if [ $perl_exit_status -ne 0 ]; then
+            echo "⚠️  Warning: Failed to extract version from '$MODULE_PATH'." >&2
+            echo "   Perl script error output:" >&2
+            echo "   $version_output" >&2
+            echo "   Skipping tagging." >&2
+        elif [ -z "$version_output" ]; then
+             echo "⚠️  Warning: Extracted version from '$MODULE_PATH' is empty." >&2
+             echo "   Please check the module file and the Perl regex in the script." >&2
+             echo "   Skipping tagging." >&2
+        else
+            # Version extraction successful
+            version="$version_output"
+            echo "   Extracted version: $version"
+            tag_name="v$version" # Prepend 'v' to the version number for the tag name
+
+            echo "==> [Tagging] Checking if tag '$tag_name' already exists..."
+            # Check if the tag already exists locally or remotely
+            if git rev-parse "$tag_name" >/dev/null 2>&1; then
+                echo "   Tag '$tag_name' already exists locally. Skipping creation."
+            elif git ls-remote --tags origin | grep -q "refs/tags/$tag_name$"; then
+                 echo "   Tag '$tag_name' already exists on remote 'origin'. Skipping creation."
+            else
+                # Tag does not exist, proceed to create and push
+                echo "==> [Tagging] Creating annotated tag '$tag_name'..."
+                # Create an annotated tag (-a) with a message (-m)
+                git tag -a "$tag_name" -m "Release version $version"
+
+                echo "==> [Tagging] Pushing tag '$tag_name' to origin..."
+                # Push the specific tag to the remote 'origin'
+                if git push origin "$tag_name"; then
+                    echo "✅ Successfully created and pushed tag '$tag_name'"
+                else
+                    # Handle potential push failure (e.g., race condition, permissions)
+                    echo "⚠️  Warning: Failed to push tag '$tag_name'." >&2
+                    echo "   This might be because the tag was created remotely just now, or due to permissions." >&2
+                    echo "   Please check manually: git push origin $tag_name" >&2
+                fi
+            fi
+        fi
+    fi
+else
+    echo "==> [Tagging] Skipping tagging because target branch '$target_branch' is not the designated release branch '$RELEASE_BRANCH'."
+fi
+
+# --- Final Instructions ---
+echo
+echo "--------------------------------------------------"
+echo "🎉 Operation complete!"
+echo "--------------------------------------------------"
+echo
+echo "Recommended cleanup (if the feature branch is no longer needed):"
+echo "  1. Delete the local branch:"
+echo "     git branch -d $branch_to_merge"
+echo "  2. Delete the remote branch:"
+echo "     git push origin :$branch_to_merge"
+echo
+echo "Don't forget to close any issues addressed by this merge/release."
+echo
+# Optionally switch back to the original branch if it wasn't the target branch
+# Check if the branch still exists locally before trying to check it out
+if [ "$current_branch_before_checkout" != "$target_branch" ] && git rev-parse --verify "$current_branch_before_checkout" >/dev/null 2>&1; then
+   echo "==> Switching back to the original branch '$current_branch_before_checkout'..."
+   git checkout "$current_branch_before_checkout"
+fi
+
+exit 0

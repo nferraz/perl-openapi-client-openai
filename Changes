@@ -1,5 +1,36 @@
 Revision history for OpenAPI-Client-OpenAI
 
+0.22    2025-05-06
+        - Added new `git-release` script to automate the release process.
+        - New Evals API: Introduced a comprehensive set of endpoints (`/evals`,
+          `/evals/{eval_id}`, `/evals/{eval_id}/runs`, etc.) and schemas for managing and
+          running evaluations.
+        - New Certificates API: Added endpoints (`/organization/certificates`,
+          `/organization/projects/{project_id}/certificates`, etc.) and schemas for
+          managing Mutual TLS certificates.
+        - Chat Completions & Responses API Updates:
+            - Updated default model examples to `gpt-4.1` and its variants.
+            - Added C# examples for the Responses API.
+        - Added reasoning summary stream events and replaced
+        `reasoning.generate_summary` with `reasoning.summary` in Responses API.
+            - Added `service_tier` parameter.
+        - Image API Updates:
+            - `/images/edits` now supports `gpt-image-1`, multiple input images, and new parameters (`quality`).
+            - `/images/generations` supports `gpt-image-1` and new parameters (`output_format`, `output_compression`, `moderation`, `background`); updated `quality` and `size` options.
+            - `/images/variations` clarified support for `dall-e-2` only.
+        - Fine-Tuning API Updates: Added endpoints for managing checkpoint permissions
+          and added DPO/W&B examples. Path parameters updated for permissions endpoints.
+        - Realtime API Updates: Added server events for output audio buffer management
+          (`output_audio_buffer.started`, `output_audio_buffer.stopped`,
+          `output_audio_buffer.cleared`).
+        - Audio Transcription Updates: Added `logprobs` support for specific models and
+          streaming support (excluding whisper-1).
+        - General Schema/Docs Updates: Numerous updates to descriptions, parameter
+          constraints, added/removed `x-oaiExpandable`, clarified model support, and
+          reordered sections. Added many new structured schemas and replaced older ones.
+          Introduced structured schemas for Tools (`FileSearchTool`, `FunctionTool`,
+          `WebSearchPreviewTool`, `ComputerUsePreviewTool`).
+
 0.21    2025-04-11
         - Added examples to the docs, along with allowed models for each path.
 
@@ -15,18 +46,18 @@ Revision history for OpenAPI-Client-OpenAI
         - Chat Completions Enhancements: Introduces new features for the Chat
           Completions API, including the ability to list, retrieve, update, and delete
           chat completions. Support for metadata filtering is added, and the
-          documentation clarifies parameter support across different models.   
+          documentation clarifies parameter support across different models.
         - Realtime API Expansion: Adds a new endpoint for creating realtime
           transcription sessions and incorporates C# examples for both audio generation
-          and transcription.   
+          and transcription.
         - Responses API Improvements:  Significant updates to the Responses
           API, with a focus on enhanced tool usage, including web search and file search,
           and the ability to stream responses. The API now also supports including image
-          URLs in the input and provides detailed usage information.   
+          URLs in the input and provides detailed usage information.
         - Fine-tuning API Updates: Introduces new endpoints for managing
           fine-tuning checkpoints and their permissions, enabling organization owners to
           share and control access to fine-tuned models. Metadata is now supported for
-          fine-tuning jobs.   
+          fine-tuning jobs.
         - Other Updates:  Minor documentation improvements and clarifications
           across various API endpoints and parameters, including updates to model
           descriptions and available tools.
@@ -94,4 +125,3 @@ Revision history for OpenAPI-Client-OpenAI
 
 0.01    2023-04-11
         First version, released on an unsuspecting world.
-
