@@ -1,6 +1,7 @@
 Revision history for OpenAPI-Client-OpenAI
 
 0.22    2025-05-06
+        - Added new `git-release` script to automate the release process.
         - New Evals API: Introduced a comprehensive set of endpoints (`/evals`,
           `/evals/{eval_id}`, `/evals/{eval_id}/runs`, etc.) and schemas for managing and
           running evaluations.
