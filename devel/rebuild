@@ -21,7 +21,9 @@ END
 force=false
 notest=false
 update=false
-openai_url="https://raw.githubusercontent.com/openai/openai-openapi/master/openapi.yaml"
+#openai_url="https://raw.githubusercontent.com/openai/openai-openapi/master/openapi.yaml"
+# This is a recent change to the location of the spec
+openai_url="https://app.stainless.com/api/spec/documented/openai/openapi.documented.yml"
 target_dir="share/openapi.yaml"
 
 while [[ $# -gt 0 ]]
