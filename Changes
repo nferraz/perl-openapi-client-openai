@@ -1,5 +1,8 @@
 Revision history for OpenAPI-Client-OpenAI
 
+0.23    2025-07-03
+        - Version number bump to replace bad PAUSE upload. No functional change.
+
 0.22    2025-07-03
         - Added new `git-release` script to automate the release process.
         - Audio API Updates: The audio text-to-speech model is updated to
