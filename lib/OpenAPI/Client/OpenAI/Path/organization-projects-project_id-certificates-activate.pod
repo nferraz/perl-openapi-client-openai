@@ -29,6 +29,12 @@ C<activateProjectCertificates>
 
 =over 4
 
+=item * C<project_id> (in path) (Required) - The ID of the project.
+
+Type: C<string>
+
+
+
 =back
 
 =head3 Request Body

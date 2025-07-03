@@ -71,7 +71,7 @@ C<getCertificate>
 
 =over 4
 
-=item * C<cert_id> (in path) (Required) - Unique ID of the certificate to retrieve.
+=item * C<certificate_id> (in path) (Required) - Unique ID of the certificate to retrieve.
 
 Type: C<string>
 

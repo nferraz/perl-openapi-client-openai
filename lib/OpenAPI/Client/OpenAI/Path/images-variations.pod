@@ -86,6 +86,10 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
           "b64_json": "..."
         }
       ],
+      "background": "transparent",
+      "output_format": "png",
+      "size": "1024x1024",
+      "quality": "high",
       "usage": {
         "total_tokens": 100,
         "input_tokens": 50,

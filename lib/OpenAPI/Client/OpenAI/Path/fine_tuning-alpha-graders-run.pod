@@ -2,26 +2,26 @@
 
 =head1 NAME
 
-OpenAPI::Client::OpenAI::Path::audio-speech - Documentation for the /audio/speech path.
+OpenAPI::Client::OpenAI::Path::fine_tuning-alpha-graders-run - Documentation for the /fine_tuning/alpha/graders/run path.
 
 =head1 DESCRIPTION
 
-This document describes the API endpoint at C</audio/speech>.
+This document describes the API endpoint at C</fine_tuning/alpha/graders/run>.
 
 =head1 PATHS
 
 
-=head2 C<POST /audio/speech>
+=head2 C<POST /fine_tuning/alpha/graders/run>
 
-Generates audio from the input text.
+Run a grader.
 
 
 
 =head3 Operation ID
 
-C<createSpeech>
+C<runGrader>
 
-    $client->createSpeech( ... );
+    $client->runGrader( ... );
 
 =head3 Parameters
 
@@ -37,29 +37,6 @@ C<createSpeech>
       
 
       
-
-=head4 Models
-
-One of the available L<TTS models|https://platform.openai.com/docs/models#tts>: C<tts-1>, C<tts-1-hd> or C<gpt-4o-mini-tts>.
-
-=over 4
-      
-=item * C<tts-1>
-
-=item * C<tts-1-hd>
-
-=item * C<gpt-4o-mini-tts>
-
-=back
-      
-      
-Example:
-
-    {
-       "voice" : "ash"
-    }
-
-
              
 
 =head3 Responses
@@ -75,17 +52,15 @@ OK
 =over 4
 
 
-=item * C<application/octet-stream>
+=item * C<application/json>
 
 Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
 
-
-
-
-=item * C<text/event-stream>
-
-Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
-
+    {
+       "metadata" : {
+          "errors" : null
+       }
+    }
 
 
 =back
