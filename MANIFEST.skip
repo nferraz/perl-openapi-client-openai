@@ -2,4 +2,7 @@
 openai-openapi
 .perltidyrc
 MANIFEST.skip
+MANIFEST.bak
 ignore.txt
+pm_to_blib/
+webservice-openai/

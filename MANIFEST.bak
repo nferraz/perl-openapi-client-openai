@@ -346,6 +346,7 @@ lib/OpenAPI/Client/OpenAI/Path/vector_stores.pod
 Makefile
 Makefile.PL
 MANIFEST			This list of files
+MANIFEST.bak
 MYMETA.json
 MYMETA.yml
 pm_to_blib
@@ -366,3 +367,15 @@ t/manifest.t
 t/pod-coverage.t
 t/pod.t
 TODO
+webservice-openai/chat.pl
+webservice-openai/dist.ini
+webservice-openai/errors.err
+webservice-openai/lib/WebService/OpenAI.pm
+webservice-openai/lib/WebService/OpenAI/Moose.pm
+webservice-openai/lib/WebService/OpenAI/Types.pm
+webservice-openai/out.txt
+webservice-openai/petstore.json
+webservice-openai/petstore.yaml
+webservice-openai/response.txt
+webservice-openai/response2.txt
+webservice-openai/yaml.pl

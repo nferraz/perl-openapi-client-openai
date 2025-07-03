@@ -27,6 +27,12 @@ C<listProjectCertificates>
 
 =over 4
 
+=item * C<project_id> (in path) (Required) - The ID of the project.
+
+Type: C<string>
+
+
+
 =item * C<limit> (in query) (Optional) - A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 20.
 
 

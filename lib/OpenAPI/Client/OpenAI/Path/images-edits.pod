@@ -54,8 +54,11 @@ The model to use for image generation. Only C<dall-e-2> and C<gpt-image-1> are s
 Example:
 
     {
+       "background" : "transparent",
        "model" : "gpt-image-1",
        "n" : 1,
+       "output_compression" : 100,
+       "output_format" : "png",
        "prompt" : "A cute baby sea otter wearing a beret",
        "quality" : "high",
        "response_format" : "url",
@@ -90,6 +93,10 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
           "b64_json": "..."
         }
       ],
+      "background": "transparent",
+      "output_format": "png",
+      "size": "1024x1024",
+      "quality": "high",
       "usage": {
         "total_tokens": 100,
         "input_tokens": 50,

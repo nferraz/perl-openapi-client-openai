@@ -13,9 +13,8 @@ This document describes the API endpoint at C</organization/projects/{project_id
 
 =head2 C<POST /organization/projects/{project_id}/certificates/deactivate>
 
-Deactivate certificates at the project level.
-
-You can atomically and idempotently deactivate up to 10 certificates at a time.
+Deactivate certificates at the project level. You can atomically and 
+idempotently deactivate up to 10 certificates at a time.
 
 
 
@@ -28,6 +27,12 @@ C<deactivateProjectCertificates>
 =head3 Parameters
 
 =over 4
+
+=item * C<project_id> (in path) (Required) - The ID of the project.
+
+Type: C<string>
+
+
 
 =back
 
