@@ -1,0 +1,209 @@
+=encoding utf8
+
+=head1 NAME
+
+OpenAPI::Client::OpenAI::Path::conversations-conversation_id-items - Documentation for the /conversations/{conversation_id}/items path.
+
+=head1 DESCRIPTION
+
+This document describes the API endpoint at C</conversations/{conversation_id}/items>.
+
+=head1 PATHS
+
+
+=head2 C<GET /conversations/{conversation_id}/items>
+
+List items
+
+
+List all items for a conversation with the given ID.
+
+
+
+=head3 Operation ID
+
+C<listConversationItems>
+
+    $client->listConversationItems( ... );
+
+=head3 Parameters
+
+=over 4
+
+=item * C<conversation_id> (in path) (Required) - The ID of the conversation to list items for.
+
+Type: C<string>
+
+
+
+=item * C<limit> (in query) (Optional) - A limit on the number of objects to be returned. Limit can range between
+1 and 100, and the default is 20.
+
+
+Type: C<integer>
+
+
+Default: C<20>
+
+
+=item * C<order> (in query) (Optional) - The order to return the input items in. Default is `desc`.
+- `asc`: Return the input items in ascending order.
+- `desc`: Return the input items in descending order.
+
+
+Type: C<string>
+
+Allowed values: C<asc, desc>
+
+
+
+=item * C<after> (in query) (Optional) - An item ID to list items after, used in pagination.
+
+
+Type: C<string>
+
+
+
+=item * C<include> (in query) (Optional) - Specify additional output data to include in the model response. Currently
+supported values are:
+- `code_interpreter_call.outputs`: Includes the outputs of python code execution
+  in code interpreter tool call items.
+- `computer_call_output.output.image_url`: Include image urls from the computer call output.
+- `file_search_call.results`: Include the search results of
+  the file search tool call.
+- `message.input_image.image_url`: Include image urls from the input message.
+- `message.output_text.logprobs`: Include logprobs with assistant messages.
+- `reasoning.encrypted_content`: Includes an encrypted version of reasoning
+  tokens in reasoning item outputs. This enables reasoning items to be used in
+  multi-turn conversations when using the Responses API statelessly (like
+  when the `store` parameter is set to `false`, or when an organization is
+  enrolled in the zero data retention program).
+
+
+Type: C<array>
+
+
+
+=back
+
+
+=head3 Responses
+
+
+=head4 Status Code: C<200>
+
+OK
+
+
+=head4 Content Types:
+
+=over 4
+
+
+=item * C<application/json>
+
+Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
+
+    {
+       "data" : [
+          null
+       ]
+    }
+
+
+=back
+
+=head2 C<POST /conversations/{conversation_id}/items>
+
+Create items
+
+
+Create items in a conversation with the given ID.
+
+
+
+=head3 Operation ID
+
+C<createConversationItems>
+
+    $client->createConversationItems( ... );
+
+=head3 Parameters
+
+=over 4
+
+=item * C<conversation_id> (in path) (Required) - The ID of the conversation to add the item to.
+
+Type: C<string>
+
+
+
+=item * C<include> (in query) (Optional) - Additional fields to include in the response. See the `include`
+parameter for [listing Conversation items above](https://platform.openai.com/docs/api-reference/conversations/list-items#conversations_list_items-include) for more information.
+
+
+Type: C<array>
+
+
+
+=back
+
+=head3 Request Body
+  
+=head3 Content Type: C<application/json>
+
+    
+      
+
+      
+      
+Example:
+
+    {
+       "items" : [
+          null
+       ]
+    }
+
+
+             
+
+=head3 Responses
+
+
+=head4 Status Code: C<200>
+
+OK
+
+
+=head4 Content Types:
+
+=over 4
+
+
+=item * C<application/json>
+
+Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
+
+    {
+       "data" : [
+          null
+       ]
+    }
+
+
+=back
+
+=head1 SEE ALSO
+
+L<OpenAPI::Client::OpenAI::Path>
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright (C) 2023-2025 by Nelson Ferraz
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself, either Perl version 5.14.0 or,
+at your option, any later version of Perl 5 you may have available.
+
+=cut

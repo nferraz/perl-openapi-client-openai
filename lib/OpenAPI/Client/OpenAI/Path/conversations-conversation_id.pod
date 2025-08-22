@@ -2,35 +2,35 @@
 
 =head1 NAME
 
-OpenAPI::Client::OpenAI::Path::threads-thread_id - Documentation for the /threads/{thread_id} path.
+OpenAPI::Client::OpenAI::Path::conversations-conversation_id - Documentation for the /conversations/{conversation_id} path.
 
 =head1 DESCRIPTION
 
-This document describes the API endpoint at C</threads/{thread_id}>.
+This document describes the API endpoint at C</conversations/{conversation_id}>.
 
 =head1 PATHS
 
 
-=head2 C<DELETE /threads/{thread_id}>
+=head2 C<DELETE /conversations/{conversation_id}>
 
-Delete thread
+Delete a conversation
 
 
-Delete a thread.
+Delete a conversation with the given ID.
 
 
 
 =head3 Operation ID
 
-C<deleteThread>
+C<deleteConversation>
 
-    $client->deleteThread( ... );
+    $client->deleteConversation( ... );
 
 =head3 Parameters
 
 =over 4
 
-=item * C<thread_id> (in path) (Required) - The ID of the thread to delete.
+=item * C<conversation_id> (in path) (Required) - The ID of the conversation to delete.
 
 Type: C<string>
 
@@ -60,26 +60,26 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
 
 =back
 
-=head2 C<GET /threads/{thread_id}>
+=head2 C<GET /conversations/{conversation_id}>
 
-Retrieve thread
+Retrieve a conversation
 
 
-Retrieves a thread.
+Get a conversation with the given ID.
 
 
 
 =head3 Operation ID
 
-C<getThread>
+C<getConversation>
 
-    $client->getThread( ... );
+    $client->getConversation( ... );
 
 =head3 Parameters
 
 =over 4
 
-=item * C<thread_id> (in path) (Required) - The ID of the thread to retrieve.
+=item * C<conversation_id> (in path) (Required) - The ID of the conversation to retrieve.
 
 Type: C<string>
 
@@ -105,36 +105,30 @@ OK
 
 Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
 
-    {
-      "id": "thread_abc123",
-      "object": "thread",
-      "created_at": 1698107661,
-      "metadata": {}
-    }
 
 
 =back
 
-=head2 C<POST /threads/{thread_id}>
+=head2 C<POST /conversations/{conversation_id}>
 
-Modify thread
+Update a conversation
 
 
-Modifies a thread.
+Update a conversation's metadata with the given ID.
 
 
 
 =head3 Operation ID
 
-C<modifyThread>
+C<updateConversation>
 
-    $client->modifyThread( ... );
+    $client->updateConversation( ... );
 
 =head3 Parameters
 
 =over 4
 
-=item * C<thread_id> (in path) (Required) - The ID of the thread to modify. Only the `metadata` can be modified.
+=item * C<conversation_id> (in path) (Required) - The ID of the conversation to update.
 
 Type: C<string>
 
@@ -150,25 +144,6 @@ Type: C<string>
       
 
       
-      
-Example:
-
-    {
-       "tool_resources" : {
-          "code_interpreter" : {
-             "file_ids" : [
-                null
-             ]
-          },
-          "file_search" : {
-             "vector_store_ids" : [
-                null
-             ]
-          }
-       }
-    }
-
-
              
 
 =head3 Responses
@@ -188,12 +163,6 @@ OK
 
 Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
 
-    {
-      "id": "thread_abc123",
-      "object": "thread",
-      "created_at": 1698107661,
-      "metadata": {}
-    }
 
 
 =back
