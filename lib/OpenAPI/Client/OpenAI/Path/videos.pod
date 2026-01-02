@@ -1,0 +1,191 @@
+=encoding utf8
+
+=head1 NAME
+
+OpenAPI::Client::OpenAI::Path::videos - Documentation for the /videos path.
+
+=head1 DESCRIPTION
+
+This document describes the API endpoint at C</videos>.
+
+=head1 PATHS
+
+
+=head2 C<GET /videos>
+
+List videos
+
+
+List videos
+
+
+
+=head3 Operation ID
+
+C<ListVideos>
+
+    $client->ListVideos( ... );
+
+=head3 Parameters
+
+=over 4
+
+=item * C<limit> (in query) (Optional) - Number of items to retrieve
+
+Type: C<integer>
+
+
+
+=item * C<order> (in query) (Optional) - Sort order of results by timestamp. Use `asc` for ascending order or `desc` for descending order.
+
+Type: C<string>
+
+Allowed values: C<asc, desc>
+
+
+
+=item * C<after> (in query) (Optional) - Identifier for the last item from the previous pagination request
+
+Type: C<string>
+
+
+
+=back
+
+
+=head3 Responses
+
+
+=head4 Status Code: C<200>
+
+Success
+
+
+=head4 Content Types:
+
+=over 4
+
+
+=item * C<application/json>
+
+Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
+
+    {
+       "data" : [
+          null
+       ]
+    }
+
+
+=back
+
+=head2 C<POST /videos>
+
+Create video
+
+
+Create a video
+
+
+
+=head3 Operation ID
+
+C<createVideo>
+
+    $client->createVideo( ... );
+
+=head3 Parameters
+
+=over 4
+
+=back
+
+=head3 Request Body
+  
+=head3 Content Type: C<application/json>
+
+    
+      Parameters for creating a new video generation job.
+
+      
+
+=head4 Models
+
+The video generation model to use (allowed values: sora-2, sora-2-pro). Defaults to C<sora-2>.
+
+=over 4
+      
+=item * C<sora-2>
+
+=item * C<sora-2-pro>
+
+=item * C<sora-2-2025-10-06>
+
+=item * C<sora-2-pro-2025-10-06>
+
+=item * C<sora-2-2025-12-08>
+
+=back
+      
+             
+=head3 Content Type: C<multipart/form-data>
+
+    
+      Parameters for creating a new video generation job.
+
+      
+
+=head4 Models
+
+The video generation model to use (allowed values: sora-2, sora-2-pro). Defaults to C<sora-2>.
+
+=over 4
+      
+=item * C<sora-2>
+
+=item * C<sora-2-pro>
+
+=item * C<sora-2-2025-10-06>
+
+=item * C<sora-2-pro-2025-10-06>
+
+=item * C<sora-2-2025-12-08>
+
+=back
+      
+             
+
+=head3 Responses
+
+
+=head4 Status Code: C<200>
+
+Success
+
+
+=head4 Content Types:
+
+=over 4
+
+
+=item * C<application/json>
+
+Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
+
+
+
+=back
+
+=head1 SEE ALSO
+
+L<OpenAPI::Client::OpenAI::Path>
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright (C) 2023-2026 by Nelson Ferraz
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself, either Perl version 5.14.0 or,
+at your option, any later version of Perl 5 you may have available.
+
+=cut

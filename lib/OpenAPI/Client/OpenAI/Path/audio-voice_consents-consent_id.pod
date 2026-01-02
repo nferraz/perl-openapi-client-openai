@@ -1,0 +1,201 @@
+=encoding utf8
+
+=head1 NAME
+
+OpenAPI::Client::OpenAI::Path::audio-voice_consents-consent_id - Documentation for the /audio/voice_consents/{consent_id} path.
+
+=head1 DESCRIPTION
+
+This document describes the API endpoint at C</audio/voice_consents/{consent_id}>.
+
+=head1 PATHS
+
+
+=head2 C<DELETE /audio/voice_consents/{consent_id}>
+
+Delete voice consent
+
+
+Deletes a voice consent recording.
+
+
+
+=head3 Operation ID
+
+C<deleteVoiceConsent>
+
+    $client->deleteVoiceConsent( ... );
+
+=head3 Parameters
+
+=over 4
+
+=item * C<consent_id> (in path) (Required) - The ID of the consent recording to delete.
+
+Type: C<string>
+
+
+
+=back
+
+
+=head3 Responses
+
+
+=head4 Status Code: C<200>
+
+OK
+
+
+=head4 Content Types:
+
+=over 4
+
+
+=item * C<application/json>
+
+Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
+
+    {
+      "object": "audio.voice_consent",
+      "id": "cons_1234",
+      "deleted": true
+    }
+
+
+=back
+
+=head2 C<GET /audio/voice_consents/{consent_id}>
+
+Retrieve voice consent
+
+
+Retrieves a voice consent recording.
+
+
+
+=head3 Operation ID
+
+C<getVoiceConsent>
+
+    $client->getVoiceConsent( ... );
+
+=head3 Parameters
+
+=over 4
+
+=item * C<consent_id> (in path) (Required) - The ID of the consent recording to retrieve.
+
+Type: C<string>
+
+
+
+=back
+
+
+=head3 Responses
+
+
+=head4 Status Code: C<200>
+
+OK
+
+
+=head4 Content Types:
+
+=over 4
+
+
+=item * C<application/json>
+
+Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
+
+    {
+      "object": "audio.voice_consent",
+      "id": "cons_1234",
+      "name": "John Doe",
+      "language": "en-US",
+      "created_at": 1734220800
+    }
+
+
+=back
+
+=head2 C<POST /audio/voice_consents/{consent_id}>
+
+Update voice consent
+
+
+Updates a voice consent recording (metadata only).
+
+
+
+=head3 Operation ID
+
+C<updateVoiceConsent>
+
+    $client->updateVoiceConsent( ... );
+
+=head3 Parameters
+
+=over 4
+
+=item * C<consent_id> (in path) (Required) - The ID of the consent recording to update.
+
+Type: C<string>
+
+
+
+=back
+
+=head3 Request Body
+  
+=head3 Content Type: C<application/json>
+
+    
+      
+
+      
+             
+
+=head3 Responses
+
+
+=head4 Status Code: C<200>
+
+OK
+
+
+=head4 Content Types:
+
+=over 4
+
+
+=item * C<application/json>
+
+Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
+
+    {
+      "object": "audio.voice_consent",
+      "id": "cons_1234",
+      "name": "John Doe",
+      "language": "en-US",
+      "created_at": 1734220800
+    }
+
+
+=back
+
+=head1 SEE ALSO
+
+L<OpenAPI::Client::OpenAI::Path>
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright (C) 2023-2026 by Nelson Ferraz
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself, either Perl version 5.14.0 or,
+at your option, any later version of Perl 5 you may have available.
+
+=cut

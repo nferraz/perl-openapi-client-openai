@@ -16,7 +16,7 @@ This document describes the API endpoint at C</conversations>.
 Create a conversation
 
 
-Create a conversation with the given ID.
+Create a conversation.
 
 
 
@@ -37,19 +37,9 @@ C<createConversation>
 =head3 Content Type: C<application/json>
 
     
-      Create a conversation
+      
 
       
-      
-Example:
-
-    {
-       "items" : [
-          null
-       ]
-    }
-
-
              
 
 =head3 Responses
@@ -57,7 +47,7 @@ Example:
 
 =head4 Status Code: C<200>
 
-OK
+Success
 
 
 =head4 Content Types:
@@ -79,7 +69,7 @@ L<OpenAPI::Client::OpenAI::Path>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright (C) 2023-2025 by Nelson Ferraz
+Copyright (C) 2023-2026 by Nelson Ferraz
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself, either Perl version 5.14.0 or,

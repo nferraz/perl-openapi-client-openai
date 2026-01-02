@@ -1,0 +1,90 @@
+=encoding utf8
+
+=head1 NAME
+
+OpenAPI::Client::OpenAI::Path::realtime-calls - Documentation for the /realtime/calls path.
+
+=head1 DESCRIPTION
+
+This document describes the API endpoint at C</realtime/calls>.
+
+=head1 PATHS
+
+
+=head2 C<POST /realtime/calls>
+
+Create call
+
+
+Create a new Realtime API call over WebRTC and receive the SDP answer needed
+to complete the peer connection.
+
+
+
+=head3 Operation ID
+
+C<create-realtime-call>
+
+    $client->create-realtime-call( ... );
+
+=head3 Parameters
+
+=over 4
+
+=back
+
+=head3 Request Body
+  
+=head3 Content Type: C<application/sdp>
+
+    
+      WebRTC SDP offer. Use this variant when you have previously created an
+ephemeral **session token** and are authenticating the request with it.
+Realtime session parameters will be retrieved from the session token.
+
+      
+             
+=head3 Content Type: C<multipart/form-data>
+
+    
+      Parameters required to initiate a realtime call and receive the SDP answer
+needed to complete a WebRTC peer connection. Provide an SDP offer generated
+by your client and optionally configure the session that will answer the call.
+
+      
+             
+
+=head3 Responses
+
+
+=head4 Status Code: C<201>
+
+Realtime call created successfully.
+
+
+=head4 Content Types:
+
+=over 4
+
+
+=item * C<application/sdp>
+
+Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
+
+
+
+=back
+
+=head1 SEE ALSO
+
+L<OpenAPI::Client::OpenAI::Path>
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright (C) 2023-2026 by Nelson Ferraz
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself, either Perl version 5.14.0 or,
+at your option, any later version of Perl 5 you may have available.
+
+=cut

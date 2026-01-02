@@ -1,0 +1,136 @@
+=encoding utf8
+
+=head1 NAME
+
+OpenAPI::Client::OpenAI::Path::realtime-calls-call_id-accept - Documentation for the /realtime/calls/{call_id}/accept path.
+
+=head1 DESCRIPTION
+
+This document describes the API endpoint at C</realtime/calls/{call_id}/accept>.
+
+=head1 PATHS
+
+
+=head2 C<POST /realtime/calls/{call_id}/accept>
+
+Accept call
+
+
+Accept an incoming SIP call and configure the realtime session that will
+handle it.
+
+
+
+=head3 Operation ID
+
+C<accept-realtime-call>
+
+    $client->accept-realtime-call( ... );
+
+=head3 Parameters
+
+=over 4
+
+=item * C<call_id> (in path) (Required) - The identifier for the call provided in the
+[`realtime.call.incoming`](https://platform.openai.com/docs/api-reference/webhook-events/realtime/call/incoming)
+webhook.
+
+Type: C<string>
+
+
+
+=back
+
+=head3 Request Body
+  
+=head3 Content Type: C<application/json>
+
+    
+      Realtime session object configuration.
+
+      
+
+=head4 Models
+
+The Realtime model used for this session.
+
+=over 4
+      
+=item * C<gpt-realtime>
+
+=item * C<gpt-realtime-2025-08-28>
+
+=item * C<gpt-4o-realtime-preview>
+
+=item * C<gpt-4o-realtime-preview-2024-10-01>
+
+=item * C<gpt-4o-realtime-preview-2024-12-17>
+
+=item * C<gpt-4o-realtime-preview-2025-06-03>
+
+=item * C<gpt-4o-mini-realtime-preview>
+
+=item * C<gpt-4o-mini-realtime-preview-2024-12-17>
+
+=item * C<gpt-realtime-mini>
+
+=item * C<gpt-realtime-mini-2025-10-06>
+
+=item * C<gpt-realtime-mini-2025-12-15>
+
+=item * C<gpt-audio-mini>
+
+=item * C<gpt-audio-mini-2025-10-06>
+
+=item * C<gpt-audio-mini-2025-12-15>
+
+=back
+      
+      
+Example:
+
+    {
+       "audio" : {
+          "input" : {
+             "noise_reduction" : null,
+             "transcription" : null
+          },
+          "output" : {
+             "voice" : "ash"
+          }
+       },
+       "include" : [
+          null
+       ],
+       "output_modalities" : [
+          null
+       ],
+       "tools" : [
+          null
+       ]
+    }
+
+
+             
+
+=head3 Responses
+
+
+=head4 Status Code: C<200>
+
+Call accepted successfully.
+
+
+=head1 SEE ALSO
+
+L<OpenAPI::Client::OpenAI::Path>
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright (C) 2023-2026 by Nelson Ferraz
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself, either Perl version 5.14.0 or,
+at your option, any later version of Perl 5 you may have available.
+
+=cut
