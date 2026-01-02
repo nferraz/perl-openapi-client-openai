@@ -1,0 +1,182 @@
+=encoding utf8
+
+=head1 NAME
+
+OpenAPI::Client::OpenAI::Path::organization-roles - Documentation for the /organization/roles path.
+
+=head1 DESCRIPTION
+
+This document describes the API endpoint at C</organization/roles>.
+
+=head1 PATHS
+
+
+=head2 C<GET /organization/roles>
+
+List organization roles
+
+
+Lists the roles configured for the organization.
+
+
+
+=head3 Operation ID
+
+C<list-roles>
+
+    $client->list-roles( ... );
+
+=head3 Parameters
+
+=over 4
+
+=item * C<limit> (in query) (Optional) - A limit on the number of roles to return. Defaults to 1000.
+
+Type: C<integer>
+
+
+Default: C<1000>
+
+
+=item * C<after> (in query) (Optional) - Cursor for pagination. Provide the value from the previous response's `next` field to continue listing roles.
+
+Type: C<string>
+
+
+
+=item * C<order> (in query) (Optional) - Sort order for the returned roles.
+
+Type: C<string>
+
+Allowed values: C<asc, desc>
+
+
+Default: C<asc>
+
+
+=back
+
+
+=head3 Responses
+
+
+=head4 Status Code: C<200>
+
+Roles listed successfully.
+
+
+=head4 Content Types:
+
+=over 4
+
+
+=item * C<application/json>
+
+Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
+
+    {
+        "object": "list",
+        "data": [
+            {
+                "object": "role",
+                "id": "role_01J1F8ROLE01",
+                "name": "API Group Manager",
+                "description": "Allows managing organization groups",
+                "permissions": [
+                    "api.groups.read",
+                    "api.groups.write"
+                ],
+                "resource_type": "api.organization",
+                "predefined_role": false
+            }
+        ],
+        "has_more": false,
+        "next": null
+    }
+
+
+=back
+
+=head2 C<POST /organization/roles>
+
+Create organization role
+
+
+Creates a custom role for the organization.
+
+
+
+=head3 Operation ID
+
+C<create-role>
+
+    $client->create-role( ... );
+
+=head3 Parameters
+
+=over 4
+
+=back
+
+=head3 Request Body
+  
+=head3 Content Type: C<application/json>
+
+    
+      Request payload for creating a custom role.
+
+      
+      
+Example:
+
+    "{\n    \"role_name\": \"API Group Manager\",\n    \"permissions\": [\n        \"api.groups.read\",\n        \"api.groups.write\"\n    ],\n    \"description\": \"Allows managing organization groups\"\n}\n"
+
+
+             
+
+=head3 Responses
+
+
+=head4 Status Code: C<200>
+
+Role created successfully.
+
+
+=head4 Content Types:
+
+=over 4
+
+
+=item * C<application/json>
+
+Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
+
+    {
+        "object": "role",
+        "id": "role_01J1F8ROLE01",
+        "name": "API Group Manager",
+        "description": "Allows managing organization groups",
+        "permissions": [
+            "api.groups.read",
+            "api.groups.write"
+        ],
+        "resource_type": "api.organization",
+        "predefined_role": false
+    }
+
+
+=back
+
+=head1 SEE ALSO
+
+L<OpenAPI::Client::OpenAI::Path>
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright (C) 2023-2026 by Nelson Ferraz
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself, either Perl version 5.14.0 or,
+at your option, any later version of Perl 5 you may have available.
+
+=cut

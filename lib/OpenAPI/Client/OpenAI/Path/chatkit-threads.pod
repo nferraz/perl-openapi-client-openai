@@ -1,0 +1,115 @@
+=encoding utf8
+
+=head1 NAME
+
+OpenAPI::Client::OpenAI::Path::chatkit-threads - Documentation for the /chatkit/threads path.
+
+=head1 DESCRIPTION
+
+This document describes the API endpoint at C</chatkit/threads>.
+
+=head1 PATHS
+
+
+=head2 C<GET /chatkit/threads>
+
+List ChatKit threads
+
+
+List ChatKit threads
+
+
+
+=head3 Operation ID
+
+C<ListThreadsMethod>
+
+    $client->ListThreadsMethod( ... );
+
+=head3 Parameters
+
+=over 4
+
+=item * C<limit> (in query) (Optional) - Maximum number of thread items to return. Defaults to 20.
+
+Type: C<integer>
+
+
+
+=item * C<order> (in query) (Optional) - Sort order for results by creation time. Defaults to `desc`.
+
+Type: C<string>
+
+Allowed values: C<asc, desc>
+
+
+
+=item * C<after> (in query) (Optional) - List items created after this thread item ID. Defaults to null for the first page.
+
+Type: C<string>
+
+
+
+=item * C<before> (in query) (Optional) - List items created before this thread item ID. Defaults to null for the newest results.
+
+Type: C<string>
+
+
+
+=item * C<user> (in query) (Optional) - Filter threads that belong to this user identifier. Defaults to null to return all users.
+
+Type: C<string>
+
+
+
+=back
+
+
+=head3 Responses
+
+
+=head4 Status Code: C<200>
+
+Success
+
+
+=head4 Content Types:
+
+=over 4
+
+
+=item * C<application/json>
+
+Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
+
+    {
+       "data" : [
+          {
+             "created_at" : 1712345600,
+             "id" : "cthr_def456",
+             "object" : "chatkit.thread",
+             "status" : {
+                "type" : "active"
+             },
+             "title" : "Demo feedback",
+             "user" : "user_456"
+          }
+       ]
+    }
+
+
+=back
+
+=head1 SEE ALSO
+
+L<OpenAPI::Client::OpenAI::Path>
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright (C) 2023-2026 by Nelson Ferraz
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself, either Perl version 5.14.0 or,
+at your option, any later version of Perl 5 you may have available.
+
+=cut

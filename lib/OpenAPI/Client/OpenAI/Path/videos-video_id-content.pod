@@ -1,0 +1,97 @@
+=encoding utf8
+
+=head1 NAME
+
+OpenAPI::Client::OpenAI::Path::videos-video_id-content - Documentation for the /videos/{video_id}/content path.
+
+=head1 DESCRIPTION
+
+This document describes the API endpoint at C</videos/{video_id}/content>.
+
+=head1 PATHS
+
+
+=head2 C<GET /videos/{video_id}/content>
+
+Retrieve video content
+
+
+Download video content
+
+
+
+=head3 Operation ID
+
+C<RetrieveVideoContent>
+
+    $client->RetrieveVideoContent( ... );
+
+=head3 Parameters
+
+=over 4
+
+=item * C<video_id> (in path) (Required) - The identifier of the video whose media to download.
+
+Type: C<string>
+
+
+
+=item * C<variant> (in query) (Optional) - Which downloadable asset to return. Defaults to the MP4 video.
+
+Type: C<string>
+
+Allowed values: C<video, thumbnail, spritesheet>
+
+
+
+=back
+
+
+=head3 Responses
+
+
+=head4 Status Code: C<200>
+
+The video bytes or preview asset that matches the requested variant.
+
+
+=head4 Content Types:
+
+=over 4
+
+
+=item * C<application/json>
+
+Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
+
+
+
+
+=item * C<image/webp>
+
+Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
+
+
+
+
+=item * C<video/mp4>
+
+Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
+
+
+
+=back
+
+=head1 SEE ALSO
+
+L<OpenAPI::Client::OpenAI::Path>
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright (C) 2023-2026 by Nelson Ferraz
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself, either Perl version 5.14.0 or,
+at your option, any later version of Perl 5 you may have available.
+
+=cut

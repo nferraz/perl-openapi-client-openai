@@ -16,7 +16,7 @@ This document describes the API endpoint at C</conversations/{conversation_id}>.
 Delete a conversation
 
 
-Delete a conversation with the given ID.
+Delete a conversation. Items in the conversation will not be deleted.
 
 
 
@@ -44,7 +44,7 @@ Type: C<string>
 
 =head4 Status Code: C<200>
 
-OK
+Success
 
 
 =head4 Content Types:
@@ -65,7 +65,7 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
 Retrieve a conversation
 
 
-Get a conversation with the given ID.
+Get a conversation
 
 
 
@@ -93,7 +93,7 @@ Type: C<string>
 
 =head4 Status Code: C<200>
 
-OK
+Success
 
 
 =head4 Content Types:
@@ -114,7 +114,7 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
 Update a conversation
 
 
-Update a conversation's metadata with the given ID.
+Update a conversation
 
 
 
@@ -151,7 +151,7 @@ Type: C<string>
 
 =head4 Status Code: C<200>
 
-OK
+Success
 
 
 =head4 Content Types:
@@ -173,7 +173,7 @@ L<OpenAPI::Client::OpenAI::Path>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright (C) 2023-2025 by Nelson Ferraz
+Copyright (C) 2023-2026 by Nelson Ferraz
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself, either Perl version 5.14.0 or,
