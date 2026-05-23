@@ -11,3 +11,10 @@ openai-openapi
 pm_to_blib
 webservice-openai
 TODO
+CLAUDE.md
+docs/
+.devcontainer/
+^devel/lib/
+^devel/t/
+^\.claude/
+^MANIFEST\.bak$

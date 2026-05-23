@@ -4,168 +4,151 @@
 
 OpenAPI::Client::OpenAI::Path::organization-projects-project_id-groups - Documentation for the /organization/projects/{project_id}/groups path.
 
-=head1 DESCRIPTION
+=head1 OPERATIONS
 
-This document describes the API endpoint at C</organization/projects/{project_id}/groups>.
+=head2 GET /organization/projects/{project_id}/groups
 
-=head1 PATHS
+=head3 list-project-groups
 
-
-=head2 C<GET /organization/projects/{project_id}/groups>
-
-List project groups
-
+  $client->list_project_groups({
+      body => { ... },
+  });
 
 Lists the groups that have access to a project.
 
+=head4 Path/query parameters
 
+=over
 
-=head3 Operation ID
+=item * C<project_id> (in path, required, string) - The ID of the project to inspect.
 
-C<list-project-groups>
+=item * C<limit> (in query, optional, integer) - A limit on the number of project groups to return. Defaults to 20.
 
-    $client->list-project-groups( ... );
+Default: 20
 
-=head3 Parameters
+=item * C<after> (in query, optional, string) - Cursor for pagination. Provide the ID of the last group from the previous
+response to fetch the next page.
 
-=over 4
+=item * C<order> (in query, optional, string) - Sort order for the returned groups.
 
-=item * C<project_id> (in path) (Required) - The ID of the project to inspect.
+Allowed values: asc, desc
 
-Type: C<string>
-
-
-
-=item * C<limit> (in query) (Optional) - A limit on the number of project groups to return. Defaults to 20.
-
-Type: C<integer>
-
-
-Default: C<20>
-
-
-=item * C<after> (in query) (Optional) - Cursor for pagination. Provide the ID of the last group from the previous response to fetch the next page.
-
-Type: C<string>
-
-
-
-=item * C<order> (in query) (Optional) - Sort order for the returned groups.
-
-Type: C<string>
-
-Allowed values: C<asc, desc>
-
-
-Default: C<asc>
-
+Default: asc
 
 =back
 
+=head4 Responses
 
-=head3 Responses
+B<200 - Project groups listed successfully.>
 
+Content-Type: application/json
 
-=head4 Status Code: C<200>
-
-Project groups listed successfully.
-
-
-=head4 Content Types:
-
-=over 4
-
-
-=item * C<application/json>
-
-Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
+Example:
 
     {
-        "object": "list",
-        "data": [
-            {
-                "object": "project.group",
-                "project_id": "proj_abc123",
-                "group_id": "group_01J1F8ABCDXYZ",
-                "group_name": "Support Team",
-                "created_at": 1711471533
-            }
-        ],
-        "has_more": false,
-        "next": null
+       "data" : [
+          {
+             "created_at" : 1711471533,
+             "group_id" : "group_01J1F8ABCDXYZ",
+             "group_name" : "Support Team",
+             "object" : "project.group",
+             "project_id" : "proj_abc123"
+          }
+       ],
+       "has_more" : false,
+       "next" : null,
+       "object" : "list"
     }
 
+=head2 POST /organization/projects/{project_id}/groups
 
-=back
+=head3 add-project-group
 
-=head2 C<POST /organization/projects/{project_id}/groups>
-
-Add project group
-
+  $client->add_project_group({
+      body => { ... },
+  });
 
 Grants a group access to a project.
 
+=head4 Path/query parameters
 
+=over
 
-=head3 Operation ID
-
-C<add-project-group>
-
-    $client->add-project-group( ... );
-
-=head3 Parameters
-
-=over 4
-
-=item * C<project_id> (in path) (Required) - The ID of the project to update.
-
-Type: C<string>
-
-
+=item * C<project_id> (in path, required, string) - The ID of the project to update.
 
 =back
 
-=head3 Request Body
-  
-=head3 Content Type: C<application/json>
+=head4 Responses
 
-    
-      Request payload for granting a group access to a project.
+B<200 - Group granted access to the project successfully.>
 
-      
-      
+Content-Type: application/json
+
 Example:
 
-    "{\n    \"group_id\": \"group_01J1F8ABCDXYZ\",\n    \"role\": \"role_01J1F8PROJ\"\n}\n"
-
-
-             
-
-=head3 Responses
-
-
-=head4 Status Code: C<200>
-
-Group granted access to the project successfully.
-
-
-=head4 Content Types:
-
-=over 4
-
-
-=item * C<application/json>
-
-Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
-
     {
-        "object": "project.group",
-        "project_id": "proj_abc123",
-        "group_id": "group_01J1F8ABCDXYZ",
-        "group_name": "Support Team",
-        "created_at": 1711471533
+       "created_at" : 1711471533,
+       "group_id" : "group_01J1F8ABCDXYZ",
+       "group_name" : "Support Team",
+       "group_type" : "group",
+       "object" : "project.group",
+       "project_id" : "proj_abc123"
     }
 
+=head1 SCHEMAS
+
+=head2 InviteProjectGroupBody
+
+Properties:
+
+=over
+
+=item * C<group_id> (string, required) - Identifier of the group to add to the project.
+
+=item * C<role> (string, required) - Identifier of the project role to grant to the group.
+
+=back
+
+=head2 ProjectGroup
+
+Properties:
+
+=over
+
+=item * C<created_at> (integer, required) - Unix timestamp (in seconds) when the group was granted project access.
+
+=item * C<group_id> (string, required) - Identifier of the group that has access to the project.
+
+=item * C<group_name> (string, required) - Display name of the group.
+
+=item * C<group_type> (string, required) - The type of the group.
+
+Allowed values: group, tenant_group
+
+=item * C<object> (string, required) - Always C<project.group> .
+
+Allowed values: project.group
+
+=item * C<project_id> (string, required) - Identifier of the project.
+
+=back
+
+=head2 ProjectGroupListResource
+
+Properties:
+
+=over
+
+=item * C<data> (array of ProjectGroup, required) - Project group memberships returned in the current page.
+
+=item * C<has_more> (boolean, required) - Whether additional project group memberships are available.
+
+=item * C<next> (anyOf, required) - Cursor to fetch the next page of results, or C<null> when there are no more
+results.
+
+=item * C<object> (string, required) - Always C<list> .
+
+Allowed values: list
 
 =back
 

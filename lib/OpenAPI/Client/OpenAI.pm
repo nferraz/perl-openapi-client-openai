@@ -3,10 +3,11 @@ package OpenAPI::Client::OpenAI;
 use Carp ();
 use File::ShareDir 'dist_file';
 use File::Spec::Functions qw(catfile);
+use OpenAPI::Client::OpenAI::Naming qw(to_snake_case detect_collisions);
 
 use Mojo::Base 'OpenAPI::Client';
 
-our $VERSION = '0.25';
+our $VERSION = '0.27';
 
 sub new {
     my ( $class, $specification ) = ( shift, shift );
@@ -58,27 +59,58 @@ sub new {
     return $self;
 }
 
-# install snake case aliases
+# Install snake_case aliases for every operationId in the spec.
+# Both forms are first-class; the original (whatever its style) is generated
+# by OpenAPI::Client and the snake_case version is generated here.
 
-{
-    my %snake_case_alias = (
-        createChatCompletion => 'create_chat_completion',
-        createCompletion     => 'create_completion',
-        createEmbedding      => 'create_embedding',
-        createImage          => 'create_image',
-        createModeration     => 'create_moderation',
-        listModels           => 'list_models',
-    );
+sub _install_snake_case_aliases {
+    my ($operation_ids) = @_;
 
-    for my $camel_case_method ( keys %snake_case_alias ) {
+    my $collisions = detect_collisions($operation_ids);
+    if ( %$collisions ) {
+        my @msgs;
+        for my $snake ( sort keys %$collisions ) {
+            push @msgs, "  $snake <- " . join( ', ', @{ $collisions->{$snake} } );
+        }
+        Carp::croak(
+            "operationId collision in OpenAPI spec: multiple operations map "
+            . "to the same snake_case alias:\n" . join("\n", @msgs)
+        );
+    }
+
+    for my $op (@$operation_ids) {
+        my $snake = to_snake_case($op);
+        next if $snake eq $op;   # already snake_case, nothing to install
         no strict 'refs';
-        my $method = $snake_case_alias{$camel_case_method};
-        *$method = sub {
-            warn "Calling '$method' is deprecated. Please use '$camel_case_method' instead.";
+        next if defined &{"OpenAPI::Client::OpenAI::$snake"};  # safety: don't clobber an existing method
+        *{"OpenAPI::Client::OpenAI::$snake"} = sub {
             my $self = shift;
-            $self->$camel_case_method(@_);
+            $self->$op(@_);
+        };
+    }
+}
+
+sub _operation_ids_from_spec_file {
+    my ($spec_path) = @_;
+    require YAML::XS;
+    my $spec = YAML::XS::LoadFile($spec_path);
+    my @ids;
+    for my $path ( values %{ $spec->{paths} || {} } ) {
+        for my $method ( values %$path ) {
+            next unless ref $method eq 'HASH' && $method->{operationId};
+            push @ids, $method->{operationId};
         }
     }
+    return \@ids;
+}
+
+# Module-load: install aliases for the shipped spec.
+{
+    my $spec_path = eval {
+        File::ShareDir::dist_file( 'OpenAPI-Client-OpenAI', 'openapi.yaml' );
+    } || catfile( 'share', 'openapi.yaml' );
+
+    _install_snake_case_aliases( _operation_ids_from_spec_file($spec_path) );
 }
 
 1;
@@ -164,46 +196,12 @@ exception of the following extra options:
 
 =head2 Other Methods
 
-Other methods are documented in L<OpenAPI::Client::OpenAI::Methods>. These
-method are deprecated and will be removed in a future version.
+Other methods are documented in L<OpenAPI::Client::OpenAI::Methods>. Every
+API operation is callable in both its original (e.g. C<createChatCompletion>)
+and snake_case (e.g. C<create_chat_completion>) form.
 
 See L<OpenAPI::Client::OpenAI::Path> for an index of all paths available. You
 can click through each of them for more detail.
-
-=head1 DEPRECATED METHODS
-
-The following methods are deprecated and will be removed in a future release:
-
-=over
-
-=item * create_chat_completion
-
-Replaced with C<createChatCompletion>.
-
-=item * create_completion
-
-Replaced with C<createCompletion>.
-
-=item * create_embedding
-
-Replaced with C<createEmbedding>.
-
-=item * create_image
-
-Replaced with C<createImage>.
-
-=item * create_moderation
-
-Replaced with C<createModeration>.
-
-=item * list_models
-
-Replaced with C<listModels>.
-
-=back
-
-Originally, these methods were named using C<snake_case>, but to simplify the
-code, we retained the C<camelCase> names in the main module.
 
 =head1 ENVIRONMENT VARIABLES
 

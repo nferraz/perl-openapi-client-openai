@@ -4,128 +4,120 @@
 
 OpenAPI::Client::OpenAI::Path::conversations-conversation_id-items-item_id - Documentation for the /conversations/{conversation_id}/items/{item_id} path.
 
-=head1 DESCRIPTION
+=head1 OPERATIONS
 
-This document describes the API endpoint at C</conversations/{conversation_id}/items/{item_id}>.
+=head2 DELETE /conversations/{conversation_id}/items/{item_id}
 
-=head1 PATHS
+=head3 deleteConversationItem
 
-
-=head2 C<DELETE /conversations/{conversation_id}/items/{item_id}>
-
-Delete an item
-
+  $client->delete_conversation_item({
+      body => { ... },
+  });
 
 Delete an item from a conversation with the given IDs.
 
+=head4 Path/query parameters
 
+=over
 
-=head3 Operation ID
+=item * C<conversation_id> (in path, required, string) - The ID of the conversation that contains the item.
 
-C<deleteConversationItem>
-
-    $client->deleteConversationItem( ... );
-
-=head3 Parameters
-
-=over 4
-
-=item * C<conversation_id> (in path) (Required) - The ID of the conversation that contains the item.
-
-Type: C<string>
-
-
-
-=item * C<item_id> (in path) (Required) - The ID of the item to delete.
-
-Type: C<string>
-
-
+=item * C<item_id> (in path, required, string) - The ID of the item to delete.
 
 =back
 
+=head4 Responses
 
-=head3 Responses
+B<200 - OK>
 
+Content-Type: application/json
 
-=head4 Status Code: C<200>
+Example:
 
-OK
+    {
+       "created_at" : 0,
+       "id" : "string",
+       "metadata" : null,
+       "object" : "conversation"
+    }
 
+=head2 GET /conversations/{conversation_id}/items/{item_id}
 
-=head4 Content Types:
+=head3 getConversationItem
 
-=over 4
-
-
-=item * C<application/json>
-
-Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
-
-
-
-=back
-
-=head2 C<GET /conversations/{conversation_id}/items/{item_id}>
-
-Retrieve an item
-
+  $client->get_conversation_item({
+      body => { ... },
+  });
 
 Get a single item from a conversation with the given IDs.
 
+=head4 Path/query parameters
 
+=over
 
-=head3 Operation ID
+=item * C<conversation_id> (in path, required, string) - The ID of the conversation that contains the item.
 
-C<getConversationItem>
+=item * C<item_id> (in path, required, string) - The ID of the item to retrieve.
 
-    $client->getConversationItem( ... );
-
-=head3 Parameters
-
-=over 4
-
-=item * C<conversation_id> (in path) (Required) - The ID of the conversation that contains the item.
-
-Type: C<string>
-
-
-
-=item * C<item_id> (in path) (Required) - The ID of the item to retrieve.
-
-Type: C<string>
-
-
-
-=item * C<include> (in query) (Optional) - Additional fields to include in the response. See the `include`
-parameter for [listing Conversation items above](https://platform.openai.com/docs/api-reference/conversations/list-items#conversations_list_items-include) for more information.
-
-
-Type: C<array>
-
-
+=item * C<include> (in query, optional, array) - Additional fields to include in the response. See the C<include> parameter for
+L<listing Conversation items above|https://platform.openai.com/docs/api-reference/conversations/list-items#conversations_list_items-include>
+for more information.
 
 =back
 
+=head4 Responses
 
-=head3 Responses
+B<200 - OK>
 
+Content-Type: application/json
 
-=head4 Status Code: C<200>
+Example:
 
-OK
+    {
+       "content" : [
+          {
+             "text" : "string",
+             "type" : "input_text"
+          }
+       ],
+       "id" : "string",
+       "phase" : "commentary",
+       "role" : "unknown",
+       "status" : "in_progress",
+       "type" : "message"
+    }
 
+=head1 SCHEMAS
 
-=head4 Content Types:
+=head2 ConversationItem
 
-=over 4
+A single item within a conversation. The set of possible types are the same as
+the C<output> type of a
+L<Response object|https://platform.openai.com/docs/api-reference/responses/object#responses/object-output>
+.
 
+=head2 ConversationResource
 
-=item * C<application/json>
+Properties:
 
-Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
+=over
 
+=item * C<created_at> (integer, required) - The time at which the conversation was created, measured in seconds since the
+Unix epoch.
 
+=item * C<id> (string, required) - The unique ID of the conversation.
+
+=item * C<metadata> (unknown, required) - Set of 16 key-value pairs that can be attached to an object. This can be
+useful for storing additional information about the object in a structured
+format, and querying for objects via API or the dashboard. Keys are strings
+with a maximum length of 64 characters. Values are strings with a maximum
+length of 512 characters.
+
+=item * C<object> (string, required) - The object type, which is always C<conversation> .
+
+Allowed values: conversation
+
+Default: conversation
 
 =back
 

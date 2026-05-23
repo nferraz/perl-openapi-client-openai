@@ -4,67 +4,44 @@
 
 OpenAPI::Client::OpenAI::Path::realtime-calls-call_id-reject - Documentation for the /realtime/calls/{call_id}/reject path.
 
-=head1 DESCRIPTION
+=head1 OPERATIONS
 
-This document describes the API endpoint at C</realtime/calls/{call_id}/reject>.
+=head2 POST /realtime/calls/{call_id}/reject
 
-=head1 PATHS
+=head3 reject-realtime-call
 
-
-=head2 C<POST /realtime/calls/{call_id}/reject>
-
-Reject call
-
+  $client->reject_realtime_call({
+      body => { ... },
+  });
 
 Decline an incoming SIP call by returning a SIP status code to the caller.
 
+=head4 Path/query parameters
 
+=over
 
-=head3 Operation ID
-
-C<reject-realtime-call>
-
-    $client->reject-realtime-call( ... );
-
-=head3 Parameters
-
-=over 4
-
-=item * C<call_id> (in path) (Required) - The identifier for the call provided in the
-[`realtime.call.incoming`](https://platform.openai.com/docs/api-reference/webhook-events/realtime/call/incoming)
+=item * C<call_id> (in path, required, string) - The identifier for the call provided in the
+L<C<realtime.call.incoming>|https://platform.openai.com/docs/api-reference/webhook-events/realtime/call/incoming>
 webhook.
-
-Type: C<string>
-
-
 
 =back
 
-=head3 Request Body
-  
-=head3 Content Type: C<application/json>
+=head4 Responses
 
-    
-      Parameters used to decline an incoming SIP call handled by the Realtime API.
+B<200 - Call rejected successfully.>
 
-      
-      
-Example:
+=head1 SCHEMAS
 
-    {
-       "status_code" : 486
-    }
+=head2 RealtimeCallRejectRequest
 
+Properties:
 
-             
+=over
 
-=head3 Responses
+=item * C<status_code> (integer) - SIP response code to send back to the caller. Defaults to C<603> (Decline)
+when omitted.
 
-
-=head4 Status Code: C<200>
-
-Call rejected successfully.
-
+=back
 
 =head1 SEE ALSO
 

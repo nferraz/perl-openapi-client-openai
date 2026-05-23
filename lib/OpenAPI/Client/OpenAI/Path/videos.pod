@@ -4,177 +4,254 @@
 
 OpenAPI::Client::OpenAI::Path::videos - Documentation for the /videos path.
 
-=head1 DESCRIPTION
+=head1 OPERATIONS
 
-This document describes the API endpoint at C</videos>.
+=head2 GET /videos
 
-=head1 PATHS
+=head3 ListVideos
 
+  $client->list_videos({
+      body => { ... },
+  });
 
-=head2 C<GET /videos>
+List recently generated videos for the current project.
 
-List videos
+=head4 Path/query parameters
 
+=over
 
-List videos
+=item * C<limit> (in query, optional, integer) - Number of items to retrieve
 
+=item * C<order> (in query, optional, string) - Sort order of results by timestamp. Use C<asc> for ascending order or C<desc>
+for descending order.
 
-
-=head3 Operation ID
-
-C<ListVideos>
-
-    $client->ListVideos( ... );
-
-=head3 Parameters
-
-=over 4
-
-=item * C<limit> (in query) (Optional) - Number of items to retrieve
-
-Type: C<integer>
-
-
-
-=item * C<order> (in query) (Optional) - Sort order of results by timestamp. Use `asc` for ascending order or `desc` for descending order.
-
-Type: C<string>
-
-Allowed values: C<asc, desc>
-
-
-
-=item * C<after> (in query) (Optional) - Identifier for the last item from the previous pagination request
-
-Type: C<string>
-
-
+=item * C<after> (in query, optional, string) - Identifier for the last item from the previous pagination request
 
 =back
 
+=head4 Responses
 
-=head3 Responses
+B<200 - Success>
 
+Content-Type: application/json
 
-=head4 Status Code: C<200>
-
-Success
-
-
-=head4 Content Types:
-
-=over 4
-
-
-=item * C<application/json>
-
-Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
+Example:
 
     {
        "data" : [
-          null
-       ]
+          {
+             "completed_at" : 0,
+             "created_at" : 0,
+             "error" : {
+                "code" : "string",
+                "message" : "string"
+             },
+             "expires_at" : 0,
+             "id" : "string",
+             "model" : "sora-2",
+             "object" : "video",
+             "progress" : 0,
+             "prompt" : "string",
+             "remixed_from_video_id" : "string",
+             "seconds" : "string",
+             "size" : "720x1280",
+             "status" : "queued"
+          }
+       ],
+       "first_id" : "string",
+       "has_more" : false,
+       "last_id" : "string",
+       "object" : "list"
     }
 
+=head2 POST /videos
+
+=head3 createVideo
+
+  $client->create_video({
+      body => { ... },
+  });
+
+Create a new video generation job from a prompt and optional reference assets.
+
+=head4 Responses
+
+B<200 - Success>
+
+Content-Type: application/json
+
+Example:
+
+    {
+       "completed_at" : 0,
+       "created_at" : 0,
+       "error" : {
+          "code" : "string",
+          "message" : "string"
+       },
+       "expires_at" : 0,
+       "id" : "string",
+       "model" : "sora-2",
+       "object" : "video",
+       "progress" : 0,
+       "prompt" : "string",
+       "remixed_from_video_id" : "string",
+       "seconds" : "string",
+       "size" : "720x1280",
+       "status" : "queued"
+    }
+
+=head1 SCHEMAS
+
+=head2 CreateVideoJsonBody
+
+Properties:
+
+=over
+
+=item * C<input_reference> (ImageRefParam-2) - Optional reference object that guides generation. Provide exactly one of
+C<image_url> or C<file_id> .
+
+See L</ImageRefParam-2> below for shape.
+
+=item * C<model> (VideoModel) - The video generation model to use (allowed values: sora-2, sora-2-pro).
+Defaults to C<sora-2> .
+
+See L</VideoModel> below for shape.
+
+=item * C<prompt> (string, required) - Text prompt that describes the video to generate.
+
+=item * C<seconds> (VideoSeconds) - Clip duration in seconds (allowed values: 4, 8, 12). Defaults to 4 seconds.
+
+See L</VideoSeconds> below for shape.
+
+=item * C<size> (VideoSize) - Output resolution formatted as width x height (allowed values: 720x1280,
+1280x720, 1024x1792, 1792x1024). Defaults to 720x1280.
+
+See L</VideoSize> below for shape.
 
 =back
 
-=head2 C<POST /videos>
+=head2 CreateVideoMultipartBody
 
-Create video
+Properties:
 
+=over
 
-Create a video
+=item * C<input_reference> (oneOf)
 
+=item * C<model> (VideoModel) - The video generation model to use (allowed values: sora-2, sora-2-pro).
+Defaults to C<sora-2> .
 
+See L</VideoModel> below for shape.
 
-=head3 Operation ID
+=item * C<prompt> (string, required) - Text prompt that describes the video to generate.
 
-C<createVideo>
+=item * C<seconds> (VideoSeconds) - Clip duration in seconds (allowed values: 4, 8, 12). Defaults to 4 seconds.
 
-    $client->createVideo( ... );
+See L</VideoSeconds> below for shape.
 
-=head3 Parameters
+=item * C<size> (VideoSize) - Output resolution formatted as width x height (allowed values: 720x1280,
+1280x720, 1024x1792, 1792x1024). Defaults to 720x1280.
 
-=over 4
+See L</VideoSize> below for shape.
+
+=back
+
+=head2 ImageRefParam-2
+
+Properties:
+
+=over
+
+=item * C<file_id> (string)
+
+=item * C<image_url> (string) - A fully qualified URL or base64-encoded data URL.
 
 =back
 
-=head3 Request Body
-  
-=head3 Content Type: C<application/json>
+=head2 VideoListResource
 
-    
-      Parameters for creating a new video generation job.
+Properties:
 
-      
+=over
 
-=head4 Models
+=item * C<data> (array of VideoResource, required) - A list of items
 
-The video generation model to use (allowed values: sora-2, sora-2-pro). Defaults to C<sora-2>.
+=item * C<first_id> (anyOf, required)
 
-=over 4
-      
-=item * C<sora-2>
+=item * C<has_more> (boolean, required) - Whether there are more items available.
 
-=item * C<sora-2-pro>
+=item * C<last_id> (anyOf, required)
 
-=item * C<sora-2-2025-10-06>
+=item * C<object> (string, required) - The type of object returned, must be C<list> .
 
-=item * C<sora-2-pro-2025-10-06>
+Allowed values: list
 
-=item * C<sora-2-2025-12-08>
+Default: list
 
 =back
-      
-             
-=head3 Content Type: C<multipart/form-data>
 
-    
-      Parameters for creating a new video generation job.
+=head2 VideoModel
 
-      
+See L<https://platform.openai.com/docs/api-reference> for details.
 
-=head4 Models
+=head2 VideoResource
 
-The video generation model to use (allowed values: sora-2, sora-2-pro). Defaults to C<sora-2>.
+Properties:
 
-=over 4
-      
-=item * C<sora-2>
+=over
 
-=item * C<sora-2-pro>
+=item * C<completed_at> (anyOf, required)
 
-=item * C<sora-2-2025-10-06>
+=item * C<created_at> (integer, required) - Unix timestamp (seconds) for when the job was created.
 
-=item * C<sora-2-pro-2025-10-06>
+=item * C<error> (anyOf, required)
 
-=item * C<sora-2-2025-12-08>
+=item * C<expires_at> (anyOf, required)
+
+=item * C<id> (string, required) - Unique identifier for the video job.
+
+=item * C<model> (VideoModel, required) - The video generation model that produced the job.
+
+See L</VideoModel> below for shape.
+
+=item * C<object> (string, required) - The object type, which is always C<video> .
+
+Allowed values: video
+
+Default: video
+
+=item * C<progress> (integer, required) - Approximate completion percentage for the generation task.
+
+=item * C<prompt> (anyOf, required)
+
+=item * C<remixed_from_video_id> (anyOf, required)
+
+=item * C<seconds> (string, required) - Duration of the generated clip in seconds. For extensions, this is the
+stitched total duration.
+
+=item * C<size> (VideoSize, required) - The resolution of the generated video.
+
+See L</VideoSize> below for shape.
+
+=item * C<status> (VideoStatus, required) - Current lifecycle status of the video job.
+
+See L</VideoStatus> below for shape.
 
 =back
-      
-             
 
-=head3 Responses
+=head2 VideoSeconds
 
+See L<https://platform.openai.com/docs/api-reference> for details.
 
-=head4 Status Code: C<200>
+=head2 VideoSize
 
-Success
+See L<https://platform.openai.com/docs/api-reference> for details.
 
+=head2 VideoStatus
 
-=head4 Content Types:
-
-=over 4
-
-
-=item * C<application/json>
-
-Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
-
-
-
-=back
+See L<https://platform.openai.com/docs/api-reference> for details.
 
 =head1 SEE ALSO
 

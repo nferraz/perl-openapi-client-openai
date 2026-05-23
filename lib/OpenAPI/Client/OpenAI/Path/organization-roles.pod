@@ -4,166 +4,153 @@
 
 OpenAPI::Client::OpenAI::Path::organization-roles - Documentation for the /organization/roles path.
 
-=head1 DESCRIPTION
+=head1 OPERATIONS
 
-This document describes the API endpoint at C</organization/roles>.
+=head2 GET /organization/roles
 
-=head1 PATHS
+=head3 list-roles
 
-
-=head2 C<GET /organization/roles>
-
-List organization roles
-
+  $client->list_roles({
+      body => { ... },
+  });
 
 Lists the roles configured for the organization.
 
+=head4 Path/query parameters
 
+=over
 
-=head3 Operation ID
+=item * C<limit> (in query, optional, integer) - A limit on the number of roles to return. Defaults to 1000.
 
-C<list-roles>
+Default: 1000
 
-    $client->list-roles( ... );
+=item * C<after> (in query, optional, string) - Cursor for pagination. Provide the value from the previous response's C<next>
+field to continue listing roles.
 
-=head3 Parameters
+=item * C<order> (in query, optional, string) - Sort order for the returned roles.
 
-=over 4
+Allowed values: asc, desc
 
-=item * C<limit> (in query) (Optional) - A limit on the number of roles to return. Defaults to 1000.
-
-Type: C<integer>
-
-
-Default: C<1000>
-
-
-=item * C<after> (in query) (Optional) - Cursor for pagination. Provide the value from the previous response's `next` field to continue listing roles.
-
-Type: C<string>
-
-
-
-=item * C<order> (in query) (Optional) - Sort order for the returned roles.
-
-Type: C<string>
-
-Allowed values: C<asc, desc>
-
-
-Default: C<asc>
-
+Default: asc
 
 =back
 
+=head4 Responses
 
-=head3 Responses
+B<200 - Roles listed successfully.>
 
+Content-Type: application/json
 
-=head4 Status Code: C<200>
-
-Roles listed successfully.
-
-
-=head4 Content Types:
-
-=over 4
-
-
-=item * C<application/json>
-
-Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
+Example:
 
     {
-        "object": "list",
-        "data": [
-            {
-                "object": "role",
-                "id": "role_01J1F8ROLE01",
-                "name": "API Group Manager",
-                "description": "Allows managing organization groups",
-                "permissions": [
-                    "api.groups.read",
-                    "api.groups.write"
-                ],
-                "resource_type": "api.organization",
-                "predefined_role": false
-            }
-        ],
-        "has_more": false,
-        "next": null
+       "data" : [
+          {
+             "description" : "Allows managing organization groups",
+             "id" : "role_01J1F8ROLE01",
+             "name" : "API Group Manager",
+             "object" : "role",
+             "permissions" : [
+                "api.groups.read",
+                "api.groups.write"
+             ],
+             "predefined_role" : false,
+             "resource_type" : "api.organization"
+          }
+       ],
+       "has_more" : false,
+       "next" : null,
+       "object" : "list"
     }
 
+=head2 POST /organization/roles
 
-=back
+=head3 create-role
 
-=head2 C<POST /organization/roles>
-
-Create organization role
-
+  $client->create_role({
+      body => { ... },
+  });
 
 Creates a custom role for the organization.
 
+=head4 Responses
 
+B<200 - Role created successfully.>
 
-=head3 Operation ID
+Content-Type: application/json
 
-C<create-role>
+Example:
 
-    $client->create-role( ... );
+    {
+       "description" : "Allows managing organization groups",
+       "id" : "role_01J1F8ROLE01",
+       "name" : "API Group Manager",
+       "object" : "role",
+       "permissions" : [
+          "api.groups.read",
+          "api.groups.write"
+       ],
+       "predefined_role" : false,
+       "resource_type" : "api.organization"
+    }
 
-=head3 Parameters
+=head1 SCHEMAS
 
-=over 4
+=head2 PublicCreateOrganizationRoleBody
+
+Properties:
+
+=over
+
+=item * C<description> (anyOf) - Optional description of the role.
+
+=item * C<permissions> (array of string, required) - Permissions to grant to the role.
+
+=item * C<role_name> (string, required) - Unique name for the role.
 
 =back
 
-=head3 Request Body
-  
-=head3 Content Type: C<application/json>
+=head2 PublicRoleListResource
 
-    
-      Request payload for creating a custom role.
+Properties:
 
-      
-      
-Example:
+=over
 
-    "{\n    \"role_name\": \"API Group Manager\",\n    \"permissions\": [\n        \"api.groups.read\",\n        \"api.groups.write\"\n    ],\n    \"description\": \"Allows managing organization groups\"\n}\n"
+=item * C<data> (array of Role, required) - Roles returned in the current page.
 
+=item * C<has_more> (boolean, required) - Whether more roles are available when paginating.
 
-             
+=item * C<next> (anyOf, required) - Cursor to fetch the next page of results, or C<null> when there are no
+additional roles.
 
-=head3 Responses
+=item * C<object> (string, required) - Always C<list> .
 
+Allowed values: list
 
-=head4 Status Code: C<200>
+=back
 
-Role created successfully.
+=head2 Role
 
+Properties:
 
-=head4 Content Types:
+=over
 
-=over 4
+=item * C<description> (anyOf, required) - Optional description of the role.
 
+=item * C<id> (string, required) - Identifier for the role.
 
-=item * C<application/json>
+=item * C<name> (string, required) - Unique name for the role.
 
-Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
+=item * C<object> (string, required) - Always C<role> .
 
-    {
-        "object": "role",
-        "id": "role_01J1F8ROLE01",
-        "name": "API Group Manager",
-        "description": "Allows managing organization groups",
-        "permissions": [
-            "api.groups.read",
-            "api.groups.write"
-        ],
-        "resource_type": "api.organization",
-        "predefined_role": false
-    }
+Allowed values: role
 
+=item * C<permissions> (array of string, required) - Permissions granted by the role.
+
+=item * C<predefined_role> (boolean, required) - Whether the role is predefined and managed by OpenAI.
+
+=item * C<resource_type> (string, required) - Resource type the role is bound to (for example C<api.organization> or
+C<api.project> ).
 
 =back
 

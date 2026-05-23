@@ -4,106 +4,65 @@
 
 OpenAPI::Client::OpenAI::Path::chatkit-threads-thread_id - Documentation for the /chatkit/threads/{thread_id} path.
 
-=head1 DESCRIPTION
+=head1 OPERATIONS
 
-This document describes the API endpoint at C</chatkit/threads/{thread_id}>.
+=head2 DELETE /chatkit/threads/{thread_id}
 
-=head1 PATHS
+=head3 DeleteThreadMethod
 
+  $client->delete_thread_method({
+      body => { ... },
+  });
 
-=head2 C<DELETE /chatkit/threads/{thread_id}>
+Delete a ChatKit thread along with its items and stored attachments.
 
-Delete ChatKit thread
+=head4 Path/query parameters
 
+=over
 
-Delete a ChatKit thread
-
-
-
-=head3 Operation ID
-
-C<DeleteThreadMethod>
-
-    $client->DeleteThreadMethod( ... );
-
-=head3 Parameters
-
-=over 4
-
-=item * C<thread_id> (in path) (Required) - Identifier of the ChatKit thread to delete.
-
-Type: C<string>
-
-
+=item * C<thread_id> (in path, required, string) - Identifier of the ChatKit thread to delete.
 
 =back
 
+=head4 Responses
 
-=head3 Responses
+B<200 - Success>
 
+Content-Type: application/json
 
-=head4 Status Code: C<200>
+Example:
 
-Success
+    {
+       "deleted" : false,
+       "id" : "string",
+       "object" : "chatkit.thread.deleted"
+    }
 
+=head2 GET /chatkit/threads/{thread_id}
 
-=head4 Content Types:
+=head3 GetThreadMethod
 
-=over 4
+  $client->get_thread_method({
+      body => { ... },
+  });
 
+Retrieve a ChatKit thread by its identifier.
 
-=item * C<application/json>
+=head4 Path/query parameters
 
-Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
+=over
 
-
-
-=back
-
-=head2 C<GET /chatkit/threads/{thread_id}>
-
-Retrieve ChatKit thread
-
-
-Retrieve a ChatKit thread
-
-
-
-=head3 Operation ID
-
-C<GetThreadMethod>
-
-    $client->GetThreadMethod( ... );
-
-=head3 Parameters
-
-=over 4
-
-=item * C<thread_id> (in path) (Required) - Identifier of the ChatKit thread to retrieve.
-
-Type: C<string>
-
-
+=item * C<thread_id> (in path, required, string) - Identifier of the ChatKit thread to retrieve.
 
 =back
 
+=head4 Responses
 
-=head3 Responses
+B<200 - Success>
 
+Content-Type: application/json
 
-=head4 Status Code: C<200>
-
-Success
-
-
-=head4 Content Types:
-
-=over 4
-
-
-=item * C<application/json>
-
-Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
+Example:
 
     {
        "created_at" : 1712345600,
@@ -116,6 +75,48 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
        "user" : "user_456"
     }
 
+=head1 SCHEMAS
+
+=head2 DeletedThreadResource
+
+Properties:
+
+=over
+
+=item * C<deleted> (boolean, required) - Indicates that the thread has been deleted.
+
+=item * C<id> (string, required) - Identifier of the deleted thread.
+
+=item * C<object> (string, required) - Type discriminator that is always C<chatkit.thread.deleted> .
+
+Allowed values: chatkit.thread.deleted
+
+Default: chatkit.thread.deleted
+
+=back
+
+=head2 ThreadResource
+
+Properties:
+
+=over
+
+=item * C<created_at> (integer, required) - Unix timestamp (in seconds) for when the thread was created.
+
+=item * C<id> (string, required) - Identifier of the thread.
+
+=item * C<object> (string, required) - Type discriminator that is always C<chatkit.thread> .
+
+Allowed values: chatkit.thread
+
+Default: chatkit.thread
+
+=item * C<status> (oneOf, required) - Current status for the thread. Defaults to C<active> for newly created
+threads.
+
+=item * C<title> (anyOf, required)
+
+=item * C<user> (string, required) - Free-form string that identifies your end user who owns the thread.
 
 =back
 

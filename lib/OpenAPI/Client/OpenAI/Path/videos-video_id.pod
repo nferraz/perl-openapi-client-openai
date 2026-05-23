@@ -4,110 +4,161 @@
 
 OpenAPI::Client::OpenAI::Path::videos-video_id - Documentation for the /videos/{video_id} path.
 
-=head1 DESCRIPTION
+=head1 OPERATIONS
 
-This document describes the API endpoint at C</videos/{video_id}>.
+=head2 DELETE /videos/{video_id}
 
-=head1 PATHS
+=head3 DeleteVideo
 
+  $client->delete_video({
+      body => { ... },
+  });
 
-=head2 C<DELETE /videos/{video_id}>
+Permanently delete a completed or failed video and its stored assets.
 
-Delete video
+=head4 Path/query parameters
 
+=over
 
-Delete a video
-
-
-
-=head3 Operation ID
-
-C<DeleteVideo>
-
-    $client->DeleteVideo( ... );
-
-=head3 Parameters
-
-=over 4
-
-=item * C<video_id> (in path) (Required) - The identifier of the video to delete.
-
-Type: C<string>
-
-
+=item * C<video_id> (in path, required, string) - The identifier of the video to delete.
 
 =back
 
+=head4 Responses
 
-=head3 Responses
+B<200 - Success>
 
+Content-Type: application/json
 
-=head4 Status Code: C<200>
+Example:
 
-Success
+    {
+       "deleted" : false,
+       "id" : "string",
+       "object" : "video.deleted"
+    }
 
+=head2 GET /videos/{video_id}
 
-=head4 Content Types:
+=head3 GetVideo
 
-=over 4
+  $client->get_video({
+      body => { ... },
+  });
 
+Fetch the latest metadata for a generated video.
 
-=item * C<application/json>
+=head4 Path/query parameters
 
-Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
+=over
 
-
-
-=back
-
-=head2 C<GET /videos/{video_id}>
-
-Retrieve video
-
-
-Retrieve a video
-
-
-
-=head3 Operation ID
-
-C<GetVideo>
-
-    $client->GetVideo( ... );
-
-=head3 Parameters
-
-=over 4
-
-=item * C<video_id> (in path) (Required) - The identifier of the video to retrieve.
-
-Type: C<string>
-
-
+=item * C<video_id> (in path, required, string) - The identifier of the video to retrieve.
 
 =back
 
+=head4 Responses
 
-=head3 Responses
+B<200 - Success>
 
+Content-Type: application/json
 
-=head4 Status Code: C<200>
+Example:
 
-Success
+    {
+       "completed_at" : 0,
+       "created_at" : 0,
+       "error" : {
+          "code" : "string",
+          "message" : "string"
+       },
+       "expires_at" : 0,
+       "id" : "string",
+       "model" : null,
+       "object" : "video",
+       "progress" : 0,
+       "prompt" : "string",
+       "remixed_from_video_id" : "string",
+       "seconds" : "string",
+       "size" : null,
+       "status" : null
+    }
 
+=head1 SCHEMAS
 
-=head4 Content Types:
+=head2 DeletedVideoResource
 
-=over 4
+Properties:
 
+=over
 
-=item * C<application/json>
+=item * C<deleted> (boolean, required) - Indicates that the video resource was deleted.
 
-Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
+=item * C<id> (string, required) - Identifier of the deleted video.
 
+=item * C<object> (string, required) - The object type that signals the deletion response.
 
+Allowed values: video.deleted
+
+Default: video.deleted
 
 =back
+
+=head2 VideoModel
+
+See L<https://platform.openai.com/docs/api-reference> for details.
+
+=head2 VideoResource
+
+Properties:
+
+=over
+
+=item * C<completed_at> (anyOf, required)
+
+=item * C<created_at> (integer, required) - Unix timestamp (seconds) for when the job was created.
+
+=item * C<error> (anyOf, required)
+
+=item * C<expires_at> (anyOf, required)
+
+=item * C<id> (string, required) - Unique identifier for the video job.
+
+=item * C<model> (VideoModel, required) - The video generation model that produced the job.
+
+See L</VideoModel> below for shape.
+
+=item * C<object> (string, required) - The object type, which is always C<video> .
+
+Allowed values: video
+
+Default: video
+
+=item * C<progress> (integer, required) - Approximate completion percentage for the generation task.
+
+=item * C<prompt> (anyOf, required)
+
+=item * C<remixed_from_video_id> (anyOf, required)
+
+=item * C<seconds> (string, required) - Duration of the generated clip in seconds. For extensions, this is the
+stitched total duration.
+
+=item * C<size> (VideoSize, required) - The resolution of the generated video.
+
+See L</VideoSize> below for shape.
+
+=item * C<status> (VideoStatus, required) - Current lifecycle status of the video job.
+
+See L</VideoStatus> below for shape.
+
+=back
+
+=head2 VideoSize
+
+See L<https://platform.openai.com/docs/api-reference> for details.
+
+=head2 VideoStatus
+
+See L<https://platform.openai.com/docs/api-reference> for details.
 
 =head1 SEE ALSO
 

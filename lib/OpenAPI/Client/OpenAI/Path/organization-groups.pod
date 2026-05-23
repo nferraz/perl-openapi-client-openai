@@ -4,162 +4,143 @@
 
 OpenAPI::Client::OpenAI::Path::organization-groups - Documentation for the /organization/groups path.
 
-=head1 DESCRIPTION
+=head1 OPERATIONS
 
-This document describes the API endpoint at C</organization/groups>.
+=head2 GET /organization/groups
 
-=head1 PATHS
+=head3 list-groups
 
-
-=head2 C<GET /organization/groups>
-
-List groups
-
+  $client->list_groups({
+      body => { ... },
+  });
 
 Lists all groups in the organization.
 
+=head4 Path/query parameters
 
+=over
 
-=head3 Operation ID
+=item * C<limit> (in query, optional, integer) - A limit on the number of groups to be returned. Limit can range between 0 and
+1000, and the default is 100.
 
-C<list-groups>
+Default: 100
 
-    $client->list-groups( ... );
+=item * C<after> (in query, optional, string) - A cursor for use in pagination. C<after> is a group ID that defines your place
+in the list. For instance, if you make a list request and receive 100 objects,
+ending with group_abc, your subsequent call can include C<after=group_abc> in
+order to fetch the next page of the list.
 
-=head3 Parameters
+=item * C<order> (in query, optional, string) - Specifies the sort order of the returned groups.
 
-=over 4
+Allowed values: asc, desc
 
-=item * C<limit> (in query) (Optional) - A limit on the number of groups to be returned. Limit can range between 0 and 1000, and the default is 100.
-
-
-Type: C<integer>
-
-
-Default: C<100>
-
-
-=item * C<after> (in query) (Optional) - A cursor for use in pagination. `after` is a group ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with group_abc, your subsequent call can include `after=group_abc` in order to fetch the next page of the list.
-
-
-Type: C<string>
-
-
-
-=item * C<order> (in query) (Optional) - Specifies the sort order of the returned groups.
-
-Type: C<string>
-
-Allowed values: C<asc, desc>
-
-
-Default: C<asc>
-
+Default: asc
 
 =back
 
+=head4 Responses
 
-=head3 Responses
+B<200 - Groups listed successfully.>
 
+Content-Type: application/json
 
-=head4 Status Code: C<200>
-
-Groups listed successfully.
-
-
-=head4 Content Types:
-
-=over 4
-
-
-=item * C<application/json>
-
-Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
+Example:
 
     {
-        "object": "list",
-        "data": [
-            {
-                "id": "group_01J1F8ABCDXYZ",
-                "name": "Support Team",
-                "created_at": 1711471533,
-                "is_scim_managed": false
-            },
-            {
-                "id": "group_01J1F8PQRMNO",
-                "name": "Sales",
-                "created_at": 1711472599,
-                "is_scim_managed": true
-            }
-        ],
-        "has_more": false,
-        "next": null
+       "data" : [
+          {
+             "created_at" : 1711471533,
+             "id" : "group_01J1F8ABCDXYZ",
+             "is_scim_managed" : false,
+             "name" : "Support Team"
+          },
+          {
+             "created_at" : 1711472599,
+             "id" : "group_01J1F8PQRMNO",
+             "is_scim_managed" : true,
+             "name" : "Sales"
+          }
+       ],
+       "has_more" : false,
+       "next" : null,
+       "object" : "list"
     }
 
+=head2 POST /organization/groups
 
-=back
+=head3 create-group
 
-=head2 C<POST /organization/groups>
-
-Create group
-
+  $client->create_group({
+      body => { ... },
+  });
 
 Creates a new group in the organization.
 
+=head4 Responses
 
+B<200 - Group created successfully.>
 
-=head3 Operation ID
+Content-Type: application/json
 
-C<create-group>
+Example:
 
-    $client->create-group( ... );
+    {
+       "created_at" : 1711471533,
+       "group_type" : "group",
+       "id" : "group_01J1F8ABCDXYZ",
+       "is_scim_managed" : false,
+       "name" : "Support Team"
+    }
 
-=head3 Parameters
+=head1 SCHEMAS
 
-=over 4
+=head2 CreateGroupBody
+
+Properties:
+
+=over
+
+=item * C<name> (string, required) - Human readable name for the group.
 
 =back
 
-=head3 Request Body
-  
-=head3 Content Type: C<application/json>
+=head2 GroupListResource
 
-    
-      Request payload for creating a new group in the organization.
+Properties:
 
-      
-      
-Example:
+=over
 
-    "{\n    \"name\": \"Support Team\"\n}\n"
+=item * C<data> (array of GroupResponse, required) - Groups returned in the current page.
 
+=item * C<has_more> (boolean, required) - Whether additional groups are available when paginating.
 
-             
+=item * C<next> (anyOf, required) - Cursor to fetch the next page of results, or C<null> if there are no more
+results.
 
-=head3 Responses
+=item * C<object> (string, required) - Always C<list> .
 
+Allowed values: list
 
-=head4 Status Code: C<200>
+=back
 
-Group created successfully.
+=head2 GroupResponse
 
+Properties:
 
-=head4 Content Types:
+=over
 
-=over 4
+=item * C<created_at> (integer, required) - Unix timestamp (in seconds) when the group was created.
 
+=item * C<group_type> (string, required) - The type of the group.
 
-=item * C<application/json>
+Allowed values: group, tenant_group
 
-Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
+=item * C<id> (string, required) - Identifier for the group.
 
-    {
-        "id": "group_01J1F8ABCDXYZ",
-        "name": "Support Team",
-        "created_at": 1711471533,
-        "is_scim_managed": false
-    }
+=item * C<is_scim_managed> (boolean, required) - Whether the group is managed through SCIM and controlled by your identity
+provider.
 
+=item * C<name> (string, required) - Display name of the group.
 
 =back
 

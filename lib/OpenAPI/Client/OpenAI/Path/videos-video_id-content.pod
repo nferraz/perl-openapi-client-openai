@@ -4,83 +4,51 @@
 
 OpenAPI::Client::OpenAI::Path::videos-video_id-content - Documentation for the /videos/{video_id}/content path.
 
-=head1 DESCRIPTION
+=head1 OPERATIONS
 
-This document describes the API endpoint at C</videos/{video_id}/content>.
+=head2 GET /videos/{video_id}/content
 
-=head1 PATHS
+=head3 RetrieveVideoContent
 
+  $client->retrieve_video_content({
+      body => { ... },
+  });
 
-=head2 C<GET /videos/{video_id}/content>
+Download the generated video bytes or a derived preview asset.
 
-Retrieve video content
+Streams the rendered video content for the specified video job.
 
+=head4 Path/query parameters
 
-Download video content
+=over
 
+=item * C<video_id> (in path, required, string) - The identifier of the video whose media to download.
 
-
-=head3 Operation ID
-
-C<RetrieveVideoContent>
-
-    $client->RetrieveVideoContent( ... );
-
-=head3 Parameters
-
-=over 4
-
-=item * C<video_id> (in path) (Required) - The identifier of the video whose media to download.
-
-Type: C<string>
-
-
-
-=item * C<variant> (in query) (Optional) - Which downloadable asset to return. Defaults to the MP4 video.
-
-Type: C<string>
-
-Allowed values: C<video, thumbnail, spritesheet>
-
-
+=item * C<variant> (in query, optional, string) - Which downloadable asset to return. Defaults to the MP4 video.
 
 =back
 
+=head4 Responses
 
-=head3 Responses
+B<200 - The video bytes or preview asset that matches the requested variant.>
 
+Content-Type: application/json
 
-=head4 Status Code: C<200>
+Example:
 
-The video bytes or preview asset that matches the requested variant.
+    "string"
 
+Content-Type: image/webp
 
-=head4 Content Types:
+Example:
 
-=over 4
+    "string"
 
+Content-Type: video/mp4
 
-=item * C<application/json>
+Example:
 
-Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
-
-
-
-
-=item * C<image/webp>
-
-Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
-
-
-
-
-=item * C<video/mp4>
-
-Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
-
-
-
-=back
+    "string"
 
 =head1 SEE ALSO
 
