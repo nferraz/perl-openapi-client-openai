@@ -8,6 +8,26 @@ use Exporter 'import';
 
 our @EXPORT_OK = qw(md_to_pod);
 
+# This is a deliberately small Markdown->POD converter for the subset of
+# Markdown the OpenAI spec actually uses. Known accepted limitations:
+#
+#   * `**foo *italic* bar**` — bold cannot span an embedded italic; the
+#     non-greedy [^*]+ stops at the first asterisk. Not present in the
+#     current spec.
+#   * `` `code with **bold** inside` `` — backtick content is not made
+#     fully literal; subsequent inline-marker passes will re-process
+#     constructs inside C<...>. Not present in the current spec.
+#   * `_wrap` atom regex `[BICL]<[^<>]*>` cannot handle a POD run with
+#     nested angle brackets (e.g. `L<see C<foo>|url>` produced by a
+#     backtick-in-link-text Markdown source). All current backtick-in-link
+#     cases use the backtick as the entire link text, so the run is a
+#     single \S+ atom and wraps correctly.
+#
+# The Phase 3.2 integration test (devel/t/docgen-integration.t) runs the
+# generator against the real share/openapi.yaml and Pod::Checker catches
+# any actual breakage. If a future spec update triggers one of the above,
+# expand this module rather than reintroducing Markdown::Pod.
+
 my $WRAP = 78;
 
 sub md_to_pod ($md) {
@@ -67,9 +87,16 @@ sub md_to_pod ($md) {
         }
         my $text = $p->{text};
 
-        # Drop heading lines and HR lines entirely.
-        next if $text =~ /^\s*\#{1,6}\s+/;
-        next if $text =~ /^\s*(?:-{3,}|\*{3,})\s*$/;
+        # Filter heading and hr lines individually so a body line mistakenly
+        # glued to a heading without a blank separator isn't lost. Well-formed
+        # input is unaffected.
+        my @kept = grep {
+            !/^\s*\#{1,6}\s+/                    # heading line
+            && !/^\s*(?:-{3,}|\*{3,})\s*$/       # hr line
+        } split /\n/, $text;
+
+        next unless @kept;
+        $text = join "\n", @kept;
 
         # Inline markers. Order: code first (so backticks inside emphasis
         # aren't double-processed), then bold, then italic.
