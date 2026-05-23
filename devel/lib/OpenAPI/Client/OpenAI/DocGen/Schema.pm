@@ -62,7 +62,7 @@ sub _record_for ( $self, $name, $schema, $is_required, $state ) {
     }
 
     $rec{type}    = $schema->{type}    // _infer_type($schema);
-    $rec{enum}    = $schema->{enum}    if $schema->{enum};
+    $rec{enum}    = [ @{ $schema->{enum} } ] if $schema->{enum};
     $rec{default} = $schema->{default} if exists $schema->{default};
 
     # Inline anonymous object: recurse up to max_depth, then flag for truncation.
