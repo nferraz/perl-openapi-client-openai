@@ -122,14 +122,55 @@ sub _emit_request_body ( $self, $emit, $blank, $method_data, $components ) {
     my $body    = $method_data->{requestBody} or return;
     my $content = $body->{content}            or return;
 
+    # Collect ct-specific content first so we can suppress the heading
+    # entirely if every ct turned out to have nothing emit-worthy.
+    my @ct_blocks;
     for my $ct ( sort keys %$content ) {
         my $schema = $content->{$ct}{schema} or next;
-        $emit->('=head4 Request body');
-        $blank->();
-        $emit->("Content-Type: $ct");
-        $blank->();
-        $self->_emit_property_block( $emit, $blank, $schema, $components );
-        $self->_emit_example_block( $emit, $blank, $method_data, $schema );
+        my @prop_block;
+        my $prop_emit  = sub { push @prop_block, @_ };
+        my $prop_blank = sub { push @prop_block, '' };
+        $self->_emit_property_block( $prop_emit, $prop_blank, $schema, $components );
+
+        # Substance = has properties OR has a non-trivial example.
+        # A synthesized example for a property-less object produces no useful
+        # content (just "{}"), so we only emit an example when the schema has
+        # an explicit example annotation or when properties give it substance.
+        my $has_props = scalar grep { length $_ } @prop_block;
+        my $has_explicit_example = (
+            ( ref $schema eq 'HASH'
+                && ( defined $schema->{example}
+                    || ( ref $schema->{'x-oaiMeta'} eq 'HASH'
+                        && defined $schema->{'x-oaiMeta'}{example} ) ) )
+            || ( ref $method_data->{'x-oaiMeta'}{examples} eq 'ARRAY'
+                && @{ $method_data->{'x-oaiMeta'}{examples} } )
+        );
+        my $should_emit_example = $has_props || $has_explicit_example;
+
+        my @ex_block;
+        if ($should_emit_example) {
+            my $ex_emit  = sub { push @ex_block, @_ };
+            my $ex_blank = sub { push @ex_block, '' };
+            $self->_emit_example_block( $ex_emit, $ex_blank, $method_data, $schema );
+        }
+        my $has_example = scalar grep { length $_ } @ex_block;
+
+        # If neither properties nor any example output, skip this ct entirely.
+        next unless $has_props || $has_example;
+
+        my @block;
+        push @block, "Content-Type: $ct";
+        push @block, '';
+        push @block, @prop_block if $has_props;
+        push @block, @ex_block   if $has_example;
+        push @ct_blocks, \@block;
+    }
+    return unless @ct_blocks;
+
+    $emit->('=head4 Request body');
+    $blank->();
+    for my $block (@ct_blocks) {
+        $emit->(@$block);
     }
 }
 
@@ -212,14 +253,27 @@ sub _emit_example_block ( $self, $emit, $blank, $method_data, $schema ) {
 
 sub _emit_schemas_section ( $self, $emit, $blank, $components ) {
     return unless %$components;
-    $emit->('=head1 SCHEMAS');
-    $blank->();
+
+    # Collect component blocks; suppress any that produce no properties.
+    my @component_blocks;
     for my $name ( sort keys %$components ) {
         my $schema = $components->{$name};
-        $emit->("=head2 $name");
-        $blank->();
+        my @block;
+        my $blk_emit  = sub { push @block, @_ };
+        my $blk_blank = sub { push @block, '' };
         my %scratch_components;
-        $self->_emit_property_block( $emit, $blank, $schema, \%scratch_components );
+        $self->_emit_property_block( $blk_emit, $blk_blank, $schema, \%scratch_components );
+        next unless @block;    # property-less component: skip entirely
+        push @component_blocks, { name => $name, lines => \@block };
+    }
+    return unless @component_blocks;
+
+    $emit->('=head1 SCHEMAS');
+    $blank->();
+    for my $entry (@component_blocks) {
+        $emit->("=head2 $entry->{name}");
+        $blank->();
+        $emit->( @{ $entry->{lines} } );
     }
 }
 

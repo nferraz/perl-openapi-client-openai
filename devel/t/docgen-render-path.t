@@ -44,4 +44,56 @@ $checker->parse_from_file( $tmp, $sink );
 unlink $tmp;
 is $checker->num_errors, 0, 'no podchecker errors';
 
+# Regression: =head4 Request body must appear ONCE per operation,
+# regardless of how many content-types are declared.
+my $multi_ct_schema = {
+    type => 'object',
+    properties => {
+        '/multi' => {
+            post => {
+                operationId => 'createMulti',
+                requestBody => {
+                    content => {
+                        'application/json'    => { schema => { type => 'object', properties => { x => { type => 'string' } } } },
+                        'multipart/form-data' => { schema => { type => 'object', properties => { y => { type => 'string' } } } },
+                    },
+                },
+                responses => { '200' => { description => 'ok' } },
+            },
+        },
+    },
+};
+# Splice a fake path into the spec just for this test.
+$spec->paths->{'/multi'} = $multi_ct_schema->{properties}{'/multi'};
+my $pod_multi = $renderer->render('/multi');
+my $rb_count = () = $pod_multi =~ /=head4 Request body/g;
+is $rb_count, 1, 'Request body heading appears exactly once across multiple content-types';
+delete $spec->paths->{'/multi'};
+
+# Regression: a component with no properties does not produce an empty =head2.
+my $empty_schema = { type => 'object' };   # no properties
+my %scratch;
+my @output;
+my $rec_emit  = sub { push @output, @_ };
+my $rec_blank = sub { push @output, '' };
+$renderer->_emit_schemas_section( $rec_emit, $rec_blank, { Empty => $empty_schema } );
+ok !( grep { /=head2 Empty/ } @output ),
+    'property-less component is suppressed from SCHEMAS section';
+
+# Regression: a property-less request body suppresses the entire Request body section.
+my $no_props_request = {
+    operationId => 'createNada',
+    requestBody => {
+        content => {
+            'application/json' => { schema => { type => 'object' } },   # no properties, no example
+        },
+    },
+    responses => { '200' => { description => 'ok' } },
+};
+$spec->paths->{'/nada'} = { post => $no_props_request };
+my $pod_nada = $renderer->render('/nada');
+unlike $pod_nada, qr/=head4 Request body/,
+    'no Request body heading when content has no properties and no example';
+delete $spec->paths->{'/nada'};
+
 done_testing;
