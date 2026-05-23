@@ -50,6 +50,15 @@ my %WriteMakefileArgs = (
                 web => 'https://github.com/nferraz/perl-openapi-client-openai/issues',
             },
         },
+        prereqs => {
+            develop => {
+                # Optional dev-time tools. Install with:
+                #   cpanm --installdeps --with-develop .
+                requires => {
+                    'Pod::POM::Web' => '0',   # devel/browse-docs launcher
+                },
+            },
+        },
     },
     test  => { TESTS    => 't/*.t devel/t/*.t' },
     dist  => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },

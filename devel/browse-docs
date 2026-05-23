@@ -1,0 +1,87 @@
+#!/usr/bin/env perl
+
+# Launch a local Pod::POM::Web server pointed at this project's lib/ tree,
+# for browsing the generated per-path POD without leaving the editor.
+#
+# Usage:
+#     devel/browse-docs                  # default: http://127.0.0.1:5000
+#     devel/browse-docs --port 8080      # custom port
+#     devel/browse-docs --host 0.0.0.0   # listen on all interfaces
+#     devel/browse-docs --include-inc    # also serve every other module in @INC
+#
+# Pod::POM::Web must be installed:
+#     cpanm --installdeps --with-develop .
+# or:
+#     cpanm Pod::POM::Web
+
+use 5.014;
+use strict;
+use warnings;
+use FindBin;
+use Getopt::Long qw(GetOptions);
+
+my $port           = 5000;
+my $host           = '127.0.0.1';
+my $include_inc    = 0;
+my $show_help      = 0;
+
+GetOptions(
+    'port=i'        => \$port,
+    'host=s'        => \$host,
+    'include-inc'   => \$include_inc,
+    'help|h'        => \$show_help,
+) or do {
+    die "see --help\n";
+};
+
+if ($show_help) {
+    print <<'USAGE';
+devel/browse-docs - launch a local Pod::POM::Web server for this project
+
+Usage:
+    devel/browse-docs [options]
+
+Options:
+    --port <N>       listen port (default: 5000)
+    --host <addr>    listen address (default: 127.0.0.1; use 0.0.0.0 for LAN)
+    --include-inc    serve modules from @INC as well as this project's lib/
+                     (default: only this project's lib/, plus core Perl docs)
+    -h, --help       this message
+
+Then open the printed URL in a browser to navigate the generated POD.
+USAGE
+    exit 0;
+}
+
+eval { require Pod::POM::Web; 1 } or die <<"EOF";
+Pod::POM::Web is not installed. Install with:
+
+    cpanm --installdeps --with-develop .
+
+or directly:
+
+    cpanm Pod::POM::Web
+
+Original error: $@
+EOF
+
+# Point Pod::POM::Web at this project's lib/ (where the per-path POD lives).
+# Unless --include-inc was given, restrict module discovery to lib/ so the
+# index is dominated by this project's docs rather than the full CPAN
+# install tree.
+my $project_lib = "$FindBin::Bin/../lib";
+
+my @mdirs = ($project_lib);
+push @mdirs, grep { $_ ne '.' && $_ ne $project_lib } @INC if $include_inc;
+
+# Hand off to Plack::Runner via Pod::POM::Web's server entrypoint.
+# We rebuild @ARGV here because Pod::POM::Web parses it directly.
+@ARGV = (
+    '--mdirs',  @mdirs,
+    '--port',   $port,
+    '--host',   $host,
+);
+
+say "Pod::POM::Web serving $project_lib at http://$host:$port/";
+say "(press Ctrl-C to stop)";
+Pod::POM::Web->server;
