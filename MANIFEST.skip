@@ -16,3 +16,5 @@ docs/
 .devcontainer/
 ^devel/lib/
 ^devel/t/
+^\.claude/
+^MANIFEST\.bak$
