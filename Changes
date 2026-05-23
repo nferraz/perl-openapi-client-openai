@@ -1,7 +1,8 @@
 Revision history for OpenAPI-Client-OpenAI
 
-0.27    (dev)
+0.27    2026-05-03
 
+        - Added devel/browse-docs to see the new docs prior to release
         - Snake_case aliases for every operation: every operationId is
           callable in both its original style (e.g. createChatCompletion)
           and snake_case (e.g. create_chat_completion). Both forms are

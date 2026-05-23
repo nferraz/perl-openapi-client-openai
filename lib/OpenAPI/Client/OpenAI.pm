@@ -7,7 +7,7 @@ use OpenAPI::Client::OpenAI::Naming qw(to_snake_case detect_collisions);
 
 use Mojo::Base 'OpenAPI::Client';
 
-our $VERSION = '0.26';
+our $VERSION = '0.27';
 
 sub new {
     my ( $class, $specification ) = ( shift, shift );
