@@ -39,6 +39,8 @@ my %WriteMakefileArgs = (
         'Perl::Tidy'             => '20240511',    # not sure where to put this
         'Import::Base'           => '1.004',
         'JSON'                   => '4.10',
+        'JSON::PP'               => '0',
+        'Pod::Checker'           => '0',
     },
     PREREQ_PM => {
         'File::ShareDir'        => '0',
@@ -59,6 +61,7 @@ my %WriteMakefileArgs = (
             },
         },
     },
+    test  => { TESTS    => 't/*.t devel/t/*.t' },
     dist  => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },
     clean => { FILES    => 'OpenAPI-Client-OpenAI-*' },
 );

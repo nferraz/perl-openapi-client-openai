@@ -207,10 +207,10 @@ t/create_edit.t
 t/create_embedding.t
 t/create_image.t
 t/create_moderation.t
+t/fixtures/colliding-spec.yaml
 t/lib/OpenAITests.pm
 t/list_assistants.t
 t/list_files.t
-t/fixtures/colliding-spec.yaml
 t/list_models.t
 t/manifest.t
 t/naming.t
