@@ -4,131 +4,142 @@
 
 OpenAPI::Client::OpenAI::Path::skills - Documentation for the /skills path.
 
-=head1 DESCRIPTION
+=head1 OPERATIONS
 
-This document describes the API endpoint at C</skills>.
+=head2 GET /skills
 
-=head1 PATHS
+=head3 ListSkills
 
-
-=head2 C<GET /skills>
+  $client->list_skills({
+      body => { ... },
+  });
 
 List all skills for the current project.
 
+=head4 Path/query parameters
 
+=over
 
-=head3 Operation ID
+=item * C<limit> (in query, optional, integer) - Number of items to retrieve
 
-C<ListSkills>
+=item * C<order> (in query, optional, string) - Sort order of results by timestamp. Use C<asc> for ascending order or C<desc>
+for descending order.
 
-    $client->ListSkills( ... );
-
-=head3 Parameters
-
-=over 4
-
-=item * C<limit> (in query) (Optional) - Number of items to retrieve
-
-Type: C<integer>
-
-
-
-=item * C<order> (in query) (Optional) - Sort order of results by timestamp. Use `asc` for ascending order or `desc` for descending order.
-
-Type: C<string>
-
-Allowed values: C<asc, desc>
-
-
-
-=item * C<after> (in query) (Optional) - Identifier for the last item from the previous pagination request
-
-Type: C<string>
-
-
+=item * C<after> (in query, optional, string) - Identifier for the last item from the previous pagination request
 
 =back
 
+=head4 Responses
 
-=head3 Responses
+B<200 - Success>
 
+Content-Type: application/json
 
-=head4 Status Code: C<200>
-
-Success
-
-
-=head4 Content Types:
-
-=over 4
-
-
-=item * C<application/json>
-
-Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
+Example:
 
     {
        "data" : [
-          null
-       ]
+          {
+             "created_at" : 0,
+             "default_version" : "string",
+             "description" : "string",
+             "id" : "string",
+             "latest_version" : "string",
+             "name" : "string",
+             "object" : "skill"
+          }
+       ],
+       "first_id" : "string",
+       "has_more" : false,
+       "last_id" : "string",
+       "object" : "list"
     }
 
+=head2 POST /skills
 
-=back
+=head3 CreateSkill
 
-=head2 C<POST /skills>
+  $client->create_skill({
+      body => { ... },
+  });
 
 Create a new skill.
 
+=head4 Responses
 
+B<200 - Success>
 
-=head3 Operation ID
+Content-Type: application/json
 
-C<CreateSkill>
+Example:
 
-    $client->CreateSkill( ... );
+    {
+       "created_at" : 0,
+       "default_version" : "string",
+       "description" : "string",
+       "id" : "string",
+       "latest_version" : "string",
+       "name" : "string",
+       "object" : "skill"
+    }
 
-=head3 Parameters
+=head1 SCHEMAS
 
-=over 4
+=head2 CreateSkillBody
+
+Properties:
+
+=over
+
+=item * C<files> (oneOf, required)
 
 =back
 
-=head3 Request Body
-  
-=head3 Content Type: C<application/json>
+=head2 SkillListResource
 
-    
-      Uploads a skill either as a directory (multipart `files[]`) or as a single zip file.
+Properties:
 
-      
-             
-=head3 Content Type: C<multipart/form-data>
+=over
 
-    
-      Uploads a skill either as a directory (multipart `files[]`) or as a single zip file.
+=item * C<data> (array of SkillResource, required) - A list of items
 
-      
-             
+=item * C<first_id> (anyOf, required)
 
-=head3 Responses
+=item * C<has_more> (boolean, required) - Whether there are more items available.
 
+=item * C<last_id> (anyOf, required)
 
-=head4 Status Code: C<200>
+=item * C<object> (string, required) - The type of object returned, must be C<list> .
 
-Success
+Allowed values: list
 
+Default: list
 
-=head4 Content Types:
+=back
 
-=over 4
+=head2 SkillResource
 
+Properties:
 
-=item * C<application/json>
+=over
 
-Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
+=item * C<created_at> (integer, required) - Unix timestamp (seconds) for when the skill was created.
 
+=item * C<default_version> (string, required) - Default version for the skill.
 
+=item * C<description> (string, required) - Description of the skill.
+
+=item * C<id> (string, required) - Unique identifier for the skill.
+
+=item * C<latest_version> (string, required) - Latest version for the skill.
+
+=item * C<name> (string, required) - Name of the skill.
+
+=item * C<object> (string, required) - The object type, which is C<skill> .
+
+Allowed values: skill
+
+Default: skill
 
 =back
 

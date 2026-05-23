@@ -4,192 +4,172 @@
 
 OpenAPI::Client::OpenAI::Path::organization-roles-role_id - Documentation for the /organization/roles/{role_id} path.
 
-=head1 DESCRIPTION
+=head1 OPERATIONS
 
-This document describes the API endpoint at C</organization/roles/{role_id}>.
+=head2 DELETE /organization/roles/{role_id}
 
-=head1 PATHS
+=head3 delete-role
 
-
-=head2 C<DELETE /organization/roles/{role_id}>
+  $client->delete_role({
+      body => { ... },
+  });
 
 Deletes a custom role from the organization.
 
+=head4 Path/query parameters
 
+=over
 
-=head3 Operation ID
-
-C<delete-role>
-
-    $client->delete-role( ... );
-
-=head3 Parameters
-
-=over 4
-
-=item * C<role_id> (in path) (Required) - The ID of the role to delete.
-
-Type: C<string>
-
-
+=item * C<role_id> (in path, required, string) - The ID of the role to delete.
 
 =back
 
+=head4 Responses
 
-=head3 Responses
+B<200 - Role deleted successfully.>
 
+Content-Type: application/json
 
-=head4 Status Code: C<200>
-
-Role deleted successfully.
-
-
-=head4 Content Types:
-
-=over 4
-
-
-=item * C<application/json>
-
-Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
+Example:
 
     {
-        "object": "role.deleted",
-        "id": "role_01J1F8ROLE01",
-        "deleted": true
+       "deleted" : true,
+       "id" : "role_01J1F8ROLE01",
+       "object" : "role.deleted"
     }
 
+=head2 GET /organization/roles/{role_id}
 
-=back
+=head3 retrieve-role
 
-=head2 C<GET /organization/roles/{role_id}>
+  $client->retrieve_role({
+      body => { ... },
+  });
 
 Retrieves an organization role.
 
+=head4 Path/query parameters
 
+=over
 
-=head3 Operation ID
-
-C<retrieve-role>
-
-    $client->retrieve-role( ... );
-
-=head3 Parameters
-
-=over 4
-
-=item * C<role_id> (in path) (Required) - The ID of the role to retrieve.
-
-Type: C<string>
-
-
+=item * C<role_id> (in path, required, string) - The ID of the role to retrieve.
 
 =back
 
+=head4 Responses
 
-=head3 Responses
+B<200 - Role retrieved successfully.>
 
+Content-Type: application/json
 
-=head4 Status Code: C<200>
-
-Role retrieved successfully.
-
-
-=head4 Content Types:
-
-=over 4
-
-
-=item * C<application/json>
-
-Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
+Example:
 
     {
-        "object": "role",
-        "id": "role_01J1F8ROLE01",
-        "name": "API Group Manager",
-        "description": "Allows managing organization groups",
-        "permissions": [
-            "api.groups.read",
-            "api.groups.write"
-        ],
-        "resource_type": "api.organization",
-        "predefined_role": false
+       "description" : "Allows managing organization groups",
+       "id" : "role_01J1F8ROLE01",
+       "name" : "API Group Manager",
+       "object" : "role",
+       "permissions" : [
+          "api.groups.read",
+          "api.groups.write"
+       ],
+       "predefined_role" : false,
+       "resource_type" : "api.organization"
     }
 
+=head2 POST /organization/roles/{role_id}
 
-=back
+=head3 update-role
 
-=head2 C<POST /organization/roles/{role_id}>
+  $client->update_role({
+      body => { ... },
+  });
 
 Updates an existing organization role.
 
+=head4 Path/query parameters
 
+=over
 
-=head3 Operation ID
-
-C<update-role>
-
-    $client->update-role( ... );
-
-=head3 Parameters
-
-=over 4
-
-=item * C<role_id> (in path) (Required) - The ID of the role to update.
-
-Type: C<string>
-
-
+=item * C<role_id> (in path, required, string) - The ID of the role to update.
 
 =back
 
-=head3 Request Body
-  
-=head3 Content Type: C<application/json>
+=head4 Responses
 
-    
-      Request payload for updating an existing role.
+B<200 - Role updated successfully.>
 
-      
-      
+Content-Type: application/json
+
 Example:
 
-    "{\n    \"role_name\": \"API Group Manager\",\n    \"permissions\": [\n        \"api.groups.read\",\n        \"api.groups.write\"\n    ],\n    \"description\": \"Allows managing organization groups\"\n}\n"
-
-
-             
-
-=head3 Responses
-
-
-=head4 Status Code: C<200>
-
-Role updated successfully.
-
-
-=head4 Content Types:
-
-=over 4
-
-
-=item * C<application/json>
-
-Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
-
     {
-        "object": "role",
-        "id": "role_01J1F8ROLE01",
-        "name": "API Group Manager",
-        "description": "Allows managing organization groups",
-        "permissions": [
-            "api.groups.read",
-            "api.groups.write"
-        ],
-        "resource_type": "api.organization",
-        "predefined_role": false
+       "description" : "Allows managing organization groups",
+       "id" : "role_01J1F8ROLE01",
+       "name" : "API Group Manager",
+       "object" : "role",
+       "permissions" : [
+          "api.groups.read",
+          "api.groups.write"
+       ],
+       "predefined_role" : false,
+       "resource_type" : "api.organization"
     }
 
+=head1 SCHEMAS
+
+=head2 PublicUpdateOrganizationRoleBody
+
+Properties:
+
+=over
+
+=item * C<description> (anyOf) - New description for the role.
+
+=item * C<permissions> (anyOf) - Updated set of permissions for the role.
+
+=item * C<role_name> (anyOf) - New name for the role.
+
+=back
+
+=head2 Role
+
+Properties:
+
+=over
+
+=item * C<description> (anyOf, required) - Optional description of the role.
+
+=item * C<id> (string, required) - Identifier for the role.
+
+=item * C<name> (string, required) - Unique name for the role.
+
+=item * C<object> (string, required) - Always C<role> .
+
+Allowed values: role
+
+=item * C<permissions> (array of string, required) - Permissions granted by the role.
+
+=item * C<predefined_role> (boolean, required) - Whether the role is predefined and managed by OpenAI.
+
+=item * C<resource_type> (string, required) - Resource type the role is bound to (for example C<api.organization> or
+C<api.project> ).
+
+=back
+
+=head2 RoleDeletedResource
+
+Properties:
+
+=over
+
+=item * C<deleted> (boolean, required) - Whether the role was deleted.
+
+=item * C<id> (string, required) - Identifier of the deleted role.
+
+=item * C<object> (string, required) - Always C<role.deleted> .
+
+Allowed values: role.deleted
 
 =back
 

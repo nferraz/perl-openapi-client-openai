@@ -4,114 +4,126 @@
 
 OpenAPI::Client::OpenAI::Path::skills-skill_id-versions-version - Documentation for the /skills/{skill_id}/versions/{version} path.
 
-=head1 DESCRIPTION
+=head1 OPERATIONS
 
-This document describes the API endpoint at C</skills/{skill_id}/versions/{version}>.
+=head2 DELETE /skills/{skill_id}/versions/{version}
 
-=head1 PATHS
+=head3 DeleteSkillVersion
 
-
-=head2 C<DELETE /skills/{skill_id}/versions/{version}>
+  $client->delete_skill_version({
+      body => { ... },
+  });
 
 Delete a skill version.
 
+=head4 Path/query parameters
 
+=over
 
-=head3 Operation ID
+=item * C<skill_id> (in path, required, string) - The identifier of the skill.
 
-C<DeleteSkillVersion>
-
-    $client->DeleteSkillVersion( ... );
-
-=head3 Parameters
-
-=over 4
-
-=item * C<skill_id> (in path) (Required) - The identifier of the skill.
-
-Type: C<string>
-
-
-
-=item * C<version> (in path) (Required) - The skill version number.
-
-Type: C<string>
-
-
+=item * C<version> (in path, required, string) - The skill version number.
 
 =back
 
+=head4 Responses
 
-=head3 Responses
+B<200 - Success>
 
+Content-Type: application/json
 
-=head4 Status Code: C<200>
+Example:
 
-Success
+    {
+       "deleted" : false,
+       "id" : "string",
+       "object" : "skill.version.deleted",
+       "version" : "string"
+    }
 
+=head2 GET /skills/{skill_id}/versions/{version}
 
-=head4 Content Types:
+=head3 GetSkillVersion
 
-=over 4
-
-
-=item * C<application/json>
-
-Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
-
-
-
-=back
-
-=head2 C<GET /skills/{skill_id}/versions/{version}>
+  $client->get_skill_version({
+      body => { ... },
+  });
 
 Get a specific skill version.
 
+=head4 Path/query parameters
 
+=over
 
-=head3 Operation ID
+=item * C<skill_id> (in path, required, string) - The identifier of the skill.
 
-C<GetSkillVersion>
-
-    $client->GetSkillVersion( ... );
-
-=head3 Parameters
-
-=over 4
-
-=item * C<skill_id> (in path) (Required) - The identifier of the skill.
-
-Type: C<string>
-
-
-
-=item * C<version> (in path) (Required) - The version number to retrieve.
-
-Type: C<string>
-
-
+=item * C<version> (in path, required, string) - The version number to retrieve.
 
 =back
 
+=head4 Responses
 
-=head3 Responses
+B<200 - Success>
 
+Content-Type: application/json
 
-=head4 Status Code: C<200>
+Example:
 
-Success
+    {
+       "created_at" : 0,
+       "description" : "string",
+       "id" : "string",
+       "name" : "string",
+       "object" : "skill.version",
+       "skill_id" : "string",
+       "version" : "string"
+    }
 
+=head1 SCHEMAS
 
-=head4 Content Types:
+=head2 DeletedSkillVersionResource
 
-=over 4
+Properties:
 
+=over
 
-=item * C<application/json>
+=item * C<deleted> (boolean, required)
 
-Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
+=item * C<id> (string, required)
 
+=item * C<object> (string, required)
 
+Allowed values: skill.version.deleted
+
+Default: skill.version.deleted
+
+=item * C<version> (string, required) - The deleted skill version.
+
+=back
+
+=head2 SkillVersionResource
+
+Properties:
+
+=over
+
+=item * C<created_at> (integer, required) - Unix timestamp (seconds) for when the version was created.
+
+=item * C<description> (string, required) - Description of the skill version.
+
+=item * C<id> (string, required) - Unique identifier for the skill version.
+
+=item * C<name> (string, required) - Name of the skill version.
+
+=item * C<object> (string, required) - The object type, which is C<skill.version> .
+
+Allowed values: skill.version
+
+Default: skill.version
+
+=item * C<skill_id> (string, required) - Identifier of the skill for this version.
+
+=item * C<version> (string, required) - Version number for this skill.
 
 =back
 

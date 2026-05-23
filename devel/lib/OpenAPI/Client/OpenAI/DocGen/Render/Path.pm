@@ -255,26 +255,54 @@ sub _emit_example_block ( $self, $emit, $blank, $method_data, $schema ) {
 sub _emit_schemas_section ( $self, $emit, $blank, $components ) {
     return unless %$components;
 
-    # Collect component blocks; suppress any that produce no properties.
-    my @component_blocks;
+    # Walk all referenced components breadth-first, collecting any additional
+    # components that are referenced *within* the schemas themselves.  This
+    # ensures that every L</Name> link we emit later has a corresponding
+    # =head2 heading in this section.
+    my %seen;
+    my @queue = sort keys %$components;
+    while ( my $name = shift @queue ) {
+        next if $seen{$name}++;
+        my $schema = $components->{$name} or next;
+        my %discovered;
+        my $dev_null = sub {};
+        $self->_emit_property_block( $dev_null, $dev_null, $schema, \%discovered );
+        for my $child ( keys %discovered ) {
+            unless ( exists $components->{$child} ) {
+                $components->{$child} = $discovered{$child};
+                push @queue, $child;
+            }
+        }
+    }
+
+    $emit->('=head1 SCHEMAS');
+    $blank->();
     for my $name ( sort keys %$components ) {
         my $schema = $components->{$name};
+        $emit->("=head2 $name");
+        $blank->();
         my @block;
         my $blk_emit  = sub { push @block, @_ };
         my $blk_blank = sub { push @block, '' };
         my %scratch_components;
         $self->_emit_property_block( $blk_emit, $blk_blank, $schema, \%scratch_components );
-        next unless @block;    # property-less component: skip entirely
-        push @component_blocks, { name => $name, lines => \@block };
-    }
-    return unless @component_blocks;
-
-    $emit->('=head1 SCHEMAS');
-    $blank->();
-    for my $entry (@component_blocks) {
-        $emit->("=head2 $entry->{name}");
-        $blank->();
-        $emit->( @{ $entry->{lines} } );
+        if (@block) {
+            $emit->(@block);
+        } else {
+            # Schema has no enumerable properties (e.g. anyOf/oneOf type).
+            # Emit a brief note so that L</Name> links remain valid.
+            my $desc = $schema->{description}
+                // $schema->{anyOf}[0]{description}
+                // $schema->{oneOf}[0]{description};
+            if ($desc) {
+                $emit->( md_to_pod($desc) );
+            } else {
+                $emit->(
+                    'See L<https://platform.openai.com/docs/api-reference> for details.'
+                );
+            }
+            $blank->();
+        }
     }
 }
 

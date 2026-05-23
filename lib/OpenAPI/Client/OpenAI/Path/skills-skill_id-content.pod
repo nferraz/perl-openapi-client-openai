@@ -4,65 +4,41 @@
 
 OpenAPI::Client::OpenAI::Path::skills-skill_id-content - Documentation for the /skills/{skill_id}/content path.
 
-=head1 DESCRIPTION
+=head1 OPERATIONS
 
-This document describes the API endpoint at C</skills/{skill_id}/content>.
+=head2 GET /skills/{skill_id}/content
 
-=head1 PATHS
+=head3 GetSkillContent
 
-
-=head2 C<GET /skills/{skill_id}/content>
+  $client->get_skill_content({
+      body => { ... },
+  });
 
 Download a skill zip bundle by its ID.
 
+=head4 Path/query parameters
 
+=over
 
-=head3 Operation ID
-
-C<GetSkillContent>
-
-    $client->GetSkillContent( ... );
-
-=head3 Parameters
-
-=over 4
-
-=item * C<skill_id> (in path) (Required) - The identifier of the skill to download.
-
-Type: C<string>
-
-
+=item * C<skill_id> (in path, required, string) - The identifier of the skill to download.
 
 =back
 
+=head4 Responses
 
-=head3 Responses
+B<200 - The skill zip bundle.>
 
+Content-Type: application/json
 
-=head4 Status Code: C<200>
+Example:
 
-The skill zip bundle.
+    "string"
 
+Content-Type: application/zip
 
-=head4 Content Types:
+Example:
 
-=over 4
-
-
-=item * C<application/json>
-
-Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
-
-
-
-
-=item * C<application/zip>
-
-Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
-
-
-
-=back
+    "string"
 
 =head1 SEE ALSO
 

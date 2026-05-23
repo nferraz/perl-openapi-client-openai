@@ -4,136 +4,121 @@
 
 OpenAPI::Client::OpenAI::Path::organization-projects-project_id-groups-group_id - Documentation for the /organization/projects/{project_id}/groups/{group_id} path.
 
-=head1 DESCRIPTION
+=head1 OPERATIONS
 
-This document describes the API endpoint at C</organization/projects/{project_id}/groups/{group_id}>.
+=head2 DELETE /organization/projects/{project_id}/groups/{group_id}
 
-=head1 PATHS
+=head3 remove-project-group
 
-
-=head2 C<DELETE /organization/projects/{project_id}/groups/{group_id}>
+  $client->remove_project_group({
+      body => { ... },
+  });
 
 Revokes a group's access to a project.
 
+=head4 Path/query parameters
 
+=over
 
-=head3 Operation ID
+=item * C<project_id> (in path, required, string) - The ID of the project to update.
 
-C<remove-project-group>
-
-    $client->remove-project-group( ... );
-
-=head3 Parameters
-
-=over 4
-
-=item * C<project_id> (in path) (Required) - The ID of the project to update.
-
-Type: C<string>
-
-
-
-=item * C<group_id> (in path) (Required) - The ID of the group to remove from the project.
-
-Type: C<string>
-
-
+=item * C<group_id> (in path, required, string) - The ID of the group to remove from the project.
 
 =back
 
+=head4 Responses
 
-=head3 Responses
+B<200 - Group removed from the project successfully.>
 
+Content-Type: application/json
 
-=head4 Status Code: C<200>
-
-Group removed from the project successfully.
-
-
-=head4 Content Types:
-
-=over 4
-
-
-=item * C<application/json>
-
-Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
+Example:
 
     {
-        "object": "project.group.deleted",
-        "deleted": true
+       "deleted" : true,
+       "object" : "project.group.deleted"
     }
 
+=head2 GET /organization/projects/{project_id}/groups/{group_id}
 
-=back
+=head3 retrieve-project-group
 
-=head2 C<GET /organization/projects/{project_id}/groups/{group_id}>
+  $client->retrieve_project_group({
+      body => { ... },
+  });
 
 Retrieves a project's group.
 
+=head4 Path/query parameters
 
+=over
 
-=head3 Operation ID
+=item * C<project_id> (in path, required, string) - The ID of the project to inspect.
 
-C<retrieve-project-group>
+=item * C<group_id> (in path, required, string) - The ID of the group to retrieve.
 
-    $client->retrieve-project-group( ... );
+=item * C<group_type> (in query, optional, string) - The type of group to retrieve.
 
-=head3 Parameters
+Allowed values: group, tenant_group
 
-=over 4
-
-=item * C<project_id> (in path) (Required) - The ID of the project to inspect.
-
-Type: C<string>
-
-
-
-=item * C<group_id> (in path) (Required) - The ID of the group to retrieve.
-
-Type: C<string>
-
-
-
-=item * C<group_type> (in query) (Optional) - The type of group to retrieve.
-
-Type: C<string>
-
-Allowed values: C<group, tenant_group>
-
-
-Default: C<group>
-
+Default: group
 
 =back
 
+=head4 Responses
 
-=head3 Responses
+B<200 - Project group retrieved successfully.>
 
+Content-Type: application/json
 
-=head4 Status Code: C<200>
-
-Project group retrieved successfully.
-
-
-=head4 Content Types:
-
-=over 4
-
-
-=item * C<application/json>
-
-Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
+Example:
 
     {
-        "object": "project.group",
-        "project_id": "proj_abc123",
-        "group_id": "group_01J1F8ABCDXYZ",
-        "group_name": "Support Team",
-        "group_type": "group",
-        "created_at": 1711471533
+       "created_at" : 1711471533,
+       "group_id" : "group_01J1F8ABCDXYZ",
+       "group_name" : "Support Team",
+       "group_type" : "group",
+       "object" : "project.group",
+       "project_id" : "proj_abc123"
     }
 
+=head1 SCHEMAS
+
+=head2 ProjectGroup
+
+Properties:
+
+=over
+
+=item * C<created_at> (integer, required) - Unix timestamp (in seconds) when the group was granted project access.
+
+=item * C<group_id> (string, required) - Identifier of the group that has access to the project.
+
+=item * C<group_name> (string, required) - Display name of the group.
+
+=item * C<group_type> (string, required) - The type of the group.
+
+Allowed values: group, tenant_group
+
+=item * C<object> (string, required) - Always C<project.group> .
+
+Allowed values: project.group
+
+=item * C<project_id> (string, required) - Identifier of the project.
+
+=back
+
+=head2 ProjectGroupDeletedResource
+
+Properties:
+
+=over
+
+=item * C<deleted> (boolean, required) - Whether the group membership in the project was removed.
+
+=item * C<object> (string, required) - Always C<project.group.deleted> .
+
+Allowed values: project.group.deleted
 
 =back
 

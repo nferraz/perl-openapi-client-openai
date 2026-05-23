@@ -4,145 +4,151 @@
 
 OpenAPI::Client::OpenAI::Path::organization-projects-project_id-hosted_tool_permissions - Documentation for the /organization/projects/{project_id}/hosted_tool_permissions path.
 
-=head1 DESCRIPTION
+=head1 OPERATIONS
 
-This document describes the API endpoint at C</organization/projects/{project_id}/hosted_tool_permissions>.
+=head2 GET /organization/projects/{project_id}/hosted_tool_permissions
 
-=head1 PATHS
+=head3 retrieve-project-hosted-tool-permissions
 
-
-=head2 C<GET /organization/projects/{project_id}/hosted_tool_permissions>
+  $client->retrieve_project_hosted_tool_permissions({
+      body => { ... },
+  });
 
 Returns hosted tool permissions for a project.
 
+=head4 Path/query parameters
 
+=over
 
-=head3 Operation ID
-
-C<retrieve-project-hosted-tool-permissions>
-
-    $client->retrieve-project-hosted-tool-permissions( ... );
-
-=head3 Parameters
-
-=over 4
-
-=item * C<project_id> (in path) (Required) - The ID of the project.
-
-Type: C<string>
-
-
+=item * C<project_id> (in path, required, string) - The ID of the project.
 
 =back
 
+=head4 Responses
 
-=head3 Responses
+B<200 - Project hosted tool permissions retrieved successfully.>
 
+Content-Type: application/json
 
-=head4 Status Code: C<200>
-
-Project hosted tool permissions retrieved successfully.
-
-
-=head4 Content Types:
-
-=over 4
-
-
-=item * C<application/json>
-
-Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
+Example:
 
     {
-        "file_search": {
-            "enabled": true
-        },
-        "web_search": {
-            "enabled": true
-        },
-        "image_generation": {
-            "enabled": true
-        },
-        "mcp": {
-            "enabled": true
-        },
-        "code_interpreter": {
-            "enabled": true
-        }
+       "code_interpreter" : {
+          "enabled" : true
+       },
+       "file_search" : {
+          "enabled" : true
+       },
+       "image_generation" : {
+          "enabled" : true
+       },
+       "mcp" : {
+          "enabled" : true
+       },
+       "web_search" : {
+          "enabled" : true
+       }
     }
 
+=head2 POST /organization/projects/{project_id}/hosted_tool_permissions
 
-=back
+=head3 update-project-hosted-tool-permissions
 
-=head2 C<POST /organization/projects/{project_id}/hosted_tool_permissions>
+  $client->update_project_hosted_tool_permissions({
+      body => { ... },
+  });
 
 Updates hosted tool permissions for a project.
 
+=head4 Path/query parameters
 
+=over
 
-=head3 Operation ID
-
-C<update-project-hosted-tool-permissions>
-
-    $client->update-project-hosted-tool-permissions( ... );
-
-=head3 Parameters
-
-=over 4
-
-=item * C<project_id> (in path) (Required) - The ID of the project.
-
-Type: C<string>
-
-
+=item * C<project_id> (in path, required, string) - The ID of the project.
 
 =back
 
-=head3 Request Body
-  
-=head3 Content Type: C<application/json>
+=head4 Responses
 
-    
-      
+B<200 - Project hosted tool permissions updated successfully.>
 
-      
-             
+Content-Type: application/json
 
-=head3 Responses
-
-
-=head4 Status Code: C<200>
-
-Project hosted tool permissions updated successfully.
-
-
-=head4 Content Types:
-
-=over 4
-
-
-=item * C<application/json>
-
-Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
+Example:
 
     {
-        "file_search": {
-            "enabled": true
-        },
-        "web_search": {
-            "enabled": true
-        },
-        "image_generation": {
-            "enabled": true
-        },
-        "mcp": {
-            "enabled": true
-        },
-        "code_interpreter": {
-            "enabled": true
-        }
+       "code_interpreter" : {
+          "enabled" : true
+       },
+       "file_search" : {
+          "enabled" : true
+       },
+       "image_generation" : {
+          "enabled" : true
+       },
+       "mcp" : {
+          "enabled" : true
+       },
+       "web_search" : {
+          "enabled" : true
+       }
     }
 
+=head1 SCHEMAS
+
+=head2 HostedToolPermission
+
+Properties:
+
+=over
+
+=item * C<enabled> (boolean, required) - Whether the hosted tool is enabled for the project.
+
+=back
+
+=head2 ProjectHostedToolPermissions
+
+Properties:
+
+=over
+
+=item * C<code_interpreter> (HostedToolPermission, required)
+
+See L</HostedToolPermission> below for shape.
+
+=item * C<file_search> (HostedToolPermission, required)
+
+See L</HostedToolPermission> below for shape.
+
+=item * C<image_generation> (HostedToolPermission, required)
+
+See L</HostedToolPermission> below for shape.
+
+=item * C<mcp> (HostedToolPermission, required)
+
+See L</HostedToolPermission> below for shape.
+
+=item * C<web_search> (HostedToolPermission, required)
+
+See L</HostedToolPermission> below for shape.
+
+=back
+
+=head2 ProjectHostedToolPermissionsUpdateRequest
+
+Properties:
+
+=over
+
+=item * C<code_interpreter> (anyOf) - The code interpreter permission update.
+
+=item * C<file_search> (anyOf) - The file search permission update.
+
+=item * C<image_generation> (anyOf) - The image generation permission update.
+
+=item * C<mcp> (anyOf) - The MCP permission update.
+
+=item * C<web_search> (anyOf) - The web search permission update.
 
 =back
 

@@ -4,119 +4,97 @@
 
 OpenAPI::Client::OpenAI::Path::organization-projects-project_id-data_retention - Documentation for the /organization/projects/{project_id}/data_retention path.
 
-=head1 DESCRIPTION
+=head1 OPERATIONS
 
-This document describes the API endpoint at C</organization/projects/{project_id}/data_retention>.
+=head2 GET /organization/projects/{project_id}/data_retention
 
-=head1 PATHS
+=head3 retrieve-project-data-retention
 
-
-=head2 C<GET /organization/projects/{project_id}/data_retention>
+  $client->retrieve_project_data_retention({
+      body => { ... },
+  });
 
 Retrieves project data retention controls.
 
+=head4 Path/query parameters
 
+=over
 
-=head3 Operation ID
-
-C<retrieve-project-data-retention>
-
-    $client->retrieve-project-data-retention( ... );
-
-=head3 Parameters
-
-=over 4
-
-=item * C<project_id> (in path) (Required) - The ID of the project to inspect.
-
-Type: C<string>
-
-
+=item * C<project_id> (in path, required, string) - The ID of the project to inspect.
 
 =back
 
+=head4 Responses
 
-=head3 Responses
+B<200 - Project data retention controls retrieved successfully.>
 
+Content-Type: application/json
 
-=head4 Status Code: C<200>
-
-Project data retention controls retrieved successfully.
-
-
-=head4 Content Types:
-
-=over 4
-
-
-=item * C<application/json>
-
-Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
+Example:
 
     {
-        "object": "project.data_retention",
-        "type": "organization_default"
+       "object" : "project.data_retention",
+       "type" : "organization_default"
     }
 
+=head2 POST /organization/projects/{project_id}/data_retention
 
-=back
+=head3 update-project-data-retention
 
-=head2 C<POST /organization/projects/{project_id}/data_retention>
+  $client->update_project_data_retention({
+      body => { ... },
+  });
 
 Updates project data retention controls.
 
+=head4 Path/query parameters
 
+=over
 
-=head3 Operation ID
-
-C<update-project-data-retention>
-
-    $client->update-project-data-retention( ... );
-
-=head3 Parameters
-
-=over 4
-
-=item * C<project_id> (in path) (Required) - The ID of the project to update.
-
-Type: C<string>
-
-
+=item * C<project_id> (in path, required, string) - The ID of the project to update.
 
 =back
 
-=head3 Request Body
-  
-=head3 Content Type: C<application/json>
+=head4 Responses
 
-    
-      Parameters for updating project data retention controls.
+B<200 - Project data retention controls updated successfully.>
 
-      
-             
+Content-Type: application/json
 
-=head3 Responses
-
-
-=head4 Status Code: C<200>
-
-Project data retention controls updated successfully.
-
-
-=head4 Content Types:
-
-=over 4
-
-
-=item * C<application/json>
-
-Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
+Example:
 
     {
-        "object": "project.data_retention",
-        "type": "organization_default"
+       "object" : "project.data_retention",
+       "type" : "organization_default"
     }
 
+=head1 SCHEMAS
+
+=head2 ProjectDataRetention
+
+Properties:
+
+=over
+
+=item * C<object> (string, required) - The object type, which is always C<project.data_retention> .
+
+Allowed values: project.data_retention
+
+=item * C<type> (string, required) - The configured project data retention type.
+
+Allowed values: organization_default, none, zero_data_retention, modified_abuse_monitoring, enhanced_zero_data_retention, enhanced_modified_abuse_monitoring
+
+=back
+
+=head2 UpdateProjectDataRetentionBody
+
+Properties:
+
+=over
+
+=item * C<retention_type> (string, required) - The desired project data retention type.
+
+Allowed values: organization_default, none, zero_data_retention, modified_abuse_monitoring, enhanced_zero_data_retention, enhanced_modified_abuse_monitoring
 
 =back
 

@@ -4,143 +4,153 @@
 
 OpenAPI::Client::OpenAI::Path::skills-skill_id-versions - Documentation for the /skills/{skill_id}/versions path.
 
-=head1 DESCRIPTION
+=head1 OPERATIONS
 
-This document describes the API endpoint at C</skills/{skill_id}/versions>.
+=head2 GET /skills/{skill_id}/versions
 
-=head1 PATHS
+=head3 ListSkillVersions
 
-
-=head2 C<GET /skills/{skill_id}/versions>
+  $client->list_skill_versions({
+      body => { ... },
+  });
 
 List skill versions for a skill.
 
+=head4 Path/query parameters
 
+=over
 
-=head3 Operation ID
+=item * C<skill_id> (in path, required, string) - The identifier of the skill.
 
-C<ListSkillVersions>
+=item * C<limit> (in query, optional, integer) - Number of versions to retrieve.
 
-    $client->ListSkillVersions( ... );
+=item * C<order> (in query, optional, string) - Sort order of results by version number.
 
-=head3 Parameters
-
-=over 4
-
-=item * C<skill_id> (in path) (Required) - The identifier of the skill.
-
-Type: C<string>
-
-
-
-=item * C<limit> (in query) (Optional) - Number of versions to retrieve.
-
-Type: C<integer>
-
-
-
-=item * C<order> (in query) (Optional) - Sort order of results by version number.
-
-Type: C<string>
-
-Allowed values: C<asc, desc>
-
-
-
-=item * C<after> (in query) (Optional) - The skill version ID to start after.
-
-Type: C<string>
-
-
+=item * C<after> (in query, optional, string) - The skill version ID to start after.
 
 =back
 
+=head4 Responses
 
-=head3 Responses
+B<200 - Success>
 
+Content-Type: application/json
 
-=head4 Status Code: C<200>
-
-Success
-
-
-=head4 Content Types:
-
-=over 4
-
-
-=item * C<application/json>
-
-Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
+Example:
 
     {
        "data" : [
-          null
-       ]
+          {
+             "created_at" : 0,
+             "description" : "string",
+             "id" : "string",
+             "name" : "string",
+             "object" : "skill.version",
+             "skill_id" : "string",
+             "version" : "string"
+          }
+       ],
+       "first_id" : "string",
+       "has_more" : false,
+       "last_id" : "string",
+       "object" : "list"
     }
 
+=head2 POST /skills/{skill_id}/versions
 
-=back
+=head3 CreateSkillVersion
 
-=head2 C<POST /skills/{skill_id}/versions>
+  $client->create_skill_version({
+      body => { ... },
+  });
 
 Create a new immutable skill version.
 
+=head4 Path/query parameters
 
+=over
 
-=head3 Operation ID
-
-C<CreateSkillVersion>
-
-    $client->CreateSkillVersion( ... );
-
-=head3 Parameters
-
-=over 4
-
-=item * C<skill_id> (in path) (Required) - The identifier of the skill to version.
-
-Type: C<string>
-
-
+=item * C<skill_id> (in path, required, string) - The identifier of the skill to version.
 
 =back
 
-=head3 Request Body
-  
-=head3 Content Type: C<application/json>
+=head4 Responses
 
-    
-      Uploads a new immutable version of a skill.
+B<200 - Success>
 
-      
-             
-=head3 Content Type: C<multipart/form-data>
+Content-Type: application/json
 
-    
-      Uploads a new immutable version of a skill.
+Example:
 
-      
-             
+    {
+       "created_at" : 0,
+       "description" : "string",
+       "id" : "string",
+       "name" : "string",
+       "object" : "skill.version",
+       "skill_id" : "string",
+       "version" : "string"
+    }
 
-=head3 Responses
+=head1 SCHEMAS
 
+=head2 CreateSkillVersionBody
 
-=head4 Status Code: C<200>
+Properties:
 
-Success
+=over
 
+=item * C<default> (boolean) - Whether to set this version as the default.
 
-=head4 Content Types:
+=item * C<files> (oneOf, required)
 
-=over 4
+=back
 
+=head2 SkillVersionListResource
 
-=item * C<application/json>
+Properties:
 
-Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
+=over
 
+=item * C<data> (array of SkillVersionResource, required) - A list of items
 
+=item * C<first_id> (anyOf, required)
+
+=item * C<has_more> (boolean, required) - Whether there are more items available.
+
+=item * C<last_id> (anyOf, required)
+
+=item * C<object> (string, required) - The type of object returned, must be C<list> .
+
+Allowed values: list
+
+Default: list
+
+=back
+
+=head2 SkillVersionResource
+
+Properties:
+
+=over
+
+=item * C<created_at> (integer, required) - Unix timestamp (seconds) for when the version was created.
+
+=item * C<description> (string, required) - Description of the skill version.
+
+=item * C<id> (string, required) - Unique identifier for the skill version.
+
+=item * C<name> (string, required) - Name of the skill version.
+
+=item * C<object> (string, required) - The object type, which is C<skill.version> .
+
+Allowed values: skill.version
+
+Default: skill.version
+
+=item * C<skill_id> (string, required) - Identifier of the skill for this version.
+
+=item * C<version> (string, required) - Version number for this skill.
 
 =back
 

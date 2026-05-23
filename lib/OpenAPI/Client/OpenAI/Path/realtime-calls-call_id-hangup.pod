@@ -4,50 +4,33 @@
 
 OpenAPI::Client::OpenAI::Path::realtime-calls-call_id-hangup - Documentation for the /realtime/calls/{call_id}/hangup path.
 
-=head1 DESCRIPTION
+=head1 OPERATIONS
 
-This document describes the API endpoint at C</realtime/calls/{call_id}/hangup>.
+=head2 POST /realtime/calls/{call_id}/hangup
 
-=head1 PATHS
+=head3 hangup-realtime-call
 
+  $client->hangup_realtime_call({
+      body => { ... },
+  });
 
-=head2 C<POST /realtime/calls/{call_id}/hangup>
+End an active Realtime API call, whether it was initiated over SIP or WebRTC.
 
-End an active Realtime API call, whether it was initiated over SIP or
-WebRTC.
+=head4 Path/query parameters
 
+=over
 
-
-=head3 Operation ID
-
-C<hangup-realtime-call>
-
-    $client->hangup-realtime-call( ... );
-
-=head3 Parameters
-
-=over 4
-
-=item * C<call_id> (in path) (Required) - The identifier for the call. For SIP calls, use the value provided in the
-[`realtime.call.incoming`](/docs/api-reference/webhook-events/realtime/call/incoming)
-webhook. For WebRTC sessions, reuse the call ID returned in the `Location`
-header when creating the call with
-[`POST /v1/realtime/calls`](/docs/api-reference/realtime/create-call).
-
-Type: C<string>
-
-
+=item * C<call_id> (in path, required, string) - The identifier for the call. For SIP calls, use the value provided in the
+L<C<realtime.call.incoming>|https://platform.openai.com/docs/api-reference/webhook-events/realtime/call/incoming>
+webhook. For WebRTC sessions, reuse the call ID returned in the C<Location>
+header when creating the call with L<C<POST
+/v1/realtime/calls>|https://platform.openai.com/docs/api-reference/realtime/create-call>.
 
 =back
 
+=head4 Responses
 
-=head3 Responses
-
-
-=head4 Status Code: C<200>
-
-Call hangup initiated successfully.
-
+B<200 - Call hangup initiated successfully.>
 
 =head1 SEE ALSO
 

@@ -104,8 +104,9 @@ sub md_to_pod ($md) {
         $text =~ s/\*\*([^*]+)\*\*/B<$1>/g;
         $text =~ s/(?<![*])\*([^*\n]+)\*(?![*])/I<$1>/g;
 
-        # Links: rewrite /docs/ relative URLs first.
-        $text =~ s{\[([^\]]+)\]\((/docs/[^)]+)\)}
+        # Links: rewrite relative URLs (starting with /) to absolute so that
+        # POD does not interpret them as internal section links.
+        $text =~ s{\[([^\]]+)\]\((/[^)]+)\)}
                   {L<$1|https://platform.openai.com$2>}g;
         $text =~ s{\[([^\]]+)\]\(([^)]+)\)}{L<$1|$2>}g;
 

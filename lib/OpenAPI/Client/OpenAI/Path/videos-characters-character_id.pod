@@ -4,56 +4,53 @@
 
 OpenAPI::Client::OpenAI::Path::videos-characters-character_id - Documentation for the /videos/characters/{character_id} path.
 
-=head1 DESCRIPTION
+=head1 OPERATIONS
 
-This document describes the API endpoint at C</videos/characters/{character_id}>.
+=head2 GET /videos/characters/{character_id}
 
-=head1 PATHS
+=head3 GetVideoCharacter
 
-
-=head2 C<GET /videos/characters/{character_id}>
+  $client->get_video_character({
+      body => { ... },
+  });
 
 Fetch a character.
 
+=head4 Path/query parameters
 
+=over
 
-=head3 Operation ID
-
-C<GetVideoCharacter>
-
-    $client->GetVideoCharacter( ... );
-
-=head3 Parameters
-
-=over 4
-
-=item * C<character_id> (in path) (Required) - The identifier of the character to retrieve.
-
-Type: C<string>
-
-
+=item * C<character_id> (in path, required, string) - The identifier of the character to retrieve.
 
 =back
 
+=head4 Responses
 
-=head3 Responses
+B<200 - Success>
 
+Content-Type: application/json
 
-=head4 Status Code: C<200>
+Example:
 
-Success
+    {
+       "created_at" : 0,
+       "id" : "string",
+       "name" : "string"
+    }
 
+=head1 SCHEMAS
 
-=head4 Content Types:
+=head2 VideoCharacterResource
 
-=over 4
+Properties:
 
+=over
 
-=item * C<application/json>
+=item * C<created_at> (integer, required) - Unix timestamp (in seconds) when the character was created.
 
-Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
+=item * C<id> (anyOf, required)
 
-
+=item * C<name> (anyOf, required)
 
 =back
 

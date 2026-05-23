@@ -4,191 +4,172 @@
 
 OpenAPI::Client::OpenAI::Path::audio-voice_consents-consent_id - Documentation for the /audio/voice_consents/{consent_id} path.
 
-=head1 DESCRIPTION
+=head1 OPERATIONS
 
-This document describes the API endpoint at C</audio/voice_consents/{consent_id}>.
+=head2 DELETE /audio/voice_consents/{consent_id}
 
-=head1 PATHS
+=head3 deleteVoiceConsent
 
-
-=head2 C<DELETE /audio/voice_consents/{consent_id}>
+  $client->delete_voice_consent({
+      body => { ... },
+  });
 
 Deletes a voice consent recording.
 
-
 Delete a consent recording that was uploaded for creating custom voices.
 
-See the L<custom voices guide|https://platform.openai.com/docs/guides/text-to-speech#custom-voices>. Custom voices are limited to eligible customers.
+See the
+L<custom voices guide|https://platform.openai.com/docs/guides/text-to-speech#custom-voices>
+. Custom voices are limited to eligible customers.
 
+=head4 Path/query parameters
 
+=over
 
-=head3 Operation ID
-
-C<deleteVoiceConsent>
-
-    $client->deleteVoiceConsent( ... );
-
-=head3 Parameters
-
-=over 4
-
-=item * C<consent_id> (in path) (Required) - The ID of the consent recording to delete.
-
-Type: C<string>
-
-
+=item * C<consent_id> (in path, required, string) - The ID of the consent recording to delete.
 
 =back
 
+=head4 Responses
 
-=head3 Responses
+B<200 - OK>
 
+Content-Type: application/json
 
-=head4 Status Code: C<200>
-
-OK
-
-
-=head4 Content Types:
-
-=over 4
-
-
-=item * C<application/json>
-
-Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
+Example:
 
     {
-      "object": "audio.voice_consent",
-      "id": "cons_1234",
-      "deleted": true
+       "deleted" : true,
+       "id" : "cons_1234",
+       "object" : "audio.voice_consent"
     }
 
+=head2 GET /audio/voice_consents/{consent_id}
 
-=back
+=head3 getVoiceConsent
 
-=head2 C<GET /audio/voice_consents/{consent_id}>
+  $client->get_voice_consent({
+      body => { ... },
+  });
 
 Retrieves a voice consent recording.
 
-
 Retrieve consent recording metadata used for creating custom voices.
 
-See the L<custom voices guide|https://platform.openai.com/docs/guides/text-to-speech#custom-voices>. Custom voices are limited to eligible customers.
+See the
+L<custom voices guide|https://platform.openai.com/docs/guides/text-to-speech#custom-voices>
+. Custom voices are limited to eligible customers.
 
+=head4 Path/query parameters
 
+=over
 
-=head3 Operation ID
-
-C<getVoiceConsent>
-
-    $client->getVoiceConsent( ... );
-
-=head3 Parameters
-
-=over 4
-
-=item * C<consent_id> (in path) (Required) - The ID of the consent recording to retrieve.
-
-Type: C<string>
-
-
+=item * C<consent_id> (in path, required, string) - The ID of the consent recording to retrieve.
 
 =back
 
+=head4 Responses
 
-=head3 Responses
+B<200 - OK>
 
+Content-Type: application/json
 
-=head4 Status Code: C<200>
-
-OK
-
-
-=head4 Content Types:
-
-=over 4
-
-
-=item * C<application/json>
-
-Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
+Example:
 
     {
-      "object": "audio.voice_consent",
-      "id": "cons_1234",
-      "name": "John Doe",
-      "language": "en-US",
-      "created_at": 1734220800
+       "created_at" : 1734220800,
+       "id" : "cons_1234",
+       "language" : "en-US",
+       "name" : "John Doe",
+       "object" : "audio.voice_consent"
     }
 
+=head2 POST /audio/voice_consents/{consent_id}
 
-=back
+=head3 updateVoiceConsent
 
-=head2 C<POST /audio/voice_consents/{consent_id}>
+  $client->update_voice_consent({
+      body => { ... },
+  });
 
 Updates a voice consent recording (metadata only).
 
+Update consent recording metadata used for creating custom voices. This
+endpoint updates metadata only and does not replace the underlying audio.
 
-Update consent recording metadata used for creating custom voices. This endpoint updates metadata only and does not replace the underlying audio.
+See the
+L<custom voices guide|https://platform.openai.com/docs/guides/text-to-speech#custom-voices>
+. Custom voices are limited to eligible customers.
 
-See the L<custom voices guide|https://platform.openai.com/docs/guides/text-to-speech#custom-voices>. Custom voices are limited to eligible customers.
+=head4 Path/query parameters
 
+=over
 
-
-=head3 Operation ID
-
-C<updateVoiceConsent>
-
-    $client->updateVoiceConsent( ... );
-
-=head3 Parameters
-
-=over 4
-
-=item * C<consent_id> (in path) (Required) - The ID of the consent recording to update.
-
-Type: C<string>
-
-
+=item * C<consent_id> (in path, required, string) - The ID of the consent recording to update.
 
 =back
 
-=head3 Request Body
-  
-=head3 Content Type: C<application/json>
+=head4 Responses
 
-    
-      
+B<200 - OK>
 
-      
-             
+Content-Type: application/json
 
-=head3 Responses
-
-
-=head4 Status Code: C<200>
-
-OK
-
-
-=head4 Content Types:
-
-=over 4
-
-
-=item * C<application/json>
-
-Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
+Example:
 
     {
-      "object": "audio.voice_consent",
-      "id": "cons_1234",
-      "name": "John Doe",
-      "language": "en-US",
-      "created_at": 1734220800
+       "created_at" : 1734220800,
+       "id" : "cons_1234",
+       "language" : "en-US",
+       "name" : "John Doe",
+       "object" : "audio.voice_consent"
     }
 
+=head1 SCHEMAS
+
+=head2 UpdateVoiceConsentRequest
+
+Properties:
+
+=over
+
+=item * C<name> (string, required) - The updated label for this consent recording.
+
+=back
+
+=head2 VoiceConsentDeletedResource
+
+Properties:
+
+=over
+
+=item * C<deleted> (boolean, required)
+
+=item * C<id> (string, required) - The consent recording identifier.
+
+=item * C<object> (string, required)
+
+Allowed values: audio.voice_consent
+
+=back
+
+=head2 VoiceConsentResource
+
+Properties:
+
+=over
+
+=item * C<created_at> (integer, required) - The Unix timestamp (in seconds) for when the consent recording was created.
+
+=item * C<id> (string, required) - The consent recording identifier.
+
+=item * C<language> (string, required) - The BCP 47 language tag for the consent phrase (for example, C<en-US> ).
+
+=item * C<name> (string, required) - The label provided when the consent recording was uploaded.
+
+=item * C<object> (string, required) - The object type, which is always C<audio.voice_consent> .
+
+Allowed values: audio.voice_consent
 
 =back
 

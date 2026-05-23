@@ -4,59 +4,57 @@
 
 OpenAPI::Client::OpenAI::Path::videos-characters - Documentation for the /videos/characters path.
 
-=head1 DESCRIPTION
+=head1 OPERATIONS
 
-This document describes the API endpoint at C</videos/characters>.
+=head2 POST /videos/characters
 
-=head1 PATHS
+=head3 CreateVideoCharacter
 
-
-=head2 C<POST /videos/characters>
+  $client->create_video_character({
+      body => { ... },
+  });
 
 Create a character from an uploaded video.
 
+=head4 Responses
 
+B<200 - Success>
 
-=head3 Operation ID
+Content-Type: application/json
 
-C<CreateVideoCharacter>
+Example:
 
-    $client->CreateVideoCharacter( ... );
+    {
+       "created_at" : 0,
+       "id" : "string",
+       "name" : "string"
+    }
 
-=head3 Parameters
+=head1 SCHEMAS
 
-=over 4
+=head2 CreateVideoCharacterBody
+
+Properties:
+
+=over
+
+=item * C<name> (string, required) - Display name for this API character.
+
+=item * C<video> (string, required) - Video file used to create a character.
 
 =back
 
-=head3 Request Body
-  
-=head3 Content Type: C<multipart/form-data>
+=head2 VideoCharacterResource
 
-    
-      Parameters for creating a character from an uploaded video.
+Properties:
 
-      
-             
+=over
 
-=head3 Responses
+=item * C<created_at> (integer, required) - Unix timestamp (in seconds) when the character was created.
 
+=item * C<id> (anyOf, required)
 
-=head4 Status Code: C<200>
-
-Success
-
-
-=head4 Content Types:
-
-=over 4
-
-
-=item * C<application/json>
-
-Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
-
-
+=item * C<name> (anyOf, required)
 
 =back
 

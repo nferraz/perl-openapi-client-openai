@@ -4,172 +4,163 @@
 
 OpenAPI::Client::OpenAI::Path::projects-project_id-roles - Documentation for the /projects/{project_id}/roles path.
 
-=head1 DESCRIPTION
+=head1 OPERATIONS
 
-This document describes the API endpoint at C</projects/{project_id}/roles>.
+=head2 GET /projects/{project_id}/roles
 
-=head1 PATHS
+=head3 list-project-roles
 
-
-=head2 C<GET /projects/{project_id}/roles>
+  $client->list_project_roles({
+      body => { ... },
+  });
 
 Lists the roles configured for a project.
 
+=head4 Path/query parameters
 
+=over
 
-=head3 Operation ID
+=item * C<project_id> (in path, required, string) - The ID of the project to inspect.
 
-C<list-project-roles>
+=item * C<limit> (in query, optional, integer) - A limit on the number of roles to return. Defaults to 1000.
 
-    $client->list-project-roles( ... );
+Default: 1000
 
-=head3 Parameters
+=item * C<after> (in query, optional, string) - Cursor for pagination. Provide the value from the previous response's C<next>
+field to continue listing roles.
 
-=over 4
+=item * C<order> (in query, optional, string) - Sort order for the returned roles.
 
-=item * C<project_id> (in path) (Required) - The ID of the project to inspect.
+Allowed values: asc, desc
 
-Type: C<string>
-
-
-
-=item * C<limit> (in query) (Optional) - A limit on the number of roles to return. Defaults to 1000.
-
-Type: C<integer>
-
-
-Default: C<1000>
-
-
-=item * C<after> (in query) (Optional) - Cursor for pagination. Provide the value from the previous response's `next` field to continue listing roles.
-
-Type: C<string>
-
-
-
-=item * C<order> (in query) (Optional) - Sort order for the returned roles.
-
-Type: C<string>
-
-Allowed values: C<asc, desc>
-
-
-Default: C<asc>
-
+Default: asc
 
 =back
 
+=head4 Responses
 
-=head3 Responses
+B<200 - Project roles listed successfully.>
 
+Content-Type: application/json
 
-=head4 Status Code: C<200>
-
-Project roles listed successfully.
-
-
-=head4 Content Types:
-
-=over 4
-
-
-=item * C<application/json>
-
-Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
+Example:
 
     {
-        "object": "list",
-        "data": [
-            {
-                "object": "role",
-                "id": "role_01J1F8ROLE01",
-                "name": "API Group Manager",
-                "description": "Allows managing organization groups",
-                "permissions": [
-                    "api.groups.read",
-                    "api.groups.write"
-                ],
-                "resource_type": "api.organization",
-                "predefined_role": false
-            }
-        ],
-        "has_more": false,
-        "next": null
+       "data" : [
+          {
+             "description" : "Allows managing organization groups",
+             "id" : "role_01J1F8ROLE01",
+             "name" : "API Group Manager",
+             "object" : "role",
+             "permissions" : [
+                "api.groups.read",
+                "api.groups.write"
+             ],
+             "predefined_role" : false,
+             "resource_type" : "api.organization"
+          }
+       ],
+       "has_more" : false,
+       "next" : null,
+       "object" : "list"
     }
 
+=head2 POST /projects/{project_id}/roles
 
-=back
+=head3 create-project-role
 
-=head2 C<POST /projects/{project_id}/roles>
+  $client->create_project_role({
+      body => { ... },
+  });
 
 Creates a custom role for a project.
 
+=head4 Path/query parameters
 
+=over
 
-=head3 Operation ID
-
-C<create-project-role>
-
-    $client->create-project-role( ... );
-
-=head3 Parameters
-
-=over 4
-
-=item * C<project_id> (in path) (Required) - The ID of the project to update.
-
-Type: C<string>
-
-
+=item * C<project_id> (in path, required, string) - The ID of the project to update.
 
 =back
 
-=head3 Request Body
-  
-=head3 Content Type: C<application/json>
+=head4 Responses
 
-    
-      Request payload for creating a custom role.
+B<200 - Project role created successfully.>
 
-      
-      
+Content-Type: application/json
+
 Example:
 
-    "{\n    \"role_name\": \"API Group Manager\",\n    \"permissions\": [\n        \"api.groups.read\",\n        \"api.groups.write\"\n    ],\n    \"description\": \"Allows managing organization groups\"\n}\n"
-
-
-             
-
-=head3 Responses
-
-
-=head4 Status Code: C<200>
-
-Project role created successfully.
-
-
-=head4 Content Types:
-
-=over 4
-
-
-=item * C<application/json>
-
-Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
-
     {
-        "object": "role",
-        "id": "role_01J1F8ROLE01",
-        "name": "API Group Manager",
-        "description": "Allows managing organization groups",
-        "permissions": [
-            "api.groups.read",
-            "api.groups.write"
-        ],
-        "resource_type": "api.organization",
-        "predefined_role": false
+       "description" : "Allows managing organization groups",
+       "id" : "role_01J1F8ROLE01",
+       "name" : "API Group Manager",
+       "object" : "role",
+       "permissions" : [
+          "api.groups.read",
+          "api.groups.write"
+       ],
+       "predefined_role" : false,
+       "resource_type" : "api.organization"
     }
 
+=head1 SCHEMAS
+
+=head2 PublicCreateOrganizationRoleBody
+
+Properties:
+
+=over
+
+=item * C<description> (anyOf) - Optional description of the role.
+
+=item * C<permissions> (array of string, required) - Permissions to grant to the role.
+
+=item * C<role_name> (string, required) - Unique name for the role.
+
+=back
+
+=head2 PublicRoleListResource
+
+Properties:
+
+=over
+
+=item * C<data> (array of Role, required) - Roles returned in the current page.
+
+=item * C<has_more> (boolean, required) - Whether more roles are available when paginating.
+
+=item * C<next> (anyOf, required) - Cursor to fetch the next page of results, or C<null> when there are no
+additional roles.
+
+=item * C<object> (string, required) - Always C<list> .
+
+Allowed values: list
+
+=back
+
+=head2 Role
+
+Properties:
+
+=over
+
+=item * C<description> (anyOf, required) - Optional description of the role.
+
+=item * C<id> (string, required) - Identifier for the role.
+
+=item * C<name> (string, required) - Unique name for the role.
+
+=item * C<object> (string, required) - Always C<role> .
+
+Allowed values: role
+
+=item * C<permissions> (array of string, required) - Permissions granted by the role.
+
+=item * C<predefined_role> (boolean, required) - Whether the role is predefined and managed by OpenAI.
+
+=item * C<resource_type> (string, required) - Resource type the role is bound to (for example C<api.organization> or
+C<api.project> ).
 
 =back
 

@@ -4,187 +4,154 @@
 
 OpenAPI::Client::OpenAI::Path::organization-projects-project_id-model_permissions - Documentation for the /organization/projects/{project_id}/model_permissions path.
 
-=head1 DESCRIPTION
+=head1 OPERATIONS
 
-This document describes the API endpoint at C</organization/projects/{project_id}/model_permissions>.
+=head2 DELETE /organization/projects/{project_id}/model_permissions
 
-=head1 PATHS
+=head3 delete-project-model-permissions
 
-
-=head2 C<DELETE /organization/projects/{project_id}/model_permissions>
+  $client->delete_project_model_permissions({
+      body => { ... },
+  });
 
 Deletes model permissions for a project.
 
+=head4 Path/query parameters
 
+=over
 
-=head3 Operation ID
-
-C<delete-project-model-permissions>
-
-    $client->delete-project-model-permissions( ... );
-
-=head3 Parameters
-
-=over 4
-
-=item * C<project_id> (in path) (Required) - The ID of the project.
-
-Type: C<string>
-
-
+=item * C<project_id> (in path, required, string) - The ID of the project.
 
 =back
 
+=head4 Responses
 
-=head3 Responses
+B<200 - Project model permissions deleted successfully.>
 
+Content-Type: application/json
 
-=head4 Status Code: C<200>
-
-Project model permissions deleted successfully.
-
-
-=head4 Content Types:
-
-=over 4
-
-
-=item * C<application/json>
-
-Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
-
-    {
-        "object": "project.model_permissions.deleted",
-        "deleted": true
-    }
-
-
-=back
-
-=head2 C<GET /organization/projects/{project_id}/model_permissions>
-
-Returns model permissions for a project.
-
-
-
-=head3 Operation ID
-
-C<retrieve-project-model-permissions>
-
-    $client->retrieve-project-model-permissions( ... );
-
-=head3 Parameters
-
-=over 4
-
-=item * C<project_id> (in path) (Required) - The ID of the project.
-
-Type: C<string>
-
-
-
-=back
-
-
-=head3 Responses
-
-
-=head4 Status Code: C<200>
-
-Project model permissions retrieved successfully.
-
-
-=head4 Content Types:
-
-=over 4
-
-
-=item * C<application/json>
-
-Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
-
-    {
-        "object": "project.model_permissions",
-        "mode": "allow_list",
-        "model_ids": [
-            "gpt-4.1",
-            "o3"
-        ]
-    }
-
-
-=back
-
-=head2 C<POST /organization/projects/{project_id}/model_permissions>
-
-Updates model permissions for a project.
-
-
-
-=head3 Operation ID
-
-C<update-project-model-permissions>
-
-    $client->update-project-model-permissions( ... );
-
-=head3 Parameters
-
-=over 4
-
-=item * C<project_id> (in path) (Required) - The ID of the project.
-
-Type: C<string>
-
-
-
-=back
-
-=head3 Request Body
-  
-=head3 Content Type: C<application/json>
-
-    
-      
-
-      
-      
 Example:
 
     {
-       "model_ids" : [
-          null
-       ]
+       "deleted" : true,
+       "object" : "project.model_permissions.deleted"
     }
 
+=head2 GET /organization/projects/{project_id}/model_permissions
 
-             
+=head3 retrieve-project-model-permissions
 
-=head3 Responses
+  $client->retrieve_project_model_permissions({
+      body => { ... },
+  });
 
+Returns model permissions for a project.
 
-=head4 Status Code: C<200>
+=head4 Path/query parameters
 
-Project model permissions updated successfully.
+=over
 
+=item * C<project_id> (in path, required, string) - The ID of the project.
 
-=head4 Content Types:
+=back
 
-=over 4
+=head4 Responses
 
+B<200 - Project model permissions retrieved successfully.>
 
-=item * C<application/json>
+Content-Type: application/json
 
-Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
+Example:
 
     {
-        "object": "project.model_permissions",
-        "mode": "allow_list",
-        "model_ids": [
-            "gpt-4.1",
-            "o3"
-        ]
+       "mode" : "allow_list",
+       "model_ids" : [
+          "gpt-4.1",
+          "o3"
+       ],
+       "object" : "project.model_permissions"
     }
 
+=head2 POST /organization/projects/{project_id}/model_permissions
+
+=head3 update-project-model-permissions
+
+  $client->update_project_model_permissions({
+      body => { ... },
+  });
+
+Updates model permissions for a project.
+
+=head4 Path/query parameters
+
+=over
+
+=item * C<project_id> (in path, required, string) - The ID of the project.
+
+=back
+
+=head4 Responses
+
+B<200 - Project model permissions updated successfully.>
+
+Content-Type: application/json
+
+Example:
+
+    {
+       "mode" : "allow_list",
+       "model_ids" : [
+          "gpt-4.1",
+          "o3"
+       ],
+       "object" : "project.model_permissions"
+    }
+
+=head1 SCHEMAS
+
+=head2 ProjectModelPermissions
+
+Properties:
+
+=over
+
+=item * C<mode> (string, required) - Whether the project uses an allowlist or a denylist.
+
+Allowed values: allow_list, deny_list
+
+=item * C<model_ids> (array of string, required) - The model IDs included in the model permissions policy.
+
+=item * C<object> (string, required) - The object type, which is always C<project.model_permissions> .
+
+Allowed values: project.model_permissions
+
+=back
+
+=head2 ProjectModelPermissionsDeleteResponse
+
+Properties:
+
+=over
+
+=item * C<deleted> (boolean, required) - Whether the project model permissions were deleted.
+
+=item * C<object> (string, required) - The object type, which is always C<project.model_permissions.deleted> .
+
+Allowed values: project.model_permissions.deleted
+
+=back
+
+=head2 ProjectModelPermissionsUpdateRequest
+
+Properties:
+
+=over
+
+=item * C<mode> (string, required) - The model permissions mode to apply.
+
+Allowed values: allow_list, deny_list
+
+=item * C<model_ids> (array of string, required) - The model IDs included in this permissions policy.
 
 =back
 

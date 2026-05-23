@@ -4,164 +4,165 @@
 
 OpenAPI::Client::OpenAI::Path::skills-skill_id - Documentation for the /skills/{skill_id} path.
 
-=head1 DESCRIPTION
+=head1 OPERATIONS
 
-This document describes the API endpoint at C</skills/{skill_id}>.
+=head2 DELETE /skills/{skill_id}
 
-=head1 PATHS
+=head3 DeleteSkill
 
-
-=head2 C<DELETE /skills/{skill_id}>
+  $client->delete_skill({
+      body => { ... },
+  });
 
 Delete a skill by its ID.
 
+=head4 Path/query parameters
 
+=over
 
-=head3 Operation ID
-
-C<DeleteSkill>
-
-    $client->DeleteSkill( ... );
-
-=head3 Parameters
-
-=over 4
-
-=item * C<skill_id> (in path) (Required) - The identifier of the skill to delete.
-
-Type: C<string>
-
-
+=item * C<skill_id> (in path, required, string) - The identifier of the skill to delete.
 
 =back
 
+=head4 Responses
 
-=head3 Responses
+B<200 - Success>
 
+Content-Type: application/json
 
-=head4 Status Code: C<200>
+Example:
 
-Success
+    {
+       "deleted" : false,
+       "id" : "string",
+       "object" : "skill.deleted"
+    }
 
+=head2 GET /skills/{skill_id}
 
-=head4 Content Types:
+=head3 GetSkill
 
-=over 4
-
-
-=item * C<application/json>
-
-Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
-
-
-
-=back
-
-=head2 C<GET /skills/{skill_id}>
+  $client->get_skill({
+      body => { ... },
+  });
 
 Get a skill by its ID.
 
+=head4 Path/query parameters
 
+=over
 
-=head3 Operation ID
-
-C<GetSkill>
-
-    $client->GetSkill( ... );
-
-=head3 Parameters
-
-=over 4
-
-=item * C<skill_id> (in path) (Required) - The identifier of the skill to retrieve.
-
-Type: C<string>
-
-
+=item * C<skill_id> (in path, required, string) - The identifier of the skill to retrieve.
 
 =back
 
+=head4 Responses
 
-=head3 Responses
+B<200 - Success>
 
+Content-Type: application/json
 
-=head4 Status Code: C<200>
+Example:
 
-Success
+    {
+       "created_at" : 0,
+       "default_version" : "string",
+       "description" : "string",
+       "id" : "string",
+       "latest_version" : "string",
+       "name" : "string",
+       "object" : "skill"
+    }
 
+=head2 POST /skills/{skill_id}
 
-=head4 Content Types:
+=head3 UpdateSkillDefaultVersion
 
-=over 4
-
-
-=item * C<application/json>
-
-Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
-
-
-
-=back
-
-=head2 C<POST /skills/{skill_id}>
+  $client->update_skill_default_version({
+      body => { ... },
+  });
 
 Update the default version pointer for a skill.
 
+=head4 Path/query parameters
 
+=over
 
-=head3 Operation ID
-
-C<UpdateSkillDefaultVersion>
-
-    $client->UpdateSkillDefaultVersion( ... );
-
-=head3 Parameters
-
-=over 4
-
-=item * C<skill_id> (in path) (Required) - The identifier of the skill.
-
-Type: C<string>
-
-
+=item * C<skill_id> (in path, required, string) - The identifier of the skill.
 
 =back
 
-=head3 Request Body
-  
-=head3 Content Type: C<application/json>
+=head4 Responses
 
-    
-      Updates the default version pointer for a skill.
+B<200 - Success>
 
-      
-             
-=head3 Content Type: C<application/x-www-form-urlencoded>
+Content-Type: application/json
 
-    
-      Updates the default version pointer for a skill.
+Example:
 
-      
-             
+    {
+       "created_at" : 0,
+       "default_version" : "string",
+       "description" : "string",
+       "id" : "string",
+       "latest_version" : "string",
+       "name" : "string",
+       "object" : "skill"
+    }
 
-=head3 Responses
+=head1 SCHEMAS
 
+=head2 DeletedSkillResource
 
-=head4 Status Code: C<200>
+Properties:
 
-Success
+=over
 
+=item * C<deleted> (boolean, required)
 
-=head4 Content Types:
+=item * C<id> (string, required)
 
-=over 4
+=item * C<object> (string, required)
 
+Allowed values: skill.deleted
 
-=item * C<application/json>
+Default: skill.deleted
 
-Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
+=back
 
+=head2 SetDefaultSkillVersionBody
 
+Properties:
+
+=over
+
+=item * C<default_version> (string, required) - The skill version number to set as default.
+
+=back
+
+=head2 SkillResource
+
+Properties:
+
+=over
+
+=item * C<created_at> (integer, required) - Unix timestamp (seconds) for when the skill was created.
+
+=item * C<default_version> (string, required) - Default version for the skill.
+
+=item * C<description> (string, required) - Description of the skill.
+
+=item * C<id> (string, required) - Unique identifier for the skill.
+
+=item * C<latest_version> (string, required) - Latest version for the skill.
+
+=item * C<name> (string, required) - Name of the skill.
+
+=item * C<object> (string, required) - The object type, which is C<skill> .
+
+Allowed values: skill
+
+Default: skill
 
 =back
 

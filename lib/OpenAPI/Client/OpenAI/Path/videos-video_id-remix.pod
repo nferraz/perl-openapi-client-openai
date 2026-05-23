@@ -4,74 +4,121 @@
 
 OpenAPI::Client::OpenAI::Path::videos-video_id-remix - Documentation for the /videos/{video_id}/remix path.
 
-=head1 DESCRIPTION
+=head1 OPERATIONS
 
-This document describes the API endpoint at C</videos/{video_id}/remix>.
+=head2 POST /videos/{video_id}/remix
 
-=head1 PATHS
+=head3 CreateVideoRemix
 
-
-=head2 C<POST /videos/{video_id}/remix>
+  $client->create_video_remix({
+      body => { ... },
+  });
 
 Create a remix of a completed video using a refreshed prompt.
 
+=head4 Path/query parameters
 
+=over
 
-=head3 Operation ID
-
-C<CreateVideoRemix>
-
-    $client->CreateVideoRemix( ... );
-
-=head3 Parameters
-
-=over 4
-
-=item * C<video_id> (in path) (Required) - The identifier of the completed video to remix.
-
-Type: C<string>
-
-
+=item * C<video_id> (in path, required, string) - The identifier of the completed video to remix.
 
 =back
 
-=head3 Request Body
-  
-=head3 Content Type: C<application/json>
+=head4 Responses
 
-    
-      Parameters for remixing an existing generated video.
+B<200 - Success>
 
-      
-             
-=head3 Content Type: C<multipart/form-data>
+Content-Type: application/json
 
-    
-      Parameters for remixing an existing generated video.
+Example:
 
-      
-             
+    {
+       "completed_at" : 0,
+       "created_at" : 0,
+       "error" : {
+          "code" : "string",
+          "message" : "string"
+       },
+       "expires_at" : 0,
+       "id" : "string",
+       "model" : null,
+       "object" : "video",
+       "progress" : 0,
+       "prompt" : "string",
+       "remixed_from_video_id" : "string",
+       "seconds" : "string",
+       "size" : null,
+       "status" : null
+    }
 
-=head3 Responses
+=head1 SCHEMAS
 
+=head2 CreateVideoRemixBody
 
-=head4 Status Code: C<200>
+Properties:
 
-Success
+=over
 
-
-=head4 Content Types:
-
-=over 4
-
-
-=item * C<application/json>
-
-Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
-
-
+=item * C<prompt> (string, required) - Updated text prompt that directs the remix generation.
 
 =back
+
+=head2 VideoModel
+
+See L<https://platform.openai.com/docs/api-reference> for details.
+
+=head2 VideoResource
+
+Properties:
+
+=over
+
+=item * C<completed_at> (anyOf, required)
+
+=item * C<created_at> (integer, required) - Unix timestamp (seconds) for when the job was created.
+
+=item * C<error> (anyOf, required)
+
+=item * C<expires_at> (anyOf, required)
+
+=item * C<id> (string, required) - Unique identifier for the video job.
+
+=item * C<model> (VideoModel, required) - The video generation model that produced the job.
+
+See L</VideoModel> below for shape.
+
+=item * C<object> (string, required) - The object type, which is always C<video> .
+
+Allowed values: video
+
+Default: video
+
+=item * C<progress> (integer, required) - Approximate completion percentage for the generation task.
+
+=item * C<prompt> (anyOf, required)
+
+=item * C<remixed_from_video_id> (anyOf, required)
+
+=item * C<seconds> (string, required) - Duration of the generated clip in seconds. For extensions, this is the
+stitched total duration.
+
+=item * C<size> (VideoSize, required) - The resolution of the generated video.
+
+See L</VideoSize> below for shape.
+
+=item * C<status> (VideoStatus, required) - Current lifecycle status of the video job.
+
+See L</VideoStatus> below for shape.
+
+=back
+
+=head2 VideoSize
+
+See L<https://platform.openai.com/docs/api-reference> for details.
+
+=head2 VideoStatus
+
+See L<https://platform.openai.com/docs/api-reference> for details.
 
 =head1 SEE ALSO
 

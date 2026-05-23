@@ -4,70 +4,76 @@
 
 OpenAPI::Client::OpenAI::Path::audio-voices - Documentation for the /audio/voices path.
 
-=head1 DESCRIPTION
+=head1 OPERATIONS
 
-This document describes the API endpoint at C</audio/voices>.
+=head2 POST /audio/voices
 
-=head1 PATHS
+=head3 createVoice
 
-
-=head2 C<POST /audio/voices>
+  $client->create_voice({
+      body => { ... },
+  });
 
 Creates a custom voice.
 
+Create a custom voice you can use for audio output (for example, in
+Text-to-Speech and the Realtime API). This requires an audio sample and a
+previously uploaded consent recording.
 
-Create a custom voice you can use for audio output (for example, in Text-to-Speech and the Realtime API). This requires an audio sample and a previously uploaded consent recording.
+See the
+L<custom voices guide|https://platform.openai.com/docs/guides/text-to-speech#custom-voices>
+for requirements and best practices. Custom voices are limited to eligible
+customers.
 
-See the L<custom voices guide|https://platform.openai.com/docs/guides/text-to-speech#custom-voices> for requirements and best practices. Custom voices are limited to eligible customers.
+=head4 Responses
 
+B<200 - OK>
 
+Content-Type: application/json
 
-=head3 Operation ID
+Example:
 
-C<createVoice>
+    {
+       "created_at" : 1734220800,
+       "id" : "voice_123abc",
+       "name" : "My new voice",
+       "object" : "audio.voice"
+    }
 
-    $client->createVoice( ... );
+=head1 SCHEMAS
 
-=head3 Parameters
+=head2 CreateVoiceRequest
 
-=over 4
+Properties:
+
+=over
+
+=item * C<audio_sample> (string, required) - The sample audio recording file. Maximum size is 10 MiB.
+
+Supported MIME types: C<audio/mpeg> , C<audio/wav> , C<audio/x-wav> ,
+C<audio/ogg> , C<audio/aac> , C<audio/flac> , C<audio/webm> , C<audio/mp4> .
+
+=item * C<consent> (string, required) - The consent recording ID (for example, C<cons_1234> ).
+
+=item * C<name> (string, required) - The name of the new voice.
 
 =back
 
-=head3 Request Body
-  
-=head3 Content Type: C<multipart/form-data>
+=head2 VoiceResource
 
-    
-      
+Properties:
 
-      
-             
+=over
 
-=head3 Responses
+=item * C<created_at> (integer, required) - The Unix timestamp (in seconds) for when the voice was created.
 
+=item * C<id> (string, required) - The voice identifier, which can be referenced in API endpoints.
 
-=head4 Status Code: C<200>
+=item * C<name> (string, required) - The name of the voice.
 
-OK
+=item * C<object> (string, required) - The object type, which is always C<audio.voice> .
 
-
-=head4 Content Types:
-
-=over 4
-
-
-=item * C<application/json>
-
-Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
-
-    {
-      "object": "audio.voice",
-      "id": "voice_123abc",
-      "name": "My new voice",
-      "created_at": 1734220800
-    }
-
+Allowed values: audio.voice
 
 =back
 

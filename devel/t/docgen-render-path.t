@@ -70,15 +70,16 @@ my $rb_count = () = $pod_multi =~ /=head4 Request body/g;
 is $rb_count, 1, 'Request body heading appears exactly once across multiple content-types';
 delete $spec->paths->{'/multi'};
 
-# Regression: a component with no properties does not produce an empty =head2.
+# A component with no properties still gets a =head2 heading (with a fallback
+# note) so that any L</Empty> links in the file remain valid.
 my $empty_schema = { type => 'object' };   # no properties
 my %scratch;
 my @output;
 my $rec_emit  = sub { push @output, @_ };
 my $rec_blank = sub { push @output, '' };
 $renderer->_emit_schemas_section( $rec_emit, $rec_blank, { Empty => $empty_schema } );
-ok !( grep { /=head2 Empty/ } @output ),
-    'property-less component is suppressed from SCHEMAS section';
+ok scalar( grep { /=head2 Empty/ } @output ),
+    'property-less component still gets =head2 heading for link validity';
 
 # Regression: a property-less request body suppresses the entire Request body section.
 my $no_props_request = {

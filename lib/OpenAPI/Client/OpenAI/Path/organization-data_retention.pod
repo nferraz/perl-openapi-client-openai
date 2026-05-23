@@ -4,107 +4,81 @@
 
 OpenAPI::Client::OpenAI::Path::organization-data_retention - Documentation for the /organization/data_retention path.
 
-=head1 DESCRIPTION
+=head1 OPERATIONS
 
-This document describes the API endpoint at C</organization/data_retention>.
+=head2 GET /organization/data_retention
 
-=head1 PATHS
+=head3 retrieve-organization-data-retention
 
-
-=head2 C<GET /organization/data_retention>
+  $client->retrieve_organization_data_retention({
+      body => { ... },
+  });
 
 Retrieves organization data retention controls.
 
+=head4 Responses
 
+B<200 - Organization data retention controls retrieved successfully.>
 
-=head3 Operation ID
+Content-Type: application/json
 
-C<retrieve-organization-data-retention>
-
-    $client->retrieve-organization-data-retention( ... );
-
-=head3 Parameters
-
-=over 4
-
-=back
-
-
-=head3 Responses
-
-
-=head4 Status Code: C<200>
-
-Organization data retention controls retrieved successfully.
-
-
-=head4 Content Types:
-
-=over 4
-
-
-=item * C<application/json>
-
-Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
+Example:
 
     {
-        "object": "organization.data_retention",
-        "type": "modified_abuse_monitoring"
+       "object" : "organization.data_retention",
+       "type" : "modified_abuse_monitoring"
     }
 
+=head2 POST /organization/data_retention
 
-=back
+=head3 update-organization-data-retention
 
-=head2 C<POST /organization/data_retention>
+  $client->update_organization_data_retention({
+      body => { ... },
+  });
 
 Updates organization data retention controls.
 
+=head4 Responses
 
+B<200 - Organization data retention controls updated successfully.>
 
-=head3 Operation ID
+Content-Type: application/json
 
-C<update-organization-data-retention>
+Example:
 
-    $client->update-organization-data-retention( ... );
+    {
+       "object" : "organization.data_retention",
+       "type" : "modified_abuse_monitoring"
+    }
 
-=head3 Parameters
+=head1 SCHEMAS
 
-=over 4
+=head2 OrganizationDataRetention
+
+Properties:
+
+=over
+
+=item * C<object> (string, required) - The object type, which is always C<organization.data_retention> .
+
+Allowed values: organization.data_retention
+
+=item * C<type> (string, required) - The configured organization data retention type.
+
+Allowed values: zero_data_retention, modified_abuse_monitoring, enhanced_zero_data_retention, enhanced_modified_abuse_monitoring
 
 =back
 
-=head3 Request Body
-  
-=head3 Content Type: C<application/json>
+=head2 UpdateOrganizationDataRetentionBody
 
-    
-      Parameters for updating organization data retention controls.
+Properties:
 
-      
-             
+=over
 
-=head3 Responses
+=item * C<retention_type> (string, required) - The desired organization data retention type.
 
-
-=head4 Status Code: C<200>
-
-Organization data retention controls updated successfully.
-
-
-=head4 Content Types:
-
-=over 4
-
-
-=item * C<application/json>
-
-Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
-
-    {
-        "object": "organization.data_retention",
-        "type": "modified_abuse_monitoring"
-    }
-
+Allowed values: zero_data_retention, modified_abuse_monitoring, enhanced_zero_data_retention, enhanced_modified_abuse_monitoring
 
 =back
 

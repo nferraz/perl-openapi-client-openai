@@ -4,66 +4,31 @@
 
 OpenAPI::Client::OpenAI::Path::responses-compact - Documentation for the /responses/compact path.
 
-=head1 DESCRIPTION
+=head1 OPERATIONS
 
-This document describes the API endpoint at C</responses/compact>.
+=head2 POST /responses/compact
 
-=head1 PATHS
+=head3 Compactconversation
 
-
-=head2 C<POST /responses/compact>
+  $client->compactconversation({
+      body => { ... },
+  });
 
 Compact a conversation. Returns a compacted response object.
 
-Learn when and how to compact long-running conversations in the L<conversation state guide|https://platform.openai.com/docs/guides/conversation-state#managing-the-context-window>. For ZDR-compatible compaction details, see L<Compaction (advanced)|https://platform.openai.com/docs/guides/conversation-state#compaction-advanced>.
+Learn when and how to compact long-running conversations in the
+L<conversation state guide|https://platform.openai.com/docs/guides/conversation-state#managing-the-context-window>
+. For ZDR-compatible compaction details, see
+L<Compaction (advanced)|https://platform.openai.com/docs/guides/conversation-state#compaction-advanced>
+.
 
+=head4 Responses
 
+B<200 - Success>
 
-=head3 Operation ID
+Content-Type: application/json
 
-C<Compactconversation>
-
-    $client->Compactconversation( ... );
-
-=head3 Parameters
-
-=over 4
-
-=back
-
-=head3 Request Body
-  
-=head3 Content Type: C<application/json>
-
-    
-      
-
-      
-             
-=head3 Content Type: C<application/x-www-form-urlencoded>
-
-    
-      
-
-      
-             
-
-=head3 Responses
-
-
-=head4 Status Code: C<200>
-
-Success
-
-
-=head4 Content Types:
-
-=over 4
-
-
-=item * C<application/json>
-
-Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
+Example:
 
     {
        "created_at" : 1731459200,
@@ -103,6 +68,85 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
        }
     }
 
+=head1 SCHEMAS
+
+=head2 CompactResource
+
+Properties:
+
+=over
+
+=item * C<created_at> (integer, required) - Unix timestamp (in seconds) when the compacted conversation was created.
+
+=item * C<id> (string, required) - The unique identifier for the compacted response.
+
+=item * C<object> (string, required) - The object type. Always C<response.compaction> .
+
+Allowed values: response.compaction
+
+Default: response.compaction
+
+=item * C<output> (array of ItemField, required) - The compacted list of output items.
+
+=item * C<usage> (ResponseUsage, required) - Token accounting for the compaction pass, including cached, reasoning, and
+total tokens.
+
+See L</ResponseUsage> below for shape.
+
+=back
+
+=head2 CompactResponseMethodPublicBody
+
+Properties:
+
+=over
+
+=item * C<input> (anyOf)
+
+=item * C<instructions> (anyOf)
+
+=item * C<model> (ModelIdsCompaction, required)
+
+See L</ModelIdsCompaction> below for shape.
+
+=item * C<previous_response_id> (anyOf)
+
+=item * C<prompt_cache_key> (anyOf)
+
+=item * C<prompt_cache_retention> (anyOf)
+
+=item * C<service_tier> (anyOf)
+
+=back
+
+=head2 ItemField
+
+An item representing a message, tool call, tool output, reasoning, or other
+response element.
+
+=head2 ModelIdsCompaction
+
+Model ID used to generate the response, like C<gpt-5> or C<o3> . OpenAI offers
+a wide range of models with different capabilities, performance
+characteristics, and price points. Refer to the
+L<model guide|https://platform.openai.com/docs/models> to browse and compare
+available models.
+
+=head2 ResponseUsage
+
+Properties:
+
+=over
+
+=item * C<input_tokens> (integer, required) - The number of input tokens.
+
+=item * C<input_tokens_details> (object, required) - A detailed breakdown of the input tokens.
+
+=item * C<output_tokens> (integer, required) - The number of output tokens.
+
+=item * C<output_tokens_details> (object, required) - A detailed breakdown of the output tokens.
+
+=item * C<total_tokens> (integer, required) - The total number of tokens used.
 
 =back
 

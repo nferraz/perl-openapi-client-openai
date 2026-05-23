@@ -4,126 +4,113 @@
 
 OpenAPI::Client::OpenAI::Path::organization-groups-group_id-users-user_id - Documentation for the /organization/groups/{group_id}/users/{user_id} path.
 
-=head1 DESCRIPTION
+=head1 OPERATIONS
 
-This document describes the API endpoint at C</organization/groups/{group_id}/users/{user_id}>.
+=head2 DELETE /organization/groups/{group_id}/users/{user_id}
 
-=head1 PATHS
+=head3 remove-group-user
 
-
-=head2 C<DELETE /organization/groups/{group_id}/users/{user_id}>
+  $client->remove_group_user({
+      body => { ... },
+  });
 
 Removes a user from a group.
 
+=head4 Path/query parameters
 
+=over
 
-=head3 Operation ID
+=item * C<group_id> (in path, required, string) - The ID of the group to update.
 
-C<remove-group-user>
-
-    $client->remove-group-user( ... );
-
-=head3 Parameters
-
-=over 4
-
-=item * C<group_id> (in path) (Required) - The ID of the group to update.
-
-Type: C<string>
-
-
-
-=item * C<user_id> (in path) (Required) - The ID of the user to remove from the group.
-
-Type: C<string>
-
-
+=item * C<user_id> (in path, required, string) - The ID of the user to remove from the group.
 
 =back
 
+=head4 Responses
 
-=head3 Responses
+B<200 - User removed from the group successfully.>
 
+Content-Type: application/json
 
-=head4 Status Code: C<200>
-
-User removed from the group successfully.
-
-
-=head4 Content Types:
-
-=over 4
-
-
-=item * C<application/json>
-
-Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
+Example:
 
     {
-        "object": "group.user.deleted",
-        "deleted": true
+       "deleted" : true,
+       "object" : "group.user.deleted"
     }
 
+=head2 GET /organization/groups/{group_id}/users/{user_id}
 
-=back
+=head3 retrieve-group-user
 
-=head2 C<GET /organization/groups/{group_id}/users/{user_id}>
+  $client->retrieve_group_user({
+      body => { ... },
+  });
 
 Retrieves a user in a group.
 
+=head4 Path/query parameters
 
+=over
 
-=head3 Operation ID
+=item * C<group_id> (in path, required, string) - The ID of the group to inspect.
 
-C<retrieve-group-user>
-
-    $client->retrieve-group-user( ... );
-
-=head3 Parameters
-
-=over 4
-
-=item * C<group_id> (in path) (Required) - The ID of the group to inspect.
-
-Type: C<string>
-
-
-
-=item * C<user_id> (in path) (Required) - The ID of the user to retrieve from the group.
-
-Type: C<string>
-
-
+=item * C<user_id> (in path, required, string) - The ID of the user to retrieve from the group.
 
 =back
 
+=head4 Responses
 
-=head3 Responses
+B<200 - User retrieved from the group successfully.>
 
+Content-Type: application/json
 
-=head4 Status Code: C<200>
-
-User retrieved from the group successfully.
-
-
-=head4 Content Types:
-
-=over 4
-
-
-=item * C<application/json>
-
-Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
+Example:
 
     {
-        "id": "user_abc123",
-        "name": "Ada Lovelace",
-        "email": "ada@example.com",
-        "picture": null,
-        "is_service_account": false,
-        "user_type": "user"
+       "email" : "ada@example.com",
+       "id" : "user_abc123",
+       "is_service_account" : false,
+       "name" : "Ada Lovelace",
+       "picture" : null,
+       "user_type" : "user"
     }
 
+=head1 SCHEMAS
+
+=head2 GroupMemberUser
+
+Properties:
+
+=over
+
+=item * C<email> (anyOf, required) - Email address of the user, or C<null> for users without an email.
+
+=item * C<id> (string, required) - Identifier for the user.
+
+=item * C<is_service_account> (anyOf, required) - Whether the user is a service account.
+
+=item * C<name> (string, required) - Display name of the user.
+
+=item * C<picture> (anyOf, required) - URL of the user's profile picture, if available.
+
+=item * C<user_type> (string, required) - The type of user.
+
+Allowed values: user, tenant_user
+
+=back
+
+=head2 GroupUserDeletedResource
+
+Properties:
+
+=over
+
+=item * C<deleted> (boolean, required) - Whether the group membership was removed.
+
+=item * C<object> (string, required) - Always C<group.user.deleted> .
+
+Allowed values: group.user.deleted
 
 =back
 

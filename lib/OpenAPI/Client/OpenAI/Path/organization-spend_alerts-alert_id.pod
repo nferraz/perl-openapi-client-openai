@@ -4,135 +4,162 @@
 
 OpenAPI::Client::OpenAI::Path::organization-spend_alerts-alert_id - Documentation for the /organization/spend_alerts/{alert_id} path.
 
-=head1 DESCRIPTION
+=head1 OPERATIONS
 
-This document describes the API endpoint at C</organization/spend_alerts/{alert_id}>.
+=head2 DELETE /organization/spend_alerts/{alert_id}
 
-=head1 PATHS
+=head3 delete-organization-spend-alert
 
-
-=head2 C<DELETE /organization/spend_alerts/{alert_id}>
+  $client->delete_organization_spend_alert({
+      body => { ... },
+  });
 
 Deletes an organization spend alert.
 
+=head4 Path/query parameters
 
+=over
 
-=head3 Operation ID
-
-C<delete-organization-spend-alert>
-
-    $client->delete-organization-spend-alert( ... );
-
-=head3 Parameters
-
-=over 4
-
-=item * C<alert_id> (in path) (Required) - The ID of the spend alert to delete.
-
-Type: C<string>
-
-
+=item * C<alert_id> (in path, required, string) - The ID of the spend alert to delete.
 
 =back
 
+=head4 Responses
 
-=head3 Responses
+B<200 - Organization spend alert deleted successfully.>
 
+Content-Type: application/json
 
-=head4 Status Code: C<200>
-
-Organization spend alert deleted successfully.
-
-
-=head4 Content Types:
-
-=over 4
-
-
-=item * C<application/json>
-
-Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
-
-
-
-=back
-
-=head2 C<POST /organization/spend_alerts/{alert_id}>
-
-Updates an organization spend alert.
-
-
-
-=head3 Operation ID
-
-C<update-organization-spend-alert>
-
-    $client->update-organization-spend-alert( ... );
-
-=head3 Parameters
-
-=over 4
-
-=item * C<alert_id> (in path) (Required) - The ID of the spend alert to update.
-
-Type: C<string>
-
-
-
-=back
-
-=head3 Request Body
-  
-=head3 Content Type: C<application/json>
-
-    
-      Parameters for creating or updating a spend alert.
-
-      
-      
 Example:
 
     {
-       "notification_channel" : {
-          "recipients" : [
-             null
-          ]
-       }
+       "deleted" : false,
+       "id" : "string",
+       "object" : "organization.spend_alert.deleted"
     }
 
+=head2 POST /organization/spend_alerts/{alert_id}
 
-             
+=head3 update-organization-spend-alert
 
-=head3 Responses
+  $client->update_organization_spend_alert({
+      body => { ... },
+  });
 
+Updates an organization spend alert.
 
-=head4 Status Code: C<200>
+=head4 Path/query parameters
 
-Organization spend alert updated successfully.
+=over
 
+=item * C<alert_id> (in path, required, string) - The ID of the spend alert to update.
 
-=head4 Content Types:
+=back
 
-=over 4
+=head4 Responses
 
+B<200 - Organization spend alert updated successfully.>
 
-=item * C<application/json>
+Content-Type: application/json
 
-Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
+Example:
 
     {
-        "id": "alert_abc123",
-        "object": "organization.spend_alert",
-        "threshold_amount": 100000,
-        "currency": "USD",
-        "interval": "month",
-        "notification_channel": {
-            "type": "email",
-            "recipients": ["finance@example.com"],
-            "subject_prefix": "OpenAI spend alert"
-        }
+       "currency" : "USD",
+       "id" : "alert_abc123",
+       "interval" : "month",
+       "notification_channel" : {
+          "recipients" : [
+             "finance@example.com"
+          ],
+          "subject_prefix" : "OpenAI spend alert",
+          "type" : "email"
+       },
+       "object" : "organization.spend_alert",
+       "threshold_amount" : 100000
     }
 
+=head1 SCHEMAS
+
+=head2 CreateSpendAlertBody
+
+Properties:
+
+=over
+
+=item * C<currency> (string, required) - The currency for the threshold amount.
+
+Allowed values: USD
+
+=item * C<interval> (string, required) - The time interval for evaluating spend against the threshold.
+
+Allowed values: month
+
+=item * C<notification_channel> (SpendAlertNotificationChannel, required)
+
+See L</SpendAlertNotificationChannel> below for shape.
+
+=item * C<threshold_amount> (integer, required) - The alert threshold amount, in cents.
+
+=back
+
+=head2 OrganizationSpendAlert
+
+Properties:
+
+=over
+
+=item * C<currency> (string, required) - The currency for the threshold amount.
+
+Allowed values: USD
+
+=item * C<id> (string, required) - The identifier, which can be referenced in API endpoints.
+
+=item * C<interval> (string, required) - The time interval for evaluating spend against the threshold.
+
+Allowed values: month
+
+=item * C<notification_channel> (SpendAlertNotificationChannel, required)
+
+See L</SpendAlertNotificationChannel> below for shape.
+
+=item * C<object> (string, required) - The object type, which is always C<organization.spend_alert> .
+
+Allowed values: organization.spend_alert
+
+=item * C<threshold_amount> (integer, required) - The alert threshold amount, in cents.
+
+=back
+
+=head2 OrganizationSpendAlertDeletedResource
+
+Properties:
+
+=over
+
+=item * C<deleted> (boolean, required) - Whether the spend alert was deleted.
+
+=item * C<id> (string, required) - The deleted spend alert ID.
+
+=item * C<object> (string, required) - Always C<organization.spend_alert.deleted> .
+
+Allowed values: organization.spend_alert.deleted
+
+=back
+
+=head2 SpendAlertNotificationChannel
+
+Properties:
+
+=over
+
+=item * C<recipients> (array of string, required) - Email addresses that receive the spend alert notification.
+
+=item * C<subject_prefix> (anyOf) - Optional subject prefix for alert emails.
+
+=item * C<type> (string, required) - The notification channel type. Currently only C<email> is supported.
+
+Allowed values: email
 
 =back
 
