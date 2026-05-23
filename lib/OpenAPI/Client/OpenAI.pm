@@ -7,7 +7,7 @@ use OpenAPI::Client::OpenAI::Naming qw(to_snake_case detect_collisions);
 
 use Mojo::Base 'OpenAPI::Client';
 
-our $VERSION = '0.27';
+our $VERSION = '0.28';
 
 sub new {
     my ( $class, $specification ) = ( shift, shift );
@@ -126,25 +126,31 @@ OpenAPI::Client::OpenAI - A client for the OpenAI API
 =head1 SYNOPSIS
 
     use OpenAPI::Client::OpenAI;
+    use Data::Dumper;
 
     # The OPENAI_API_KEY environment variable must be set
     # See https://platform.openai.com/api-keys and ENVIRONMENT VARIABLES below
     my $client = OpenAPI::Client::OpenAI->new();
 
-    my $tx = $client->createCompletion(
+    my $tx = $client->create_chat_completion(
         {
             body => {
-                model       => 'gpt-3.5-turbo-instruct',
-                prompt      => 'What is the capital of France?'
-                temperature => 0, # optional, between 0 and 1, with 0 being the least random
-                max_tokens  => 100, # optional, the maximum number of tokens to generate
-            }
+                model    => 'gpt-3.5-turbo',
+                messages => [
+                    {
+                        role    => 'user',
+                        content => 'What is the capital of France?',
+                    },
+                ],
+                temperature => 0,    # optional, 0 (deterministic) to 2 (most random)
+                max_tokens  => 100,  # optional, the maximum number of tokens to generate
+            },
         }
     );
 
-  my $response_data = $tx->res->json;
+    my $response_data = $tx->res->json;
 
-  print Dumper($response_data);
+    print Dumper($response_data);
 
 =head1 DESCRIPTION
 
@@ -237,7 +243,7 @@ Nelson Ferraz, E<lt>nferraz@gmail.comE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright (C) 2023-2024 by Nelson Ferraz
+Copyright (C) 2023-2026 by Nelson Ferraz
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself, either Perl version 5.14.0 or,

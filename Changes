@@ -1,5 +1,16 @@
 Revision history for OpenAPI-Client-OpenAI
 
+0.28    2026-05-23
+
+        - Documentation cleanup: rewrote the SYNOPSIS code example
+          (was missing a comma after `prompt`, used the deprecated
+          createCompletion endpoint, and referenced Data::Dumper
+          without `use`-ing it). It now demonstrates the snake_case
+          create_chat_completion form against gpt-3.5-turbo.
+        - Regenerated README.md from POD so it reflects the snake_case
+          aliases being first-class and drops the now-removed
+          DEPRECATED METHODS section.
+
 0.27    2026-05-03
 
         - Added devel/browse-docs to see the new docs prior to release
