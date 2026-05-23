@@ -64,4 +64,18 @@ is_deeply
     { name => 'string', size => 10 },
     'resolve_example: synthesizes from schema as last resort (priority 4)';
 
+# Round-trip preserves valid JSON 'null' (regression: previously emitted
+# a spurious carp and returned undef because !defined misread success).
+is $ex->format_example('null'), "null\n", 'parseable JSON "null" round-trips';
+
+# Walking a schema does not mutate the underlying spec tree (regression:
+# previously autovivified x-oaiMeta => {} on every node).
+my $live_thing = $spec->resolve_ref('#/components/schemas/Thing');
+my %before = map { $_ => exists $live_thing->{$_} } keys %$live_thing;
+$ex->synthesize_for($live_thing);
+my %after = map { $_ => exists $live_thing->{$_} } keys %$live_thing;
+ok !exists $live_thing->{'x-oaiMeta'}, 'no x-oaiMeta key autovivified on Thing';
+ok !exists $live_thing->{properties}{name}{'x-oaiMeta'},
+    'no x-oaiMeta autovivified on Thing.properties.name';
+
 done_testing;

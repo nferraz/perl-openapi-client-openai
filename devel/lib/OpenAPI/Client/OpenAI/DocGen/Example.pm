@@ -23,7 +23,7 @@ sub format_example ( $self, $raw ) {
     return undef unless defined $raw;
     if ( !ref $raw ) {
         my $decoded = eval { $JSON->decode($raw) };
-        if ( !defined $decoded ) {
+        if ( $@ ) {
             carp "format_example: input is neither a ref nor parseable JSON; omitting";
             return undef;
         }
@@ -42,8 +42,10 @@ sub format_example ( $self, $raw ) {
 # method-level context applies (e.g. nested schemas).
 sub resolve_example ( $self, $method_data, $schema ) {
     if ( ref $schema eq 'HASH' ) {
-        if ( defined( my $ex = $schema->{'x-oaiMeta'}{example} ) ) { return $ex }
-        if ( defined( my $ex = $schema->{example} ) )              { return $ex }
+        if ( ref $schema->{'x-oaiMeta'} eq 'HASH' ) {
+            if ( defined( my $ex = $schema->{'x-oaiMeta'}{example} ) ) { return $ex }
+        }
+        if ( defined( my $ex = $schema->{example} ) ) { return $ex }
     }
     if ( ref $method_data eq 'HASH'
         && ref $method_data->{'x-oaiMeta'}{examples} eq 'ARRAY'
@@ -66,9 +68,12 @@ sub _walk ( $self, $schema, $state ) {
     return '...' unless defined $schema && ref $schema eq 'HASH';
 
     # 1. Schema-level x-oaiMeta example wins.
-    if ( my $ex = $schema->{'x-oaiMeta'}{example} // $schema->{example} ) {
-        return $ex;
+    my $ex;
+    if ( ref $schema->{'x-oaiMeta'} eq 'HASH' ) {
+        $ex = $schema->{'x-oaiMeta'}{example};
     }
+    $ex //= $schema->{example};
+    if ( defined $ex ) { return $ex }
 
     # 2. Refs: cycle-detect by name, reset depth on cross.
     if ( my $ref = $schema->{'$ref'} ) {
