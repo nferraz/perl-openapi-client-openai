@@ -16,7 +16,8 @@ my $ex = OpenAPI::Client::OpenAI::DocGen::Example->new( spec => $spec );
 is $ex->format_example(undef), undef, 'undef in -> undef out';
 is $ex->format_example('{"a":1}'),
     qq({\n   "a" : 1\n}\n), 'string JSON re-encoded canonically';
-is $ex->format_example('not-json-at-all'), undef, 'invalid JSON -> undef (warned)';
+is $ex->format_example('not-json-at-all'), qq{"not-json-at-all"\n},
+    'non-JSON string is treated as a quoted JSON string literal';
 like $ex->format_example({ b => 2, a => 1 }),
     qr/"a"\s*:\s*1.*"b"\s*:\s*2/s, 'hash ref encoded canonically';
 

@@ -24,8 +24,8 @@ sub format_example ( $self, $raw ) {
     if ( !ref $raw ) {
         my $decoded = eval { $JSON->decode($raw) };
         if ( $@ ) {
-            carp "format_example: input is neither a ref nor parseable JSON; omitting";
-            return undef;
+            # Not parseable as JSON; treat as a literal string and quote it.
+            return $JSON->encode($raw);
         }
         return $JSON->encode($decoded);
     }

@@ -231,7 +231,8 @@ sub _emit_property_block ( $self, $emit, $blank, $schema, $components ) {
             $blank->();
         }
         if ( exists $p->{default} ) {
-            $emit->("Default: $p->{default}");
+            my $d = defined $p->{default} ? $p->{default} : 'null';
+            $emit->("Default: $d");
             $blank->();
         }
     }
