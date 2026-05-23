@@ -135,7 +135,7 @@ C<inf> for the maximum available tokens for a given model. Defaults to C<inf>
 C<["text"]> can be used to make the model respond with text only. It is not
 possible to request both C<text> and C<audio> at the same time.
 
-Default: ARRAY(0xaaaaefd97b30)
+Default: ["audio"]
 
 =item * C<parallel_tool_calls> (boolean) - Whether the model may call multiple tools in parallel. Only supported by
 reasoning Realtime models such as C<gpt-realtime-2> .

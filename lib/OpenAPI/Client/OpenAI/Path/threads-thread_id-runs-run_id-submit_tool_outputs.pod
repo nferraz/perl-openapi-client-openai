@@ -286,7 +286,7 @@ that was executed on as a part of this run.
 L<assistant|https://platform.openai.com/docs/api-reference/assistants> used
 for this run.
 
-Default: ARRAY(0xaaaaefe5dfc0)
+Default: []
 
 =item * C<top_p> (number) - The nucleus sampling value used for this run. If not set, defaults to 1.
 

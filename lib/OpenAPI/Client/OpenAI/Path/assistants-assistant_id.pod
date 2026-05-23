@@ -170,7 +170,7 @@ Allowed values: assistant
 per assistant. Tools can be of types C<code_interpreter> , C<file_search> , or
 C<function> .
 
-Default: ARRAY(0xaaaaef9ed0a8)
+Default: []
 
 =item * C<top_p> (anyOf)
 
@@ -237,7 +237,7 @@ See L</ReasoningEffort> below for shape.
 per assistant. Tools can be of types C<code_interpreter> , C<file_search> , or
 C<function> .
 
-Default: ARRAY(0xaaaaefc3b7a8)
+Default: []
 
 =item * C<top_p> (anyOf)
 

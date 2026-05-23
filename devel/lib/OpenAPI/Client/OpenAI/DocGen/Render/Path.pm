@@ -4,8 +4,11 @@ use 5.026;
 use strict;
 use warnings;
 use experimental 'signatures';
+use JSON::PP;
 use OpenAPI::Client::OpenAI::Naming qw(to_snake_case);
 use OpenAPI::Client::OpenAI::DocGen::Markdown qw(md_to_pod);
+
+my $JSON_INLINE = JSON::PP->new->canonical;   # no pretty, no trailing newline
 
 sub new ( $class, %args ) {
     return bless {
@@ -110,7 +113,7 @@ sub _emit_parameters ( $self, $emit, $blank, $method_data, $components ) {
             $blank->();
         }
         if ( exists $p->{schema}{default} ) {
-            $emit->("Default: $p->{schema}{default}");
+            $emit->("Default: " . _render_default($p->{schema}{default}));
             $blank->();
         }
     }
@@ -231,8 +234,7 @@ sub _emit_property_block ( $self, $emit, $blank, $schema, $components ) {
             $blank->();
         }
         if ( exists $p->{default} ) {
-            my $d = defined $p->{default} ? $p->{default} : 'null';
-            $emit->("Default: $d");
+            $emit->("Default: " . _render_default($p->{default}));
             $blank->();
         }
     }
@@ -313,6 +315,12 @@ sub _sanitize_path ($path) {
     $s =~ s{-+$}{};
     $s =~ s{--+}{-}g;
     return $s;
+}
+
+sub _render_default ($value) {
+    return 'null' unless defined $value;
+    return $JSON_INLINE->encode($value) if ref $value;
+    return $value;
 }
 
 1;

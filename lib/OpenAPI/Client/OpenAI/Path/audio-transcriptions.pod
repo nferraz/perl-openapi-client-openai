@@ -154,7 +154,7 @@ There is no additional latency for segment timestamps, but generating word
 timestamps incurs additional latency. This option is not available for
 C<gpt-4o-transcribe-diarize> .
 
-Default: ARRAY(0xaaaaefb1cfd0)
+Default: ["segment"]
 
 =back
 

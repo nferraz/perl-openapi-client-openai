@@ -48,4 +48,26 @@ if ( $total_warnings > $baseline ) {
     pass "podchecker warnings within baseline ($total_warnings <= $baseline)";
 }
 
+# Guard against accidental ref stringification in rendered output (e.g.
+# Default: ARRAY(0x...)). Each occurrence is both nondeterministic across
+# runs and useless to readers.
+my @leaks;
+find( sub {
+    return unless /\.pod$/;
+    open my $fh, '<', $File::Find::name or return;
+    local $/;
+    my $body = <$fh>;
+    while ( $body =~ /\b(ARRAY|HASH|CODE|GLOB|SCALAR|REF)\(0x[0-9a-f]+\)/g ) {
+        push @leaks, "$File::Find::name: $1(0x...) at offset $-[0]";
+    }
+}, $tmp->child('lib') );
+
+if (@leaks) {
+    diag "ref-stringification leaks found:";
+    diag "  $_" for @leaks;
+    fail "ref-stringification leaks in generated POD";
+} else {
+    pass "no ref-stringification leaks in generated POD";
+}
+
 done_testing;
