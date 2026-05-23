@@ -13,6 +13,7 @@ sub load ( $class, $path ) {
     return bless { raw => $raw }, $class;
 }
 
+# Live reference to the underlying tree; do not mutate.
 sub paths      ($self) { $self->{raw}{paths} }
 sub components ($self) { $self->{raw}{components} || {} }
 sub raw        ($self) { $self->{raw} }
@@ -28,11 +29,14 @@ sub ref_name ( $self, $ref ) {
 # splice it back into the tree.
 sub resolve_ref ( $self, $ref ) {
     croak "expected ref starting with '#/', got '$ref'" unless $ref =~ m{^#/};
-    my @parts = split '/', substr( $ref, 2 );
+    my $pointer = substr( $ref, 2 );
+    croak "empty pointer segment in '$ref'" if $pointer eq '' || $pointer =~ m{//};
+    my @parts = split '/', $pointer;
     my $node = $self->{raw};
     for my $part (@parts) {
         $part =~ s{~1}{/}g;
         $part =~ s{~0}{~}g;
+        croak "empty pointer segment in '$ref'" if $part eq '';
         $node = $node->{$part} // croak "cannot resolve $ref (no '$part')";
     }
     return $node;
