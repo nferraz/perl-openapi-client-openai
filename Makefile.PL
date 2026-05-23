@@ -44,6 +44,7 @@ my %WriteMakefileArgs = (
         'File::ShareDir'        => '0',
         'File::Spec::Functions' => '0',
         'OpenAPI::Client'       => '1.07',
+        'YAML::XS'              => '0',
     },
     META_MERGE => {
         'meta-spec' => { version => 2 },

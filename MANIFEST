@@ -15,6 +15,7 @@ examples/transcribe-audio.pl
 examples/translate.pl
 lib/OpenAPI/Client/OpenAI.pm
 lib/OpenAPI/Client/OpenAI/Methods.pod
+lib/OpenAPI/Client/OpenAI/Naming.pm
 lib/OpenAPI/Client/OpenAI/Path.pod
 lib/OpenAPI/Client/OpenAI/Path/assistants-assistant_id.pod
 lib/OpenAPI/Client/OpenAI/Path/assistants.pod
@@ -198,6 +199,8 @@ MYMETA.yml
 README.md
 share/openapi.yaml
 t/00-load.t
+t/alias_collision.t
+t/alias_generalization.t
 t/create_chat_completion.t
 t/create_completion.t
 t/create_edit.t
@@ -207,7 +210,9 @@ t/create_moderation.t
 t/lib/OpenAITests.pm
 t/list_assistants.t
 t/list_files.t
+t/fixtures/colliding-spec.yaml
 t/list_models.t
 t/manifest.t
+t/naming.t
 t/pod-coverage.t
 t/pod.t

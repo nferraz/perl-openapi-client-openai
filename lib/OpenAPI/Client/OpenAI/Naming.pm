@@ -55,3 +55,51 @@ sub detect_collisions {
 }
 
 1;
+
+__END__
+
+=encoding UTF-8
+
+=head1 NAME
+
+OpenAPI::Client::OpenAI::Naming - Identifier normalisation helpers for OpenAPI::Client::OpenAI
+
+=head1 SYNOPSIS
+
+    use OpenAPI::Client::OpenAI::Naming qw(to_snake_case detect_collisions);
+
+    my $snake = to_snake_case('createChatCompletion');  # 'create_chat_completion'
+
+    my $collisions = detect_collisions(\@operation_ids);
+    if (%$collisions) { ... }
+
+=head1 DESCRIPTION
+
+Provides pure-function helpers for normalising OpenAPI operationIds to
+C<snake_case> and detecting collisions when multiple operationIds map to the
+same normalised form.
+
+=head1 FUNCTIONS
+
+=head2 to_snake_case
+
+    my $snake = to_snake_case($identifier);
+
+Converts a camelCase, PascalCase, kebab-case, or already-snake_case identifier
+to lower C<snake_case>.  Pure function; the result is stable and suitable for
+use as a Perl method name.
+
+=head2 detect_collisions
+
+    my $collisions = detect_collisions(\@operation_ids);
+
+Given an array-ref of operationId strings, returns a hash-ref mapping each
+C<snake_case> form that would be produced by more than one source operationId
+to a sorted array-ref of those source operationIds.  Returns an empty hash-ref
+when there are no collisions.
+
+=head1 COPYRIGHT AND LICENSE
+
+Same terms as L<OpenAPI::Client::OpenAI>.
+
+=cut

@@ -28,4 +28,18 @@ is_deeply $collisions->{create_thing},
     [ sort qw(createThing create_thing) ],
     'both operationIds named in the collision entry';
 
+# End-to-end: feed the fixture's operationIds through the extracted alias
+# installer and assert it croaks with both source operationIds in the message.
+use OpenAPI::Client::OpenAI;
+
+throws_ok {
+    OpenAPI::Client::OpenAI::_install_snake_case_aliases( \@op_ids );
+} qr/createThing/, 'croak names createThing';
+throws_ok {
+    OpenAPI::Client::OpenAI::_install_snake_case_aliases( \@op_ids );
+} qr/create_thing/, 'croak names create_thing';
+throws_ok {
+    OpenAPI::Client::OpenAI::_install_snake_case_aliases( \@op_ids );
+} qr/collision/i, 'croak message mentions "collision"';
+
 done_testing;
