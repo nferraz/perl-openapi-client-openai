@@ -196,46 +196,12 @@ exception of the following extra options:
 
 =head2 Other Methods
 
-Other methods are documented in L<OpenAPI::Client::OpenAI::Methods>. These
-method are deprecated and will be removed in a future version.
+Other methods are documented in L<OpenAPI::Client::OpenAI::Methods>. Every
+API operation is callable in both its original (e.g. C<createChatCompletion>)
+and snake_case (e.g. C<create_chat_completion>) form.
 
 See L<OpenAPI::Client::OpenAI::Path> for an index of all paths available. You
 can click through each of them for more detail.
-
-=head1 DEPRECATED METHODS
-
-The following methods are deprecated and will be removed in a future release:
-
-=over
-
-=item * create_chat_completion
-
-Replaced with C<createChatCompletion>.
-
-=item * create_completion
-
-Replaced with C<createCompletion>.
-
-=item * create_embedding
-
-Replaced with C<createEmbedding>.
-
-=item * create_image
-
-Replaced with C<createImage>.
-
-=item * create_moderation
-
-Replaced with C<createModeration>.
-
-=item * list_models
-
-Replaced with C<listModels>.
-
-=back
-
-Originally, these methods were named using C<snake_case>, but to simplify the
-code, we retained the C<camelCase> names in the main module.
 
 =head1 ENVIRONMENT VARIABLES
 

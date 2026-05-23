@@ -1,5 +1,13 @@
 Revision history for OpenAPI-Client-OpenAI
 
+0.27    (dev)
+
+        - Snake_case aliases for every operation: every operationId is
+          callable in both its original style (e.g. createChatCompletion)
+          and snake_case (e.g. create_chat_completion). Both forms are
+          first-class; the deprecation warning on the legacy six aliases
+          is removed.
+
 0.26    2026-05-23
 
         - Image Model Retirement: `dall-e-2` and `dall-e-3` were removed from
