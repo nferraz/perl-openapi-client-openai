@@ -7,6 +7,24 @@ Revision history for OpenAPI-Client-OpenAI
           and snake_case (e.g. create_chat_completion). Both forms are
           first-class; the deprecation warning on the legacy six aliases
           is removed.
+        - Documentation generator rewrite: per-path POD is now produced by
+          a modular generator under devel/lib/OpenAPI/Client/OpenAI/DocGen*.
+          Notable fixes:
+            * snake_case Perl method in every code example (previously,
+              kebab-case operationIds produced uncompilable examples).
+            * Methods.pod is now auto-generated (alphabetical, ~5 lines
+              per method), replacing a stale hand-maintained file.
+            * JSON examples are normalized (no more nested stringified
+              JSON) and oneOf/anyOf variants are scored by informativeness
+              instead of YAML order.
+            * Method-level x-oaiMeta.examples are now used in addition
+              to schema-level examples.
+            * Markdown horizontal rules no longer leak 80-character `='
+              artifacts into the POD.
+            * Pod::Checker passes with zero errors and zero warnings
+              across all generated POD.
+        - Build dependencies dropped: Markdown::Pod, Template, Text::Wrap,
+          File::Slurp, Clone, Feature::Compat::Try.
 
 0.26    2026-05-23
 
