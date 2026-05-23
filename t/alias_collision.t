@@ -7,10 +7,13 @@ BEGIN { $ENV{OPENAI_API_KEY} //= 'test-key' }
 # Phase 1.2 will add a second block that loads this fixture through
 # OpenAPI::Client::OpenAI->new(spec_file => ...) and asserts the actual
 # croak. This commit covers the underlying helper against the fixture.
+use File::Basename qw(dirname);
+use File::Spec::Functions qw(catfile);
 use OpenAPI::Client::OpenAI::Naming qw(detect_collisions);
 use YAML::XS qw(LoadFile);
 
-my $spec = LoadFile('t/fixtures/colliding-spec.yaml');
+my $fixture = catfile( dirname(__FILE__), 'fixtures', 'colliding-spec.yaml' );
+my $spec    = LoadFile($fixture);
 my @op_ids;
 for my $path ( values %{ $spec->{paths} } ) {
     for my $method ( values %$path ) {
