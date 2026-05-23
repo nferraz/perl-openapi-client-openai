@@ -13,9 +13,6 @@ This document describes the API endpoint at C</chat/completions>.
 
 =head2 C<GET /chat/completions>
 
-List Chat Completions
-
-
 List stored Chat Completions. Only Chat Completions that have been stored
 with the C<store> parameter set to C<true> will be returned.
 
@@ -141,10 +138,7 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
 
 =head2 C<POST /chat/completions>
 
-Create chat completion
-
-
-B<Starting a new project?> We recommend trying L<Responses|https://platform.openai.com/docs/api-reference/responses> 
+B<Starting a new project?> We recommend trying L<Responses|https://platform.openai.com/docs/api-reference/responses>
 to take advantage of the latest OpenAI platform features. Compare
 L<Chat Completions with Responses|https://platform.openai.com/docs/guides/responses-vs-chat-completions?api-mode=responses>.
 
@@ -155,9 +149,12 @@ and L<audio|https://platform.openai.com/docs/guides/audio> guides.
 
 Parameter support can differ depending on the model used to generate the
 response, particularly for newer reasoning models. Parameters that are only
-supported for reasoning models are noted below. For the current state of 
-unsupported parameters in reasoning models, 
+supported for reasoning models are noted below. For the current state of
+unsupported parameters in reasoning models,
 L<refer to the reasoning guide|https://platform.openai.com/docs/guides/reasoning>.
+
+Returns a chat completion object, or a streamed sequence of chat completion
+chunk objects if the request is streamed.
 
 
 

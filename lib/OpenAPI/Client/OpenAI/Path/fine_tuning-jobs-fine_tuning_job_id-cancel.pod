@@ -13,9 +13,6 @@ This document describes the API endpoint at C</fine_tuning/jobs/{fine_tuning_job
 
 =head2 C<POST /fine_tuning/jobs/{fine_tuning_job_id}/cancel>
 
-Cancel fine-tuning
-
-
 Immediately cancel a fine-tune job.
 
 

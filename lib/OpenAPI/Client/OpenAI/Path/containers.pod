@@ -13,10 +13,10 @@ This document describes the API endpoint at C</containers>.
 
 =head2 C<GET /containers>
 
-List containers
-
-
 List Containers
+
+
+Lists containers.
 
 
 
@@ -57,6 +57,12 @@ Type: C<string>
 
 
 
+=item * C<name> (in query) (Optional) - Filter results by container name.
+
+Type: C<string>
+
+
+
 =back
 
 
@@ -88,10 +94,10 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
 
 =head2 C<POST /containers>
 
-Create container
-
-
 Create Container
+
+
+Creates a container.
 
 
 
@@ -121,6 +127,9 @@ Example:
     {
        "expires_after" : null,
        "file_ids" : [
+          null
+       ],
+       "skills" : [
           null
        ]
     }

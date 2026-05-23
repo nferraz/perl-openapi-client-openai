@@ -13,10 +13,7 @@ This document describes the API endpoint at C</chatkit/sessions>.
 
 =head2 C<POST /chatkit/sessions>
 
-Create ChatKit session
-
-
-Create a ChatKit session
+Create a ChatKit session.
 
 
 
@@ -78,13 +75,32 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
 
     {
        "chatkit_configuration" : {
-          "automatic_thread_titling" : null,
-          "file_upload" : null,
-          "history" : null
+          "automatic_thread_titling" : {
+             "enabled" : true
+          },
+          "file_upload" : {
+             "enabled" : true,
+             "max_file_size" : 16,
+             "max_files" : 20
+          },
+          "history" : {
+             "enabled" : true,
+             "recent_threads" : 10
+          }
        },
-       "rate_limits" : null,
+       "client_secret" : "ek_token_123",
+       "expires_at" : 1712349876,
+       "id" : "cksess_123",
+       "max_requests_per_1_minute" : 60,
+       "object" : "chatkit.session",
+       "rate_limits" : {
+          "max_requests_per_1_minute" : 60
+       },
+       "status" : "cancelled",
+       "user" : "user_789",
        "workflow" : {
-          "tracing" : null
+          "id" : "workflow_alpha",
+          "version" : "2024-10-01T00:00:00.000Z"
        }
     }
 

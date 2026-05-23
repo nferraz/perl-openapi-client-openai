@@ -13,10 +13,9 @@ This document describes the API endpoint at C</responses/compact>.
 
 =head2 C<POST /responses/compact>
 
-Compact a response
+Compact a conversation. Returns a compacted response object.
 
-
-Compact conversation
+Learn when and how to compact long-running conversations in the L<conversation state guide|https://platform.openai.com/docs/guides/conversation-state#managing-the-context-window>. For ZDR-compatible compaction details, see L<Compaction (advanced)|https://platform.openai.com/docs/guides/conversation-state#compaction-advanced>.
 
 
 
@@ -67,12 +66,40 @@ Success
 Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
 
     {
+       "created_at" : 1731459200,
+       "id" : "resp_001",
+       "object" : "response.compaction",
        "output" : [
-          null
+          {
+             "content" : [
+                {
+                   "text" : "Summarize our launch checklist from last week.",
+                   "type" : "input_text"
+                }
+             ],
+             "role" : "user",
+             "type" : "message"
+          },
+          {
+             "content" : [
+                {
+                   "text" : "You are performing a CONTEXT CHECKPOINT COMPACTION...",
+                   "type" : "input_text"
+                }
+             ],
+             "role" : "user",
+             "type" : "message"
+          },
+          {
+             "encrypted_content" : "encrypted-summary",
+             "id" : "cmp_001",
+             "type" : "compaction"
+          }
        ],
        "usage" : {
-          "input_tokens_details" : null,
-          "output_tokens_details" : null
+          "input_tokens" : 42897,
+          "output_tokens" : 12000,
+          "total_tokens" : 54912
        }
     }
 

@@ -13,9 +13,6 @@ This document describes the API endpoint at C</realtime/sessions>.
 
 =head2 C<POST /realtime/sessions>
 
-Create session
-
-
 Create an ephemeral API token for use in client-side applications with the
 Realtime API. Can be configured with the same session parameters as the
 C<session.update> client event.
@@ -23,6 +20,8 @@ C<session.update> client event.
 It responds with a session object, plus a C<client_secret> key which contains
 a usable ephemeral API token that can be used to authenticate browser clients
 for the Realtime API.
+
+Returns the created Realtime session object, plus an ephemeral key.
 
 
 

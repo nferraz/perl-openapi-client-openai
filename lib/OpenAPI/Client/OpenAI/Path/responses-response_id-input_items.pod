@@ -13,9 +13,6 @@ This document describes the API endpoint at C</responses/{response_id}/input_ite
 
 =head2 C<GET /responses/{response_id}/input_items>
 
-List input items
-
-
 Returns a list of input items for a given response.
 
 

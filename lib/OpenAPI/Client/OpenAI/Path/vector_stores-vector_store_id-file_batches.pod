@@ -13,10 +13,12 @@ This document describes the API endpoint at C</vector_stores/{vector_store_id}/f
 
 =head2 C<POST /vector_stores/{vector_store_id}/file_batches>
 
-Create vector store file batch
-
-
 Create a vector store file batch.
+
+
+The maximum number of files in a single batch request is 2000.
+Vector store file attach requests are rate limited per vector store (300 requests per minute across both this endpoint and C</vector_stores/{vector_store_id}/files>).
+For ingesting multiple files into the same vector store, this batch endpoint is recommended.
 
 
 

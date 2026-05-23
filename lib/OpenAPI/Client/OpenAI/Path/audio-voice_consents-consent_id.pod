@@ -13,10 +13,12 @@ This document describes the API endpoint at C</audio/voice_consents/{consent_id}
 
 =head2 C<DELETE /audio/voice_consents/{consent_id}>
 
-Delete voice consent
-
-
 Deletes a voice consent recording.
+
+
+Delete a consent recording that was uploaded for creating custom voices.
+
+See the L<custom voices guide|https://platform.openai.com/docs/guides/text-to-speech#custom-voices>. Custom voices are limited to eligible customers.
 
 
 
@@ -67,10 +69,12 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
 
 =head2 C<GET /audio/voice_consents/{consent_id}>
 
-Retrieve voice consent
-
-
 Retrieves a voice consent recording.
+
+
+Retrieve consent recording metadata used for creating custom voices.
+
+See the L<custom voices guide|https://platform.openai.com/docs/guides/text-to-speech#custom-voices>. Custom voices are limited to eligible customers.
 
 
 
@@ -123,10 +127,12 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
 
 =head2 C<POST /audio/voice_consents/{consent_id}>
 
-Update voice consent
-
-
 Updates a voice consent recording (metadata only).
+
+
+Update consent recording metadata used for creating custom voices. This endpoint updates metadata only and does not replace the underlying audio.
+
+See the L<custom voices guide|https://platform.openai.com/docs/guides/text-to-speech#custom-voices>. Custom voices are limited to eligible customers.
 
 
 

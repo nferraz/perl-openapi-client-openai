@@ -13,9 +13,6 @@ This document describes the API endpoint at C</images/generations>.
 
 =head2 C<POST /images/generations>
 
-Create image
-
-
 Creates an image given a prompt. L<Learn more|https://platform.openai.com/docs/guides/images>.
 
 
@@ -64,6 +61,7 @@ Example:
 
     {
        "background" : "transparent",
+       "model" : "gpt-image-1.5",
        "moderation" : "low",
        "n" : 1,
        "output_compression" : 100,

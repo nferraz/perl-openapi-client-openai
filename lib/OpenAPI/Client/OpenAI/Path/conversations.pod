@@ -13,9 +13,6 @@ This document describes the API endpoint at C</conversations>.
 
 =head2 C<POST /conversations>
 
-Create a conversation
-
-
 Create a conversation.
 
 

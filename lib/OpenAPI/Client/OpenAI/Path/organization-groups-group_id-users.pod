@@ -13,9 +13,6 @@ This document describes the API endpoint at C</organization/groups/{group_id}/us
 
 =head2 C<GET /organization/groups/{group_id}/users>
 
-List group users
-
-
 Lists the users assigned to a group.
 
 
@@ -86,12 +83,9 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
         "object": "list",
         "data": [
             {
-                "object": "organization.user",
                 "id": "user_abc123",
                 "name": "Ada Lovelace",
-                "email": "ada@example.com",
-                "role": "owner",
-                "added_at": 1711471533
+                "email": "ada@example.com"
             }
         ],
         "has_more": false,
@@ -102,9 +96,6 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
 =back
 
 =head2 C<POST /organization/groups/{group_id}/users>
-
-Add group user
-
 
 Adds a user to a group.
 

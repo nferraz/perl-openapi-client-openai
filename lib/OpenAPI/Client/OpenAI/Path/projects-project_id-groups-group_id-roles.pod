@@ -13,9 +13,6 @@ This document describes the API endpoint at C</projects/{project_id}/groups/{gro
 
 =head2 C<GET /projects/{project_id}/groups/{group_id}/roles>
 
-List project group role assignments
-
-
 Lists the project roles assigned to a group within a project.
 
 
@@ -103,7 +100,8 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
                     "name": "Ada Lovelace",
                     "email": "ada@example.com"
                 },
-                "metadata": {}
+                "metadata": {},
+                "assignment_sources": null
             }
         ],
         "has_more": false,
@@ -114,9 +112,6 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
 =back
 
 =head2 C<POST /projects/{project_id}/groups/{group_id}/roles>
-
-Assign project role to group
-
 
 Assigns a project role to a group within a project.
 

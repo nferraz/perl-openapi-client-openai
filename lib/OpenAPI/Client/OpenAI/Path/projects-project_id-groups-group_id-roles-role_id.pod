@@ -13,9 +13,6 @@ This document describes the API endpoint at C</projects/{project_id}/groups/{gro
 
 =head2 C<DELETE /projects/{project_id}/groups/{group_id}/roles/{role_id}>
 
-Unassign project role from group
-
-
 Unassigns a project role from a group within a project.
 
 
@@ -71,6 +68,69 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
     {
         "object": "group.role.deleted",
         "deleted": true
+    }
+
+
+=back
+
+=head2 C<GET /projects/{project_id}/groups/{group_id}/roles/{role_id}>
+
+Retrieves a project role assigned to a group.
+
+
+
+=head3 Operation ID
+
+C<retrieve-project-group-role>
+
+    $client->retrieve-project-group-role( ... );
+
+=head3 Parameters
+
+=over 4
+
+=item * C<project_id> (in path) (Required) - The ID of the project to inspect.
+
+Type: C<string>
+
+
+
+=item * C<group_id> (in path) (Required) - The ID of the group to inspect.
+
+Type: C<string>
+
+
+
+=item * C<role_id> (in path) (Required) - The ID of the project role to retrieve for the group.
+
+Type: C<string>
+
+
+
+=back
+
+
+=head3 Responses
+
+
+=head4 Status Code: C<200>
+
+Project role retrieved for the group successfully.
+
+
+=head4 Content Types:
+
+=over 4
+
+
+=item * C<application/json>
+
+Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
+
+    {
+       "permissions" : [
+          null
+       ]
     }
 
 

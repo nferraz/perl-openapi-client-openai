@@ -13,9 +13,6 @@ This document describes the API endpoint at C</projects/{project_id}/roles/{role
 
 =head2 C<DELETE /projects/{project_id}/roles/{role_id}>
 
-Delete project role
-
-
 Deletes a custom role from a project.
 
 
@@ -71,10 +68,71 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
 
 =back
 
+=head2 C<GET /projects/{project_id}/roles/{role_id}>
+
+Retrieves a project role.
+
+
+
+=head3 Operation ID
+
+C<retrieve-project-role>
+
+    $client->retrieve-project-role( ... );
+
+=head3 Parameters
+
+=over 4
+
+=item * C<project_id> (in path) (Required) - The ID of the project.
+
+Type: C<string>
+
+
+
+=item * C<role_id> (in path) (Required) - The ID of the role to retrieve.
+
+Type: C<string>
+
+
+
+=back
+
+
+=head3 Responses
+
+
+=head4 Status Code: C<200>
+
+Project role retrieved successfully.
+
+
+=head4 Content Types:
+
+=over 4
+
+
+=item * C<application/json>
+
+Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
+
+    {
+        "object": "role",
+        "id": "role_01J1F8ROLE01",
+        "name": "API Group Manager",
+        "description": "Allows managing organization groups",
+        "permissions": [
+            "api.groups.read",
+            "api.groups.write"
+        ],
+        "resource_type": "api.organization",
+        "predefined_role": false
+    }
+
+
+=back
+
 =head2 C<POST /projects/{project_id}/roles/{role_id}>
-
-Update project role
-
 
 Updates an existing project role.
 

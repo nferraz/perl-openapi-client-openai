@@ -13,9 +13,6 @@ This document describes the API endpoint at C</threads>.
 
 =head2 C<POST /threads>
 
-Create thread
-
-
 Create a thread.
 
 

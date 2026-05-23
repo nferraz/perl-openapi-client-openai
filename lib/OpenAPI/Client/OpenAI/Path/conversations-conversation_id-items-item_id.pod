@@ -13,9 +13,6 @@ This document describes the API endpoint at C</conversations/{conversation_id}/i
 
 =head2 C<DELETE /conversations/{conversation_id}/items/{item_id}>
 
-Delete an item
-
-
 Delete an item from a conversation with the given IDs.
 
 
@@ -68,9 +65,6 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
 
 =head2 C<GET /conversations/{conversation_id}/items/{item_id}>
 
-Retrieve an item
-
-
 Get a single item from a conversation with the given IDs.
 
 
@@ -98,7 +92,7 @@ Type: C<string>
 
 
 =item * C<include> (in query) (Optional) - Additional fields to include in the response. See the `include`
-parameter for [listing Conversation items above](https://platform.openai.com/docs/api-reference/conversations/list-items#conversations_list_items-include) for more information.
+parameter for [listing Conversation items above](/docs/api-reference/conversations/list-items#conversations_list_items-include) for more information.
 
 
 Type: C<array>

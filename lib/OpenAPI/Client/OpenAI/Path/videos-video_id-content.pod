@@ -13,10 +13,9 @@ This document describes the API endpoint at C</videos/{video_id}/content>.
 
 =head2 C<GET /videos/{video_id}/content>
 
-Retrieve video content
+Download the generated video bytes or a derived preview asset.
 
-
-Download video content
+Streams the rendered video content for the specified video job.
 
 
 

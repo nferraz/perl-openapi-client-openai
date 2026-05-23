@@ -13,9 +13,6 @@ This document describes the API endpoint at C</organization/certificates/activat
 
 =head2 C<POST /organization/certificates/activate>
 
-Activate certificates for organization
-
-
 Activate certificates at the organization level.
 
 You can atomically and idempotently activate up to 10 certificates at a time.
@@ -73,10 +70,10 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
 
     {
        "data" : [
-          "{\n  \"object\": \"certificate\",\n  \"id\": \"cert_abc\",\n  \"name\": \"My Certificate\",\n  \"created_at\": 1234567,\n  \"certificate_details\": {\n    \"valid_at\": 1234567,\n    \"expires_at\": 12345678,\n    \"content\": \"-----BEGIN CERTIFICATE----- MIIGAjCCA...6znFlOW+ -----END CERTIFICATE-----\"\n  }\n}\n"
-       ],
-       "first_id" : "cert_abc",
-       "last_id" : "cert_abc"
+          {
+             "certificate_details" : null
+          }
+       ]
     }
 
 

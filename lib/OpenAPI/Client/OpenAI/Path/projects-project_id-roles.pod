@@ -13,9 +13,6 @@ This document describes the API endpoint at C</projects/{project_id}/roles>.
 
 =head2 C<GET /projects/{project_id}/roles>
 
-List project roles
-
-
 Lists the roles configured for a project.
 
 
@@ -104,9 +101,6 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
 =back
 
 =head2 C<POST /projects/{project_id}/roles>
-
-Create project role
-
 
 Creates a custom role for a project.
 

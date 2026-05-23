@@ -13,10 +13,9 @@ This document describes the API endpoint at C</responses/input_tokens>.
 
 =head2 C<POST /responses/input_tokens>
 
-Get input token counts
+Returns input token counts of the request.
 
-
-Get input token counts
+Returns an object with C<object> set to C<response.input_tokens> and an C<input_tokens> count.
 
 
 

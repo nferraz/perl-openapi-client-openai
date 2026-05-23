@@ -13,9 +13,6 @@ This document describes the API endpoint at C</realtime/calls/{call_id}/refer>.
 
 =head2 C<POST /realtime/calls/{call_id}/refer>
 
-Refer call
-
-
 Transfer an active SIP call to a new destination using the SIP REFER verb.
 
 
@@ -31,7 +28,7 @@ C<refer-realtime-call>
 =over 4
 
 =item * C<call_id> (in path) (Required) - The identifier for the call provided in the
-[`realtime.call.incoming`](https://platform.openai.com/docs/api-reference/webhook-events/realtime/call/incoming)
+[`realtime.call.incoming`](/docs/api-reference/webhook-events/realtime/call/incoming)
 webhook.
 
 Type: C<string>

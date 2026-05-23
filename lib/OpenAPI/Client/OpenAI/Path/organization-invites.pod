@@ -13,9 +13,6 @@ This document describes the API endpoint at C</organization/invites>.
 
 =head2 C<GET /organization/invites>
 
-List invites
-
-
 Returns a list of invites in the organization.
 
 
@@ -68,7 +65,7 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
 
     {
        "data" : [
-          "{\n  \"object\": \"organization.invite\",\n  \"id\": \"invite-abc\",\n  \"email\": \"user@example.com\",\n  \"role\": \"owner\",\n  \"status\": \"accepted\",\n  \"invited_at\": 1711471533,\n  \"expires_at\": 1711471533,\n  \"accepted_at\": 1711471533,\n  \"projects\": [\n    {\n      \"id\": \"project-xyz\",\n      \"role\": \"member\"\n    }\n  ]\n}\n"
+          "{\n  \"object\": \"organization.invite\",\n  \"id\": \"invite-abc\",\n  \"email\": \"user@example.com\",\n  \"role\": \"owner\",\n  \"status\": \"accepted\",\n  \"created_at\": 1711471533,\n  \"expires_at\": 1711471533,\n  \"accepted_at\": 1711471533,\n  \"projects\": [\n    {\n      \"id\": \"project-xyz\",\n      \"role\": \"member\"\n    }\n  ]\n}\n"
        ]
     }
 
@@ -76,9 +73,6 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
 =back
 
 =head2 C<POST /organization/invites>
-
-Create invite
-
 
 Create an invite for a user to the organization. The invite must be accepted by the user before they have access to the organization.
 
@@ -139,7 +133,7 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
       "email": "user@example.com",
       "role": "owner",
       "status": "accepted",
-      "invited_at": 1711471533,
+      "created_at": 1711471533,
       "expires_at": 1711471533,
       "accepted_at": 1711471533,
       "projects": [

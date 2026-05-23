@@ -13,10 +13,7 @@ This document describes the API endpoint at C</chatkit/threads/{thread_id}>.
 
 =head2 C<DELETE /chatkit/threads/{thread_id}>
 
-Delete ChatKit thread
-
-
-Delete a ChatKit thread
+Delete a ChatKit thread along with its items and stored attachments.
 
 
 
@@ -62,10 +59,7 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
 
 =head2 C<GET /chatkit/threads/{thread_id}>
 
-Retrieve ChatKit thread
-
-
-Retrieve a ChatKit thread
+Retrieve a ChatKit thread by its identifier.
 
 
 

@@ -13,9 +13,6 @@ This document describes the API endpoint at C</batches/{batch_id}>.
 
 =head2 C<GET /batches/{batch_id}>
 
-Retrieve batch
-
-
 Retrieves a batch.
 
 

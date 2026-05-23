@@ -13,9 +13,6 @@ This document describes the API endpoint at C</organization/projects>.
 
 =head2 C<GET /organization/projects>
 
-List projects
-
-
 Returns a list of projects.
 
 
@@ -74,7 +71,7 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
 
     {
        "data" : [
-          "{\n    \"id\": \"proj_abc\",\n    \"object\": \"organization.project\",\n    \"name\": \"Project example\",\n    \"created_at\": 1711471533,\n    \"archived_at\": null,\n    \"status\": \"active\"\n}\n"
+          "{\n    \"id\": \"proj_abc\",\n    \"object\": \"organization.project\",\n    \"name\": \"Project example\",\n    \"created_at\": 1711471533,\n    \"archived_at\": null,\n    \"status\": \"active\",\n    \"external_key_id\": null\n}\n"
        ]
     }
 
@@ -82,9 +79,6 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
 =back
 
 =head2 C<POST /organization/projects>
-
-Create project
-
 
 Create a new project in the organization. Projects can be created and archived, but cannot be deleted.
 
@@ -135,7 +129,8 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
         "name": "Project example",
         "created_at": 1711471533,
         "archived_at": null,
-        "status": "active"
+        "status": "active",
+        "external_key_id": null
     }
 
 

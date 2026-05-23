@@ -13,9 +13,6 @@ This document describes the API endpoint at C</fine_tuning/alpha/graders/run>.
 
 =head2 C<POST /fine_tuning/alpha/graders/run>
 
-Run grader
-
-
 Run a grader.
 
 

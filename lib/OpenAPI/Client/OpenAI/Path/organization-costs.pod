@@ -13,9 +13,6 @@ This document describes the API endpoint at C</organization/costs>.
 
 =head2 C<GET /organization/costs>
 
-Costs
-
-
 Get costs details for the organization.
 
 
@@ -58,7 +55,13 @@ Type: C<array>
 
 
 
-=item * C<group_by> (in query) (Optional) - Group the costs by the specified fields. Support fields include `project_id`, `line_item` and any combination of them.
+=item * C<api_key_ids> (in query) (Optional) - Return only costs for these API keys.
+
+Type: C<array>
+
+
+
+=item * C<group_by> (in query) (Optional) - Group the costs by the specified fields. Support fields include `project_id`, `line_item`, `api_key_id` and any combination of them.
 
 Type: C<array>
 
@@ -102,7 +105,7 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
     {
        "data" : [
           {
-             "result" : [
+             "results" : [
                 null
              ]
           }

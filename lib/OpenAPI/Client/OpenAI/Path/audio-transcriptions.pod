@@ -13,10 +13,10 @@ This document describes the API endpoint at C</audio/transcriptions>.
 
 =head2 C<POST /audio/transcriptions>
 
-Create transcription
-
-
 Transcribes audio into the input language.
+
+Returns a transcription object in C<json>, C<diarized_json>, or C<verbose_json>
+format, or a stream of transcript events.
 
 
 

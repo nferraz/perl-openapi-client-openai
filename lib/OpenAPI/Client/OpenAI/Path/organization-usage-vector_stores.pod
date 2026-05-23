@@ -13,9 +13,6 @@ This document describes the API endpoint at C</organization/usage/vector_stores>
 
 =head2 C<GET /organization/usage/vector_stores>
 
-Vector stores
-
-
 Get vector stores usage details for the organization.
 
 
@@ -103,7 +100,7 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
     {
        "data" : [
           {
-             "result" : [
+             "results" : [
                 null
              ]
           }

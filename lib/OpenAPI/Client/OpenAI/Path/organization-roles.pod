@@ -13,9 +13,6 @@ This document describes the API endpoint at C</organization/roles>.
 
 =head2 C<GET /organization/roles>
 
-List organization roles
-
-
 Lists the roles configured for the organization.
 
 
@@ -98,9 +95,6 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
 =back
 
 =head2 C<POST /organization/roles>
-
-Create organization role
-
 
 Creates a custom role for the organization.
 

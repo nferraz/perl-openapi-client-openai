@@ -13,9 +13,6 @@ This document describes the API endpoint at C</organization/groups/{group_id}>.
 
 =head2 C<DELETE /organization/groups/{group_id}>
 
-Delete group
-
-
 Deletes a group from the organization.
 
 
@@ -65,10 +62,60 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
 
 =back
 
+=head2 C<GET /organization/groups/{group_id}>
+
+Retrieves a group.
+
+
+
+=head3 Operation ID
+
+C<retrieve-group>
+
+    $client->retrieve-group( ... );
+
+=head3 Parameters
+
+=over 4
+
+=item * C<group_id> (in path) (Required) - The ID of the group to retrieve.
+
+Type: C<string>
+
+
+
+=back
+
+
+=head3 Responses
+
+
+=head4 Status Code: C<200>
+
+Group retrieved successfully.
+
+
+=head4 Content Types:
+
+=over 4
+
+
+=item * C<application/json>
+
+Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
+
+    {
+        "id": "group_01J1F8ABCDXYZ",
+        "name": "Support Team",
+        "created_at": 1711471533,
+        "is_scim_managed": false,
+        "group_type": "group"
+    }
+
+
+=back
+
 =head2 C<POST /organization/groups/{group_id}>
-
-Update group
-
 
 Updates a group's information.
 

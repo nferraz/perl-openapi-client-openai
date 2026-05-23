@@ -13,9 +13,6 @@ This document describes the API endpoint at C</organization/roles/{role_id}>.
 
 =head2 C<DELETE /organization/roles/{role_id}>
 
-Delete organization role
-
-
 Deletes a custom role from the organization.
 
 
@@ -65,10 +62,65 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
 
 =back
 
+=head2 C<GET /organization/roles/{role_id}>
+
+Retrieves an organization role.
+
+
+
+=head3 Operation ID
+
+C<retrieve-role>
+
+    $client->retrieve-role( ... );
+
+=head3 Parameters
+
+=over 4
+
+=item * C<role_id> (in path) (Required) - The ID of the role to retrieve.
+
+Type: C<string>
+
+
+
+=back
+
+
+=head3 Responses
+
+
+=head4 Status Code: C<200>
+
+Role retrieved successfully.
+
+
+=head4 Content Types:
+
+=over 4
+
+
+=item * C<application/json>
+
+Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-openapi/blob/master/openapi.yaml>):
+
+    {
+        "object": "role",
+        "id": "role_01J1F8ROLE01",
+        "name": "API Group Manager",
+        "description": "Allows managing organization groups",
+        "permissions": [
+            "api.groups.read",
+            "api.groups.write"
+        ],
+        "resource_type": "api.organization",
+        "predefined_role": false
+    }
+
+
+=back
+
 =head2 C<POST /organization/roles/{role_id}>
-
-Update organization role
-
 
 Updates an existing organization role.
 

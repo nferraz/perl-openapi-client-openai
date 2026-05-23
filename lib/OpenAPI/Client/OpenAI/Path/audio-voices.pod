@@ -13,10 +13,12 @@ This document describes the API endpoint at C</audio/voices>.
 
 =head2 C<POST /audio/voices>
 
-Create voice
-
-
 Creates a custom voice.
+
+
+Create a custom voice you can use for audio output (for example, in Text-to-Speech and the Realtime API). This requires an audio sample and a previously uploaded consent recording.
+
+See the L<custom voices guide|https://platform.openai.com/docs/guides/text-to-speech#custom-voices> for requirements and best practices. Custom voices are limited to eligible customers.
 
 
 

@@ -13,9 +13,6 @@ This document describes the API endpoint at C</organization/projects/{project_id
 
 =head2 C<GET /organization/projects/{project_id}/groups>
 
-List project groups
-
-
 Lists the groups that have access to a project.
 
 
@@ -100,9 +97,6 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
 
 =head2 C<POST /organization/projects/{project_id}/groups>
 
-Add project group
-
-
 Grants a group access to a project.
 
 
@@ -163,6 +157,7 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
         "project_id": "proj_abc123",
         "group_id": "group_01J1F8ABCDXYZ",
         "group_name": "Support Team",
+        "group_type": "group",
         "created_at": 1711471533
     }
 

@@ -13,9 +13,6 @@ This document describes the API endpoint at C</organization/groups>.
 
 =head2 C<GET /organization/groups>
 
-List groups
-
-
 Lists all groups in the organization.
 
 
@@ -101,9 +98,6 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
 
 =head2 C<POST /organization/groups>
 
-Create group
-
-
 Creates a new group in the organization.
 
 
@@ -157,7 +151,8 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
         "id": "group_01J1F8ABCDXYZ",
         "name": "Support Team",
         "created_at": 1711471533,
-        "is_scim_managed": false
+        "is_scim_managed": false,
+        "group_type": "group"
     }
 
 

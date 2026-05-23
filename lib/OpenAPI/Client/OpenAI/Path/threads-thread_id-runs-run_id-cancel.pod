@@ -13,9 +13,6 @@ This document describes the API endpoint at C</threads/{thread_id}/runs/{run_id}
 
 =head2 C<POST /threads/{thread_id}/runs/{run_id}/cancel>
 
-Cancel a run
-
-
 Cancels a run that is C<in_progress>.
 
 

@@ -13,10 +13,7 @@ This document describes the API endpoint at C</videos/{video_id}>.
 
 =head2 C<DELETE /videos/{video_id}>
 
-Delete video
-
-
-Delete a video
+Permanently delete a completed or failed video and its stored assets.
 
 
 
@@ -62,10 +59,7 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
 
 =head2 C<GET /videos/{video_id}>
 
-Retrieve video
-
-
-Retrieve a video
+Fetch the latest metadata for a generated video.
 
 
 

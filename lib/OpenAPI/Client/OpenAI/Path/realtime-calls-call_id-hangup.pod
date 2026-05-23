@@ -13,9 +13,6 @@ This document describes the API endpoint at C</realtime/calls/{call_id}/hangup>.
 
 =head2 C<POST /realtime/calls/{call_id}/hangup>
 
-Hang up call
-
-
 End an active Realtime API call, whether it was initiated over SIP or
 WebRTC.
 
@@ -32,10 +29,10 @@ C<hangup-realtime-call>
 =over 4
 
 =item * C<call_id> (in path) (Required) - The identifier for the call. For SIP calls, use the value provided in the
-[`realtime.call.incoming`](https://platform.openai.com/docs/api-reference/webhook-events/realtime/call/incoming)
+[`realtime.call.incoming`](/docs/api-reference/webhook-events/realtime/call/incoming)
 webhook. For WebRTC sessions, reuse the call ID returned in the `Location`
 header when creating the call with
-[`POST /v1/realtime/calls`](https://platform.openai.com/docs/api-reference/realtime/create-call).
+[`POST /v1/realtime/calls`](/docs/api-reference/realtime/create-call).
 
 Type: C<string>
 

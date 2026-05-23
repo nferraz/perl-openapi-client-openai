@@ -13,9 +13,6 @@ This document describes the API endpoint at C</realtime/calls/{call_id}/accept>.
 
 =head2 C<POST /realtime/calls/{call_id}/accept>
 
-Accept call
-
-
 Accept an incoming SIP call and configure the realtime session that will
 handle it.
 
@@ -32,7 +29,7 @@ C<accept-realtime-call>
 =over 4
 
 =item * C<call_id> (in path) (Required) - The identifier for the call provided in the
-[`realtime.call.incoming`](https://platform.openai.com/docs/api-reference/webhook-events/realtime/call/incoming)
+[`realtime.call.incoming`](/docs/api-reference/webhook-events/realtime/call/incoming)
 webhook.
 
 Type: C<string>
@@ -58,6 +55,10 @@ The Realtime model used for this session.
       
 =item * C<gpt-realtime>
 
+=item * C<gpt-realtime-1.5>
+
+=item * C<gpt-realtime-2>
+
 =item * C<gpt-realtime-2025-08-28>
 
 =item * C<gpt-4o-realtime-preview>
@@ -78,6 +79,8 @@ The Realtime model used for this session.
 
 =item * C<gpt-realtime-mini-2025-12-15>
 
+=item * C<gpt-audio-1.5>
+
 =item * C<gpt-audio-mini>
 
 =item * C<gpt-audio-mini-2025-10-06>
@@ -95,9 +98,7 @@ Example:
              "noise_reduction" : null,
              "transcription" : null
           },
-          "output" : {
-             "voice" : "ash"
-          }
+          "output" : null
        },
        "include" : [
           null
@@ -105,6 +106,7 @@ Example:
        "output_modalities" : [
           null
        ],
+       "reasoning" : null,
        "tools" : [
           null
        ]

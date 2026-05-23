@@ -13,10 +13,26 @@ This document describes the API endpoint at C</images/edits>.
 
 =head2 C<POST /images/edits>
 
-Create image edit
+Creates an edited or extended image given one or more source images and a prompt. This endpoint supports GPT Image models (C<gpt-image-1.5>, C<gpt-image-1>, C<gpt-image-1-mini>, and C<chatgpt-image-latest>) and C<dall-e-2>.
 
 
-Creates an edited or extended image given one or more source images and a prompt. This endpoint only supports C<gpt-image-1> and C<dall-e-2>.
+You can call this endpoint with either:
+
+=over
+
+=item -
+
+C<multipart/form-data>: use binary uploads via C<image> (and optional C<mask>).
+
+
+=item -
+
+C<application/json>: use C<images> (and optional C<mask>) as references with either C<image_url> or C<file_id>.
+
+
+=back
+
+Note that JSON requests use C<images> (array) instead of the multipart C<image> field.
 
 
 
@@ -34,6 +50,63 @@ C<createImageEdit>
 
 =head3 Request Body
   
+=head3 Content Type: C<application/json>
+
+    
+      JSON request body for image edits.
+
+Use `images` (array of `ImageRefParam`) instead of multipart `image` uploads.
+You can reference images via external URLs, data URLs, or uploaded file IDs.
+JSON edits support GPT image models only; DALL-E edits require multipart (`dall-e-2` only).
+
+
+      
+
+=head4 Models
+
+The model to use for image editing.
+
+=over 4
+      
+=item * C<gpt-image-1.5>
+
+=item * C<gpt-image-1>
+
+=item * C<gpt-image-1-mini>
+
+=item * C<chatgpt-image-latest>
+
+=back
+      
+      
+Example:
+
+    {
+       "background" : "transparent",
+       "images" : [
+          {
+             "file_id" : "file-abc123",
+             "image_url" : "https://example.com/source-image.png"
+          }
+       ],
+       "mask" : {
+          "file_id" : "file-abc123",
+          "image_url" : "https://example.com/source-image.png"
+       },
+       "model" : "gpt-image-1.5",
+       "moderation" : "auto",
+       "n" : 1,
+       "output_compression" : 100,
+       "output_format" : "png",
+       "prompt" : "Add a watercolor effect and keep the subject centered",
+       "quality" : "high",
+       "size" : "1024x1024",
+       "stream" : false,
+       "user" : "user-1234"
+    }
+
+
+             
 =head3 Content Type: C<multipart/form-data>
 
     
@@ -43,7 +116,7 @@ C<createImageEdit>
 
 =head4 Models
 
-The model to use for image generation. Only C<dall-e-2> and the GPT image models are supported. Defaults to C<dall-e-2> unless a parameter specific to the GPT image models is used.
+The model to use for image generation. Defaults to C<gpt-image-1.5>.
 
 =over 4
       
@@ -55,6 +128,8 @@ The model to use for image generation. Only C<dall-e-2> and the GPT image models
 
 =item * C<gpt-image-1-mini>
 
+=item * C<chatgpt-image-latest>
+
 =back
       
       
@@ -62,6 +137,7 @@ Example:
 
     {
        "background" : "transparent",
+       "model" : "gpt-image-1.5",
        "n" : 1,
        "output_compression" : 100,
        "output_format" : "png",

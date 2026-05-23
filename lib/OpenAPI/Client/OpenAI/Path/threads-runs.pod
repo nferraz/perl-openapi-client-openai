@@ -13,9 +13,6 @@ This document describes the API endpoint at C</threads/runs>.
 
 =head2 C<POST /threads/runs>
 
-Create thread and run
-
-
 Create a thread and run it in one request.
 
 
@@ -129,6 +126,7 @@ The ID of the L<Model|https://platform.openai.com/docs/api-reference/models> to 
 Example:
 
     {
+       "model" : "gpt-4o",
        "temperature" : 1,
        "thread" : {
           "messages" : [

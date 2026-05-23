@@ -13,10 +13,12 @@ This document describes the API endpoint at C</audio/voice_consents>.
 
 =head2 C<GET /audio/voice_consents>
 
-List voice consents
-
-
 Returns a list of voice consent recordings.
+
+
+List consent recordings available to your organization for creating custom voices.
+
+See the L<custom voices guide|https://platform.openai.com/docs/guides/text-to-speech#custom-voices>. Custom voices are limited to eligible customers.
 
 
 
@@ -87,10 +89,12 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
 
 =head2 C<POST /audio/voice_consents>
 
-Create voice consent
-
-
 Upload a voice consent recording.
+
+
+Upload a consent recording that authorizes creation of a custom voice.
+
+See the L<custom voices guide|https://platform.openai.com/docs/guides/text-to-speech#custom-voices> for requirements and best practices. Custom voices are limited to eligible customers.
 
 
 

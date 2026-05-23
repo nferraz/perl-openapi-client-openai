@@ -13,9 +13,6 @@ This document describes the API endpoint at C</organization/certificates>.
 
 =head2 C<GET /organization/certificates>
 
-List organization certificates
-
-
 List uploaded certificates for this organization.
 
 
@@ -79,7 +76,9 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
 
     {
        "data" : [
-          "{\n  \"object\": \"certificate\",\n  \"id\": \"cert_abc\",\n  \"name\": \"My Certificate\",\n  \"created_at\": 1234567,\n  \"certificate_details\": {\n    \"valid_at\": 1234567,\n    \"expires_at\": 12345678,\n    \"content\": \"-----BEGIN CERTIFICATE----- MIIGAjCCA...6znFlOW+ -----END CERTIFICATE-----\"\n  }\n}\n"
+          {
+             "certificate_details" : null
+          }
        ],
        "first_id" : "cert_abc",
        "last_id" : "cert_abc"
@@ -89,9 +88,6 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
 =back
 
 =head2 C<POST /organization/certificates>
-
-Upload certificate
-
 
 Upload a certificate to the organization. This does B<not> automatically activate the certificate.
 

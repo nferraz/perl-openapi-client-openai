@@ -13,10 +13,7 @@ This document describes the API endpoint at C</chatkit/threads>.
 
 =head2 C<GET /chatkit/threads>
 
-List ChatKit threads
-
-
-List ChatKit threads
+List ChatKit threads with optional pagination and user filters.
 
 
 

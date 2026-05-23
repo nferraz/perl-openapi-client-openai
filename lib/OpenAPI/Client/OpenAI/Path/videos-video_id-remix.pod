@@ -13,10 +13,7 @@ This document describes the API endpoint at C</videos/{video_id}/remix>.
 
 =head2 C<POST /videos/{video_id}/remix>
 
-Remix video
-
-
-Create a video remix
+Create a remix of a completed video using a refreshed prompt.
 
 
 

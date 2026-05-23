@@ -13,9 +13,6 @@ This document describes the API endpoint at C</conversations/{conversation_id}/i
 
 =head2 C<GET /conversations/{conversation_id}/items>
 
-List items
-
-
 List all items for a conversation with the given ID.
 
 
@@ -108,9 +105,6 @@ Example (See the L<OpenAI spec for more detail|https://github.com/openai/openai-
 
 =head2 C<POST /conversations/{conversation_id}/items>
 
-Create items
-
-
 Create items in a conversation with the given ID.
 
 
@@ -132,7 +126,7 @@ Type: C<string>
 
 
 =item * C<include> (in query) (Optional) - Additional fields to include in the response. See the `include`
-parameter for [listing Conversation items above](https://platform.openai.com/docs/api-reference/conversations/list-items#conversations_list_items-include) for more information.
+parameter for [listing Conversation items above](/docs/api-reference/conversations/list-items#conversations_list_items-include) for more information.
 
 
 Type: C<array>

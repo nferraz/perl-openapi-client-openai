@@ -13,9 +13,6 @@ This document describes the API endpoint at C</embeddings>.
 
 =head2 C<POST /embeddings>
 
-Create embeddings
-
-
 Creates an embedding vector representing the input text.
 
 
