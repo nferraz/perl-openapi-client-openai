@@ -55,7 +55,7 @@ my %WriteMakefileArgs = (
                 # Optional dev-time tools. Install with:
                 #   cpanm --installdeps --with-develop .
                 requires => {
-                    'Pod::POM::Web' => '0',   # devel/browse-docs launcher
+                    'Plack' => '0',   # devel/browse-docs launcher
                 },
             },
         },
