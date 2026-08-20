@@ -6,7 +6,7 @@ errors.txt
 blib/
 ignore.txt
 MANIFEST.bak
-MANIFEST.skip
+MANIFEST.SKIP
 openai-openapi
 pm_to_blib
 webservice-openai
