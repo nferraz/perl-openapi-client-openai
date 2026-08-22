@@ -95,12 +95,15 @@ if [ -f Makefile ]; then
     fi
 fi
 
+# Build the documentation FIRST. Makefile.PL fixes the file list that the
+# Makefile and blib/ are generated from, so generating POD afterwards leaves
+# any newly added Path/*.pod out of both -- `make install` would then install
+# a stale subset, and the RELEASE_TESTING run below would test a stale blib.
+perl devel/build_docs.pl
+
 perl Makefile.PL
 
 make
-
-# Obviously, this builds the documentation
-perl devel/build_docs.pl
 
 # Refresh MANIFEST so any newly generated POD files are picked up
 # (build_docs.pl may add new lib/OpenAPI/Client/OpenAI/Path/*.pod files when

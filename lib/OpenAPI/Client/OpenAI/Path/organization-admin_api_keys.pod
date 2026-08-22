@@ -74,6 +74,9 @@ Properties:
 
 =over
 
+=item * C<expires_in_seconds> (integer) - The number of seconds until the API key expires. Omit this field for a key
+that does not expire.
+
 =item * C<name> (string, required)
 
 =back
@@ -81,6 +84,7 @@ Properties:
 Example:
 
     {
+       "expires_in_seconds" : 2592000,
        "name" : "New Admin Key"
     }
 
@@ -94,6 +98,7 @@ Example:
 
     {
        "created_at" : 1711471533,
+       "expires_at" : 1714063533,
        "id" : "key_abc",
        "last_used_at" : 1711471534,
        "name" : "Administration Key",
@@ -119,6 +124,8 @@ Properties:
 =over
 
 =item * C<created_at> (integer, required) - The Unix timestamp (in seconds) of when the API key was created
+
+=item * C<expires_at> (anyOf, required)
 
 =item * C<id> (string, required) - The identifier, which can be referenced in API endpoints
 

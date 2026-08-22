@@ -45,15 +45,22 @@ supported with C<gpt-realtime-whisper> in GA Realtime sessions.
 
 Allowed values: minimal, low, medium, high, xhigh
 
+=item * C<keywords> (array of string) - Words or phrases to guide transcription of the input audio. Supported by
+C<gpt-transcribe> and C<gpt-live-transcribe> .
+
 =item * C<language> (string) - The language of the input audio. Supplying the input language in
 L<ISO-639-1|https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes> (e.g. C<en>
 ) format will improve accuracy and latency.
 
+=item * C<languages> (array of string) - Possible languages of the input audio, in
+L<ISO-639-1|https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes> format.
+Supported by C<gpt-transcribe> and C<gpt-live-transcribe> .
+
 =item * C<model> (anyOf) - The model to use for transcription. Current options are C<whisper-1> ,
-C<gpt-4o-mini-transcribe> , C<gpt-4o-mini-transcribe-2025-12-15> ,
-C<gpt-4o-transcribe> , C<gpt-4o-transcribe-diarize> , and
-C<gpt-realtime-whisper> . Use C<gpt-4o-transcribe-diarize> when you need
-diarization with speaker labels.
+C<gpt-transcribe> , C<gpt-live-transcribe> , C<gpt-4o-mini-transcribe> ,
+C<gpt-4o-mini-transcribe-2025-12-15> , C<gpt-4o-transcribe> ,
+C<gpt-4o-transcribe-diarize> , and C<gpt-realtime-whisper> . Use
+C<gpt-4o-transcribe-diarize> when you need diarization with speaker labels.
 
 =item * C<prompt> (string) - An optional text to guide the model's style or continue a previous audio
 segment. For C<whisper-1> , the

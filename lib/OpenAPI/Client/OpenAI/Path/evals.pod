@@ -128,8 +128,6 @@ Default: eval
 
 =item * C<testing_criteria> (array of object, required) - A list of testing criteria.
 
-Default: eval
-
 =back
 
 =head2 EvalList

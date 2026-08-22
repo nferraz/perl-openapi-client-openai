@@ -109,6 +109,8 @@ Properties:
 
 =item * C<created_at> (integer, required) - The Unix timestamp (in seconds) of when the API key was created
 
+=item * C<expires_at> (anyOf, required)
+
 =item * C<id> (string, required) - The identifier, which can be referenced in API endpoints
 
 =item * C<last_used_at> (anyOf)

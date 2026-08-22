@@ -32,6 +32,14 @@ place in the list. For instance, if you make a list request and receive 100
 objects, ending with obj_foo, your subsequent call can include after=obj_foo
 in order to fetch the next page of the list.
 
+=item * C<owner_project_access> (in query, optional, string) - Filter API keys by whether the owner currently has effective access to the
+project. Use C<active> for owners with access, C<inactive> for owners without
+access, or C<any> for all enabled project API keys. If omitted, the endpoint
+applies its existing membership-based visibility rules, which may exclude some
+enabled keys.
+
+Allowed values: active, inactive, any
+
 =back
 
 =head4 Responses
@@ -44,7 +52,7 @@ Example:
 
     {
        "data" : [
-          "{\n    \"object\": \"organization.project.api_key\",\n    \"redacted_value\": \"sk-abc...def\",\n    \"name\": \"My API Key\",\n    \"created_at\": 1711471533,\n    \"last_used_at\": 1711471534,\n    \"id\": \"key_abc\",\n    \"owner\": {\n        \"type\": \"user\",\n        \"user\": {\n            \"id\": \"user_abc\",\n            \"name\": \"First Last\",\n            \"email\": \"user@example.com\",\n            \"role\": \"owner\",\n            \"created_at\": 1711471533\n        }\n    }\n}\n"
+          "{\n    \"object\": \"organization.project.api_key\",\n    \"redacted_value\": \"sk-abc...def\",\n    \"name\": \"My API Key\",\n    \"created_at\": 1711471533,\n    \"last_used_at\": 1711471534,\n    \"id\": \"key_abc\",\n    \"owner_project_access\": \"active\",\n    \"owner\": {\n        \"type\": \"user\",\n        \"user\": {\n            \"id\": \"user_abc\",\n            \"name\": \"First Last\",\n            \"email\": \"user@example.com\",\n            \"role\": \"owner\",\n            \"created_at\": 1711471533\n        }\n    }\n}\n"
        ],
        "first_id" : "string",
        "has_more" : false,
@@ -73,6 +81,10 @@ Properties:
 Allowed values: organization.project.api_key
 
 =item * C<owner> (object, required)
+
+=item * C<owner_project_access> (string, required) - Whether the API key's owner currently has effective access to the project.
+
+Allowed values: active, inactive
 
 =item * C<redacted_value> (string, required) - The redacted value of the API key
 

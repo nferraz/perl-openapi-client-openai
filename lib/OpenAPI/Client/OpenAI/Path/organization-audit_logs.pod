@@ -35,7 +35,16 @@ account ID, or an api key tracking ID.
 =item * C<actor_emails[]> (in query, optional, array) - Return only events performed by users with these emails.
 
 =item * C<resource_ids[]> (in query, optional, array) - Return only events performed on these targets. For example, a project ID
-updated.
+updated. For ChatGPT connector role events, use the workspace connector
+resource ID shown in C<details.id> , such as
+C<<workspace_id>__<connector_id>>.
+
+=item * C<tenant_only> (in query, optional, boolean) - Return only tenant-scoped events associated with this organization. Required
+for tenant-scoped events such as C<role.bound_to_resource> and
+C<role.unbound_from_resource> . When C<true> , all supplied event types must
+be tenant-scoped.
+
+Default: 
 
 =item * C<limit> (in query, optional, integer) - A limit on the number of objects to be returned. Limit can range between 1 and
 100, and the default is 20.
@@ -163,9 +172,13 @@ with the default project.
 
 =item * C<role.assignment.deleted> (object) - The details for events with this C<type> .
 
+=item * C<role.bound_to_resource> (object) - The details for events with this C<type> .
+
 =item * C<role.created> (object) - The details for events with this C<type> .
 
 =item * C<role.deleted> (object) - The details for events with this C<type> .
+
+=item * C<role.unbound_from_resource> (object) - The details for events with this C<type> .
 
 =item * C<role.updated> (object) - The details for events with this C<type> .
 
@@ -188,6 +201,18 @@ See L</AuditLogEventType> below for shape.
 =item * C<user.deleted> (object) - The details for events with this C<type> .
 
 =item * C<user.updated> (object) - The details for events with this C<type> .
+
+=item * C<workload_identity_provider.created> (object) - The details for events with this C<type> .
+
+=item * C<workload_identity_provider.deleted> (object) - The details for events with this C<type> .
+
+=item * C<workload_identity_provider.updated> (object) - The details for events with this C<type> .
+
+=item * C<workload_identity_provider_mapping.created> (object) - The details for events with this C<type> .
+
+=item * C<workload_identity_provider_mapping.deleted> (object) - The details for events with this C<type> .
+
+=item * C<workload_identity_provider_mapping.updated> (object) - The details for events with this C<type> .
 
 =back
 

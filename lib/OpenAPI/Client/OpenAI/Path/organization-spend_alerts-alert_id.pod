@@ -38,6 +38,47 @@ Example:
        "object" : "organization.spend_alert.deleted"
     }
 
+=head2 GET /organization/spend_alerts/{alert_id}
+
+=head3 retrieve-organization-spend-alert
+
+  $client->retrieve_organization_spend_alert({
+      body => { ... },
+  });
+
+Retrieves an organization spend alert.
+
+=head4 Path/query parameters
+
+=over
+
+=item * C<alert_id> (in path, required, string) - The ID of the spend alert to retrieve.
+
+=back
+
+=head4 Responses
+
+B<200 - Organization spend alert retrieved successfully.>
+
+Content-Type: application/json
+
+Example:
+
+    {
+       "currency" : "USD",
+       "id" : "alert_abc123",
+       "interval" : "month",
+       "notification_channel" : {
+          "recipients" : [
+             "finance@example.com"
+          ],
+          "subject_prefix" : "OpenAI spend alert",
+          "type" : "email"
+       },
+       "object" : "organization.spend_alert",
+       "threshold_amount" : 100000
+    }
+
 =head2 POST /organization/spend_alerts/{alert_id}
 
 =head3 update-organization-spend-alert

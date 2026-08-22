@@ -10,6 +10,15 @@ use Carp qw(croak);
 sub load ( $class, $path ) {
     my $raw = LoadFile($path);
     croak "spec missing 'paths'" unless $raw->{paths};
+
+    # Upstream has begun shipping path keys with an embedded query string
+    # (e.g. '/responses?beta=true'). OpenAPI::Client cannot route those -- it
+    # splits on '/' and pushes each segment onto a Mojo::Path, so the '?' is
+    # percent-encoded and the request 404s. The client drops them too; if we
+    # documented them we would ship POD for methods that do not exist, under
+    # filenames containing '?', which is not a legal filename on Windows.
+    delete @{ $raw->{paths} }{ grep { m{\?} } keys %{ $raw->{paths} } };
+
     return bless { raw => $raw }, $class;
 }
 

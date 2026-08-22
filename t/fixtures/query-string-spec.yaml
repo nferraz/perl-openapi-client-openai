@@ -1,0 +1,15 @@
+openapi: 3.0.0
+info:
+  title: Query String Path Fixture
+  version: '1.0'
+servers:
+  - url: https://example.invalid/v1
+paths:
+  /thing:
+    post:
+      operationId: createThing
+      responses: { '200': { description: ok } }
+  /thing?beta=true:
+    post:
+      operationId: beta_createThing
+      responses: { '200': { description: ok } }
