@@ -48,6 +48,10 @@ swept in. Anything untracked and *unskipped* still lands in MANIFEST and then in
 the next tarball. A `make dist` tarball sitting in the working directory is the
 common case; run `make clean` before regenerating docs.
 
+`make manifest` only ever ADDS. `ExtUtils::Manifest::mkmanifest` unions the
+old MANIFEST with what it finds on disk, so an entry whose file is gone
+survives every rerun and must be deleted by hand.
+
 Skipping the MANIFEST refresh is the opposite failure and is just as real: a spec
 update that adds endpoints produces new `lib/OpenAPI/Client/OpenAI/Path/*.pod`
 files, and files absent from MANIFEST are absent from the distribution tarball

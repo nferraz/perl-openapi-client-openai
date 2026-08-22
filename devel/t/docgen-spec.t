@@ -23,4 +23,13 @@ my $body_schema =
 is_deeply $body_schema, { '$ref' => '#/components/schemas/Thing' },
     'refs in path tree remain unresolved';
 
+# Path keys with an embedded query string cannot be routed by OpenAPI::Client
+# and are dropped by the client, so the generator must not document them --
+# and must not emit POD filenames containing '?', which Windows rejects.
+my $qs_spec = OpenAPI::Client::OpenAI::DocGen::Spec->load(
+    "$FindBin::Bin/../../t/fixtures/query-string-spec.yaml"
+);
+is_deeply [ sort keys %{ $qs_spec->paths } ], ['/thing'],
+    'query-string paths dropped at load, so every consumer agrees';
+
 done_testing;

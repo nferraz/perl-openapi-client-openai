@@ -60,61 +60,6 @@ Example:
 
 Creates and executes a batch from an uploaded file of requests
 
-=head4 Request body
-
-Content-Type: application/json
-
-Properties:
-
-=over
-
-=item * C<completion_window> (string, required) - The time frame within which the batch should be processed. Currently only
-C<24h> is supported.
-
-Allowed values: 24h
-
-=item * C<endpoint> (string, required) - The endpoint to be used for all requests in the batch. Currently
-C</v1/responses> , C</v1/chat/completions> , C</v1/embeddings> ,
-C</v1/completions> , C</v1/moderations> , C</v1/images/generations> ,
-C</v1/images/edits> , and C</v1/videos> are supported. Note that
-C</v1/embeddings> batches are also restricted to a maximum of 50,000 embedding
-inputs across all requests in the batch.
-
-Allowed values: /v1/responses, /v1/chat/completions, /v1/embeddings, /v1/completions, /v1/moderations, /v1/images/generations, /v1/images/edits, /v1/videos
-
-=item * C<input_file_id> (string, required) - The ID of an uploaded file that contains requests for the new batch.
-
-See L<upload file|https://platform.openai.com/docs/api-reference/files/create>
-for how to upload a file.
-
-Your input file must be formatted as a
-L<JSONL file|https://platform.openai.com/docs/api-reference/batch/request-input>
-, and must be uploaded with the purpose C<batch> . The file can contain up to
-50,000 requests, and can be up to 200 MB in size.
-
-=item * C<metadata> (Metadata)
-
-See L</Metadata> below for shape.
-
-=item * C<output_expires_after> (BatchFileExpirationAfter)
-
-See L</BatchFileExpirationAfter> below for shape.
-
-=back
-
-Example:
-
-    {
-       "completion_window" : "24h",
-       "endpoint" : "/v1/responses",
-       "input_file_id" : "string",
-       "metadata" : {},
-       "output_expires_after" : {
-          "anchor" : "created_at",
-          "seconds" : 0
-       }
-    }
-
 =head4 Responses
 
 B<200 - Batch created successfully.>
@@ -179,7 +124,9 @@ Allowed values: batch
 
 =item * C<output_file_id> (string) - The ID of the file containing the outputs of successfully executed requests.
 
-=item * C<request_counts> (object) - The request counts for different statuses within the batch.
+=item * C<request_counts> (BatchRequestCounts)
+
+See L</BatchRequestCounts> below for shape.
 
 =item * C<status> (string, required) - The current status of the batch.
 
@@ -188,6 +135,22 @@ Allowed values: validating, failed, in_progress, finalizing, completed, expired,
 =item * C<usage> (object) - Represents token usage details including input tokens, output tokens, a
 breakdown of output tokens, and the total tokens used. Only populated on
 batches created after September 7, 2025.
+
+=back
+
+=head2 BatchError
+
+Properties:
+
+=over
+
+=item * C<code> (string) - An error code identifying the error type.
+
+=item * C<line> (anyOf)
+
+=item * C<message> (string) - A human-readable message providing more details about the error.
+
+=item * C<param> (anyOf)
 
 =back
 
@@ -205,6 +168,60 @@ Allowed values: created_at
 
 =item * C<seconds> (integer, required) - The number of seconds after the anchor time that the file will expire. Must be
 between 3600 (1 hour) and 2592000 (30 days).
+
+=back
+
+=head2 BatchRequestCounts
+
+Properties:
+
+=over
+
+=item * C<completed> (integer, required) - Number of requests that have been completed successfully.
+
+=item * C<failed> (integer, required) - Number of requests that have failed.
+
+=item * C<total> (integer, required) - Total number of requests in the batch.
+
+=back
+
+=head2 CreateBatchRequest
+
+Properties:
+
+=over
+
+=item * C<completion_window> (string, required) - The time frame within which the batch should be processed. Currently only
+C<24h> is supported.
+
+Allowed values: 24h
+
+=item * C<endpoint> (string, required) - The endpoint to be used for all requests in the batch. Currently
+C</v1/responses> , C</v1/chat/completions> , C</v1/embeddings> ,
+C</v1/completions> , C</v1/moderations> , C</v1/images/generations> ,
+C</v1/images/edits> , and C</v1/videos> are supported. Note that
+C</v1/embeddings> batches are also restricted to a maximum of 50,000 embedding
+inputs across all requests in the batch.
+
+Allowed values: /v1/responses, /v1/chat/completions, /v1/embeddings, /v1/completions, /v1/moderations, /v1/images/generations, /v1/images/edits, /v1/videos
+
+=item * C<input_file_id> (string, required) - The ID of an uploaded file that contains requests for the new batch.
+
+See L<upload file|https://platform.openai.com/docs/api-reference/files/create>
+for how to upload a file.
+
+Your input file must be formatted as a
+L<JSONL file|https://platform.openai.com/docs/api-reference/batch/request-input>
+, and must be uploaded with the purpose C<batch> . The file can contain up to
+50,000 requests, and can be up to 200 MB in size.
+
+=item * C<metadata> (Metadata)
+
+See L</Metadata> below for shape.
+
+=item * C<output_expires_after> (BatchFileExpirationAfter)
+
+See L</BatchFileExpirationAfter> below for shape.
 
 =back
 

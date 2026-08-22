@@ -90,7 +90,9 @@ Allowed values: batch
 
 =item * C<output_file_id> (string) - The ID of the file containing the outputs of successfully executed requests.
 
-=item * C<request_counts> (object) - The request counts for different statuses within the batch.
+=item * C<request_counts> (BatchRequestCounts)
+
+See L</BatchRequestCounts> below for shape.
 
 =item * C<status> (string, required) - The current status of the batch.
 
@@ -99,6 +101,36 @@ Allowed values: validating, failed, in_progress, finalizing, completed, expired,
 =item * C<usage> (object) - Represents token usage details including input tokens, output tokens, a
 breakdown of output tokens, and the total tokens used. Only populated on
 batches created after September 7, 2025.
+
+=back
+
+=head2 BatchError
+
+Properties:
+
+=over
+
+=item * C<code> (string) - An error code identifying the error type.
+
+=item * C<line> (anyOf)
+
+=item * C<message> (string) - A human-readable message providing more details about the error.
+
+=item * C<param> (anyOf)
+
+=back
+
+=head2 BatchRequestCounts
+
+Properties:
+
+=over
+
+=item * C<completed> (integer, required) - Number of requests that have been completed successfully.
+
+=item * C<failed> (integer, required) - Number of requests that have failed.
+
+=item * C<total> (integer, required) - Total number of requests in the batch.
 
 =back
 

@@ -79,6 +79,7 @@ Example:
        "usage" : {
           "input_tokens" : 36,
           "input_tokens_details" : {
+             "cache_write_tokens" : 0,
              "cached_tokens" : 0
           },
           "output_tokens" : 87,
@@ -145,6 +146,7 @@ Example:
        "usage" : {
           "input_tokens" : 36,
           "input_tokens_details" : {
+             "cache_write_tokens" : 0,
              "cached_tokens" : 0
           },
           "output_tokens" : 87,
@@ -207,6 +209,7 @@ Example:
        "usage" : {
           "input_tokens" : 36,
           "input_tokens_details" : {
+             "cache_write_tokens" : 0,
              "cached_tokens" : 0
           },
           "output_tokens" : 87,

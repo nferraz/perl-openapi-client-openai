@@ -34,6 +34,10 @@ Example:
 
 =head1 SCHEMAS
 
+=head2 PersonalityEnum
+
+See L<https://platform.openai.com/docs/api-reference> for details.
+
 =head2 TokenCountsBody
 
 Properties:
@@ -49,6 +53,12 @@ Properties:
 =item * C<model> (anyOf)
 
 =item * C<parallel_tool_calls> (anyOf)
+
+=item * C<personality> (PersonalityEnum) - A model-owned style preset to apply to this request. Omit this parameter to
+use the model's default style. Supported values may expand over time. Values
+must be at most 64 characters.
+
+See L</PersonalityEnum> below for shape.
 
 =item * C<previous_response_id> (anyOf)
 

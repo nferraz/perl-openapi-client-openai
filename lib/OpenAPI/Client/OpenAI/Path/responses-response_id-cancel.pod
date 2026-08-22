@@ -63,6 +63,7 @@ Example:
        "parallel_tool_calls" : true,
        "previous_response_id" : null,
        "reasoning" : {
+          "context" : null,
           "effort" : null,
           "summary" : null
        },
@@ -81,6 +82,7 @@ Example:
        "usage" : {
           "input_tokens" : 328,
           "input_tokens_details" : {
+             "cache_write_tokens" : 0,
              "cached_tokens" : 0
           },
           "output_tokens" : 52,

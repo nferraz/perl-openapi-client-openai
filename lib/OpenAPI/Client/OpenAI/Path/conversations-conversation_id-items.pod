@@ -65,6 +65,9 @@ Example:
           {
              "content" : [
                 {
+                   "prompt_cache_breakpoint" : {
+                      "mode" : "explicit"
+                   },
                    "text" : "string",
                    "type" : "input_text"
                 }
@@ -142,6 +145,9 @@ Example:
           {
              "content" : [
                 {
+                   "prompt_cache_breakpoint" : {
+                      "mode" : "explicit"
+                   },
                    "text" : "string",
                    "type" : "input_text"
                 }

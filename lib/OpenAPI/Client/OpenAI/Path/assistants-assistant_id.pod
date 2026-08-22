@@ -245,19 +245,13 @@ Default: []
 
 =head2 ReasoningEffort
 
-Constrains effort on reasoning for
-L<reasoning models|https://platform.openai.com/docs/guides/reasoning> .
-Currently supported values are C<none> , C<minimal> , C<low> , C<medium> ,
-C<high> , and C<xhigh> . Reducing reasoning effort can result in faster
-responses and fewer tokens used on reasoning in a response.
-
-- C<gpt-5.1> defaults to C<none> , which does not perform reasoning. The
-supported reasoning values for C<gpt-5.1> are C<none> , C<low> , C<medium> ,
-and C<high> . Tool calls are supported for all reasoning values in gpt-5.1. -
-All models before C<gpt-5.1> default to C<medium> reasoning effort, and do not
-support C<none> . - The C<gpt-5-pro> model defaults to (and only supports)
-C<high> reasoning effort. - C<xhigh> is supported for all models after
-C<gpt-5.1-codex-max> .
+Constrains effort on reasoning for reasoning models. Currently supported
+values are C<none> , C<minimal> , C<low> , C<medium> , C<high> , C<xhigh> ,
+and C<max> . Reducing reasoning effort can result in faster responses and
+fewer tokens used on reasoning in a response. Not all reasoning models support
+every value. See the
+L<reasoning guide|https://platform.openai.com/docs/guides/reasoning> for
+model-specific support.
 
 =head1 SEE ALSO
 

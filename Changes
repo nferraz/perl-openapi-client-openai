@@ -1,5 +1,32 @@
 Revision history for OpenAPI-Client-OpenAI
 
+0.29    2026-08-22
+
+        - Updated to the latest OpenAI OpenAPI spec: 182 paths and 288
+          operations, up from 172 and 271. Nothing was removed - no
+          endpoint, operationId, parameter, or enum value from 0.28
+          disappears, so no existing code breaks.
+        - New endpoints: organization and per-project spend limits
+          (get/update/delete), retrieval of individual spend alerts,
+          API key creation for service accounts, and content provenance
+          checks.
+        - The upstream spec's beta Responses endpoints are NOT exposed.
+          Their path keys embed a literal "?beta=true" query string,
+          which OpenAPI::Client encodes as a path segment, producing
+          /responses%3Fbeta=true. The GA Responses methods are
+          unaffected.
+        - Chat completions and responses accept a `moderation` parameter
+          and return a matching result object.
+        - Prompt caching is now configurable: `prompt_cache_options`
+          (ttl, implicit/explicit) plus per-message cache breakpoints.
+          Upstream deprecates `prompt_cache_retention` in favour of
+          `prompt_cache_options.ttl`. Usage reports `cache_write_tokens`.
+        - New models: gpt-5.6-sol, gpt-5.6-terra, gpt-5.6-luna, gpt-5.5,
+          gpt-transcribe, gpt-live-transcribe, gpt-realtime-2.1 and
+          gpt-realtime-2.1-mini.
+        - Smaller additions: `languages` and `keywords` on transcription,
+          `fast` on service_tier, `mode` and `context` on reasoning.
+
 0.28    2026-05-23
 
         - Documentation cleanup: rewrote the SYNOPSIS code example

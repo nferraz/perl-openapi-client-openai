@@ -66,7 +66,7 @@ Example:
              "end_time" : 0,
              "object" : "bucket",
              "results" : [
-                "{\n    \"object\": \"organization.usage.completions.result\",\n    \"input_tokens\": 5000,\n    \"output_tokens\": 1000,\n    \"input_cached_tokens\": 4000,\n    \"input_audio_tokens\": 300,\n    \"output_audio_tokens\": 200,\n    \"num_model_requests\": 5,\n    \"project_id\": \"proj_abc\",\n    \"user_id\": \"user-abc\",\n    \"api_key_id\": \"key_abc\",\n    \"model\": \"gpt-4o-mini-2024-07-18\",\n    \"batch\": false,\n    \"service_tier\": \"default\"\n}\n"
+                "{\n    \"object\": \"organization.usage.completions.result\",\n    \"input_tokens\": 5000,\n    \"input_cached_tokens\": 1800,\n    \"input_cache_write_tokens\": 200,\n    \"input_uncached_tokens\": 3000,\n    \"output_tokens\": 1000,\n    \"input_text_tokens\": 2500,\n    \"output_text_tokens\": 800,\n    \"input_cached_text_tokens\": 1500,\n    \"input_audio_tokens\": 300,\n    \"input_cached_audio_tokens\": 100,\n    \"output_audio_tokens\": 100,\n    \"input_image_tokens\": 200,\n    \"input_cached_image_tokens\": 200,\n    \"output_image_tokens\": 100,\n    \"num_model_requests\": 5,\n    \"project_id\": \"proj_abc\",\n    \"user_id\": \"user-abc\",\n    \"api_key_id\": \"key_abc\",\n    \"model\": \"gpt-4o-mini-2024-07-18\",\n    \"batch\": false,\n    \"service_tier\": \"default\"\n}\n"
              ],
              "start_time" : 0
           }

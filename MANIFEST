@@ -42,6 +42,7 @@ lib/OpenAPI/Client/OpenAI/Path/containers-container_id-files-file_id.pod
 lib/OpenAPI/Client/OpenAI/Path/containers-container_id-files.pod
 lib/OpenAPI/Client/OpenAI/Path/containers-container_id.pod
 lib/OpenAPI/Client/OpenAI/Path/containers.pod
+lib/OpenAPI/Client/OpenAI/Path/content_provenance_checks.pod
 lib/OpenAPI/Client/OpenAI/Path/conversations-conversation_id-items-item_id.pod
 lib/OpenAPI/Client/OpenAI/Path/conversations-conversation_id-items.pod
 lib/OpenAPI/Client/OpenAI/Path/conversations-conversation_id.pod
@@ -103,10 +104,12 @@ lib/OpenAPI/Client/OpenAI/Path/organization-projects-project_id-hosted_tool_perm
 lib/OpenAPI/Client/OpenAI/Path/organization-projects-project_id-model_permissions.pod
 lib/OpenAPI/Client/OpenAI/Path/organization-projects-project_id-rate_limits-rate_limit_id.pod
 lib/OpenAPI/Client/OpenAI/Path/organization-projects-project_id-rate_limits.pod
+lib/OpenAPI/Client/OpenAI/Path/organization-projects-project_id-service_accounts-service_account_id-api_keys.pod
 lib/OpenAPI/Client/OpenAI/Path/organization-projects-project_id-service_accounts-service_account_id.pod
 lib/OpenAPI/Client/OpenAI/Path/organization-projects-project_id-service_accounts.pod
 lib/OpenAPI/Client/OpenAI/Path/organization-projects-project_id-spend_alerts-alert_id.pod
 lib/OpenAPI/Client/OpenAI/Path/organization-projects-project_id-spend_alerts.pod
+lib/OpenAPI/Client/OpenAI/Path/organization-projects-project_id-spend_limit.pod
 lib/OpenAPI/Client/OpenAI/Path/organization-projects-project_id-users-user_id.pod
 lib/OpenAPI/Client/OpenAI/Path/organization-projects-project_id-users.pod
 lib/OpenAPI/Client/OpenAI/Path/organization-projects-project_id.pod
@@ -115,6 +118,7 @@ lib/OpenAPI/Client/OpenAI/Path/organization-roles-role_id.pod
 lib/OpenAPI/Client/OpenAI/Path/organization-roles.pod
 lib/OpenAPI/Client/OpenAI/Path/organization-spend_alerts-alert_id.pod
 lib/OpenAPI/Client/OpenAI/Path/organization-spend_alerts.pod
+lib/OpenAPI/Client/OpenAI/Path/organization-spend_limit.pod
 lib/OpenAPI/Client/OpenAI/Path/organization-usage-audio_speeches.pod
 lib/OpenAPI/Client/OpenAI/Path/organization-usage-audio_transcriptions.pod
 lib/OpenAPI/Client/OpenAI/Path/organization-usage-code_interpreter_sessions.pod
@@ -206,6 +210,7 @@ t/create_embedding.t
 t/create_image.t
 t/create_moderation.t
 t/fixtures/colliding-spec.yaml
+t/fixtures/query-string-spec.yaml
 t/lib/OpenAITests.pm
 t/list_assistants.t
 t/list_files.t
@@ -214,3 +219,4 @@ t/manifest.t
 t/naming.t
 t/pod-coverage.t
 t/pod.t
+t/query_string_paths.t

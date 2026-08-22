@@ -7,7 +7,7 @@ use OpenAPI::Client::OpenAI::Naming qw(to_snake_case detect_collisions);
 
 use Mojo::Base 'OpenAPI::Client';
 
-our $VERSION = '0.28';
+our $VERSION = '0.29';
 
 sub new {
     my ( $class, $specification ) = ( shift, shift );
@@ -35,6 +35,11 @@ sub new {
     # 'message' => 'You must provide the \'OpenAI-Beta\' header to access the
     # Assistants API. Please try again by setting the header \'OpenAI-Beta:
     # assistants=v1\'.'
+
+    if ( !ref $specification ) {
+        my $filtered = _spec_without_unroutable_paths($specification);
+        $specification = $filtered if $filtered;
+    }
 
     my $self = $class->SUPER::new( $specification, %{$attrs} );
 
@@ -90,13 +95,41 @@ sub _install_snake_case_aliases {
     }
 }
 
+# A path key containing a query string (e.g. '/responses?beta=true') is not a
+# path template. OpenAPI::Client splits the path on '/' and pushes each segment
+# onto a Mojo::Path, which percent-encodes the '?' -- so the generated method
+# would request /responses%3Fbeta=true and always 404. Drop such paths rather
+# than ship methods that cannot work.
+sub _is_unroutable_path { return $_[0] =~ m{\?} }
+
+# Cached per spec source: OpenAPI::Client keys its generated class on the
+# stringified specification, so reusing one structure per file keeps a single
+# class rather than building a fresh one on every constructor call. Returns
+# undef when there is nothing to strip, so the caller passes the filename
+# through unchanged and the usual path-keyed class name is preserved.
+my %SPEC_CACHE;
+
+sub _spec_without_unroutable_paths {
+    my ($spec_path) = @_;
+    return $SPEC_CACHE{$spec_path} if exists $SPEC_CACHE{$spec_path};
+
+    require YAML::XS;
+    my $spec = YAML::XS::LoadFile($spec_path);
+    my @drop = grep { _is_unroutable_path($_) } keys %{ $spec->{paths} || {} };
+    delete @{ $spec->{paths} }{@drop};
+
+    return $SPEC_CACHE{$spec_path} = @drop ? $spec : undef;
+}
+
 sub _operation_ids_from_spec_file {
     my ($spec_path) = @_;
     require YAML::XS;
     my $spec = YAML::XS::LoadFile($spec_path);
     my @ids;
-    for my $path ( values %{ $spec->{paths} || {} } ) {
-        for my $method ( values %$path ) {
+    for my $path_name ( keys %{ $spec->{paths} || {} } ) {
+        # No method is generated for these, so an alias would point at nothing.
+        next if _is_unroutable_path($path_name);
+        for my $method ( values %{ $spec->{paths}{$path_name} } ) {
             next unless ref $method eq 'HASH' && $method->{operationId};
             push @ids, $method->{operationId};
         }

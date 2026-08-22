@@ -1,0 +1,214 @@
+=encoding utf8
+
+=head1 NAME
+
+OpenAPI::Client::OpenAI::Path::organization-projects-project_id-spend_limit - Documentation for the /organization/projects/{project_id}/spend_limit path.
+
+=head1 OPERATIONS
+
+=head2 DELETE /organization/projects/{project_id}/spend_limit
+
+=head3 Deleteprojectspendlimit
+
+  $client->deleteprojectspendlimit({
+      body => { ... },
+  });
+
+Delete a project's hard spend limit.
+
+=head4 Path/query parameters
+
+=over
+
+=item * C<project_id> (in path, required, string) - The ID of the project whose hard spend limit is being managed.
+
+=back
+
+=head4 Responses
+
+B<200 - Hard spend limit deleted successfully.>
+
+Content-Type: application/json
+
+Example:
+
+    {
+       "deleted" : false,
+       "object" : "project.spend_limit.deleted"
+    }
+
+=head2 GET /organization/projects/{project_id}/spend_limit
+
+=head3 Getprojectspendlimit
+
+  $client->getprojectspendlimit({
+      body => { ... },
+  });
+
+Get a project's hard spend limit.
+
+=head4 Path/query parameters
+
+=over
+
+=item * C<project_id> (in path, required, string) - The ID of the project whose hard spend limit is being managed.
+
+=back
+
+=head4 Responses
+
+B<200 - Hard spend limit retrieved successfully.>
+
+Content-Type: application/json
+
+Example:
+
+    {
+       "currency" : "USD",
+       "enforcement" : {
+          "status" : "inactive"
+       },
+       "interval" : "month",
+       "object" : "project.spend_limit",
+       "threshold_amount" : 0
+    }
+
+=head2 POST /organization/projects/{project_id}/spend_limit
+
+=head3 Updateprojectspendlimit
+
+  $client->updateprojectspendlimit({
+      body => { ... },
+  });
+
+Create or replace a project's hard spend limit.
+
+=head4 Path/query parameters
+
+=over
+
+=item * C<project_id> (in path, required, string) - The ID of the project whose hard spend limit is being managed.
+
+=back
+
+=head4 Responses
+
+B<200 - Hard spend limit created or replaced successfully.>
+
+Content-Type: application/json
+
+Example:
+
+    {
+       "currency" : "USD",
+       "enforcement" : {
+          "status" : "inactive"
+       },
+       "interval" : "month",
+       "object" : "project.spend_limit",
+       "threshold_amount" : 0
+    }
+
+=head1 SCHEMAS
+
+=head2 ProjectSpendLimitDeletedResource
+
+Properties:
+
+=over
+
+=item * C<deleted> (boolean, required) - Whether the hard spend limit was deleted.
+
+=item * C<object> (string, required) - The object type, which is always C<project.spend_limit.deleted> .
+
+Allowed values: project.spend_limit.deleted
+
+Default: project.spend_limit.deleted
+
+=back
+
+=head2 ProjectSpendLimitResource
+
+Properties:
+
+=over
+
+=item * C<currency> (SpendLimitCurrency, required) - The currency for the threshold amount. Currently, only C<USD> is supported.
+
+See L</SpendLimitCurrency> below for shape.
+
+=item * C<enforcement> (SpendLimitEnforcement, required) - The current enforcement state of the hard spend limit.
+
+See L</SpendLimitEnforcement> below for shape.
+
+=item * C<interval> (SpendLimitInterval, required) - The time interval for evaluating spend against the threshold. Currently, only
+C<month> is supported.
+
+See L</SpendLimitInterval> below for shape.
+
+=item * C<object> (string, required) - The object type, which is always C<project.spend_limit> .
+
+Allowed values: project.spend_limit
+
+Default: project.spend_limit
+
+=item * C<threshold_amount> (integer, required) - The hard spend limit amount, in cents.
+
+=back
+
+=head2 SpendLimitCurrency
+
+See L<https://platform.openai.com/docs/api-reference> for details.
+
+=head2 SpendLimitEnforcement
+
+Properties:
+
+=over
+
+=item * C<status> (SpendLimitEnforcementStatus, required) - Whether the hard spend limit is currently enforcing.
+
+See L</SpendLimitEnforcementStatus> below for shape.
+
+=back
+
+=head2 SpendLimitEnforcementStatus
+
+See L<https://platform.openai.com/docs/api-reference> for details.
+
+=head2 SpendLimitInterval
+
+See L<https://platform.openai.com/docs/api-reference> for details.
+
+=head2 UpdateProjectSpendLimitBody
+
+Properties:
+
+=over
+
+=item * C<currency> (string, required) - The currency for the threshold amount. Currently, only C<USD> is supported.
+
+Allowed values: USD
+
+=item * C<interval> (string, required) - The time interval for evaluating spend against the threshold. Currently, only
+C<month> is supported.
+
+Allowed values: month
+
+=item * C<threshold_amount> (integer, required) - The hard spend limit amount, in cents.
+
+=back
+
+=head1 SEE ALSO
+
+L<OpenAPI::Client::OpenAI::Path>
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright (C) 2023-2026 by Nelson Ferraz
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself, either Perl version 5.14.0 or,
+at your option, any later version of Perl 5 you may have available.
+
+=cut

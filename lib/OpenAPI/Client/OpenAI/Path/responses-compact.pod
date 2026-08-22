@@ -113,6 +113,8 @@ See L</ModelIdsCompaction> below for shape.
 
 =item * C<prompt_cache_key> (anyOf)
 
+=item * C<prompt_cache_options> (anyOf)
+
 =item * C<prompt_cache_retention> (anyOf)
 
 =item * C<service_tier> (anyOf)
